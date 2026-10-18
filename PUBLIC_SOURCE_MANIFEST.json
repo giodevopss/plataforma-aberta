@@ -1124,8 +1124,8 @@
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
-      "size": 9950,
-      "sha256": "7807bc8fec2846bb46b6e1b7f29f44f699a8b5f7796ab1f432e85ff36ddcc2eb"
+      "size": 10671,
+      "sha256": "3ca946b6c9ac0f4668a7ce5bade16f9304dfc79504e415971dc1ba377e6dc935"
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
@@ -1335,7 +1335,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "f3fa205418666d6ea91dbfb9d18523fa96e24847d4f07d9b66e81d5513adcd9e"
+      "sha256": "9225baf80ad91b5f5594eb5b05950bbf467644f350118947ddbaf03312303438"
     },
     {
       "path": ".github/workflows/database-validation.yml",
@@ -1359,8 +1359,8 @@
     },
     {
       "path": ".github/workflows/native-voice-recovery.yml",
-      "size": 1192,
-      "sha256": "9495c0569ef1f0f46fbcad88b21307d93665773b2f57c66ac48aa76910d1efd5"
+      "size": 1527,
+      "sha256": "21251e966b0511b6fcba478d8943740cc5ebaf6ad9eef8ae4786561b8b2a03e8"
     },
     {
       "path": ".github/workflows/managed-runtime-windows.yml",
