@@ -1,15 +1,15 @@
 {
-  "checked_at": "2026-10-18T20:40:21.539Z",
+  "checked_at": "2026-10-18T20:43:01.441Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
     "presenton": {
       "acceptance": "pending",
-      "status": "Complete original application integrated as a managed local service. Original canvas text editing, native PPTX download, local Ollama generation and regression fix accepted on macOS. Global installer/backup/cross-platform release acceptance pending."
+      "status": "Complete original application integrated; prior original editing/native PPTX export accepted. New owned Ollama 0.40.6 and immutable verified Qwen3 4B model replace the foreign host dependency; models are cold-backed up. First actual new inference run exposed a container access/startup failure; file-owner/read-only model correction is under actual generation/native-view/recovery test 39164385688. Not yet accepted."
     },
     "openwhispr": {
       "acceptance": "pending",
-      "status": "All 803 original test files ran unchanged with all ten reviewed source adaptations: 7938 pass, 35 original skips, 1 todo, zero failures (39158725841). Native complete fork passed original whisper.cpp on Mac ARM. Mac Intel build and Windows retry remain under acceptance. Original process writer registry and PID boot/start identity protect cold backup."
+      "status": "Complete ten-adaptation fork passed original local whisper.cpp on all three targets (39158725841 Macs, 39160230792 Windows). Deeper recovery uncovered an original pooled ArrayBuffer leak and first-profile cloud/default race; thirteen reviewed adaptations are under full 803-file regression in 39163138904. Three new native components and cold voice recovery remain required."
     },
     "graphite": {
       "acceptance": "pending",
@@ -69,11 +69,11 @@
       "scope": "Current actual target core/editor workflows and independent encrypted recovery passed. Complete managed services/native-app backup, final runtime and installer gates remain pending."
     }
   },
-  "runtime_installer": "pending",
+  "runtime_installer": "partial",
   "complete_backup_restore": "pending",
   "upgrade_rollback": "pending",
   "distribution_signatures": "pending",
-  "distribution": "All twelve original application integration sources are present. No final installer accepted yet: managed runtime, combined twelve-provider backup, update/rollback and signing gates remain closed. Public internal component builds are synthetic QA components.",
+  "distribution": "Current complete native application installers were built, installed, tested, uninstalled and read-back preserved for Mac ARM/Intel (39161571428 successful Mac jobs) and Windows (39162322355). They precede the newest thirteen-adaptation voice and managed AI/runtime changes and remain unsigned internal candidates. Final combined twelve-provider recovery, actual eight-service native runtime, upgrade/rollback and OS signing gates remain closed.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -82,6 +82,20 @@
     "native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39159502334",
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39158725841",
-    "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64"
+    "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39164020266",
+    "core_test_result": "128 tests passed on each of four OS targets, no failures or skips; subsequent transport/common-AI edits require the next regression.",
+    "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
+    "windows_private_runtime_readback": {
+      "bytes": 1295,
+      "sha256": "49790bfd6f3d979236cbf403b57c05d266e1e8fc5e487d99c57c78db49c33178"
+    },
+    "windows_services_in_progress": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39164218101",
+    "local_presentations_in_progress": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39164385688",
+    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39162322355-win32-x64",
+    "internal_mac_installers": [
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39161571428-darwin-arm64",
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39161571428-darwin-x64"
+    ]
   }
 }

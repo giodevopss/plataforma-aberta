@@ -499,8 +499,8 @@
     },
     {
       "path": "desktop/tests/service.test.mjs",
-      "size": 3424,
-      "sha256": "03a4d6b118e1b245ed84a4dca9685c0c940f65daa7a1455a3f97d056d8f6e914"
+      "size": 3801,
+      "sha256": "41c65fa05d06e10be6286d1e6533ab2bfb2946cac616a85b155637f5bfa1f8df"
     },
     {
       "path": "desktop/tests/snapshot-files.test.mjs",
@@ -1074,8 +1074,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15202,
-      "sha256": "81e633c4c5096810ddcfbfecddc4797464cea959192ead8b144487ff078e3320"
+      "size": 15226,
+      "sha256": "2e963b4e001006e751d7e4642ea359b726996e309e30ca98cf770afc2cd9dd23"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1314,8 +1314,13 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 7113,
-      "sha256": "e99a80308d17cb6e18c3c2d7125ad0abdd34c9ecd9dc5555ff08dfabefc0a791"
+      "size": 8673,
+      "sha256": "14583cb631948043201061dacf86425ac64da7df5b34e4e6c618021a1540a9c3"
+    },
+    {
+      "path": ".github/workflows/managed-runtime-macos.yml",
+      "size": 1262,
+      "sha256": "75b9c8fa0862467b0c37b59da8a5c52e7368f31c467e2edd19f40ab6771c9d34"
     },
     {
       "path": ".github/workflows/windows-services.yml",

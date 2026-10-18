@@ -14,6 +14,7 @@ test('desktop service authenticates every route and exports real local documents
  assert.equal((await request('/api/projects',{headers:{Origin:'https://example.org'}})).status,403);
  const invalidHost=await new Promise((resolve,reject)=>{http.get(s.origin+'/api/projects',{headers:{Host:'example.org','X-PA-Session':token}},r=>{r.resume();resolve(r.statusCode);}).on('error',reject);});assert.equal(invalidHost,403);
  const projects=await(await request('/api/projects')).json();assert.equal(projects.projects.length,12);
+ assert.deepEqual(await(await request('/api/ai/models')).json(),{available:false,models:[]});const aiUnavailable=await request('/api/ai/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:'Synthetic local request'})});assert.equal(aiUnavailable.status,400);assert.match((await aiUnavailable.json()).error,/motor de IA gerenciado/);
  assert.equal((await request('/apps/plane/%2e%2e/%2e%2e/src/main.mjs')).status,404);
  const save=await request('/api/state/plane',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({revision:0,data:{title:'Local'}})});assert.equal(save.status,200);
  assert.equal((await request('/api/state/plane',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({revision:0,data:{title:'Stale'}})})).status,409);
