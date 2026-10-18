@@ -89,8 +89,8 @@
     },
     {
       "path": "desktop/src/local-ai.mjs",
-      "size": 4378,
-      "sha256": "cc302fb8697542c35cd98c21d39c511b50f47920e1003cb2103a88e5e46ec480"
+      "size": 6015,
+      "sha256": "fdaae89a543d5d3dcbe16097f1ebfae7bd2fe115c72b810da8f795bd01be38cd"
     },
     {
       "path": "desktop/src/local-apps.mjs",
@@ -104,13 +104,13 @@
     },
     {
       "path": "desktop/src/local-runtime.mjs",
-      "size": 16347,
-      "sha256": "de1bc2a148e3bb229b7d60269c130c41ec9f146c9e334944ae4250d5eaf2d357"
+      "size": 16502,
+      "sha256": "e29ca960be81e8e45ae3935f55dc1755ac619d4e67a9a2d95b70a6a9ceccd820"
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 19510,
-      "sha256": "5ecf769545421c8b616564ed31839c3640308b444db4cb27a050f8cc23618914"
+      "size": 19596,
+      "sha256": "934792a4d675ebf98884155d65fe398ad22c5f098dd78262d7212e9c20f68136"
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
@@ -214,8 +214,8 @@
     },
     {
       "path": "desktop/src/service.mjs",
-      "size": 8686,
-      "sha256": "a373807d844f3ded7378803efe340b75986d0943f1cefa7d80993e88961d68a3"
+      "size": 8240,
+      "sha256": "e45eea5a04402d1b032252b194b741d8ae445a0fb08654a4bfe65a1c138e59c1"
     },
     {
       "path": "desktop/src/snapshot-files.mjs",
@@ -419,13 +419,13 @@
     },
     {
       "path": "desktop/tests/local-ai.test.mjs",
-      "size": 4724,
-      "sha256": "8b10326b51c91a2d79ed9ef76e1d38d85fcbc0a293b6438b82ab50a1f57595c7"
+      "size": 5620,
+      "sha256": "0a5c0fae0f082a9f069c1f645d24477b317a8cd0b10ba32da18614473fa2335a"
     },
     {
       "path": "desktop/tests/local-runtime.test.mjs",
-      "size": 7612,
-      "sha256": "12c4d80f76093502ee260fac73414452be7590c9b9298006da3720023b8ad66d"
+      "size": 8067,
+      "sha256": "ee71562e3723be6c0c73c549b94e165ef4941241f57af681a3ff7ab06959c81f"
     },
     {
       "path": "desktop/tests/managed-runtime-host.test.mjs",
@@ -1099,8 +1099,8 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 9026,
-      "sha256": "d14064c49137fa4e6ea35fb05bdca71b003ad27f9f6992c1159c0d08147ecea8"
+      "size": 9058,
+      "sha256": "a0a0fdb75c60c43272d6bd0491c9d71b77aafbec643d1303c2684d16503ef929"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1315,7 +1315,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 7113,
-      "sha256": "b2631823884e8604fab82c7a81ce6aefd92e66c454e2ec488a1a1c5bed23d7c9"
+      "sha256": "e99a80308d17cb6e18c3c2d7125ad0abdd34c9ecd9dc5555ff08dfabefc0a791"
     },
     {
       "path": ".github/workflows/windows-services.yml",

@@ -9,6 +9,7 @@ import {createPrivateRuntime} from './private-runtime.mjs';
 import {borrowedQAGuest} from './qa-guest-runtime.mjs';
 import {CompleteRuntime,serverApps} from './complete-runtime.mjs';
 import {localApps} from './local-apps.mjs';
+import {localAIEngine} from './local-ai.mjs';
 import {ProfileStore} from './profile-store.mjs';
 import {DesktopRecovery,nativeForProfile,profilePartition} from './desktop-backup.mjs';
 
@@ -36,7 +37,7 @@ if(acquired)app.whenReady().then(async()=>{
   fs.mkdirSync(configDirectory,{recursive:true,mode:0o700});
   const portFile=path.join(configDirectory,'desktop-port.json');const savedPort=fs.existsSync(portFile)?JSON.parse(fs.readFileSync(portFile)).port:0;
   if(!Number.isInteger(savedPort)||savedPort<0||savedPort>65535)throw Error('Porta local salva inválida.');
-  service=await startService({resources,directory,token,port:savedPort});
+  service=await startService({resources,directory,token,port:savedPort,engines:{ai:localAIEngine(()=>runtime)}});
   if(!savedPort)fs.writeFileSync(portFile,JSON.stringify({port:Number(new URL(service.origin).port)})+'\n',{mode:0o600});
   const integrated=JSON.parse(fs.readFileSync(path.join(here,'integrated-services.json')));
   const completeApps=[...localApps,...serverApps.filter(app=>integrated.includes(app.id))];

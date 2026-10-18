@@ -34,6 +34,9 @@ test('CLI is invoked with literal arguments, without a shell',async()=>{
  const result=await commandRunner(process.execPath)(['-e','process.stdout.write(process.argv[1])','$(printf secret); echo nope']);
  assert.equal(result,'$(printf secret); echo nope');
 });
+test('Local model prompts travel through stdin without appearing in command arguments or invoking a shell',async()=>{
+ const prompt='private text $(printf not-executed); apostrophe \' and newline\n';const value=await commandRunner(process.execPath)(['-e','process.stdin.setEncoding("utf8");let value="";process.stdin.on("data",chunk=>value+=chunk);process.stdin.on("end",()=>process.stdout.write(value));'],{input:prompt});assert.equal(value,prompt);
+});
 test('A remote Docker context cannot silently move local suite data to a server',()=>{
  for(const endpoint of ['unix:///Users/qa/.colima/docker.sock','npipe:////./pipe/docker_engine','tcp://127.0.0.1:2375','http://[::1]:1234'])assert.equal(isLocalEngineEndpoint(endpoint),true);
  for(const endpoint of ['ssh://user@server','tcp://remote.example:2375','https://remote.example','tcp://user:pass@localhost:2375',null])assert.equal(isLocalEngineEndpoint(endpoint),false);

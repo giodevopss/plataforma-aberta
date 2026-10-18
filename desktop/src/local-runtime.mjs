@@ -82,12 +82,13 @@ ${storageBucket?`    location ~ ^/${storageBucket}(/|$) {
 `;
 }
 export function commandRunner(binary){
-  return (args,{progress,timeout=120000}={})=>new Promise((resolve,reject)=>{
-    const child=spawn(binary,args,{shell:false,windowsHide:true,stdio:['ignore','pipe','pipe']});let output='',error='';
+  return (args,{progress,timeout=120000,input}={})=>new Promise((resolve,reject)=>{
+    const child=spawn(binary,args,{shell:false,windowsHide:true,stdio:[input===undefined?'ignore':'pipe','pipe','pipe']});let output='',error='';
     const timer=setTimeout(()=>{child.kill();reject(Error('O serviço local excedeu o tempo de resposta.'));},timeout);
     child.stdout.on('data',chunk=>{output=(output+chunk).slice(-2000000);progress?.(chunk.toString());});
     child.stderr.on('data',chunk=>{error=(error+chunk).slice(-10000);progress?.(chunk.toString());});
     child.on('error',e=>{clearTimeout(timer);reject(e);});
+    if(input!==undefined){child.stdin.on('error',e=>{clearTimeout(timer);child.kill();reject(e);});child.stdin.end(input);}
     child.on('close',code=>{clearTimeout(timer);if(code===0)resolve(output);else{const e=Error('Runtime de contêineres: '+error.slice(-1200));e.code=code;reject(e);}});
   });
 }

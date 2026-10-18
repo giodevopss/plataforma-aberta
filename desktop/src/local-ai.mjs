@@ -1,6 +1,12 @@
 import fs from 'node:fs';import fsp from 'node:fs/promises';import path from 'node:path';import crypto from 'node:crypto';
 import {verifiedDownload} from './download.mjs';import {hashFile} from './backup-archive.mjs';
 export const localModel=JSON.parse(fs.readFileSync(new URL('./local-model.json',import.meta.url)));
+const inferenceScript=`const fs=require('fs');const input=JSON.parse(fs.readFileSync(0,'utf8'));fetch('http://ollama:11434/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...input,think:false,stream:false,format:'json',options:{num_predict:2200,temperature:.3}}),signal:AbortSignal.timeout(600000)}).then(async response=>{if(!response.ok)throw Error('O motor local não conseguiu gerar a resposta.');const result=await response.json();const data=JSON.parse(result.response);if(!data||typeof data!=='object')throw Error('Resposta local fora do formato esperado.');process.stdout.write(JSON.stringify({data,model:input.model}));}).catch(error=>{console.error(error.message);process.exitCode=1;});`;
+export function localAIEngine(getRuntime){return {models:async()=>[localModel.name],generate:async({prompt,model=localModel.name})=>{
+ if(model!==localModel.name||typeof prompt!=='string'||!prompt.length||prompt.length>16000)throw Error('Use o modelo local verificado e um texto de até 16 mil caracteres.');
+ const runtime=getRuntime();if(!runtime)throw Error('Os serviços locais ainda estão iniciando.');await runtime.start('presenton');
+ const output=await runtime.run(['exec','-i','pa-'+runtime.identity.id+'-presenton-application','node','-e',inferenceScript],{input:JSON.stringify({prompt,model}),timeout:660000});return JSON.parse(output);
+}};}
 export async function installLocalModel({directory,model=localModel,download=verifiedDownload,onProgress=()=>{}}){
  const bytes=model===localModel?fs.readFileSync(new URL('../resources/stack-config/local-ai/qwen3-4b-manifest.json',import.meta.url)):Buffer.from(model.manifestBytes);
  if(crypto.createHash('sha256').update(bytes).digest('hex')!==model.manifestSHA256)throw Error('Manifesto do modelo local inválido.');
@@ -23,8 +29,8 @@ export async function startLocalAI(runtime,{spec,directory,prefix,network}){
  await runtime.ensureImage(model.engine.image);
  runtime.setStatus(spec.id,'downloading','Verificando o modelo de IA local…');
  const models=path.join(directory,'models');await installLocalModel({directory:models,model,onProgress:({received,total})=>runtime.setStatus(spec.id,'downloading','Modelo local: '+Math.floor(received/total*100)+'%')});
- const hash=crypto.createHash('sha256').update(JSON.stringify({image:model.engine.image,model:model.manifestSHA256,memoryMB:model.engine.memoryMB,context:2048})).digest('hex');
- await runtime.container(prefix+'-ollama',['--network',network,'--network-alias','ollama','--memory',model.engine.memoryMB+'m','--cpus','4','--cap-drop','ALL','--security-opt','no-new-privileges:true','--env','OLLAMA_HOST=0.0.0.0:11434','--env','OLLAMA_MODELS=/models','--env','OLLAMA_NO_CLOUD=1','--env','OLLAMA_CONTEXT_LENGTH=2048','--env','OLLAMA_NUM_PARALLEL=1','--env','OLLAMA_KEEP_ALIVE=0','--env','CUDA_VISIBLE_DEVICES=-1','--env','HOME=/tmp','--read-only','--tmpfs','/tmp:rw,nosuid,size=64m','--mount',`type=bind,source=${models},target=/models`,model.engine.image,'serve'],hash);
- for(let attempt=0;attempt<40;attempt++){try{await runtime.run(['exec',prefix+'-ollama','ollama','show',model.name],{timeout:10000});return;}catch{await new Promise(resolve=>setTimeout(resolve,500));}}
- throw Error('O motor de IA local não iniciou. O modelo e seus dados foram preservados.');
+ const hash=crypto.createHash('sha256').update(JSON.stringify({image:model.engine.image,model:model.manifestSHA256,memoryMB:model.engine.memoryMB,context:2048,user:[fs.statSync(models).uid,fs.statSync(models).gid]})).digest('hex');
+ await runtime.container(prefix+'-ollama',['--network',network,'--network-alias','ollama','--user',fs.statSync(models).uid+':'+fs.statSync(models).gid,'--memory',model.engine.memoryMB+'m','--cpus','4','--cap-drop','ALL','--security-opt','no-new-privileges:true','--env','OLLAMA_HOST=0.0.0.0:11434','--env','OLLAMA_MODELS=/models','--env','OLLAMA_NO_CLOUD=1','--env','OLLAMA_NOPRUNE=1','--env','OLLAMA_CONTEXT_LENGTH=2048','--env','OLLAMA_NUM_PARALLEL=1','--env','OLLAMA_KEEP_ALIVE=0','--env','CUDA_VISIBLE_DEVICES=-1','--env','HOME=/tmp','--read-only','--tmpfs','/tmp:rw,nosuid,size=64m','--mount',`type=bind,source=${models},target=/models,readonly`,model.engine.image,'serve'],hash);
+ let lastFailure;for(let attempt=0;attempt<40;attempt++){try{await runtime.run(['exec',prefix+'-ollama','ollama','show',model.name],{timeout:10000});return;}catch(error){lastFailure=error;await new Promise(resolve=>setTimeout(resolve,500));}}
+ throw Error('O motor de IA local não iniciou. O modelo e seus dados foram preservados. '+String(lastFailure?.message||'').slice(0,250));
 }

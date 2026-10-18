@@ -27,7 +27,7 @@ export async function startService({resources,directory,token,engines={},port=0}
         if(pathname.startsWith('/api/state/'))return send(200,workspace.load(pathname.split('/').at(-1)));
         if(pathname.startsWith('/api/history/'))return send(200,{items:workspace.history(pathname.split('/').at(-1))});
         if(pathname==='/api/speech/status')return send(200,{available:Boolean(engines.transcribe),engine:engines.transcribe?'Whisper local':null});
-        if(pathname==='/api/ai/models'){const r=await fetch('http://127.0.0.1:11434/api/tags',{signal:AbortSignal.timeout(5000)});if(!r.ok)throw Error('Ollama indisponível.');const d=await r.json();return send(200,{models:d.models.filter(m=>!m.name.includes('embed')).map(m=>m.name)});}
+        if(pathname==='/api/ai/models')return send(200,{available:Boolean(engines.ai),models:engines.ai?await engines.ai.models():[]});
         if(pathname.startsWith('/api/files/'))return send(200,fs.readFileSync(workspace.file(pathname.split('/').at(-1)).path),'application/octet-stream');
         let filename;
         if(pathname==='/')filename=path.join(resources,'shell/index.html');
@@ -56,8 +56,8 @@ export async function startService({resources,directory,token,engines={},port=0}
         workspace.db.prepare('UPDATE files SET text=? WHERE id=?').run(text,f.id);return send(200,{text,engine,needsOCR:text.trim().length<20});
       }
       if(pathname==='/api/ai/generate'){
-        if(typeof d.prompt!=='string'||d.prompt.length>16000||!d.prompt.length||!/^[-\w.:]{1,100}$/.test(d.model||'llama3.1:8b'))throw Error('Solicitação de IA inválida.');
-        const r=await fetch('http://127.0.0.1:11434/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:d.model||'llama3.1:8b',prompt:d.prompt,stream:false,format:'json',options:{num_predict:2200,temperature:.3}}),signal:AbortSignal.timeout(180000)});if(!r.ok)throw Error('Geração local indisponível.');const result=await r.json();return send(200,{data:JSON.parse(result.response),model:d.model});
+        if(typeof d.prompt!=='string'||d.prompt.length>16000||!d.prompt.length||d.model!==undefined&&!/^[-\w.:]{1,100}$/.test(d.model))throw Error('Solicitação de IA inválida.');
+        if(!engines.ai)throw Error('O motor de IA gerenciado não está disponível neste ambiente.');return send(200,await engines.ai.generate(d));
       }
       if(pathname==='/api/speech/transcribe'&&engines.transcribe)return send(200,await engines.transcribe(workspace.file(d.id),d.language));
       return send(404,{error:'Recurso indisponível nesta versão desktop.'});
