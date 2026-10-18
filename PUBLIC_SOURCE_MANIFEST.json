@@ -338,6 +338,11 @@
       "sha256": "a617617be41e72bca39c1bcc9e0d67e48aef6c1f85ee4f5ca82091672c9a8e85"
     },
     {
+      "path": "desktop/tests/public-source.test.mjs",
+      "size": 2181,
+      "sha256": "7408122fa63293d90f9a93b5aaada72e6b7222d62196ff4eb64c642a8961ce0b"
+    },
+    {
       "path": "desktop/tests/runtime-backup.test.mjs",
       "size": 4350,
       "sha256": "202f76f20109b7f6d5d29220dacddd21d6f6d49c12e86e4243740d8a4afa9b54"
@@ -824,8 +829,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 10716,
-      "sha256": "43f0de4d80716fe2e2907ac2dd9ba643f33c91c3741f79def9c944f9c9a3aade"
+      "size": 10791,
+      "sha256": "3310528a08f0b5fd5175e629b2094a54c8f1b140c5f55037ccce993874999107"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1030,7 +1035,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "92ed15a9dc7e0305ed41e7f0aff535804b205dfaa4797de3ef2d1c4ef25a8b0a"
+      "sha256": "87f6cfc5c6462e6c4b726a5d65c9ff6d5386ec3f7b81bda5c680943bb0c681da"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1066,6 +1071,11 @@
       "path": ".github/workflows/public-engines.yml",
       "size": 3954,
       "sha256": "d8e82130abae2bcaae215dad899a0dd204500bb59484412238bb5f835e4babcc"
+    },
+    {
+      "path": ".github/workflows/public-core.yml",
+      "size": 1288,
+      "sha256": "b6505cd9e048d0c722452efbf911f854ae0bfd4fad2484ceaa70c6e7d9ff15fd"
     },
     {
       "path": "README.md",
