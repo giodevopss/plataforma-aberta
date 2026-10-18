@@ -2,6 +2,6 @@
   "upstream": "https://github.com/baserow/baserow/tree/bfe1b5868d7e6af742a254a99d21d65402104214",
   "source": "bootstrap.py",
   "target": "/tmp/pa-baserow-bootstrap.py",
-  "sha256": "9ddccf95cfa8b50fde9dfa5d59114d87ae44adce92a6d5db7801971ce3f5b121",
+  "sha256": "20cfd8b81ff715cb4fa6bca48854bf59ea10a648a0e076e22203a62a5f63b59f",
   "change": "Run original Django migrations and preinitialize original singleton under an advisory transaction lock before concurrent web/worker processes. Preserve and reject already inconsistent duplicate providers."
 }

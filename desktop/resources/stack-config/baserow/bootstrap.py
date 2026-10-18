@@ -12,6 +12,7 @@ from baserow.core.auth_provider.models import PasswordAuthProviderModel
 call_command("migrate", interactive=False)
 with transaction.atomic():
     with connection.cursor() as cursor:
+        cursor.execute("SET LOCAL statement_timeout = '30s'")
         cursor.execute("SELECT pg_advisory_xact_lock(%s)", [717541021])
     if PasswordAuthProviderModel.objects.count() > 1:
         raise RuntimeError(

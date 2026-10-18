@@ -239,8 +239,8 @@
     },
     {
       "path": "desktop/src/server-stacks.mjs",
-      "size": 15308,
-      "sha256": "0b6de058b8953c95b4def438e14bd4e77c938a0c1aa3db1cc1d6f933d5add722"
+      "size": 15514,
+      "sha256": "4e0e4234ac65040097c1eda06c576510e2c7b8238eb5a36072c08938a8d717c5"
     },
     {
       "path": "desktop/src/service.mjs",
@@ -815,12 +815,12 @@
     {
       "path": "desktop/resources/stack-config/baserow/PROVENANCE.json",
       "size": 473,
-      "sha256": "be293d01b8ce83f96f62debc8bceed493de8bedc6ab4f31228bd99cc3313a007"
+      "sha256": "8762210993dda5c5a7a34b6bf55a758bd6229f29f928f0e66582e470c44b5594"
     },
     {
       "path": "desktop/resources/stack-config/baserow/bootstrap.py",
-      "size": 1097,
-      "sha256": "9ddccf95cfa8b50fde9dfa5d59114d87ae44adce92a6d5db7801971ce3f5b121"
+      "size": 1159,
+      "sha256": "20cfd8b81ff715cb4fa6bca48854bf59ea10a648a0e076e22203a62a5f63b59f"
     },
     {
       "path": "desktop/resources/stack-config/formbricks/authzed-postgres-bootstrap.sh",
@@ -1164,8 +1164,8 @@
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
-      "size": 8645,
-      "sha256": "0a7f85c13774b6e0adccdedd2757e7f564e6e852843079afbd3015b43f8c9c36"
+      "size": 9707,
+      "sha256": "bc136841ba4b412602cea2bde545818fc04d99a64f419df189f32d0a0ce6fce3"
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
@@ -1415,7 +1415,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "b0af1b7c180e795c65d455dd9d969616845107d2468708b4c21d4b155238a034"
+      "sha256": "ce8d2eb7734a4a7f83b312e4d2be1930b9803210e929e2ec83d58c037841f84a"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
