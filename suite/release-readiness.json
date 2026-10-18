@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-18T19:49:08.219Z",
+  "checked_at": "2026-10-18T19:59:31.267Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -9,11 +9,11 @@
     },
     "openwhispr": {
       "acceptance": "pending",
-      "status": "Complete original 803-file test suite passed: 7938 pass, 35 original skips, 1 todo, no failures. Full isolated native source fork packaged and transcribed synthetic speech through original whisper.cpp on Windows in run 38971505623; component cloud preservation fully verified. Mac fork, actual suite launcher/restore and final signing pending."
+      "status": "All 803 original test files ran unchanged with all ten reviewed source adaptations: 7938 pass, 35 original skips, 1 todo, zero failures (39158725841). Native complete fork passed original whisper.cpp on Mac ARM. Mac Intel build and Windows retry remain under acceptance. Original process writer registry and PID boot/start identity protect cold backup."
     },
     "graphite": {
       "acceptance": "pending",
-      "status": "Complete engine compiled in 38978225098; four production Rust checkpoint tests passed, immediate native shutdown/reopen recovered the drawing in 76 ms navigation, but clean reopened flush still failed. Original all-documents autosave skips unchanged graph hashes. Explicit original per-document saves before the same verified WASM/OPFS checkpoint now pass in actual Chrome on Mac ARM, including byte-identical typed browser snapshot restoration under a new origin and visible original editable layer. Native Electron/all-target rerun pending."
+      "status": "Complete original Rust/WASM engine rebuilt in public run 39157946793. Immediate edit/save/reopen and independent typed IndexedDB/OPFS recovery passed in Electron (39159100534). Current native core workflows passed on both Macs and Windows (39160496703). Final combined suite gates remain pending."
     },
     "excalidraw": {
       "acceptance": "pending",
@@ -21,7 +21,7 @@
     },
     "screenity": {
       "acceptance": "pending",
-      "status": "Complete original extension plays synthetic recording, crops actual video and exports independently decoded MP4/WebM on Mac Intel and Linux in run 38978531497 after requesting original optional offscreen permission. Mac ARM crop intermittent failure and Windows source stabilization remain unresolved; capture, launcher and unified recovery pending."
+      "status": "Actual product launcher, exact original browser/extension, real synthetic playback/crop, independently decoded MP4/WebM exports, durable project/history commit and cold independent profile recovery passed on Mac ARM (39160494313), Mac Intel and Windows (39160181791). Local GPL project persistence and completed-download race fix are published with original source counterparts. Full combined suite capture/backup/installer gates remain pending."
     },
     "affine": {
       "acceptance": "pending",
@@ -37,42 +37,51 @@
     },
     "plane": {
       "acceptance": "pending",
-      "status": "Complete original admin/user onboarding, workspace, project, visible task list in attached native view, stop/reopen and independent encrypted restore passed in disposable Linux run 38970843649. Final native target/runtime/global backup gates pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
     },
     "formbricks": {
       "acceptance": "pending",
-      "status": "Complete original local account/workspace, survey editing/activation, real respondent response, private S3 attachments including 70 MB, attached native view, stop/reopen and independent encrypted restore passed in disposable Linux run 38969582362. Final target/runtime/global backup gates pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159980100. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
     },
     "postiz": {
       "acceptance": "pending",
-      "status": "Complete original account/calendar/tags/media, three native stop/reopen cycles and independent encrypted restore with byte-identical media served from the new own origin passed in run 38973641164. Final target/runtime/global backup and optional external publishing acceptance pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
     },
     "paperless": {
       "acceptance": "pending",
-      "status": "Complete original OCR, PNG/PDF/DOCX conversion, tags/search, byte-identical originals, attached native Electron view with visible thumbnails, stop/reopen and independent encrypted recovery passed in disposable Linux run 38965088802. Final native target/runtime/global-backup gates remain pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
     }
   },
   "platforms": {
     "darwin-arm64": {
       "status": "partial",
-      "evidence": "suite/research/native-ci-67-tests",
-      "scope": "Native core workflows accepted on actual target OS; all application runtimes, installers and complete backup acceptance pending"
+      "evidence": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
+      "scope": "Current actual target core/editor workflows and independent encrypted recovery passed. Complete managed services/native-app backup, final runtime and installer gates remain pending."
     },
     "darwin-x64": {
       "status": "partial",
-      "evidence": "suite/research/native-ci-67-tests",
-      "scope": "Native core workflows accepted on actual target OS; all application runtimes, installers and complete backup acceptance pending"
+      "evidence": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
+      "scope": "Current actual target core/editor workflows and independent encrypted recovery passed. Complete managed services/native-app backup, final runtime and installer gates remain pending."
     },
     "win32-x64": {
       "status": "partial",
-      "evidence": "suite/research/native-ci-67-tests",
-      "scope": "Native core workflows accepted on actual target OS; all application runtimes, installers and complete backup acceptance pending"
+      "evidence": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
+      "scope": "Current actual target core/editor workflows and independent encrypted recovery passed. Complete managed services/native-app backup, final runtime and installer gates remain pending."
     }
   },
   "runtime_installer": "pending",
   "complete_backup_restore": "pending",
   "upgrade_rollback": "pending",
   "distribution_signatures": "pending",
-  "distribution": "Final release gate remains closed. Obsolete internal Mac app removed to reclaim temporary disk space. No final installers generated.",
-  "remaining_complete_integrations": 3
+  "distribution": "All twelve original application integration sources are present. No final installer accepted yet: managed runtime, combined twelve-provider backup, update/rollback and signing gates remain closed. Public internal component builds are synthetic QA components.",
+  "remaining_complete_integrations": 0,
+  "public_validation": {
+    "repository": "https://github.com/giodevopss/plataforma-aberta",
+    "privacy": "Fresh reviewed public history only; private backups and credentials stay private",
+    "billing": "Standard public hosted runners only; large native packages use public prereleases with full streamed remote SHA-256 read-back, not metered Actions artifact storage",
+    "native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39159502334",
+    "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
+    "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39158725841",
+    "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64"
+  }
 }

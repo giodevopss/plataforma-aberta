@@ -1,0 +1,11 @@
+import fs from 'node:fs';import path from 'node:path';
+const assets=JSON.parse(fs.readFileSync(new URL('./managed-runtime-assets.json',import.meta.url)));
+const quote=value=>"'"+String(value).replaceAll("'","'\"'\"'")+"'";
+export function linuxEngineBootstrap({owner,architecture,dockerFile,composeFile,imageSHA256}){
+ if(!/^[a-f0-9]{24}$/.test(owner)||!['arm64','x64'].includes(architecture)||!/^[a-f0-9]{64}$/.test(imageSHA256))throw Error('Identidade do motor Linux inválida');
+ for(const file of [dockerFile,composeFile])if(!path.posix.isAbsolute(file)||/[\0\r\n]/.test(file))throw Error('Caminho do componente Linux inválido');
+ const docker=assets.docker.platforms[architecture],compose=assets.compose.platforms[architecture];
+ const marker=JSON.stringify({version:1,owner,dockerVersion:assets.docker.version,composeVersion:assets.compose.version,imageSHA256});
+ const script=['#!/bin/sh','set -eu',"export DEBIAN_FRONTEND=noninteractive",'apt-get update -qq','apt-get install -y --no-install-recommends iptables ca-certificates',"printf '%s\n' "+quote(docker.sha256+'  '+dockerFile)+' | sha256sum -c -',"printf '%s\n' "+quote(compose.sha256+'  '+composeFile)+' | sha256sum -c -','tar -xzf '+quote(dockerFile)+' -C /usr/local/bin --strip-components=1','install -m 0755 -D '+quote(composeFile)+' /usr/local/lib/docker/cli-plugins/docker-compose',"printf '%s\n' "+quote(marker)+' > /etc/plataforma-runtime-owner.json','chmod 0644 /etc/plataforma-runtime-owner.json',"cat > /etc/systemd/system/plataforma-docker.service <<'PLATAFORMA_UNIT'",'[Unit]','Description=Plataforma Aberta private Docker engine','After=network-online.target','Wants=network-online.target','[Service]','Type=notify','Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin','ExecStart=/usr/local/bin/dockerd --host=unix:///var/run/docker.sock --data-root=/var/lib/plataforma-docker --exec-root=/run/plataforma-docker --pidfile=/run/plataforma-docker.pid','Delegate=yes','KillMode=process','Restart=on-failure','LimitNOFILE=infinity','TasksMax=infinity','[Install]','WantedBy=multi-user.target','PLATAFORMA_UNIT','systemctl daemon-reload','systemctl enable --now plataforma-docker.service'].join('\n')+'\n';
+ return script;
+}

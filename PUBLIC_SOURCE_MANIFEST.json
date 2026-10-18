@@ -54,8 +54,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 6383,
-      "sha256": "8b3346a31f7f880de3199de4de4b9d6920117f2f4b22148c92616749677d7e9f"
+      "size": 6394,
+      "sha256": "ddc8d8240e7f33fd561a4a647eeafde5cab451bca4c3c2f92abf5ce2cc3bc703"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -74,8 +74,13 @@
     },
     {
       "path": "desktop/src/lima-installer.mjs",
-      "size": 10740,
-      "sha256": "f62d82de8492e663d0cad6b8bd90a9b8c21aca4d2ea957953eee4bc8480f5090"
+      "size": 9417,
+      "sha256": "e59468a8d285551c9164b17ca5853e4097e2aa9f6c67f18e43d73ae5cdf99007"
+    },
+    {
+      "path": "desktop/src/linux-engine.mjs",
+      "size": 2226,
+      "sha256": "6e6dfe97ad0ec77cb714469cb4f872e1e35c87f1d2309fa3dee4036d52824c4e"
     },
     {
       "path": "desktop/src/local-apps.mjs",
@@ -94,8 +99,13 @@
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
-      "size": 3067,
-      "sha256": "47a7dbf0312e32dc62af0b00ab07affb2062aef3fcbf7abe847f33b4c95f1344"
+      "size": 3518,
+      "sha256": "3c4695cfa5efd29914c6bcbc6faed7d45e8c6c0152c9d2b11e75777312959e8e"
+    },
+    {
+      "path": "desktop/src/managed-runtime-host.mjs",
+      "size": 4017,
+      "sha256": "8a50c00b18250c78fae9b7aa543c7f19026e219dde44ef56ddf4888a672d9cdb"
     },
     {
       "path": "desktop/src/native-app-launcher.mjs",
@@ -114,8 +124,8 @@
     },
     {
       "path": "desktop/src/native-component-assets.json",
-      "size": 84,
-      "sha256": "9b67fd2187bf3a37c29af1e91dc5037d20818c113e3284f46d61f408e26f1fba"
+      "size": 166144,
+      "sha256": "feea309cb42f36ac839148d0f4228768eb63fd48d6eb7047c4c49c36b174d662"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -131,6 +141,11 @@
       "path": "desktop/src/preload.cjs",
       "size": 1305,
       "sha256": "59ddd21e1fd3da01a08e276f13b7a2387fe92c67aae721ec4698b1926ddd786f"
+    },
+    {
+      "path": "desktop/src/private-runtime.mjs",
+      "size": 2473,
+      "sha256": "12956c69cc5546ad4abd50cf0976a732c31b91c6228df57e070850195deebb9c"
     },
     {
       "path": "desktop/src/process-identity.cjs",
@@ -201,6 +216,11 @@
       "path": "desktop/src/unified-restore.mjs",
       "size": 4308,
       "sha256": "16623fd40fc5047e46c6d11ea14d92b9557a0b5fb2e3a0543fd5cb172514485a"
+    },
+    {
+      "path": "desktop/src/wsl-installer.mjs",
+      "size": 11487,
+      "sha256": "b9f183fdd131230ff596876803cbcfbdafa4f3629788961149c912122e53403e"
     },
     {
       "path": "desktop/renderer/app.mjs",
@@ -373,6 +393,11 @@
       "sha256": "12c4d80f76093502ee260fac73414452be7590c9b9298006da3720023b8ad66d"
     },
     {
+      "path": "desktop/tests/managed-runtime-host.test.mjs",
+      "size": 3455,
+      "sha256": "170aada87bb29ee0efb22640a08d914c601a839b85758c8088a2c1ae2691cc4d"
+    },
+    {
       "path": "desktop/tests/native-app-launcher.test.mjs",
       "size": 5244,
       "sha256": "a8ce61e4db7b48df1795884efd59733c08dbb1ffe2cc5c541d8e15abbe1fd44c"
@@ -391,6 +416,11 @@
       "path": "desktop/tests/native-screenity.test.mjs",
       "size": 4170,
       "sha256": "9d7ff30e91ea690ca3e585c999d831c2db3ff436a731825c61ce07e856fb1d41"
+    },
+    {
+      "path": "desktop/tests/private-runtime.test.mjs",
+      "size": 2526,
+      "sha256": "fe44068b30c611bebee0721d608620444fa6f57f4a274d0b9ce9f08c05510a85"
     },
     {
       "path": "desktop/tests/process-identity.test.mjs",
@@ -456,6 +486,11 @@
       "path": "desktop/tests/unified-restore.test.mjs",
       "size": 5982,
       "sha256": "ad9fbad49272df3499469c6a14910cf671639c908b7d7860d1fc6a67c3d533e5"
+    },
+    {
+      "path": "desktop/tests/wsl-installer.test.mjs",
+      "size": 1797,
+      "sha256": "939a307a1500dca8fd2f6b8fbe267446486a78c48972226bb954918e0dc149c1"
     },
     {
       "path": "desktop/build/Plataforma.iconset/icon_128x128.png",
@@ -969,8 +1004,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15039,
-      "sha256": "a7a7ca31788878322cdfc1700deede1932e89113cc09dfca5f9816ca175b30b2"
+      "size": 15065,
+      "sha256": "bb00833484f76ac9e5ca7168f6bcd65eb993d3b96e23f32ae0721231a526b0af"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -989,8 +1024,8 @@
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
-      "size": 7294,
-      "sha256": "33e0085ff2995e0bb579429145733872af6fdbfa4b0a7cb5493782251a19cd55"
+      "size": 8360,
+      "sha256": "0dc36ef17f768488cb7c5f6ffda25f966ae3c12e5a587c93f74ef3349c71f5d3"
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
@@ -1039,8 +1074,8 @@
     },
     {
       "path": "suite/tests/reuse-public-openwhispr-source.mjs",
-      "size": 3547,
-      "sha256": "187a2843ad3e205c10f88ecae696ad01b6a21199e69dc287a0af1958d4ecc49f"
+      "size": 4016,
+      "sha256": "5f4afdb70b2236663cd971e59f266a3ac7a580a95c27ff4bb8d1f6cabd9f8a62"
     },
     {
       "path": "suite/tests/paperless-cloud.mjs",
@@ -1194,8 +1229,13 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 5858,
-      "sha256": "f1c89870acc8e1da883394a980149deb3e561fb41811442fa89b0a25c1af39cc"
+      "size": 7113,
+      "sha256": "1a2b95d849bc7066154ec3e03cae1857073dd06794a22ca73c989b68a46ce63a"
+    },
+    {
+      "path": ".github/workflows/managed-runtime-windows.yml",
+      "size": 1227,
+      "sha256": "a910b4104710b081ddf2e08b4c30dd8befa2ef8a11a6b414ec7c16de4f2edf78"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
