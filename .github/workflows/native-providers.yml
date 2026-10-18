@@ -1,0 +1,61 @@
+name: Both original editors voice and video through one native product recovery
+on:
+  workflow_dispatch:
+    inputs:
+      installer_run_id:
+        description: Accepted installer run ID; empty runs the source shell
+        type: string
+        default: ''
+permissions:
+  contents: read
+jobs:
+  native-providers:
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, macos-15-intel, windows-2025]
+    env:
+      PA_INTERNAL_INSTALLER_VALIDATION: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - run: npm ci --prefix desktop --no-audit --no-fund
+      - name: Restore verified complete original engines and native components
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+          node scripts/distribution/prepare-public-native.mjs
+      - name: Verify accepted installer bytes and unchanged product source
+        if: inputs.installer_run_id != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PA_ACCEPTED_INSTALLER_RUN: ${{ inputs.installer_run_id }}
+        shell: bash
+        run: node scripts/distribution/restore-tested-installer.mjs "--run=$PA_ACCEPTED_INSTALLER_RUN"
+      - name: Install accepted package into disposable directory
+        if: inputs.installer_run_id != ''
+        id: install
+        run: node scripts/distribution/installer-validation.mjs install
+      - name: One actual backup activation audio model and edited video recovery
+        env:
+          PA_COMPLETE_SUITE_SCOPE: native
+        run: node suite/tests/complete-suite-cloud.mjs
+      - name: Uninstall this recorded internal package
+        if: always() && steps.install.outcome == 'success'
+        run: node scripts/distribution/installer-validation.mjs uninstall
+      - name: Preserve only small synthetic acceptance
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: joint-native-four-providers-${{ matrix.runner }}
+          path: suite/research/complete-suite/acceptance.json
+          retention-days: 1
+          if-no-files-found: error

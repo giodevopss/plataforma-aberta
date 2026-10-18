@@ -1184,8 +1184,8 @@
     },
     {
       "path": "scripts/distribution/restore-tested-installer.mjs",
-      "size": 3063,
-      "sha256": "05424d4bc81fa57b4982f8ce6d4ae1a83721b02a41e4f469f1bf8c5f61e3e01c"
+      "size": 3296,
+      "sha256": "a63569b6a8db3a582459bdc35ac1bffb2bb7867b9eced488004483011dcd6a9f"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1219,8 +1219,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15613,
-      "sha256": "5be4933ec59f47e5ade88bd7e0bc33789198e8c99a06582406230f52f1e2a9dc"
+      "size": 15632,
+      "sha256": "17d63adbf72880217659e2fa5b28844160085dbebd458cc84d4b8f1d6aa59510"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1239,8 +1239,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 20536,
-      "sha256": "9698a517de184531c3ee9f775122bc2312e3dd183e0748e29f4cf0e15d64ac41"
+      "size": 22328,
+      "sha256": "8a121a4aca55cba2e92337b11da6407e5d8256690e277636ebc1dfee5120b498"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1364,8 +1364,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 6229,
-      "sha256": "9e62ef493f867bc18748ca29b5be4b5f225aea2b73f712f9958a25777c50b7e7"
+      "size": 6244,
+      "sha256": "289e7991eceae2d77c87bba4dc4541b7a4504e3b5e5a1cfe5829dbdc7d7f0993"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1505,7 +1505,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11617,
-      "sha256": "8640dba7f950393dca15aadfc4c3794cdb67ad4788a7a9f8c84caab130a5e985"
+      "sha256": "e769adf45aebb70b6561dc5cf4bced3c831dbbd11ace70fc139efefce7274dc2"
+    },
+    {
+      "path": ".github/workflows/native-providers.yml",
+      "size": 2471,
+      "sha256": "ba0279f88627c1a77e4a5f7ae46f37b6024e459df1bcd884177004adb25b2e3c"
     },
     {
       "path": ".github/workflows/complete-suite.yml",
