@@ -94,8 +94,8 @@
     },
     {
       "path": "desktop/src/linux-snapshot-tree.mjs",
-      "size": 2753,
-      "sha256": "1997877ae29482e3c3f62cac531a64288f7a23863da9efd9fbc326ecc9f8d522"
+      "size": 3231,
+      "sha256": "5d242e1616a92ec95fd147008ccd0d2aae8e7768df80a30ed90abe18e6bb876c"
     },
     {
       "path": "desktop/src/local-ai.mjs",
@@ -194,8 +194,8 @@
     },
     {
       "path": "desktop/src/presenton-configuration.mjs",
-      "size": 2868,
-      "sha256": "569ffac62a5a0f36220e446be2e100f9628d4cde587f2d3666bfff9a158bab93"
+      "size": 2895,
+      "sha256": "40a41eaff63437f5d8eb7dc2a4d7fe4c9c66c60a6a9def8ec234676c18213866"
     },
     {
       "path": "desktop/src/private-runtime.mjs",
@@ -1485,7 +1485,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 10056,
-      "sha256": "55e5137bc0c14d21eb23e01917c0e2bb174ce63ff4b8d37efc1232a9b1acac03"
+      "sha256": "3beb9a794d1fd511cbfda00507a0afb920a30701734fa3149d7dfca9e95778ce"
     },
     {
       "path": ".github/workflows/arm-services.yml",

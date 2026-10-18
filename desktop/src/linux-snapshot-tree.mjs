@@ -15,10 +15,12 @@ export async function copyLinuxSnapshotTree(runtime,{source,destination,image,co
  try{
   const script=path.join(transfer,'copy.mjs'),output=path.join(transfer,'data');await fs.mkdir(output,{mode:0o700});
   const sourceCode=await fs.readFile(new URL('./snapshot-files.mjs',import.meta.url),'utf8');
-  await fs.writeFile(script,sourceCode+'\nawait copyPortableTree(process.argv[2],process.argv[3]);\n',{mode:0o644,flag:'wx'});
+  const owner=await fs.stat(output);
+  const finish="\nawait copyPortableTree(process.argv[2],process.argv[3]);\nif(process.argv[4]){const owner=JSON.parse(process.argv[4]);async function own(file){const stat=await fs.lstat(file);if(stat.isDirectory())for(const name of await fs.readdir(file))await own(path.join(file,name));if(stat.isSymbolicLink())throw Error('Unexpected link in copied tree');await fs.chown(file,owner.uid,owner.gid);}await own(process.argv[3]);}\n";
+  await fs.writeFile(script,sourceCode+finish,{mode:0o644,flag:'wx'});
   helper='pa-'+runtime.identity.id+'-snapshot-tree-'+crypto.randomBytes(6).toString('hex');runtime.verificationHelpers?.add(helper);
   await runtime.ensureImage(image);
-  await runtime.run(['run','--rm','--name',helper,'--label','app.plataforma-aberta.workspace='+runtime.identity.id,'--network','none','--user','0:0','--read-only','--cap-drop','ALL','--cap-add','DAC_READ_SEARCH','--security-opt','no-new-privileges:true','--memory','512m','--mount',`type=bind,source=${source},target=${containerPath},readonly`,'--mount',`type=bind,source=${script},target=/opt/plataforma-copy.mjs,readonly`,'--mount',`type=bind,source=${output},target=/snapshot`,'--entrypoint','node',image,'/opt/plataforma-copy.mjs',containerPath,'/snapshot'],{timeout:900000});
+  await runtime.run(['run','--rm','--name',helper,'--label','app.plataforma-aberta.workspace='+runtime.identity.id,'--network','none','--user','0:0','--read-only','--cap-drop','ALL','--cap-add','DAC_OVERRIDE','--cap-add','CHOWN','--security-opt','no-new-privileges:true','--memory','512m','--mount',`type=bind,source=${source},target=${containerPath},readonly`,'--mount',`type=bind,source=${script},target=/opt/plataforma-copy.mjs,readonly`,'--mount',`type=bind,source=${output},target=/snapshot`,'--entrypoint','node',image,'/opt/plataforma-copy.mjs',containerPath,'/snapshot',JSON.stringify({uid:owner.uid,gid:owner.gid})],{timeout:900000});
   await copyPortableTree(output,destination);
  }catch(error){if(helper){try{if(await runtime.owned('container',helper))await runtime.run(['rm','--force',helper]);}catch(cleanup){throw new AggregateError([error,cleanup],'A transferência falhou e o auxiliar Linux não pôde ser encerrado.');}}throw error;
  }finally{await fs.rm(transfer,{recursive:true,force:true});}

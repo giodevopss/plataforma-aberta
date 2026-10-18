@@ -23,5 +23,5 @@ export async function preparePresentonConfiguration(runtime,{directory,prefix,en
  if(stat){if(!stat.isFile()||stat.isSymbolicLink()||stat.size>1024*1024)throw Error('Configuração original Presenton inválida; os dados foram preservados.');const existing=JSON.parse(fs.readFileSync(file));if(existing&&typeof existing==='object'&&!Array.isArray(existing)&&existing.LLM)return;}
  if((await runtime.owned('container',prefix+'-application'))?.State.Running)throw Error('Encerre o Presenton antes de preparar sua configuração local.');
  const helper=prefix+'-provider-configuration';runtime.verificationHelpers?.add(helper);
- await runtime.run(['run','--rm','--name',helper,'--label','app.plataforma-aberta.workspace='+runtime.identity.id,'--network','none','--user','0:0','--read-only','--cap-drop','ALL','--security-opt','no-new-privileges:true','--env-file',envFile,'--mount',`type=bind,source=${data},target=/app_data`,'--entrypoint','node',image,'-e',script],{timeout:30000});
+ await runtime.run(['run','--rm','--name',helper,'--label','app.plataforma-aberta.workspace='+runtime.identity.id,'--network','none','--user','0:0','--read-only','--cap-drop','ALL','--cap-add','DAC_OVERRIDE','--security-opt','no-new-privileges:true','--env-file',envFile,'--mount',`type=bind,source=${data},target=/app_data`,'--entrypoint','node',image,'-e',script],{timeout:30000});
 }
