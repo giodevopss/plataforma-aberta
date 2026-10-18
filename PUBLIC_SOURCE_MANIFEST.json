@@ -109,8 +109,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 19229,
-      "sha256": "fbfdef7f9c8448e3919ecc4bd837625ff43d2529d503b723d5fbb5e791745004"
+      "size": 19510,
+      "sha256": "5ecf769545421c8b616564ed31839c3640308b444db4cb27a050f8cc23618914"
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
@@ -171,6 +171,11 @@
       "path": "desktop/src/profile-store.mjs",
       "size": 5328,
       "sha256": "5be6cc9d00f63a868db2a20ffd5bb60204a1dcd0b7a63b796b370f09335992ce"
+    },
+    {
+      "path": "desktop/src/qa-guest-runtime.mjs",
+      "size": 1721,
+      "sha256": "38f6b0f25fc61c9d6d2a01f00d09463b9cf542fd4d5f90b02c3098b4f1208946"
     },
     {
       "path": "desktop/src/restore-relocation.mjs",
@@ -1069,8 +1074,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15159,
-      "sha256": "b79d926faff3ec5bae6f34401f70ff9ba68a58ab6777a3679ea92524549b98ee"
+      "size": 15202,
+      "sha256": "81e633c4c5096810ddcfbfecddc4797464cea959192ead8b144487ff078e3320"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1086,6 +1091,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/cloud-service-runtime.mjs",
+      "size": 2295,
+      "sha256": "6108921dedd9cd2982066a4e5f1afa14faca4cdbf164a0c68596f53e1c9e940b"
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
@@ -1154,18 +1164,18 @@
     },
     {
       "path": "suite/tests/paperless-cloud.mjs",
-      "size": 12683,
-      "sha256": "25d4ba2870a47407c18bbae2b98fa5109d7ab275759cae6d05d175fa2acbb6b5"
+      "size": 12387,
+      "sha256": "cb1cd2031f18c16650e14a82af08293b9e9ec2d01899a95491cae22e65f1bfce"
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 12960,
-      "sha256": "99a3dd0a6b2f84a69a87e9c8fb697b451a849dfb7cf5c7094e80317e12499073"
+      "size": 12605,
+      "sha256": "4382c71296c1eeef9e9e8406a27c9f07965beb8c275c2b9f031a8fa54ed25f5c"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 5987,
-      "sha256": "d74653b9c083692a77efbf248e8e264df1b7452aeef8d91eb4c34ac909bcc9ec"
+      "size": 6043,
+      "sha256": "ee062b6c2ffc19a349f5bc0e60cb3efb0e2a857b33483fad3edbc8daf6851bd9"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1305,7 +1315,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 7113,
-      "sha256": "3eb9e189c1892993b808b6d36db528eb24185cd3f700d1bfd8d7324c22dc662c"
+      "sha256": "b2631823884e8604fab82c7a81ce6aefd92e66c454e2ec488a1a1c5bed23d7c9"
+    },
+    {
+      "path": ".github/workflows/windows-services.yml",
+      "size": 2126,
+      "sha256": "e6bfe321cdf5712fff4b2f24f51da6e63a7a3b8eb36e9394a5d306b37fc4731d"
     },
     {
       "path": ".github/workflows/presenton-validation.yml",

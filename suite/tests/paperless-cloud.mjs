@@ -3,12 +3,11 @@ import fs from 'node:fs';import path from 'node:path';import os from 'node:os';i
 import {chromium} from '../../desktop/node_modules/playwright/index.mjs';import {zipSync,strToU8} from '../../desktop/node_modules/fflate/esm/index.mjs';
 import {CompleteRuntime,serverApps} from '../../desktop/src/complete-runtime.mjs';import {commandRunner} from '../../desktop/src/local-runtime.mjs';import {RuntimeBackup} from '../../desktop/src/runtime-backup.mjs';import {writeArchive,readArchive} from '../../desktop/src/backup-archive.mjs';
 import {verifyNativePaperless} from './service-native-view.mjs';
-if(process.env.CI!=='true'||process.platform!=='linux')throw Error('This acceptance test requires a disposable Linux CI runner.');
-const root=path.resolve('.'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'pa-paperless-acceptance-')),evidence=path.join(root,'suite/research/cloud-paperless');fs.mkdirSync(evidence,{recursive:true});
-const docker=execFileSync('which',['docker'],{encoding:'utf8'}).trim(),run=commandRunner(docker),runCompose=(args,options)=>run(['compose',...args],options);
-const captured=async args=>{try{const r=await promisify(execFile)(docker,args,{maxBuffer:2_000_000,timeout:120000});return r.stdout+r.stderr;}catch(error){return String(error.stdout||'')+String(error.stderr||'')+error.message;}};
-const options={specs:serverApps.filter(s=>s.id==='paperless'),run,composeBinary:docker,runCompose,onStatus:s=>console.log(s.id,s.status,s.detail)};
-const runtime=new CompleteRuntime({...options,directory:path.join(temporary,'source')}),restored=new CompleteRuntime({...options,directory:path.join(temporary,'restored')});
+import {cloudServiceRuntime} from './cloud-service-runtime.mjs';
+if(process.env.CI!=='true'||!['linux','win32'].includes(process.platform))throw Error('This acceptance test requires a disposable Linux CI runner.');
+const root=path.resolve('.'),temporary=fs.mkdtempSync(path.join(process.env.RUNNER_TEMP||os.tmpdir(),'pa-paperless-acceptance-')),evidence=path.join(root,'suite/research/cloud-paperless');fs.mkdirSync(evidence,{recursive:true});
+const {runtime,restored,run,closeGuest}=await cloudServiceRuntime({temporary,specs:serverApps.filter(s=>s.id==='paperless'),onStatus:s=>console.log(s.id,s.status,s.detail)});
+const captured=async args=>{try{return await run(args,{timeout:120000});}catch(error){return error.message;}};
 const checks=[];let browser,manager;const report={checked_at:new Date().toISOString(),status:'failed',commit:process.env.GITHUB_SHA,platform:process.platform,arch:process.arch,scope:'Full original Paperless service on Linux: OCR, Office conversion, metadata, downloads, browser UI and independent encrypted backup restore. Native desktop launcher/runtime installation remain separate acceptance.',checks};
 const digest=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 async function request(endpoint,route,{method='GET',body,headers={}}={}){
@@ -69,6 +68,6 @@ try{
  const composeFile=path.join(runtime.directory,'paperless/compose.json');if(fs.existsSync(composeFile)){const compose=JSON.parse(fs.readFileSync(composeFile)),settings=JSON.parse(fs.readFileSync(path.join(runtime.directory,'paperless/runtime.json')));for(const [role,service]of Object.entries(compose.services)){let log=await captured(['logs','--tail','120',service.container_name]);log+='\nCONTAINER STATE\n'+await captured(['inspect','--format','{{json .State}}',service.container_name]);for(const value of Object.values(settings))if(typeof value==='string'&&value.length>=32)log=log.replaceAll(value,'[REDACTED]');fs.writeFileSync(path.join(evidence,role+'.log'),log);}
  if(fs.existsSync(path.join(temporary,'office-fixture.docx'))){const app=compose.services.application.container_name;await run(['cp',path.join(temporary,'office-fixture.docx'),app+':/tmp/pa-office-fixture.docx']);const diagnostic=await captured(['exec',app,'python','-c','from pathlib import Path\nfrom tika_client import TikaClient\nimport urllib.request\np=Path("/tmp/pa-office-fixture.docx")\nr=urllib.request.urlopen(urllib.request.Request("http://tika:9998/tika",data=p.read_bytes(),method="PUT",headers={"Content-Type":"application/vnd.openxmlformats-officedocument.wordprocessingml.document","Accept":"text/plain"}))\nprint("DIRECT HTTP",r.status,r.read().decode()[:1000])\nwith TikaClient(tika_url="http://tika:9998",timeout=60) as c:\n print(c.tika.as_text.from_file(p,"application/vnd.openxmlformats-officedocument.wordprocessingml.document"))']);fs.writeFileSync(path.join(evidence,'tika-direct-diagnostic.log'),diagnostic);}}
  throw error;}finally{
- await manager?.resume().catch(()=>{});await browser?.close();await runtime.close().catch(()=>{});await restored.close().catch(()=>{});
+ await manager?.resume().catch(()=>{});await browser?.close();await runtime.close().catch(()=>{});await restored.close().catch(()=>{});await closeGuest();
  fs.writeFileSync(path.join(evidence,'acceptance.json'),JSON.stringify(report,null,2)+'\n');try{fs.rmSync(temporary,{recursive:true,force:true});}catch{console.warn('Temporary runner files will be discarded with the ephemeral VM; original test failure retained.');}
 }

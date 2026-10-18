@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {startService} from './service.mjs';
 import {readConnections,saveConnections,safeRemoteNavigation} from './connections.mjs';
 import {createPrivateRuntime} from './private-runtime.mjs';
+import {borrowedQAGuest} from './qa-guest-runtime.mjs';
 import {CompleteRuntime,serverApps} from './complete-runtime.mjs';
 import {localApps} from './local-apps.mjs';
 import {ProfileStore} from './profile-store.mjs';
@@ -41,7 +42,9 @@ if(acquired)app.whenReady().then(async()=>{
   const completeApps=[...localApps,...serverApps.filter(app=>integrated.includes(app.id))];
   const runtimeStatus=status=>{if(win&&!win.isDestroyed())win.webContents.send('suite:runtime-status',status);};
   if(!qa)runtimeHost=createPrivateRuntime({applicationDirectory:profiles.root,homeDirectory:app.getPath('home'),onStatus:runtimeStatus});
+  const qaGuest=qa&&process.env.PA_DESKTOP_TEST_GUEST_CONFIG?borrowedQAGuest(process.env.PA_DESKTOP_TEST_GUEST_CONFIG,{specs:completeApps,onStatus:runtimeStatus}):null;
   const createRuntime=runtimeDirectory=>{
+    if(qaGuest)return qaGuest.create(runtimeDirectory);
     const requested=path.resolve(runtimeDirectory),parent=path.dirname(requested),profileId=parent===path.resolve(profiles.root)?'legacy':path.basename(parent);
     if(!qa&&path.resolve(profiles.directory(profileId))!==parent)throw Error('Destino dos serviços não pertence a um perfil da suíte.');
     const legacy=completeApps.some(spec=>fs.existsSync(path.join(requested,spec.id,'runtime.json')));
