@@ -44,8 +44,8 @@
     },
     {
       "path": "desktop/src/download.mjs",
-      "size": 1943,
-      "sha256": "e112a646a5b1771f61b36938849a57ee83d325ce5bbb5f35ccd14eb491d60b0b"
+      "size": 2472,
+      "sha256": "3de332f8c2905b18d73cf5225e5ffc9d87d0999526f7220515be7109535b0c28"
     },
     {
       "path": "desktop/src/extension-integrity.mjs",
@@ -429,8 +429,8 @@
     },
     {
       "path": "desktop/tests/download.test.mjs",
-      "size": 2129,
-      "sha256": "4bc431b7510be0bffb6d61963477f39b92d34eced71a15c4c95294f0bd740e86"
+      "size": 3601,
+      "sha256": "562d2277b006b7cebc33b1dde3d5bed8c40bf123b0d382d4a3586fcd3e5f0bfc"
     },
     {
       "path": "desktop/tests/electron-profile-probe.cjs",
@@ -1400,7 +1400,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "4551aca78424e4bf19d8dd0f2564c56d980307b090a434b84d55f9542cf489ca"
+      "sha256": "2ed756ecbc39458b66c638d912153bcab1c46d5f5c6be5ef02c71a413304a3a8"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",
