@@ -1194,8 +1194,8 @@
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
-      "size": 10220,
-      "sha256": "6f11a192fe44b402ef60e68e2a8d378670b34dbbecc6b1a43e6361060354663c"
+      "size": 10559,
+      "sha256": "0343f9facee951b5196a6682e9b1f8be788f4abb7ba289572cfdb5889cbc1748"
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
@@ -1445,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "429d143fd658cc3d2f60edb84e596742fb1f10335fcc963f571dba578354e641"
+      "sha256": "ea086568e9348ec816a0513066a44594676de060b085e382a9731b915773b8a2"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
