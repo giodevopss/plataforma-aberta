@@ -10,6 +10,7 @@ import {borrowedQAGuest} from './qa-guest-runtime.mjs';
 import {CompleteRuntime,serverApps} from './complete-runtime.mjs';
 import {localApps} from './local-apps.mjs';
 import {localAIEngine} from './local-ai.mjs';
+import {modulePartition} from './module-partition.mjs';
 import {ProfileStore} from './profile-store.mjs';
 import {DesktopRecovery,nativeForProfile,profilePartition} from './desktop-backup.mjs';
 
@@ -103,13 +104,13 @@ if(acquired)app.whenReady().then(async()=>{
     if(generation!==openGeneration||closing)return {available:false};
     let view=remoteViews.get(id);
     if(!view){
-      view=new WebContentsView({webPreferences:{partition:'persist:complete-'+id,sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true}});
+      view=new WebContentsView({webPreferences:{partition:modulePartition(activeProfile.id,id),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true}});
       view.setBounds(moduleBounds());
       view.webContents.session.webRequest.onBeforeSendHeaders((details,callback)=>{const url=new URL(details.url);const target=new URL(endpoint);const requestOrigin=url.protocol==='ws:'?'http://'+url.host:url.protocol==='wss:'?'https://'+url.host:url.origin;if(requestOrigin!==endpoint&&['http:','ws:'].includes(url.protocol))return callback({cancel:true});if(['127.0.0.1','localhost','[::1]'].includes(url.hostname)&&url.host!==target.host)return callback({cancel:true});const headers={...details.requestHeaders};delete headers['X-PA-Session'];delete headers['x-pa-session'];if(requestOrigin===endpoint)headers['X-PA-Session']=moduleToken;callback({requestHeaders:headers});});
       await view.webContents.session.cookies.set({url:endpoint,name:'pa_session',value:moduleToken,path:'/',httpOnly:true,sameSite:'strict',secure:false});
       view.webContents.session.setPermissionRequestHandler((_contents,_permission,callback)=>callback(false));
       view.webContents.on('will-navigate',(event,url)=>{if(!safeRemoteNavigation(url,endpoint))event.preventDefault();});
-      view.webContents.setWindowOpenHandler(({url})=>safeRemoteNavigation(url,endpoint)?{action:'allow',overrideBrowserWindowOptions:{parent:win,width:1100,height:800,webPreferences:{partition:'persist:complete-'+id,sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true}}}:{action:'deny'});
+      view.webContents.setWindowOpenHandler(({url})=>safeRemoteNavigation(url,endpoint)?{action:'allow',overrideBrowserWindowOptions:{parent:win,width:1100,height:800,webPreferences:{partition:modulePartition(activeProfile.id,id),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true}}}:{action:'deny'});
       remoteViews.set(id,view);await view.webContents.loadURL(endpoint);
     }
     if(generation!==openGeneration||closing)return {available:false};

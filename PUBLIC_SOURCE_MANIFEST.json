@@ -109,8 +109,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 19623,
-      "sha256": "33209bfcd2aae15b0d93641864b0b9bb59573995c6c318143a4ba58db7022871"
+      "size": 19707,
+      "sha256": "5f9c7bb0a29249a5dbdb20a28f096d68b86d7ac820e505fa460285d56d254963"
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
@@ -121,6 +121,11 @@
       "path": "desktop/src/managed-runtime-host.mjs",
       "size": 4017,
       "sha256": "8a50c00b18250c78fae9b7aa543c7f19026e219dde44ef56ddf4888a672d9cdb"
+    },
+    {
+      "path": "desktop/src/module-partition.mjs",
+      "size": 326,
+      "sha256": "1071934471090c8f2eb0ab04ac7e75d43a069d31f03dd47d01aabf73fbc74688"
     },
     {
       "path": "desktop/src/native-app-launcher.mjs",
@@ -436,6 +441,11 @@
       "path": "desktop/tests/managed-runtime-host.test.mjs",
       "size": 3455,
       "sha256": "170aada87bb29ee0efb22640a08d914c601a839b85758c8088a2c1ae2691cc4d"
+    },
+    {
+      "path": "desktop/tests/module-partition.test.mjs",
+      "size": 920,
+      "sha256": "8d789fd22c9244a7cbe8f41a65cb3745841403dc8783c20fb7db360a561852cc"
     },
     {
       "path": "desktop/tests/native-app-launcher.test.mjs",
@@ -1114,8 +1124,8 @@
     },
     {
       "path": "suite/tests/database-workflow.mjs",
-      "size": 5381,
-      "sha256": "8c6416d94080f69c6f968a66fda8b7b165d98724d9f06a6492a48f1a6782434e"
+      "size": 5377,
+      "sha256": "5038cb545c73d5c90b8735ef99ae01e4dcaf92b8eb89471503c49e4de40162d1"
     },
     {
       "path": "suite/tests/database-cloud.mjs",
@@ -1345,7 +1355,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "ee5a78fd8217cf03e1089864a7e13c9fa098e5c1c878d79452b7bfcd841c4522"
+      "sha256": "87f62d7d8f5a639d825984d55d094ecdc7c42ef1ee8467e87dff4a133bb6a6dc"
     },
     {
       "path": ".github/workflows/automation-validation.yml",
