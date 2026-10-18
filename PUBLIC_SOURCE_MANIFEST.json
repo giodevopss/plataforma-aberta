@@ -90,12 +90,12 @@
     {
       "path": "desktop/src/local-ai.mjs",
       "size": 6221,
-      "sha256": "9e94a2639f34a57c7afac1ab20e8be69495049faf195d9ce44921e27d4257508"
+      "sha256": "344401fffee02a3b4f72528fb3b59e4f4a87a2c2968dd57ad2369bd8a04ac986"
     },
     {
       "path": "desktop/src/local-apps.mjs",
-      "size": 973,
-      "sha256": "4fe04a4bc3cbdfea267a97b579d3596157f5d1bcbd0bad2965c435ec7d7c12d6"
+      "size": 1055,
+      "sha256": "e35d2fc83300fb8a1537de008824888769c6140699b9769b0fb8c4517f3cbd9c"
     },
     {
       "path": "desktop/src/local-model.json",
@@ -1139,8 +1139,8 @@
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
-      "size": 5601,
-      "sha256": "97e06434f0ba9690b1d48bddc24c5bc7bab48af86aa5e49029b0ff3993df891d"
+      "size": 5996,
+      "sha256": "e93ace9b16375e01f3574d1ed3417ff81ec7eb354090b16f092d2aa428169c01"
     },
     {
       "path": "suite/tests/automation-cloud.mjs",
@@ -1164,8 +1164,8 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 9058,
-      "sha256": "a0a0fdb75c60c43272d6bd0491c9d71b77aafbec643d1303c2684d16503ef929"
+      "size": 9063,
+      "sha256": "0549002ce56898140f6b610b0ea193beed9ade20b24b93be96e91ece6d9b5ba9"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1380,7 +1380,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "2125847e27e6f01fbc1dca97a6861967bc2ae1fa130bbf79b4df5ae930426656"
+      "sha256": "483f49fc2d26c47a14a576dfe5bd6ea0f6b35aa5ff9a29bdda98fb42623a120c"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",

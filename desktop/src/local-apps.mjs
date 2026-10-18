@@ -6,5 +6,5 @@ export const localApps=[{
   port:80,memoryMB:3072,healthPath:'/api/v1/auth/status',volumes:[{name:'data',target:'/app_data'}],
   localAI:localModel,
   patches:[{source:fileURLToPath(new URL('../resources/presenton-patches/presentation.py',import.meta.url)),target:'/app/servers/fastapi/api/v1/ppt/endpoints/presentation.py',sha256:'2d0cbef8972fcab1cee1715da6996d617ca54c886ebf8e864b54f2035adbdc6b'}],
-  environment:({origin})=>({LLM:'ollama',OLLAMA_URL:'http://ollama:11434',OLLAMA_MODEL:localModel.name,CAN_CHANGE_KEYS:'false',DISABLE_IMAGE_GENERATION:'true',DISABLE_ANONYMOUS_TRACKING:'true',MIGRATE_DATABASE_ON_STARTUP:'true',START_OLLAMA:'false',PRESENTON_PUBLIC_URL:origin})
+  environment:({origin})=>({LLM:'ollama',OLLAMA_URL:'http://ollama:11434',OLLAMA_MODEL:localModel.name,CAN_CHANGE_KEYS:'false',DISABLE_IMAGE_GENERATION:'true',DISABLE_ANONYMOUS_TRACKING:'true',MIGRATE_DATABASE_ON_STARTUP:'true',START_OLLAMA:'false',DISABLE_THINKING:'true',LLM_REASONING_MODE:'disabled',LLM_REASONING_EFFORT:'none',PRESENTON_PUBLIC_URL:origin})
 }];
