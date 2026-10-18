@@ -24,8 +24,8 @@
     },
     {
       "path": "desktop/src/complete-runtime.mjs",
-      "size": 7450,
-      "sha256": "a5951ae4372bec731418e5f022c596e73fc8fc169e8e0ceee2f7b92bc10df138"
+      "size": 7460,
+      "sha256": "7a1c355dbdc2ddbbd794b642364a991a2de136719b90b9018ede32c10d28cd49"
     },
     {
       "path": "desktop/src/connections.mjs",
@@ -1335,7 +1335,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "9225baf80ad91b5f5594eb5b05950bbf467644f350118947ddbaf03312303438"
+      "sha256": "9093c991d208e169a4e054b27a5da852d02fe88f12f58c37edb31e36744fed53"
     },
     {
       "path": ".github/workflows/database-validation.yml",
