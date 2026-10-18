@@ -1,6 +1,12 @@
 name: Complete original Screenity native editing
 on:
   workflow_dispatch:
+    inputs:
+      runner_target:
+        description: Native acceptance targets
+        type: choice
+        default: all
+        options: [all, macos-arm, macos-intel, windows, linux]
 permissions:
   contents: read
 concurrency:
@@ -15,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [ubuntu-24.04, macos-15, macos-15-intel, windows-2025]
+        runner: ${{ fromJSON(inputs.runner_target == 'macos-arm' && '["macos-15"]' || inputs.runner_target == 'macos-intel' && '["macos-15-intel"]' || inputs.runner_target == 'windows' && '["windows-2025"]' || inputs.runner_target == 'linux' && '["ubuntu-24.04"]' || '["ubuntu-24.04","macos-15","macos-15-intel","windows-2025"]') }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:

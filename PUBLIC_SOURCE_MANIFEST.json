@@ -364,8 +364,8 @@
     },
     {
       "path": "desktop/tests/lima-installer.test.mjs",
-      "size": 4185,
-      "sha256": "5a6a094409424a8b04d3ca8f80c954524a620f556c25c578a2fd25fa7e99f24d"
+      "size": 4255,
+      "sha256": "7d00a6a21cd4b2fa164a3bb967d9595b4f19c61d4926441d8914138b67e7a5d0"
     },
     {
       "path": "desktop/tests/local-runtime.test.mjs",
@@ -969,8 +969,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15014,
-      "sha256": "ba0e7f666169c9bb1b31716b21ed1bdb279d957ddc542d13412bb8b6021a41e0"
+      "size": 15039,
+      "sha256": "a7a7ca31788878322cdfc1700deede1932e89113cc09dfca5f9816ca175b30b2"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -986,6 +986,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/managed-runtime-native.mjs",
+      "size": 7294,
+      "sha256": "33e0085ff2995e0bb579429145733872af6fdbfa4b0a7cb5493782251a19cd55"
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
@@ -1009,8 +1014,8 @@
     },
     {
       "path": "suite/tests/screenity-native-cloud.mjs",
-      "size": 14876,
-      "sha256": "db693b22f0780ca1ac17d02c48153abfaae20de54e66af714085dafb066ba991"
+      "size": 15135,
+      "sha256": "e8a33ca8816c574b4d50245ae355bdca71243963a9f933568b30657d631c65ca"
     },
     {
       "path": "suite/tests/managed-screenity-session.mjs",
@@ -1190,7 +1195,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "06b0f6fa57b8d591df73c56425e32df9e22c4f9052eaac55ff780fdafe475b75"
+      "sha256": "f1c89870acc8e1da883394a980149deb3e561fb41811442fa89b0a25c1af39cc"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1209,8 +1214,8 @@
     },
     {
       "path": ".github/workflows/screenity-validation.yml",
-      "size": 2224,
-      "sha256": "3cfca2e6d2dbcd50dd8a345e5f53c8638c4b597f6f9f97c272f5d07bc507dc25"
+      "size": 2671,
+      "sha256": "b8596a7c0430821864ec5736369ccc0603547523217e001a7721362bf3dbc065"
     },
     {
       "path": ".github/workflows/complete-services.yml",
