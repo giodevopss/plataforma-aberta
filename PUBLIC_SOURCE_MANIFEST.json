@@ -194,8 +194,8 @@
     },
     {
       "path": "desktop/src/presenton-configuration.mjs",
-      "size": 2895,
-      "sha256": "40a41eaff63437f5d8eb7dc2a4d7fe4c9c66c60a6a9def8ec234676c18213866"
+      "size": 3203,
+      "sha256": "246c49c32e10ddd9f5e0fa5582ce15c5259bfe524acfdfecd5e768e32e2da7ca"
     },
     {
       "path": "desktop/src/private-runtime.mjs",
@@ -1485,7 +1485,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 10056,
-      "sha256": "3beb9a794d1fd511cbfda00507a0afb920a30701734fa3149d7dfca9e95778ce"
+      "sha256": "15d1b2a7b5cd330cab4fe36f122a3bf33bc6dd65ed055bf00168e37ae70a79ba"
     },
     {
       "path": ".github/workflows/arm-services.yml",
