@@ -139,8 +139,8 @@
     },
     {
       "path": "desktop/src/native-component-assets.json",
-      "size": 165446,
-      "sha256": "bcc5b9c107aa78ba8701100cbbf14cfd81ba98a1de34df10b4198e15950577ac"
+      "size": 167512,
+      "sha256": "e5d1f53f23e1edef4a985d5cb8a56cb077be0cf2c5791c419a7bb7af327c379b"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -1325,7 +1325,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "beebc3867900a7510411b3b5da5cf9ac9093a98214dc93d7a552817b8d697f15"
+      "sha256": "00f09444ab747b0ded506d9dffdcfe3f402ba04d878a4d63e12e31f51f68b0d8"
     },
     {
       "path": ".github/workflows/managed-runtime-macos.yml",

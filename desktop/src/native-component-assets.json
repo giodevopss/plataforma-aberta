@@ -1,7 +1,47 @@
 {
   "version": 1,
   "components": {
-    "openwhispr": {},
+    "openwhispr": {
+      "darwin-arm64": {
+        "version": 1,
+        "id": "openwhispr",
+        "target": "darwin-arm64",
+        "sourceCommit": "03f3134ba3935eef56eff319a30054766a3d6376",
+        "suiteCommit": "784fbd4b744710978dbc075c0790f03d6e636406",
+        "runId": "39163138904",
+        "accepted": true,
+        "scope": "Internal complete source component; not a final suite installer",
+        "url": "https://github.com/giodevopss/plataforma-aberta/releases/download/component-openwhispr-39163138904-darwin-arm64/OpenWhispr-Plataforma-1.10.3-internal-darwin-arm64.tar.gz",
+        "size": 415436746,
+        "sha256": "9210d1596904c173d8ae4dc0ee3aea95b351379fd5b4e7aac0c23947a2b2a1d1"
+      },
+      "darwin-x64": {
+        "version": 1,
+        "id": "openwhispr",
+        "target": "darwin-x64",
+        "sourceCommit": "03f3134ba3935eef56eff319a30054766a3d6376",
+        "suiteCommit": "784fbd4b744710978dbc075c0790f03d6e636406",
+        "runId": "39163138904",
+        "accepted": true,
+        "scope": "Internal complete source component; not a final suite installer",
+        "url": "https://github.com/giodevopss/plataforma-aberta/releases/download/component-openwhispr-39163138904-darwin-x64/OpenWhispr-Plataforma-1.10.3-internal-darwin-x64.tar.gz",
+        "size": 406602013,
+        "sha256": "12cd45b77b3e767de37589c392f385c20937c3443675bd9b445a8a12006f9448"
+      },
+      "win32-x64": {
+        "version": 1,
+        "id": "openwhispr",
+        "target": "win32-x64",
+        "sourceCommit": "03f3134ba3935eef56eff319a30054766a3d6376",
+        "suiteCommit": "784fbd4b744710978dbc075c0790f03d6e636406",
+        "runId": "39163138904",
+        "accepted": true,
+        "scope": "Internal complete source component; not a final suite installer",
+        "url": "https://github.com/giodevopss/plataforma-aberta/releases/download/component-openwhispr-39163138904-win32-x64/OpenWhispr-Plataforma-1.10.3-internal-win32-x64.tar.gz",
+        "size": 430721808,
+        "sha256": "8f521a2239ab6cd71972410eafb1d2d461efc5b8e9d8ec3634ba75fa7bfb2062"
+      }
+    },
     "screenity": {
       "darwin-x64": {
         "version": 1,
