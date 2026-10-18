@@ -89,8 +89,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 16827,
-      "sha256": "5b781ae784d7127b115678d9c5e5f5a07b30d8fe00c9499b7714f938a2e173a6"
+      "size": 17101,
+      "sha256": "34889327af2065f0317b8955489d747912fe1e1b2319d759604d06b875daa882"
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
@@ -948,14 +948,19 @@
       "sha256": "c820012522328edef3a997cbd1cd5db775bf795ccf7bf1062c153afaa028696f"
     },
     {
+      "path": "scripts/distribution/publish-public-screenity.mjs",
+      "size": 2599,
+      "sha256": "52356bbef69f242efe6e9ed6b4686d828cbf711ff1f51e4e759370fc5f7ce6a0"
+    },
+    {
       "path": "scripts/distribution/publish-public-installer.mjs",
       "size": 2253,
       "sha256": "68bfe384cb441e48b180dd94943d83f6983d13fe55674b0c92eb1c89ef8c94b3"
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 14073,
-      "sha256": "88341567d16f7dab73ec1d72e93cd2dc83e9071b995435da8e984938c6a406e0"
+      "size": 14636,
+      "sha256": "abbfd3571a4d8ee1f14911bba5d2a2ea0a46709f86bb4fc6e1231c9eb506bd6f"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -974,8 +979,8 @@
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
-      "size": 7860,
-      "sha256": "f7735f40c2940d85c92f5832f838c18505390af1eb989d1beb05cccc64a48048"
+      "size": 8080,
+      "sha256": "1f6a36a7b219d86e6382fe4b0cb09bc341fc83c7ce743abbc992f22f40daddd7"
     },
     {
       "path": "suite/tests/browser-storage-native.mjs",
@@ -994,8 +999,8 @@
     },
     {
       "path": "suite/tests/screenity-native-cloud.mjs",
-      "size": 14752,
-      "sha256": "6d13d4ee4112b4bb923a259845cf0bcac9f32577dc5f889b0d1ab5bcf08383c6"
+      "size": 14876,
+      "sha256": "db693b22f0780ca1ac17d02c48153abfaae20de54e66af714085dafb066ba991"
     },
     {
       "path": "suite/tests/managed-screenity-session.mjs",
@@ -1175,7 +1180,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "2ec78d74ca5c59fdc70a7bf4c30c24732d424df00570cad9401b41843d1e2661"
+      "sha256": "5c08297a3d05cb9e4b251b28a1f211238b6b26e36c46799dccd4368063586966"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1194,8 +1199,8 @@
     },
     {
       "path": ".github/workflows/screenity-validation.yml",
-      "size": 1974,
-      "sha256": "63ce327a655c42d752596d4033a98227757654bd92d59cd094e1258b9466f654"
+      "size": 2224,
+      "sha256": "3cfca2e6d2dbcd50dd8a345e5f53c8638c4b597f6f9f97c272f5d07bc507dc25"
     },
     {
       "path": ".github/workflows/complete-services.yml",

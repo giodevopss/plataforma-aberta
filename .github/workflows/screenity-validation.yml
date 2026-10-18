@@ -8,6 +8,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   extension:
+    permissions:
+      contents: write
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 25
     strategy:
@@ -44,6 +46,11 @@ jobs:
           else
             node suite/tests/screenity-native-cloud.mjs
           fi
+      - name: Preserve accepted native browser component
+        if: runner.os != 'Linux'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/distribution/publish-public-screenity.mjs
       - name: Preserve fresh synthetic evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
