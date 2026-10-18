@@ -31,11 +31,12 @@ async function openBridge({partition,origin}){
 }
 export class DesktopRecovery {
  constructor({profileStore,active,service,runtime,native,screenity,nativeOptions={},resources,ids,createRuntime,quiesce,resume}){Object.assign(this,{profileStore,active,service,runtime,native,screenity,nativeOptions,resources,ids,createRuntime,quiesce,resume});this.busy=false;this.allowNavigation=true;this.stagingDirectory=path.join(profileStore.root,'recovery-staging');}
+ managedBrowserProvider(){return new ManagedBrowserSnapshots({runtime:this.runtime,profileId:this.active.id,openBridge:openManagedStorageBridge});}
  async save({destination,passphrase}){
   if(this.busy)throw Error('Aguarde a operação de recuperação atual.');this.busy=true;this.allowNavigation=false;let bridge;
   try{
    const browser={exportInto:async directory=>{bridge=await openBridge({partition:profilePartition(this.active.id),origin:this.service.origin});return bridge.browser.exportInto(directory);}};
-   const backup=new UnifiedBackup({runtime:this.runtime,workspace:this.service.workspace,browser,managedBrowser:new ManagedBrowserSnapshots({runtime:this.runtime,profileId:this.active.id,openBridge:openManagedStorageBridge}),native:[this.native,...(this.screenity?[this.screenity]:[])].map(manager=>manager.provider()),stagingDirectory:this.stagingDirectory,quiesce:async()=>{const state=await this.quiesce();try{await this.service.pauseWrites();return state;}catch(error){await this.resume(state);throw error;}},resume:async state=>{this.service.resumeWrites();this.allowNavigation=true;await this.resume(state);}});
+   const backup=new UnifiedBackup({runtime:this.runtime,workspace:this.service.workspace,browser,managedBrowser:this.managedBrowserProvider(),native:[this.native,...(this.screenity?[this.screenity]:[])].map(manager=>manager.provider()),stagingDirectory:this.stagingDirectory,quiesce:async()=>{const state=await this.quiesce();try{await this.service.pauseWrites();return state;}catch(error){await this.resume(state);throw error;}},resume:async state=>{this.service.resumeWrites();this.allowNavigation=true;await this.resume(state);}});
    return await backup.save({destination,passphrase});
   }finally{bridge?.window.destroy();this.busy=false;this.allowNavigation=true;}
  }

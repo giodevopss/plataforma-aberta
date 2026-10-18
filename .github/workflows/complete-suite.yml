@@ -1,0 +1,39 @@
+name: All twelve originals through one complete encrypted product recovery
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  complete-suite:
+    runs-on: windows-2025
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - run: npm ci --prefix desktop --no-audit --no-fund
+      - name: Prepare original fixture browser
+        working-directory: desktop
+        run: npx playwright install chromium
+      - name: Restore only fully verified original engines and native components
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+          node scripts/distribution/prepare-public-native.mjs
+      - name: Original workflows, one private WSL, twelve providers and unified activation
+        env:
+          PA_OWN_VM_ACCEPTANCE: '1'
+        run: node suite/tests/complete-suite-cloud.mjs
+      - name: Preserve only the small public synthetic acceptance report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: complete-twelve-provider-recovery
+          path: suite/research/complete-suite/acceptance.json
+          retention-days: 1
+          if-no-files-found: error
