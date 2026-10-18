@@ -114,8 +114,8 @@
     },
     {
       "path": "desktop/src/native-component-assets.json",
-      "size": 110326,
-      "sha256": "4a250dbbde61d6fce731450921ef3c1b0f215acd9d71c6d931da370ad20635be"
+      "size": 84,
+      "sha256": "9b67fd2187bf3a37c29af1e91dc5037d20818c113e3284f46d61f408e26f1fba"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -169,8 +169,8 @@
     },
     {
       "path": "desktop/src/screenity-projects.mjs",
-      "size": 12147,
-      "sha256": "356c5431379b4938761f0ada0cab1c880a5ba7f4d9e7b7fca2f9114d18bcdaff"
+      "size": 12775,
+      "sha256": "3f788b0d4f1a7917597a805d4f55fd43ce9e9b159af944cbb39cae47fd9b161e"
     },
     {
       "path": "desktop/src/server-stacks.mjs",
@@ -419,8 +419,8 @@
     },
     {
       "path": "desktop/tests/screenity-projects.test.mjs",
-      "size": 4884,
-      "sha256": "ca380c0494a333e0aefd1a5c57163fdc9d79c38eb0d2981c0096e2b929646d4d"
+      "size": 5530,
+      "sha256": "6b036cabe37ba791c3c946d6c2b34688e7ac25af1617bac1c5362834bcf126ea"
     },
     {
       "path": "desktop/tests/server-stacks.test.mjs",
@@ -824,13 +824,13 @@
     },
     {
       "path": "suite/patches/screenity/README.md",
-      "size": 761,
-      "sha256": "c3b7540c923e8d45c4f2ff85c611ea493164a8d4c7a23232e19bbb215a93576e"
+      "size": 955,
+      "sha256": "7bc7f5a64868098c984299e3074f22920835b8eb66495a4292cf3659a1449fb6"
     },
     {
       "path": "suite/patches/screenity/projects.patch",
-      "size": 829,
-      "sha256": "c1c4dc8066155f09cb95f29113f78519a57f016bdd14d3881ede116303c7aad5"
+      "size": 1296,
+      "sha256": "3701a2b7475c615d1ecb1e6855390b1d3ef0d31e3779193ef8d60eda7087892d"
     },
     {
       "path": "suite/upstream/lucide-package.json",
@@ -914,8 +914,8 @@
     },
     {
       "path": "scripts/distribution/prepare-screenity-projects.mjs",
-      "size": 2954,
-      "sha256": "1ab97be73ae83b4e55da5cb4932fa16c04c4bacab9099bc0c148783e43a061ad"
+      "size": 3210,
+      "sha256": "dd8bcc40927dfab84f2010a541e6d07d622ad6b36ef3848cd29defd0a5a65290"
     },
     {
       "path": "scripts/distribution/prepare-openwhispr-fork.mjs",
@@ -1190,7 +1190,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "7ed97ae7fb4e9c807ba9456e516dcd3e20705f84b74a9f330e49f32343f82b83"
+      "sha256": "a9f2491177475d3b415c9c3154e4cfe5e3e6a1f03abf016e709622a3dac327be"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",

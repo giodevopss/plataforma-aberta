@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import crypto from 'node:crypto';
-import {portableState,restoredState,recordingKey,draftController} from '../src/screenity-projects.mjs';
+import {portableState,restoredState,recordingKey,draftController,reconcileCompletedDownload} from '../src/screenity-projects.mjs';
 const digest=async text=>crypto.createHash('sha256').update(text).digest('hex');
 const clip=(name='original')=>({blob:new Blob([name],{type:'video/webm'}),ready:true,width:640,height:360,title:name,history:[{}],redoHistory:[],volume:1});
 function memory(){const records=new Map();return {records,async get(id){return structuredClone(records.get(id));},async put(record,expected){if((records.get(record.id)?.revision||0)!==expected)throw Error('Conflict');records.set(record.id,structuredClone(record));}};}
@@ -21,3 +21,5 @@ test('Playback and in-flight processing do not replace a committed project; quot
 test('A second editor cannot silently overwrite a newer saved project',async()=>{
  const store=memory(),one=draftController(options(store)),two=draftController(options(store));await one.restore(()=>{});await two.restore(()=>{});one.observe(clip('one'));two.observe(clip('two'));await one.flush();await assert.rejects(two.flush(),/Conflict/);assert.equal(two.status().pending,true);assert.equal(await store.records.get('a'.repeat(64)).state.blob.text(),'one');
 });
+
+test('A completed local download is reconciled even when it finishes before the original listener is registered',async()=>{const queries=[],events=[],downloads={async search(query){queries.push(query);return [{id:123,state:'complete'},{id:999,state:'complete'}];}};await reconcileCompletedDownload(downloads,123,event=>events.push(event));assert.deepEqual(queries,[{id:123}]);assert.deepEqual(events,[{id:123,state:{current:'complete'}}]);events.length=0;downloads.search=async()=>[{id:123,state:'in_progress'}];await reconcileCompletedDownload(downloads,123,event=>events.push(event));assert.deepEqual(events,[]);});

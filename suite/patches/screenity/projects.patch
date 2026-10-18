@@ -19,3 +19,20 @@
      perfMark("Sandbox makeVideoTab.enter", { override: message?.override });
      if (DEBUG_POSTSTOP)
        console.debug("[Screenity][Sandbox] makeVideoTab invoked", {
+@@ -2985,7 +2990,7 @@
+       }, timeoutMs);
+ 
+       const handler = async (delta) => {
+-        if (delta.id !== downloadId || !delta.state) return;
++        if (settled || delta.id !== downloadId || !delta.state) return;
+ 
+         const done = () => {
+           if (settled) return;
+@@ -3058,6 +3063,7 @@
+       };
+ 
+       chrome.downloads.onChanged.addListener(handler);
++      window.paScreenityDrafts?.reconcileDownload(downloadId, handler);
+     });
+   };
+ 

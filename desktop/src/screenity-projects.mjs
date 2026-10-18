@@ -124,6 +124,13 @@ export function draftController({store, identify, notify = () => {}, schedule = 
     }
   };
 }
+export async function reconcileCompletedDownload(downloads, id, handler) {
+  // Chrome may finish a small local file before the callback registers onChanged.
+  // Query only the ID returned by the original editor, never other downloads.
+  const items = await downloads.search({id});
+  const item = items.find(item => item.id === id);
+  if (item?.state === 'complete') await handler({id, state: {current: 'complete'}});
+}
 export function installProjects(window) {
   const {document, chrome, crypto, indexedDB} = window, store = projectDatabase(indexedDB);
   let label, saveButton;
@@ -154,5 +161,6 @@ export function installProjects(window) {
     });
     document.body.append(panel);
   });
+  controller.reconcileDownload = (id, handler) => reconcileCompletedDownload(chrome.downloads, id, handler).catch(failure => console.warn('Não foi possível consultar o download local:', failure.message));
   window.paScreenityDrafts = controller;
 }
