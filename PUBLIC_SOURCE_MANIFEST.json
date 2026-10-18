@@ -369,8 +369,8 @@
     },
     {
       "path": "desktop/tests/public-source.test.mjs",
-      "size": 2181,
-      "sha256": "7408122fa63293d90f9a93b5aaada72e6b7222d62196ff4eb64c642a8961ce0b"
+      "size": 2213,
+      "sha256": "6a0103abcdb144f77af9797a6b99610737656d607442eaf7a98c823ee358cea8"
     },
     {
       "path": "desktop/tests/runtime-backup.test.mjs",
@@ -873,9 +873,14 @@
       "sha256": "9732e45123172e92a8549fd23170331305f03dc7281caf4406c76a5ac298be80"
     },
     {
+      "path": "scripts/distribution/publish-public-component.mjs",
+      "size": 2511,
+      "sha256": "c820012522328edef3a997cbd1cd5db775bf795ccf7bf1062c153afaa028696f"
+    },
+    {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 11544,
-      "sha256": "6865c6f8dedf4100c9c2b89693227f99666dfa0375a8c34b2566794f74e83675"
+      "size": 12220,
+      "sha256": "827a46acd2d3001a37e326d054bf6966009c88a61a2eaee9663c2e759bfdeb04"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -924,8 +929,8 @@
     },
     {
       "path": "suite/tests/openwhispr-native-cloud.mjs",
-      "size": 8507,
-      "sha256": "83df3ec4e37b375b21bdf9fce74347bd88168b34771055050edec2e2477f2a0d"
+      "size": 9117,
+      "sha256": "bec8535ba0fd08fac0a2d50a7105f04ab1637e81ee0d3daeba73dc4ef425942c"
     },
     {
       "path": "suite/tests/openwhispr-isolation.mjs",
@@ -936,6 +941,11 @@
       "path": "suite/tests/run-openwhispr-upstream-tests.mjs",
       "size": 4650,
       "sha256": "39ac529b6e0d1d8602fbdb8e3294857cdf531e9f2eb5d3ea4c445b5fada4da07"
+    },
+    {
+      "path": "suite/tests/reuse-public-openwhispr-source.mjs",
+      "size": 3547,
+      "sha256": "187a2843ad3e205c10f88ecae696ad01b6a21199e69dc287a0af1958d4ecc49f"
     },
     {
       "path": "suite/tests/paperless-cloud.mjs",
@@ -1090,7 +1100,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "a56cabdc29ef3184d569935e40e08d07c695ee8ae90f9a23373a18b740a57c67"
+      "sha256": "67676727441eba4ab230fb1e41b84eacf336cacdd9481d699fc7e8d7cd2f0f57"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1104,8 +1114,8 @@
     },
     {
       "path": ".github/workflows/openwhispr-fork-validation.yml",
-      "size": 4992,
-      "sha256": "3bdf46bbca048d74e5ce0a6c52b7351f5458f3e6e87c36d4161ff1e1a9b73894"
+      "size": 5727,
+      "sha256": "d73436c1cfacf73e164e6112fd144c656bfc02eee0c4b10b7469517faebc549f"
     },
     {
       "path": ".github/workflows/screenity-validation.yml",

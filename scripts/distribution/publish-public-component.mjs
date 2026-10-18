@@ -1,0 +1,12 @@
+// Preserve only compiled public application bytes, never native profiles or caches.
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {publishArtifact} from './release-artifacts.mjs';
+if(process.env.CI!=='true'||process.env.GITHUB_REPOSITORY!=='giodevopss/plataforma-aberta'||!/^\d+$/.test(process.env.GITHUB_RUN_ID||''))throw Error('Only reviewed public component builds may publish');
+const mode=process.argv[2],repo=process.env.GITHUB_REPOSITORY,run=process.env.GITHUB_RUN_ID,target=process.platform+'-'+process.arch;
+if(!['candidate','accepted'].includes(mode))throw Error('Use candidate or accepted');const evidence=path.resolve('suite/research/openwhispr-cloud'),metadata=JSON.parse(fs.readFileSync(path.join(evidence,mode==='candidate'?'candidate-package.json':'package.json')));if(metadata.target!==target||metadata.sourceCommit!=='03f3134ba3935eef56eff319a30054766a3d6376'||path.basename(metadata.file)!==metadata.file)throw Error('Wrong native component provenance');
+if(mode==='accepted'){const acceptance=JSON.parse(fs.readFileSync(path.join(evidence,'native-acceptance.json')));if(acceptance.status!=='passed'||acceptance.target!==target||acceptance.suiteCommit!==process.env.GITHUB_SHA)throw Error('Fresh native acceptance required');}
+const tag='component-openwhispr-'+run+'-'+target;
+// The task owner precreates the tag with the existing authorized CLI login.
+// This keeps any personal token entirely outside Actions and the public source.
+execFileSync('gh',['release','view',tag,'--repo',repo],{stdio:'ignore'});
+const receipt=await publishArtifact({file:path.join(evidence,metadata.file),repo,tag,receipt:path.join(evidence,'public-component-receipt.json')});if(receipt.sha256!==metadata.sha256||receipt.size!==metadata.size)throw Error('Component package metadata differs');
+const record=path.join(evidence,'component-'+target+'.json');fs.writeFileSync(record,JSON.stringify({version:1,id:'openwhispr',target,sourceCommit:metadata.sourceCommit,suiteCommit:process.env.GITHUB_SHA,runId:run,accepted:mode==='accepted',scope:'Internal complete source component; not a final suite installer',url:'https://github.com/'+repo+'/releases/download/'+tag+'/'+metadata.file,size:receipt.size,sha256:receipt.sha256},null,2)+'\n');if(mode==='accepted')await publishArtifact({file:record,repo,tag,receipt:path.join(evidence,'public-acceptance-receipt.json')});console.log('Public compiled component fully read back and verified:',target,mode);
