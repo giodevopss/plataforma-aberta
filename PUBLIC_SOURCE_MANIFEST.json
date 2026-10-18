@@ -114,8 +114,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 20701,
-      "sha256": "d03e1ae64ae7b032f1c29b878b8bc7771ed0b16ff737d711032ef6d293f33d34"
+      "size": 21062,
+      "sha256": "f5b1e514262f1be613a07aa25213ae3c0d851db072df50f7e3aae669e9fcc5f5"
     },
     {
       "path": "desktop/src/managed-browser-snapshots.mjs",
@@ -419,8 +419,8 @@
     },
     {
       "path": "desktop/tests/close-browser-writers.test.mjs",
-      "size": 1576,
-      "sha256": "0e408deb94fab7ab68f014ed29cae55b2812e6104f7155b840968d10f053ebe5"
+      "size": 2043,
+      "sha256": "b1b6a3efd07890c405f605dcaa0d4d20258628f26f4c22d8f711dde4c92c8836"
     },
     {
       "path": "desktop/tests/connections.test.mjs",
@@ -1445,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "ea086568e9348ec816a0513066a44594676de060b085e382a9731b915773b8a2"
+      "sha256": "7dab38eae55fd01bbaf3aa712349472d67517e9cb23c8cffafad93190dd4d8ae"
     },
     {
       "path": ".github/workflows/notes-validation.yml",

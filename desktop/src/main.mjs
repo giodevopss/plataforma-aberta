@@ -23,7 +23,26 @@ let win,service,runtime,runtimeHost,qaGuest,recovery,native,screenityNative,prof
 app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
 app.on('window-all-closed',()=>{if(process.platform!=='darwin')app.quit();});
 app.on('activate',()=>win?.show());
-app.on('before-quit',(e)=>{if(service&&!closing){e.preventDefault();if(runtimeHost?.pending){dialog.showErrorBox('Preparação local em andamento','Aguarde a preparação do runtime alcançar um estado seguro antes de encerrar.');return;}if(recovery?.busy){dialog.showErrorBox('Recuperação em andamento','Aguarde o término do backup ou da restauração antes de encerrar.');return;}closing=true;(async()=>{if(win&&!win.isDestroyed()&&!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true')){closing=false;return;}if(win&&!win.isDestroyed())await win.webContents.executeJavaScript('window.paDesktopSuspendForBackup?.()');await closeManagedViews();await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();await runtime?.close();await runtimeHost?.stop();await qaGuest?.release();await service.close();app.quit();})().catch(e=>{closing=false;dialog.showErrorBox('Serviços locais',e.message);});}});
+app.on('before-quit',event=>{
+ if(!service||closing)return;
+ event.preventDefault();
+ if(runtimeHost?.pending){dialog.showErrorBox('Preparação local em andamento','Aguarde a preparação do runtime alcançar um estado seguro antes de encerrar.');return;}
+ if(recovery?.busy){dialog.showErrorBox('Recuperação em andamento','Aguarde o término do backup ou da restauração antes de encerrar.');return;}
+ closing=true;
+ (async()=>{
+  if(win&&!win.isDestroyed()&&!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true')){closing=false;return;}
+  // A canceled original form must leave the main editors interactive too.
+  await closeManagedViews();let pauseState;
+  try{
+   if(win&&!win.isDestroyed())pauseState=await win.webContents.executeJavaScript('window.paDesktopSuspendForBackup?.()');
+   await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();
+   await runtime?.close();await runtimeHost?.stop();await qaGuest?.release();await service.close();app.quit();
+  }catch(error){
+   if(pauseState!==undefined&&win&&!win.isDestroyed())await win.webContents.executeJavaScript('window.paDesktopResumeAfterBackup('+JSON.stringify(pauseState)+')');
+   throw error;
+  }
+ })().catch(error=>{closing=false;dialog.showErrorBox('Serviços locais',error.message);});
+});
 
 function trusted(event){if(!win||event.sender!==win.webContents||event.senderFrame!==win.webContents.mainFrame||new URL(event.senderFrame.url).origin!==service.origin)throw Error('Operação desktop não autorizada.');}
 async function saveBackup(){if(recovery?.busy)throw Error('Aguarde a operação de recuperação.');if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return {canceled:true};const r=await dialog.showSaveDialog(win,{title:'Exportar quadros Excalidraw',defaultPath:'Quadros-'+new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Bahia'}).format(new Date())+'.pasuite',filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const bytes=service.workspace.backup();const temp=r.filePath+'.'+crypto.randomUUID()+'.tmp';fs.writeFileSync(temp,bytes);fs.renameSync(temp,r.filePath);return {saved:true,name:path.basename(r.filePath),size:bytes.length};}
