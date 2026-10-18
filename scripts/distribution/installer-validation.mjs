@@ -21,7 +21,8 @@ if(mode==='build'){
  }
  for(let attempt=0;attempt<120&&!fs.existsSync(executable);attempt++)await new Promise(r=>setTimeout(r,500));if(!fs.statSync(executable,{throwIfNoEntry:false})?.isFile())throw Error('Installed executable missing.');
  fs.writeFileSync(stateFile,JSON.stringify({checked_at:new Date().toISOString(),target,temporary,installation,executable,installer:files[0],scope:'Internal unsigned installer acceptance of currently integrated features; complete managed runtime and final suite release gates remain pending'},null,2)+'\n');
- fs.appendFileSync(process.env.GITHUB_ENV,'PA_DESKTOP_EXECUTABLE='+executable+'\n');console.log('Installed internal package into its isolated QA directory.');
+ const nativeRoot=process.platform==='darwin'?path.join(installation,'Contents/Resources'):path.join(installation,'resources');
+ fs.appendFileSync(process.env.GITHUB_ENV,'PA_DESKTOP_EXECUTABLE='+executable+'\nPA_SUITE_NATIVE_RESOURCES='+path.join(nativeRoot,'native')+'\nPA_SUITE_EXTENSION_RESOURCES='+path.join(nativeRoot,'extensions/screenity')+'\n');console.log('Installed internal package into its isolated QA directory.');
 }else if(mode==='uninstall'){
  if(!fs.existsSync(stateFile))throw Error('No internal installation was recorded.');const state=JSON.parse(fs.readFileSync(stateFile));
  if(!state.temporary.startsWith(path.join(os.tmpdir(),'pa-installer-validation-'))||!state.installation.startsWith(state.temporary+path.sep))throw Error('Unexpected installation path; cleanup refused.');

@@ -1179,8 +1179,13 @@
     },
     {
       "path": "scripts/distribution/installer-validation.mjs",
-      "size": 5043,
-      "sha256": "e62dc045a1afbaa8a691fc9e7e60a6ba0873f0905a3eb1678a7b22f79a5f7db3"
+      "size": 5312,
+      "sha256": "d0d0cd1a41c735bccc97e62879375dc0844e4a80cea0382f0b6fa75739eb804f"
+    },
+    {
+      "path": "scripts/distribution/restore-tested-installer.mjs",
+      "size": 3063,
+      "sha256": "05424d4bc81fa57b4982f8ce6d4ae1a83721b02a41e4f469f1bf8c5f61e3e01c"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1214,8 +1219,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15561,
-      "sha256": "5af0ed677b9e32487ab9b4ece30414d124fb695d9b606ea5512e93bb78e2bc4f"
+      "size": 15613,
+      "sha256": "5be4933ec59f47e5ade88bd7e0bc33789198e8c99a06582406230f52f1e2a9dc"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1234,8 +1239,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 20077,
-      "sha256": "f791eee9afdb182da22681fe9d71320aba1e3ae20fc11aef8233842d67d61e0e"
+      "size": 20536,
+      "sha256": "9698a517de184531c3ee9f775122bc2312e3dd183e0748e29f4cf0e15d64ac41"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1249,8 +1254,8 @@
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
-      "size": 10759,
-      "sha256": "e8d49579f59752e1560b6744f6094d7614527e56d699050c68cfb960c09cfbdc"
+      "size": 10839,
+      "sha256": "94029ff3433ef86fe379a48b9c18c9c5218e4e6b710c352bd5de139a71752dd4"
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
@@ -1284,13 +1289,13 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 10193,
-      "sha256": "78d2e34758d8fe8717182d59ddece52282e6a5103e6bc563b9c11ef7c878a301"
+      "size": 10234,
+      "sha256": "d088a6741ad3aa1202b92499ba0fb56a789fb07915962dc1e01e01e58d4d74f5"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
-      "size": 10885,
-      "sha256": "a930a27b2c7481a28d926b5e2dba89296f90c3743246640ee2819c1945c6737d"
+      "size": 10926,
+      "sha256": "1e4080ea9af42d9780d031da6bc1d17a0d89021b85483c2fdc6890d83b0f37a4"
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
@@ -1319,8 +1324,8 @@
     },
     {
       "path": "suite/tests/screenity-native-cloud.mjs",
-      "size": 15303,
-      "sha256": "a18b48dad6567b7ce5a23841599ff3e0c10575bce63ff5452bea694373a8119e"
+      "size": 15386,
+      "sha256": "a47f0eb6b44a8de7e57b2f9568d8c81e0c139285fc5a64eed493e770e82f6b0a"
     },
     {
       "path": "suite/tests/managed-screenity-session.mjs",
@@ -1359,8 +1364,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 6149,
-      "sha256": "2a10f0adbb8449ee9a899a8a78610bffc90e290524424093a18439a626a08194"
+      "size": 6229,
+      "sha256": "9e62ef493f867bc18748ca29b5be4b5f225aea2b73f712f9958a25777c50b7e7"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1500,12 +1505,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11617,
-      "sha256": "629776df693b50be0758764e0567f7782d94d16ec8730c02e9f75c34db66fc09"
+      "sha256": "8640dba7f950393dca15aadfc4c3794cdb67ad4788a7a9f8c84caab130a5e985"
     },
     {
       "path": ".github/workflows/complete-suite.yml",
-      "size": 1531,
-      "sha256": "400284cda2c1628939e700cc5c6d9678f6114c4c073e4eea132d32bb6c6f160d"
+      "size": 2471,
+      "sha256": "0d18acee62e24b29ba625c26fbcee5f3c6ab6ceddc71977b971ce5aa25f42fca"
     },
     {
       "path": ".github/workflows/arm-services.yml",

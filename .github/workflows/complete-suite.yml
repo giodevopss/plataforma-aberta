@@ -1,12 +1,19 @@
 name: All twelve originals through one complete encrypted product recovery
 on:
   workflow_dispatch:
+    inputs:
+      installer_tag:
+        description: Accepted Windows installer tag; empty runs the source shell
+        type: string
+        default: ''
 permissions:
   contents: read
 jobs:
   complete-suite:
     runs-on: windows-2025
     timeout-minutes: 180
+    env:
+      PA_INTERNAL_INSTALLER_VALIDATION: '1'
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -25,10 +32,23 @@ jobs:
           node scripts/distribution/public-assets.mjs restore
           node scripts/distribution/prepare-electron.mjs
           node scripts/distribution/prepare-public-native.mjs
+      - name: Verify the previously accepted installer and product source ancestry
+        if: inputs.installer_tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PA_ACCEPTED_INSTALLER_TAG: ${{ inputs.installer_tag }}
+        run: node scripts/distribution/restore-tested-installer.mjs "$env:PA_ACCEPTED_INSTALLER_TAG"
+      - name: Install accepted package into this disposable runner
+        if: inputs.installer_tag != ''
+        id: install
+        run: node scripts/distribution/installer-validation.mjs install
       - name: Original workflows, one private WSL, twelve providers and unified activation
         env:
           PA_OWN_VM_ACCEPTANCE: '1'
         run: node suite/tests/complete-suite-cloud.mjs
+      - name: Uninstall only this recorded internal package
+        if: always() && steps.install.outcome == 'success'
+        run: node scripts/distribution/installer-validation.mjs uninstall
       - name: Preserve only the small public synthetic acceptance report
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
