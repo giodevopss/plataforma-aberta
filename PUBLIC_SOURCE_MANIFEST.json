@@ -1504,13 +1504,13 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 11617,
-      "sha256": "e769adf45aebb70b6561dc5cf4bced3c831dbbd11ace70fc139efefce7274dc2"
+      "size": 11545,
+      "sha256": "ad461ed45f0c28b56f2f71b1442f25985ce9023e26bb7ef290445a3a29a81183"
     },
     {
       "path": ".github/workflows/native-providers.yml",
-      "size": 2471,
-      "sha256": "ba0279f88627c1a77e4a5f7ae46f37b6024e459df1bcd884177004adb25b2e3c"
+      "size": 2723,
+      "sha256": "a58c1b754816a27f26b9dbc9e9e166a7b77b76803cf0b752096a066a851dbd51"
     },
     {
       "path": ".github/workflows/complete-suite.yml",

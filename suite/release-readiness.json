@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-10-18T23:27:59.491Z",
+  "checked_at": "2026-10-18T23:30:11.400Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
     "presenton": {
       "acceptance": "pending",
-      "status": "Actual owned local Qwen3/Ollama generation produces editable two-slide PPTX and original frontend now sees valid local-provider settings. Original writes replace private configuration as Linux root; host access/snapshot issue found in 39173717031. Existing live settings now remain unread by host; stopped data snapshots materialize inside original Linux image without weakening source permissions. Fresh complete generation/native/cold recovery rerun 39174965305 pending."
+      "status": "Complete original Presenton passed actual owned Qwen3/Ollama inference, local account, valid original frontend provider settings, editable two-slide PPTX, attached native editor/restart, encrypted independent cold database/assets/model recovery, identical recovered PPTX and fresh inference after deleting source model in 39174965305. Combined twelve-provider and ARM model acceptance remain pending."
     },
     "openwhispr": {
       "acceptance": "pending",

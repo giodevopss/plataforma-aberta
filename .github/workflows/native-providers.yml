@@ -2,6 +2,10 @@ name: Both original editors voice and video through one native product recovery
 on:
   workflow_dispatch:
     inputs:
+      native_target:
+        type: choice
+        default: all
+        options: [all, macs, windows]
       installer_run_id:
         description: Accepted installer run ID; empty runs the source shell
         type: string
@@ -15,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [macos-15, macos-15-intel, windows-2025]
+        runner: ${{ fromJSON(inputs.native_target == 'macs' && '["macos-15","macos-15-intel"]' || inputs.native_target == 'windows' && '["windows-2025"]' || '["macos-15","macos-15-intel","windows-2025"]') }}
     env:
       PA_INTERNAL_INSTALLER_VALIDATION: '1'
     steps:
