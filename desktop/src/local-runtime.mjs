@@ -180,6 +180,7 @@ export class LocalRuntime {
     // as a small authenticated gateway with no additional image download.
     const config=gatewayConfig({token:settings.token,port:settings.port,upstreamPort:spec.port,...(this.verificationMode?{listenPort:settings.port}:{})});const nginxFile=path.join(dir,'gateway.conf');fs.writeFileSync(nginxFile,config,{mode:0o644});fs.chmodSync(nginxFile,0o644);
     const gatewayHash=crypto.createHash('sha256').update(spec.image+config).digest('hex');
+    this.verificationHelpers?.add(prefix+'-gateway-config-check');
     await this.run(['run','--rm','--name',prefix+'-gateway-config-check','--label',OWNER+'='+this.identity.id,'--network','none','--user','65534:65534','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,size=64m','--cap-drop','ALL','--mount',`type=bind,source=${nginxFile},target=/etc/pa-gateway.conf,readonly`,'--entrypoint','nginx',spec.image,'-c','/etc/pa-gateway.conf','-t']);
     await this.container(prefix+'-gateway',['--network',network,...(this.verificationMode?['--dns','127.0.0.1']:['--publish',`127.0.0.1:${settings.port}:8080`]),'--user','65534:65534','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,size=64m','--memory','128m','--cap-drop','ALL','--security-opt','no-new-privileges:true','--mount',`type=bind,source=${nginxFile},target=/etc/pa-gateway.conf,readonly`,'--entrypoint','nginx',spec.image,'-c','/etc/pa-gateway.conf','-g','daemon off;'],gatewayHash,{ephemeralGateway:true});
     this.started.add(id);

@@ -152,7 +152,23 @@ if(acquired)app.whenReady().then(async()=>{
   if(qa)globalThis.__suiteRecoveryQA={recovery,profiles,activeProfile};
   ipcMain.handle('suite:backup-unified',async(event,value)=>{trusted(event);const passphrase=value?.passphrase;if(typeof passphrase!=='string'||passphrase.length<12||passphrase.length>1024)throw Error('Use uma senha com pelo menos 12 caracteres.');const result=await dialog.showSaveDialog(win,{title:'Salvar backup criptografado da suíte',defaultPath:'Plataforma-Aberta-'+new Date().toISOString().slice(0,10)+'.pasuite',filters:[{name:'Backup criptografado da suíte',extensions:['pasuite']}]});if(result.canceled)return {canceled:true};const saved=await recovery.save({destination:result.filePath,passphrase});return {saved:true,name:path.basename(result.filePath),size:saved.bytes};});
   ipcMain.handle('suite:restore-unified',async(event,value)=>{trusted(event);const passphrase=value?.passphrase;if(typeof passphrase!=='string'||passphrase.length<12||passphrase.length>1024)throw Error('Use a senha do backup.');const result=await dialog.showOpenDialog(win,{title:'Verificar restauração independente da suíte',properties:['openFile'],filters:[{name:'Backup criptografado da suíte',extensions:['pasuite']}]});if(result.canceled)return {canceled:true};return recovery.prepare({source:result.filePaths[0],passphrase});});
-  ipcMain.handle('suite:activate-profile',async(event,id)=>{trusted(event);if(recovery.busy)throw Error('Aguarde a operação de recuperação.');const result=await dialog.showMessageBox(win,{type:'question',buttons:['Cancelar','Usar restauração e reiniciar'],defaultId:0,cancelId:0,message:'Ativar o perfil restaurado e verificado?',detail:'O perfil atual será preservado. Se a primeira inicialização falhar, a suíte retorna ao anterior.'});if(result.response!==1)return {canceled:true};if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))throw Error('O editor não confirmou o salvamento.');await closeManagedViews();await win.webContents.executeJavaScript('window.paDesktopSuspendForBackup?.()');await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();await runtime.close();await runtimeHost?.stop();await qaGuest?.release();recovery.activate(id);closing=true;await service.close();app.relaunch();app.exit(0);return {activated:true};});
+  ipcMain.handle('suite:activate-profile',async(event,id)=>{
+    trusted(event);if(recovery.busy)throw Error('Aguarde a operação de recuperação.');
+    const result=await dialog.showMessageBox(win,{type:'question',buttons:['Cancelar','Usar restauração e reiniciar'],defaultId:0,cancelId:0,message:'Ativar o perfil restaurado e verificado?',detail:'O perfil atual será preservado. Se a primeira inicialização falhar, a suíte retorna ao anterior.'});if(result.response!==1)return {canceled:true};
+    if(recovery.busy)throw Error('Aguarde a operação de recuperação.');
+    recovery.busy=true;recovery.allowNavigation=false;const frozen=[];let state;
+    try{
+      for(const manager of [native,screenityNative]){await manager.freeze();frozen.push(manager);}
+      if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))throw Error('O editor não confirmou o salvamento.');
+      await closeManagedViews();state=await win.webContents.executeJavaScript('window.paDesktopSuspendForBackup?.()');
+      await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();await runtime.close();await runtimeHost?.stop();await qaGuest?.release();
+      profiles.activate(id,{expectedActive:activeProfile.id});await service.close();closing=true;app.relaunch();app.exit(0);return {activated:true};
+    }finally{
+      recovery.busy=false;recovery.allowNavigation=true;
+      for(const manager of frozen.reverse())await manager.resume();
+      if(!closing&&state!==undefined)await win.webContents.executeJavaScript('window.paDesktopResumeAfterBackup('+JSON.stringify(state)+')');
+    }
+  });
   ipcMain.handle('suite:backup',event=>{trusted(event);return saveBackup();});
   ipcMain.handle('suite:restore',event=>{trusted(event);return restoreBackup();});
   ipcMain.handle('suite:folder',event=>{trusted(event);return shell.openPath(directory);});

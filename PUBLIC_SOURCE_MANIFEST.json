@@ -109,13 +109,13 @@
     },
     {
       "path": "desktop/src/local-runtime.mjs",
-      "size": 17458,
-      "sha256": "ff0612a623abc6c389a5de016f0aeda9dc05d71504c483b48b4be6590febbfa2"
+      "size": 17525,
+      "sha256": "1bf7011c60b3d28d11a060e52d9f36f83d267f5728ecf0c57f5c99f38e597e9f"
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 22149,
-      "sha256": "bbc1e1f86478e0c6c2cf706475c4f950059722f2f52741fdf1a0bc6b4ab79c56"
+      "size": 22782,
+      "sha256": "190e7db8845c88143dddc192165541f813668811de3d9a5c627fd244225cf9ca"
     },
     {
       "path": "desktop/src/managed-browser-snapshots.mjs",
@@ -1209,8 +1209,8 @@
     },
     {
       "path": "suite/tests/verification-network-cloud.mjs",
-      "size": 4182,
-      "sha256": "cffea5848f91d0ec1d45790b130ef5a74c401ad841b14b74a3af745a777badc7"
+      "size": 4203,
+      "sha256": "f33f3b38f74cf8a40cff2c67369e46afc6917c32ce4ceed1906dcbe013af15d9"
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
@@ -1464,8 +1464,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 9529,
-      "sha256": "742dcdb98bf9376724e5b10513aa70305c2f845d14c462b4eede332ce604df7e"
+      "size": 10056,
+      "sha256": "734c224e4a95808d10ab40ed646f7f7d508dd76687ba79aadbe9e18e4a685fd8"
     },
     {
       "path": ".github/workflows/verification-network.yml",
