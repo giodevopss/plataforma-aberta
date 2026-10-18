@@ -43,6 +43,11 @@
       "sha256": "e112a646a5b1771f61b36938849a57ee83d325ce5bbb5f35ccd14eb491d60b0b"
     },
     {
+      "path": "desktop/src/extension-integrity.mjs",
+      "size": 985,
+      "sha256": "1d7ef7322078a1e960324234d5dc9be98c0284ab2d1c2e82401ad32e71878af5"
+    },
+    {
       "path": "desktop/src/formbricks-profile.json",
       "size": 17385,
       "sha256": "d99d3a9640d9f392c843e251f2d37594019ccd5fb20a70988171dcb7e18f3ca0"
@@ -219,8 +224,8 @@
     },
     {
       "path": "desktop/src/wsl-installer.mjs",
-      "size": 12130,
-      "sha256": "1c7f162a9d56512026ae333706a8494af68a97165d4085c45cc4e7fff3810fef"
+      "size": 12329,
+      "sha256": "9bf1fceaf15772af31e3ba79389ddfd38da48f6aa7546cf9dc81f9fa177ef6f4"
     },
     {
       "path": "desktop/renderer/app.mjs",
@@ -359,8 +364,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 8668,
-      "sha256": "7bf29d698a3f6cfabea485a9a0a1b6b1986407c8e8c1ccb57561bd6ce71782b8"
+      "size": 8692,
+      "sha256": "411217ddd51adcd89d2718f724fa90c28e1c9f4f1b4a4195ca59fda45e562ccd"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -371,6 +376,11 @@
       "path": "desktop/tests/electron-profile-probe.cjs",
       "size": 126,
       "sha256": "20ab57de8c18a3e467abfc6b507c15d730edead02434fcfe2931dd50dd31303e"
+    },
+    {
+      "path": "desktop/tests/extension-integrity.test.mjs",
+      "size": 1351,
+      "sha256": "04bb9eb9032dff2e9815f22ffaf0df968dd67e2b9c79bb41bac5dce9a9bb68b0"
     },
     {
       "path": "desktop/tests/graphite-flush.test.mjs",
@@ -924,8 +934,8 @@
     },
     {
       "path": "scripts/distribution/restore-upstream.mjs",
-      "size": 1160,
-      "sha256": "7e0dbde6366cce75a831a13c76cc9435d7dadd986ebf99c2b0261f6c24c1f306"
+      "size": 1216,
+      "sha256": "82aac13c2b70851bfce694b9cacb54597936569f7956499a7cf162a418f55170"
     },
     {
       "path": "scripts/distribution/prepare-graphite-icons.mjs",
@@ -944,8 +954,8 @@
     },
     {
       "path": "scripts/distribution/prepare-public-native.mjs",
-      "size": 2939,
-      "sha256": "f005e52f068581b94264f670920d06f2895cdaec42eb628dc6e3121e3582cfb1"
+      "size": 3748,
+      "sha256": "345a43083fc0dd6fcf592ad128be617365d1b0e8ddf1d08712b51482acd4c7bc"
     },
     {
       "path": "scripts/distribution/prepare-screenity-projects.mjs",
@@ -969,8 +979,8 @@
     },
     {
       "path": "scripts/distribution/installer-validation.mjs",
-      "size": 5038,
-      "sha256": "25685f59c528848ea5abb64f9bbbdad5666405111394a1863cdc260f2881f9dc"
+      "size": 5043,
+      "sha256": "e62dc045a1afbaa8a691fc9e7e60a6ba0873f0905a3eb1678a7b22f79a5f7db3"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -999,13 +1009,13 @@
     },
     {
       "path": "scripts/distribution/publish-public-installer.mjs",
-      "size": 2253,
-      "sha256": "68bfe384cb441e48b180dd94943d83f6983d13fe55674b0c92eb1c89ef8c94b3"
+      "size": 2552,
+      "sha256": "cf09feeec4c2c8945dfc764ff729f354723f3847810ca05b3541d66be1b7b4e8"
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15065,
-      "sha256": "bb00833484f76ac9e5ca7168f6bcd65eb993d3b96e23f32ae0721231a526b0af"
+      "size": 15118,
+      "sha256": "986a4e719a1db5ffb35834679f16e23f4204f5042f3615b80900396bf370ac13"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1021,6 +1031,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/openwhispr-recovery-native.mjs",
+      "size": 9928,
+      "sha256": "5c2441161276dbeef14c6afd2ae946258fab410d5d3f8b4b438b538630adecd9"
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
@@ -1230,7 +1245,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 7113,
-      "sha256": "c69d8e068facfc4a645cf552c76a9d261ef094d5b6645b8bcc961ad442eeb4d0"
+      "sha256": "d5d9db5bdeec7cc7b71c1f127918c6a642176f520fdb8f70ecfdc1a398e290d3"
+    },
+    {
+      "path": ".github/workflows/native-voice-recovery.yml",
+      "size": 1192,
+      "sha256": "9495c0569ef1f0f46fbcad88b21307d93665773b2f57c66ac48aa76910d1efd5"
     },
     {
       "path": ".github/workflows/managed-runtime-windows.yml",
@@ -1264,8 +1284,8 @@
     },
     {
       "path": ".github/workflows/installer-validation.yml",
-      "size": 2737,
-      "sha256": "b029193c6b4eb52a8dfb52c7c86059a20daf7f848aeccbc2966ff1ebd1c22216"
+      "size": 3243,
+      "sha256": "75c181e7608d066ca813e235bf9756bca9b8297f844593a19401ac01a834567b"
     },
     {
       "path": ".github/workflows/public-engines.yml",
