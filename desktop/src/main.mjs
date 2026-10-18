@@ -156,9 +156,17 @@ if(acquired)app.whenReady().then(async()=>{
   ipcMain.handle('suite:backup',event=>{trusted(event);return saveBackup();});
   ipcMain.handle('suite:restore',event=>{trusted(event);return restoreBackup();});
   ipcMain.handle('suite:folder',event=>{trusted(event);return shell.openPath(directory);});
-  ipcMain.handle('suite:licenses',event=>{trusted(event);win.loadURL(service.origin+'/?view=licenses');});
+  ipcMain.handle('suite:licenses',event=>{trusted(event);win.webContents.send('suite:command','licenses');});
+  const reloadSuite=async()=>{
+    if(recovery.busy||runtimeHost?.pending)throw Error('Aguarde a operação local antes de recarregar a suíte.');
+    if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return;
+    await closeManagedViews();
+    const state=await win.webContents.executeJavaScript('window.paDesktopSuspendForBackup()');
+    try{await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();win.webContents.reload();}
+    catch(error){await win.webContents.executeJavaScript('window.paDesktopResumeAfterBackup('+JSON.stringify(state)+')');throw error;}
+  };
   const command=id=>win.webContents.send('suite:command',id);
-  const menu=[...(process.platform==='darwin'?[{label:app.name,submenu:[{role:'about'},{type:'separator'},{role:'hide'},{role:'hideOthers'},{role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'Arquivo',submenu:[{label:'Início',accelerator:'CmdOrCtrl+Shift+H',click:()=>command('home')},{label:'Buscar ferramenta',accelerator:'CmdOrCtrl+K',click:()=>command('search')},{type:'separator'},{label:'Exportar quadros Excalidraw…',click:()=>saveBackup().catch(e=>dialog.showErrorBox('Backup',e.message))},{label:'Restaurar espaço…',click:()=>restoreBackup().catch(e=>dialog.showErrorBox('Restauração',e.message))},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]},{role:'editMenu',label:'Editar'},{label:'Visualizar',submenu:[{role:'reload'},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]},{label:'Ajuda',submenu:[{label:'Configurações e diagnóstico',click:()=>command('settings')},{label:'Licenças e componentes',click:()=>command('licenses')}]}];
+  const menu=[...(process.platform==='darwin'?[{label:app.name,submenu:[{role:'about'},{type:'separator'},{role:'hide'},{role:'hideOthers'},{role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'Arquivo',submenu:[{label:'Início',accelerator:'CmdOrCtrl+Shift+H',click:()=>command('home')},{label:'Buscar ferramenta',accelerator:'CmdOrCtrl+K',click:()=>command('search')},{type:'separator'},{label:'Exportar quadros Excalidraw…',click:()=>saveBackup().catch(e=>dialog.showErrorBox('Backup',e.message))},{label:'Restaurar espaço…',click:()=>restoreBackup().catch(e=>dialog.showErrorBox('Restauração',e.message))},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]},{role:'editMenu',label:'Editar'},{label:'Visualizar',submenu:[{label:'Recarregar suíte',accelerator:'CmdOrCtrl+R',click:()=>reloadSuite().catch(error=>dialog.showErrorBox('Recarregar suíte',error.message))},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]},{label:'Ajuda',submenu:[{label:'Configurações e diagnóstico',click:()=>command('settings')},{label:'Licenças e componentes',click:()=>command('licenses')}]}];
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
   await win.loadURL(service.origin+'/');win.show();
 }).catch(e=>{dialog.showErrorBox('Não foi possível iniciar a suíte',e.message);app.quit();});

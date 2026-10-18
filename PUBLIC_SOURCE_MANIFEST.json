@@ -114,8 +114,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 21062,
-      "sha256": "f5b1e514262f1be613a07aa25213ae3c0d851db072df50f7e3aae669e9fcc5f5"
+      "size": 21823,
+      "sha256": "3adbc6840cf186da4d7cb82c5065118ce4888d64a699f01fdd2a65bbfc36359b"
     },
     {
       "path": "desktop/src/managed-browser-snapshots.mjs",
@@ -1244,8 +1244,8 @@
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
-      "size": 8160,
-      "sha256": "cda722e3fe8944205bf9ef45714a036eb8ab7f987614ec9d4a27a9b3b21328b3"
+      "size": 9026,
+      "sha256": "8686c3a785623c5c49f4591b87b7b3a341a37c6168a8fe91c7754f3bcb7ea1ca"
     },
     {
       "path": "suite/tests/browser-storage-native.mjs",
@@ -1445,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "9e49ad07571e4b75e457c7d678f574d4ab168ba9489aac7d41e6f174dd3d7b82"
+      "sha256": "e36e57854ba50cf7642ef1b4201e547977cc624315b3eb438a1a7d0fc21c9abd"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
