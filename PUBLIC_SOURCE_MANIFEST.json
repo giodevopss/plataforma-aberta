@@ -114,8 +114,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 20502,
-      "sha256": "711f145f0358ef2a0bcc28a73322229934b62c748d31bd8493131229dbc36130"
+      "size": 20727,
+      "sha256": "984a7e1c44ae19098906bf6c8dcac921c26a2f03982342fb64911b22b2e9ba18"
     },
     {
       "path": "desktop/src/managed-browser-snapshots.mjs",
@@ -1410,7 +1410,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "5d54ccd8c6a28462913b87f856aea3811dd2162a6dcb6214a8796730285ae92a"
+      "sha256": "5495d233c6f3cb314a3db569b1a78f5cfa6d1bd6b08f2bbe67fe9eda25cec288"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",

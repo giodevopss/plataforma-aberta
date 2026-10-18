@@ -47,8 +47,10 @@ if(acquired)app.whenReady().then(async()=>{
   if(!qa)runtimeHost=createPrivateRuntime({applicationDirectory:profiles.root,homeDirectory:app.getPath('home'),onStatus:runtimeStatus});
   qaGuest=qa&&process.env.PA_DESKTOP_TEST_GUEST_CONFIG?borrowedQAGuest(process.env.PA_DESKTOP_TEST_GUEST_CONFIG,{specs:completeApps,onStatus:runtimeStatus}):null;
   const createRuntime=runtimeDirectory=>{
-    if(qaGuest)return qaGuest.create(runtimeDirectory);
-    const requested=path.resolve(runtimeDirectory),parent=path.dirname(requested),profileId=parent===path.resolve(profiles.root)?'legacy':path.basename(parent);
+    const requested=path.resolve(runtimeDirectory),parent=path.dirname(requested);
+    if(qaGuest&&parent===qaGuest.host.profiles)return qaGuest.create(requested);
+    const profileId=parent===path.resolve(profiles.root)?'legacy':path.basename(parent);
+    if(qaGuest){if(path.resolve(profiles.directory(profileId))!==parent)throw Error('Destino de QA fora dos perfis da suíte.');return qaGuest.host.create({profileId,specs:completeApps});}
     if(!qa&&path.resolve(profiles.directory(profileId))!==parent)throw Error('Destino dos serviços não pertence a um perfil da suíte.');
     const legacy=completeApps.some(spec=>fs.existsSync(path.join(requested,spec.id,'runtime.json')));
     if(runtimeHost&&!legacy)return runtimeHost.create({profileId,specs:completeApps});
