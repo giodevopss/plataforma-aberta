@@ -134,8 +134,8 @@
     },
     {
       "path": "desktop/src/managed-storage-bridge.mjs",
-      "size": 3064,
-      "sha256": "b28727fd0c0470a42d55cf2445a87619e9c27dfb3b46a74cd1e0999fefa07522"
+      "size": 3505,
+      "sha256": "88f494539af819f34d226f2e08476bd135616f4d94ad1f39e6a2fda8fa6d993e"
     },
     {
       "path": "desktop/src/module-partition.mjs",
@@ -1159,8 +1159,8 @@
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
-      "size": 5994,
-      "sha256": "f5ff562bec7dd034f59138832ea673e3b3f972e25c53c1145f88bc66abd8b78b"
+      "size": 6229,
+      "sha256": "e6eb44cc72f2f1a3feacf9aa2d8c82bb8cead90e7a948718043a60b8891505e2"
     },
     {
       "path": "suite/tests/automation-cloud.mjs",
@@ -1400,7 +1400,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "2ed756ecbc39458b66c638d912153bcab1c46d5f5c6be5ef02c71a413304a3a8"
+      "sha256": "d16c6fc978c296ded211883c4af95d574e8c0afac364af975000e55387ec1bbc"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",
