@@ -24,8 +24,8 @@
     },
     {
       "path": "desktop/src/close-browser-writers.mjs",
-      "size": 1145,
-      "sha256": "2e3fb1c64e49239e89ee843c175e55b3de5c2650c3705b34d5f13f8e82110e02"
+      "size": 1620,
+      "sha256": "4e337bc21f40c7547e0ad9b20cfb0a9a4837b9722acbd2ab39887d8f029961fd"
     },
     {
       "path": "desktop/src/complete-runtime.mjs",
@@ -419,8 +419,8 @@
     },
     {
       "path": "desktop/tests/close-browser-writers.test.mjs",
-      "size": 1272,
-      "sha256": "85999ed2f9cfd82ec0040bd096d9cd7ac828bbd697b22cb62d3fba2052de24d9"
+      "size": 1576,
+      "sha256": "0e408deb94fab7ab68f014ed29cae55b2812e6104f7155b840968d10f053ebe5"
     },
     {
       "path": "desktop/tests/connections.test.mjs",
@@ -1199,8 +1199,8 @@
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
-      "size": 9953,
-      "sha256": "e95a0f71640785096ab459fd24fbb241caf59faf043bdcc1fe3357e56efa0c10"
+      "size": 12169,
+      "sha256": "32163f63bca85ca4720f2fa39d7c511915f0cfcd144f4565d361a955fe47e147"
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
@@ -1445,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "a9559e3d967856a19bec8a2cde20680b8f7fbd5b4981ca08efa05fa44e88e60c"
+      "sha256": "07c1fe301ae969b364ee32ce7bf6438c0ce800f65f5470c13ecc0879ef11b602"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
