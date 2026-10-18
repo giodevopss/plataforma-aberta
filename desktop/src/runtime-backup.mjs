@@ -13,8 +13,12 @@ export class RuntimeBackup {
   for(const id of this.runtime.specs.keys()){
    const dir=path.join(this.runtime.directory,id),file=path.join(dir,'compose.json');if(!fs.existsSync(path.join(dir,'runtime.json')))continue;
    if(this.runtime.specs.get(id).compose){
-    if(!fs.existsSync(file))continue;
-    const compose=JSON.parse(fs.readFileSync(file));await this.runtime.checkStackOwnership(id);
+    const materialized=fs.existsSync(file);
+    const compose=materialized?JSON.parse(fs.readFileSync(file)):this.runtime.serverDefinition(id,JSON.parse(fs.readFileSync(path.join(dir,'runtime.json'))),'a'.repeat(64)).compose;
+    await this.runtime.checkStackOwnership(id,undefined,{compose});
+    // A pristine restored candidate has volumes but no generated startup files.
+    // Include it in subsequent backups without starting any of its workers.
+    if(!materialized)for(const service of Object.values(compose.services))if((await this.runtime.owned('container',service.container_name))?.State.Running)throw Error('Há serviços ativos sem configuração de inicialização; preserve os dados e encerre-os antes do backup.');
     result.push({id,compose,containers:Object.values(compose.services).map(s=>s.container_name),volumes:Object.entries(compose.volumes||{}).map(([key,value])=>({key,name:value.name}))});
    }else result.push({id,containers:[...(this.runtime.specs.get(id).localAI?['ollama']:[]),'application','gateway'].map(s=>'pa-'+this.runtime.identity.id+'-'+id+'-'+s),volumes:[]});
   }
@@ -65,6 +69,7 @@ export class RuntimeBackup {
    const source=path.join(this.runtime.directory,item.id);const target=path.join(destination,'applications',item.id);
    await fsp.mkdir(path.dirname(target),{recursive:true,mode:0o700});
    await copyPortableTree(source,target);
+   if(item.compose&&!fs.existsSync(path.join(target,'compose.json')))await fsp.writeFile(path.join(target,'compose.json'),JSON.stringify(item.compose)+'\n',{mode:0o600,flag:'wx'});
    for(const volume of item.volumes){
     const filename=item.id+'-'+volume.key.replaceAll('_','-')+'.tar.gz';const archive=path.join(destination,'volumes',filename);
     await this.withVolume({name:volume.name,archive,mode:'export'});await validateTar(archive,{volumeRoot:true});

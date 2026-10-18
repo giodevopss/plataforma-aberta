@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import net from 'node:net';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
+import {preparePresentonConfiguration} from './presenton-configuration.mjs';
 import {enableVerification,verificationHealth,destroyVerification,isolatedGateway} from './verification-runtime.mjs';
 import {startLocalAI} from './local-ai.mjs';
 const imageSizes=JSON.parse(fs.readFileSync(fileURLToPath(new URL('./image-sizes.json',import.meta.url))));
@@ -173,6 +174,7 @@ export class LocalRuntime {
       const materialized=path.join(patchDirectory,digest+path.extname(patch.source));fs.writeFileSync(materialized,fs.readFileSync(patch.source),{mode:0o644});
       return {...patch,source:materialized};
     });
+    if(spec.id==='presenton')await preparePresentonConfiguration(this,{directory:dir,prefix,envFile,image:spec.image});
     const hash=crypto.createHash('sha256').update(JSON.stringify({image:spec.image,environment:env,volumes:spec.volumes,memoryMB:spec.memoryMB,localAI:spec.localAI?{image:spec.localAI.engine.image,model:spec.localAI.manifestSHA256}:undefined,patches:patches.map(({target,sha256})=>({target,sha256}))})).digest('hex');
     this.setStatus(id,'starting','Iniciando aplicativo completo…');
     await this.container(prefix+'-application',['--network',network,...(this.verificationMode?['--dns','127.0.0.1','--cap-drop','NET_RAW','--cap-drop','NET_ADMIN','--cap-drop','SYS_ADMIN']:[]),'--network-alias','application','--memory',spec.memoryMB+'m','--cpus','2','--env-file',envFile,...mounts,...patches.flatMap(p=>['--mount',`type=bind,source=${p.source},target=${p.target},readonly`]),spec.image],hash);

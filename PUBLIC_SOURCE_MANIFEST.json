@@ -109,8 +109,8 @@
     },
     {
       "path": "desktop/src/local-runtime.mjs",
-      "size": 17525,
-      "sha256": "1bf7011c60b3d28d11a060e52d9f36f83d267f5728ecf0c57f5c99f38e597e9f"
+      "size": 17722,
+      "sha256": "c8612b834d6526d32440ab9a7d16c22a28ad7482ba3a9f0432f666240b8cc43c"
     },
     {
       "path": "desktop/src/main.mjs",
@@ -188,6 +188,11 @@
       "sha256": "eb435f51bc8c75d62e9ae02b1ff6e1e4dfcba3e6ff02278d51488ff731c89327"
     },
     {
+      "path": "desktop/src/presenton-configuration.mjs",
+      "size": 2868,
+      "sha256": "569ffac62a5a0f36220e446be2e100f9628d4cde587f2d3666bfff9a158bab93"
+    },
+    {
       "path": "desktop/src/private-runtime.mjs",
       "size": 2473,
       "sha256": "12956c69cc5546ad4abd50cf0976a732c31b91c6228df57e070850195deebb9c"
@@ -219,8 +224,8 @@
     },
     {
       "path": "desktop/src/runtime-backup.mjs",
-      "size": 10727,
-      "sha256": "078ae60e7d21b983e5bff7b3399ae9d3ca542577b046935627723d9771e885b2"
+      "size": 11505,
+      "sha256": "452e6109625a126f3b186702b85130888c5aadfe9064248c3c42885c3020ac98"
     },
     {
       "path": "desktop/src/screenity-browser-assets.json",
@@ -528,6 +533,11 @@
       "sha256": "9c5dc6aaad22d46b441f1f26eaa6e62898c18d0b76eae0b57888fa9c164e5988"
     },
     {
+      "path": "desktop/tests/presenton-configuration.test.mjs",
+      "size": 1843,
+      "sha256": "83a43ba59e3cee0a3f8d2d7e8c53dd8f3f6e68a629f394f4a8bd982994d7fa84"
+    },
+    {
       "path": "desktop/tests/private-runtime.test.mjs",
       "size": 2526,
       "sha256": "fe44068b30c611bebee0721d608620444fa6f57f4a274d0b9ce9f08c05510a85"
@@ -549,8 +559,8 @@
     },
     {
       "path": "desktop/tests/runtime-backup.test.mjs",
-      "size": 7393,
-      "sha256": "3f0f3bc48bd42b80540b54ac6acf89791958b95b48d4b54397ad4c862a91827d"
+      "size": 9242,
+      "sha256": "4ffbf02e9a207c2c71c57777d6c9173336e2539ac0ad99882c0459fb6ed7f117"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -1249,8 +1259,8 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 9063,
-      "sha256": "0549002ce56898140f6b610b0ea193beed9ade20b24b93be96e91ece6d9b5ba9"
+      "size": 9974,
+      "sha256": "cdd0e3ad11ef0b49b04e61ba2c8fd45f3f69a3b89daf4e88affafd03729a73f2"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1324,8 +1334,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 6043,
-      "sha256": "ee062b6c2ffc19a349f5bc0e60cb3efb0e2a857b33483fad3edbc8daf6851bd9"
+      "size": 6149,
+      "sha256": "2a10f0adbb8449ee9a899a8a78610bffc90e290524424093a18439a626a08194"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1465,7 +1475,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 10056,
-      "sha256": "664d06d463f5157bb8da72ab0fece7d3547006532855d95f272dd1de46a0892d"
+      "sha256": "b9c722437d19c62e8b091032dc69a88b6467f9ee2e57034a629714e26334fc78"
     },
     {
       "path": ".github/workflows/arm-services.yml",
