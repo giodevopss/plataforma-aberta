@@ -38,8 +38,12 @@ try{
  await frame.getByText('Rectangle',{exact:true}).first().waitFor();
  await page.waitForTimeout(1800);await page.screenshot({path:path.join(root,'desktop/research/graphite-'+(packaged?'packaged':'development')+'.png')});
  checks.push('Complete Graphite WebAssembly engine creates an editable rectangle');
- for(const id of ['openwhispr','screenity']){await page.locator('.nav-item[data-view="'+id+'"]').click();await page.getByText('A versão reduzida do laboratório foi retirada da suíte.',{exact:false}).waitFor();assert.equal(await page.locator('#tool').isHidden(),true);}
- checks.push('Reduced research apps are excluded; incomplete integrations are accurately identified');
+ const nativeInfo=await page.evaluate(()=>window.suite.info());if(packaged)assert.deepEqual([...nativeInfo.nativeApplications].sort(),['openwhispr','screenity']);
+ for(const id of ['openwhispr','screenity']){
+  if(nativeInfo.nativeApplications.includes(id)){const executable=await app.evaluate(async(_electron,id)=>{const recovery=globalThis.__suiteRecoveryQA.recovery;return (id==='screenity'?recovery.screenity:recovery.native).executable(id);},id);assert.ok(executable.includes(path.sep+'native'+path.sep+id+path.sep));}
+  else{await page.locator('.nav-item[data-view="'+id+'"]').click();await page.getByText('A versão reduzida do laboratório foi retirada da suíte.',{exact:false}).waitFor();assert.equal(await page.locator('#tool').isHidden(),true);}
+ }
+ checks.push(packaged?'Both complete original native applications ship in the installed package and pass target, source identity and executable integrity verification':'Development shell accurately identifies native components not prepared on this runner');
  const ocr=await page.evaluate(async(bytes)=>{const upload=await fetch('/api/files?project=paperless&name=ocr.png',{method:'POST',headers:{'Content-Type':'image/png'},body:new Uint8Array(bytes)});const f=await upload.json();const r=await fetch('/api/files/extract',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:f.id})});return {status:r.status,...await r.json()};},[...await fs.readFile(path.join(root,'subprojetos/tests/fixtures/ocr.png'))]);assert.equal(ocr.status,200,ocr.error);assert.match(ocr.text,/Plataforma/i);checks.push('Bundled Tesseract performs real image OCR without network model downloads');
  await page.locator('.nav-item[data-view="settings"]').click();await page.locator('#backup').waitFor();await page.locator('#backup').click();const backup=await waitFile(path.join(temp,'workspace.pasuite'));assert.ok(backup.length>1000);checks.push('Native save dialog produces the documented Excalidraw workspace backup');
  await page.locator('.nav-item[data-view="home"]').click();await page.waitForSelector('.tool-card');await page.screenshot({path:path.join(root,'desktop/research/home-'+(packaged?'packaged':'development')+'.png')});

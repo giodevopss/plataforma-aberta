@@ -31,3 +31,8 @@ test('Formbricks private objects preserve signed host/path and share no applicat
  assert.equal(compose.services.gateway.network_mode,'service:formbricks');assert.equal(compose.services.gateway.ports,undefined);assert.equal(compose.services.formbricks.environment.S3_ENDPOINT_URL,'http://127.0.0.1:12345');assert.deepEqual(compose.services.formbricks.ports,['127.0.0.1:12345:12345']);
  assert.equal(compose.services.storage.ports,undefined);assert.equal(compose.services.formbricks.depends_on['storage-init'].condition,'service_completed_successfully');assert.ok(compose.volumes.object_data.name.startsWith('pa-'+owner));assert.match(config,/location ~ \^\/plataforma-files/);assert.match(config,/proxy_set_header Host \$http_host/);
 });
+
+test('Formbricks response decryption and Better Auth share the persistent generated secret on the app and migrator',()=>{
+ const owner='a'.repeat(24),{compose}=createServerStack('formbricks',{...credentials,owner,prefix:'pa-'+owner+'-formbricks',port:12345,specHash:'c'.repeat(64)});let configured=0;
+ for(const service of Object.values(compose.services))if(service.environment?.BETTER_AUTH_SECRET){configured++;assert.equal(service.environment.NEXTAUTH_SECRET,credentials.secret);assert.equal(service.environment.NEXTAUTH_SECRET,service.environment.BETTER_AUTH_SECRET);assert.equal(service.environment.NEXTAUTH_URL,'http://127.0.0.1:12345');}assert.ok(configured>=2,'Both migrations and the full original web app need the supported response secret');
+});

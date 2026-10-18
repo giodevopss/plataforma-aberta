@@ -44,8 +44,8 @@
     },
     {
       "path": "desktop/src/formbricks-profile.json",
-      "size": 17341,
-      "sha256": "b0972be3ec391ec5498ab128a17deebf734c10c05a4afb9e46e9a2aa09063eea"
+      "size": 17385,
+      "sha256": "d99d3a9640d9f392c843e251f2d37594019ccd5fb20a70988171dcb7e18f3ca0"
     },
     {
       "path": "desktop/src/graphite-flush-patch.mjs",
@@ -54,8 +54,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 6278,
-      "sha256": "4d947b17c34b5e72016ec573fc436029460b1e0516fa1e097a3b4eecf4929121"
+      "size": 6383,
+      "sha256": "8b3346a31f7f880de3199de4de4b9d6920117f2f4b22148c92616749677d7e9f"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -74,8 +74,8 @@
     },
     {
       "path": "desktop/src/lima-installer.mjs",
-      "size": 10302,
-      "sha256": "539e6aa811a0f9ddf284689250e78c60a689a20c49653463fe290a84597076b9"
+      "size": 10740,
+      "sha256": "f62d82de8492e663d0cad6b8bd90a9b8c21aca4d2ea957953eee4bc8480f5090"
     },
     {
       "path": "desktop/src/local-apps.mjs",
@@ -111,6 +111,11 @@
       "path": "desktop/src/native-archive.mjs",
       "size": 2770,
       "sha256": "b95161fef23ea6f9cbe6ef0a9c8b1314c84093fd9abc73e95a0b8a7e3ee9ea4e"
+    },
+    {
+      "path": "desktop/src/native-component-assets.json",
+      "size": 110326,
+      "sha256": "4a250dbbde61d6fce731450921ef3c1b0f215acd9d71c6d931da370ad20635be"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -334,8 +339,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 8024,
-      "sha256": "1f572d0c8739560cada46c62bcffdc7be8b738815093b59ffb478fbbbd275d00"
+      "size": 8668,
+      "sha256": "7bf29d698a3f6cfabea485a9a0a1b6b1986407c8e8c1ccb57561bd6ce71782b8"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -359,8 +364,8 @@
     },
     {
       "path": "desktop/tests/lima-installer.test.mjs",
-      "size": 3544,
-      "sha256": "572f4d00c481062025bef48320619908ef0ba5f6d88d3196a2da6c94bc47377f"
+      "size": 4185,
+      "sha256": "5a6a094409424a8b04d3ca8f80c954524a620f556c25c578a2fd25fa7e99f24d"
     },
     {
       "path": "desktop/tests/local-runtime.test.mjs",
@@ -419,8 +424,8 @@
     },
     {
       "path": "desktop/tests/server-stacks.test.mjs",
-      "size": 4850,
-      "sha256": "a9364a723d213b71119d654eb2f674fb00853b49dc0537b191c642a791db6647"
+      "size": 5607,
+      "sha256": "d5388e631109204964d928a48bbabeeae5da53b3777ce4ecb2b8022dddcae771"
     },
     {
       "path": "desktop/tests/service.test.mjs",
@@ -903,6 +908,11 @@
       "sha256": "fb1732d3ed3bf6189808d1f384f04f5b2936767c9b695d00bec55db9ada78be4"
     },
     {
+      "path": "scripts/distribution/prepare-public-native.mjs",
+      "size": 2939,
+      "sha256": "f005e52f068581b94264f670920d06f2895cdaec42eb628dc6e3121e3582cfb1"
+    },
+    {
       "path": "scripts/distribution/prepare-screenity-projects.mjs",
       "size": 2954,
       "sha256": "1ab97be73ae83b4e55da5cb4932fa16c04c4bacab9099bc0c148783e43a061ad"
@@ -949,8 +959,8 @@
     },
     {
       "path": "scripts/distribution/publish-public-screenity.mjs",
-      "size": 2599,
-      "sha256": "52356bbef69f242efe6e9ed6b4686d828cbf711ff1f51e4e759370fc5f7ce6a0"
+      "size": 2589,
+      "sha256": "5208ee860820d7dee1137aa9260ad167bc5fa1abc43ee955dd90fe9da7e0c07c"
     },
     {
       "path": "scripts/distribution/publish-public-installer.mjs",
@@ -959,8 +969,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 14636,
-      "sha256": "abbfd3571a4d8ee1f14911bba5d2a2ea0a46709f86bb4fc6e1231c9eb506bd6f"
+      "size": 15014,
+      "sha256": "ba0e7f666169c9bb1b31716b21ed1bdb279d957ddc542d13412bb8b6021a41e0"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -979,8 +989,8 @@
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
-      "size": 8080,
-      "sha256": "1f6a36a7b219d86e6382fe4b0cb09bc341fc83c7ce743abbc992f22f40daddd7"
+      "size": 8160,
+      "sha256": "cda722e3fe8944205bf9ef45714a036eb8ab7f987614ec9d4a27a9b3b21328b3"
     },
     {
       "path": "suite/tests/browser-storage-native.mjs",
@@ -1180,7 +1190,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "5c08297a3d05cb9e4b251b28a1f211238b6b26e36c46799dccd4368063586966"
+      "sha256": "7ed97ae7fb4e9c807ba9456e516dcd3e20705f84b74a9f330e49f32343f82b83"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1209,8 +1219,8 @@
     },
     {
       "path": ".github/workflows/installer-validation.yml",
-      "size": 2479,
-      "sha256": "ebf5754966f9cf170d20f7cb1a425d5c1bf7ce01bd9101d8ae8a81e280a892a9"
+      "size": 2737,
+      "sha256": "b029193c6b4eb52a8dfb52c7c86059a20daf7f848aeccbc2966ff1ebd1c22216"
     },
     {
       "path": ".github/workflows/public-engines.yml",
