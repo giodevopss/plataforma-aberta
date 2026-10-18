@@ -88,21 +88,21 @@ if(acquired)app.whenReady().then(async()=>{
   const hideModule=()=>{openGeneration++;if(remoteView){win.contentView.removeChildView(remoteView);remoteView=null;}};
   closeManagedViews=async()=>{
     hideModule();const ownSessions=new Set(completeApps.map(spec=>session.fromPartition(modulePartition(activeProfile.id,spec.id))));
-    try{await closeBrowserWriters(webContents.getAllWebContents().filter(contents=>!contents.isDestroyed()&&ownSessions.has(contents.session)));}finally{for(const [id,view]of remoteViews)if(view.webContents.isDestroyed())remoteViews.delete(id);}
+    try{await closeBrowserWriters(webContents.getAllWebContents().filter(contents=>!contents.isDestroyed()&&ownSessions.has(contents.session)));}finally{for(const [id,view]of remoteViews)if(!view.webContents||view.webContents.isDestroyed())remoteViews.delete(id);}
     for(const isolated of ownSessions)await isolated.flushStorageData();
   };
   function moduleBounds(){const {width,height}=win.getContentBounds();const left=width<=1150?220:248;return {x:left,y:64,width:width-left,height:height-64};}
   function remoteBounds(){if(remoteView)remoteView.setBounds(moduleBounds());}
   win.on('resize',remoteBounds);
   ipcMain.handle('suite:connections',event=>{trusted(event);return readConnections(configDirectory,ids);});
-  ipcMain.handle('suite:configure',(event,value)=>{trusted(event);const result=saveConnections(configDirectory,value,ids);hideModule();for(const view of remoteViews.values())view.webContents.close();remoteViews.clear();return result;});
+  ipcMain.handle('suite:configure',async(event,value)=>{trusted(event);await closeManagedViews();return saveConnections(configDirectory,value,ids);});
   ipcMain.handle('suite:hide-module',event=>{trusted(event);hideModule();return true;});
   ipcMain.handle('suite:prepare-runtime',async event=>{trusted(event);if(recovery?.busy)throw Error('Aguarde a recuperação atual.');if(!runtimeHost)throw Error('O teste descartável usa um runtime fornecido explicitamente.');
     if(process.platform==='win32'&&!(await runtimeHost.installer.prerequisites()).available){const result=await dialog.showMessageBox(win,{type:'question',buttons:['Cancelar','Ativar WSL2'],defaultId:0,cancelId:0,message:'Preparar o componente Linux do Windows?',detail:'O Windows pode solicitar permissão de administrador e reinicialização. Depois, a suíte cria sua própria distribuição Linux.'});if(result.response!==1)return {canceled:true};return runtimeHost.installer.installPrerequisites();}
     await runtimeHost.connection();return {prepared:true};
   });
   ipcMain.handle('suite:runtime',async event=>{trusted(event);return {engine:await runtime.probe(),managed:Boolean(runtimeHost)&&!runtime.isLegacy,legacy:Boolean(runtime.isLegacy),applications:completeApps.map(spec=>({id:spec.id,...runtime.states.get(spec.id)}))};});
-  ipcMain.handle('suite:stop-module',async(event,id)=>{trusted(event);if(remoteView===remoteViews.get(id))hideModule();const view=remoteViews.get(id);view?.webContents.close();remoteViews.delete(id);await runtime.stop(id);return true;});
+  ipcMain.handle('suite:stop-module',async(event,id)=>{trusted(event);if(remoteView===remoteViews.get(id))hideModule();const view=remoteViews.get(id);if(view?.webContents)await closeBrowserWriters([view.webContents]);remoteViews.delete(id);await runtime.stop(id);return true;});
   ipcMain.handle('suite:open-module',async(event,id)=>{
     trusted(event);if(recovery?.busy)throw Error('Aguarde o backup ou a restauração.');if(!ids.includes(id))throw Error('Ferramenta desconhecida.');
     if(id==='openwhispr'||id==='screenity'){await (id==='screenity'?screenityNative:native).open(id);return {available:true,external:true};}

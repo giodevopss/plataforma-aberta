@@ -114,8 +114,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 20727,
-      "sha256": "984a7e1c44ae19098906bf6c8dcac921c26a2f03982342fb64911b22b2e9ba18"
+      "size": 20701,
+      "sha256": "d03e1ae64ae7b032f1c29b878b8bc7771ed0b16ff737d711032ef6d293f33d34"
     },
     {
       "path": "desktop/src/managed-browser-snapshots.mjs",
@@ -1199,8 +1199,8 @@
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
-      "size": 12169,
-      "sha256": "32163f63bca85ca4720f2fa39d7c511915f0cfcd144f4565d361a955fe47e147"
+      "size": 12137,
+      "sha256": "4712a6fa6370819ac9acdc5523ac322d31ec989941ab211c5d11dcbb85419dc9"
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
@@ -1445,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "d93d40b261d672a013fcc3a12f636e25ecd8db11653f9218b06b510c4b26f879"
+      "sha256": "429d143fd658cc3d2f60edb84e596742fb1f10335fcc963f571dba578354e641"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
