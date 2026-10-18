@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 
 export async function localContext(browser,endpoint){
- const context=await browser.newContext({viewport:{width:1440,height:960},locale:'en-US'});context.paDiagnostics=[];context.on('requestfailed',request=>context.paDiagnostics.push({method:request.method(),url:request.url().split('?')[0],failure:request.failure()?.errorText}));context.on('response',response=>{if(response.status()>=400)context.paDiagnostics.push({method:response.request().method(),url:response.url().split('?')[0],status:response.status()});});
+ const context=await browser.newContext({viewport:{width:1440,height:960},locale:'en-US'});await context.addCookies([{url:endpoint.origin,name:'pa_session',value:endpoint.token,httpOnly:true,sameSite:'Strict'}]);context.paDiagnostics=[];context.on('requestfailed',request=>context.paDiagnostics.push({method:request.method(),url:request.url().split('?')[0],failure:request.failure()?.errorText}));context.on('response',response=>{if(response.status()>=400)context.paDiagnostics.push({method:response.request().method(),url:response.url().split('?')[0],status:response.status()});});
  await context.route('**/*',route=>new URL(route.request().url()).origin===endpoint.origin?route.continue({headers:{...route.request().headers(),'X-PA-Session':endpoint.token}}):route.abort());
  return context;
 }

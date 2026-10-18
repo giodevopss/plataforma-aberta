@@ -5,7 +5,7 @@ on:
       service:
         type: choice
         default: all
-        options: [all, paperless, formbricks, plane, postiz]
+        options: [all, paperless, formbricks, plane, postiz, baserow]
 permissions:
   contents: read
 jobs:
@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        service: ${{ fromJSON(inputs.service == 'paperless' && '["paperless"]' || inputs.service == 'formbricks' && '["formbricks"]' || inputs.service == 'plane' && '["plane"]' || inputs.service == 'postiz' && '["postiz"]' || '["paperless","formbricks","plane","postiz"]') }}
+        service: ${{ fromJSON(inputs.service == 'baserow' && '["baserow"]' || inputs.service == 'paperless' && '["paperless"]' || inputs.service == 'formbricks' && '["formbricks"]' || inputs.service == 'plane' && '["plane"]' || inputs.service == 'postiz' && '["postiz"]' || '["paperless","formbricks","plane","postiz","baserow"]') }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -41,6 +41,7 @@ jobs:
         shell: pwsh
         run: |
           if ('${{ matrix.service }}' -eq 'paperless') { node suite/tests/paperless-cloud.mjs }
+          elseif ('${{ matrix.service }}' -eq 'baserow') { node suite/tests/database-cloud.mjs }
           else { node suite/tests/remaining-services-cloud.mjs '${{ matrix.service }}' }
       - name: Preserve small fresh synthetic evidence only
         if: always()

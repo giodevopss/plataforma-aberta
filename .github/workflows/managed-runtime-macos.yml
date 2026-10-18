@@ -1,6 +1,11 @@
 name: Actual private Mac guest runtime acceptance
 on:
   workflow_dispatch:
+    inputs:
+      native_target:
+        type: choice
+        default: all
+        options: [all, macos-arm, macos-intel]
 permissions:
   contents: read
 jobs:
@@ -10,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [macos-15, macos-15-intel]
+        runner: ${{ fromJSON(inputs.native_target == 'macos-arm' && '["macos-15"]' || inputs.native_target == 'macos-intel' && '["macos-15-intel"]' || '["macos-15","macos-15-intel"]') }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:

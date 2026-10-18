@@ -19,7 +19,7 @@ export async function installLocalModel({directory,model=localModel,download=ver
  const target=path.join(directory,model.manifestPath);
  // Never silently replace a user-selected or newer model under this name.
  if(fs.existsSync(target)&&((await fsp.lstat(target)).isSymbolicLink()||await hashFile(target)!==model.manifestSHA256))throw Error('O modelo instalado difere da versão verificada. Preserve um backup antes da migração.');
- for(const blob of blobs){const destination=path.join(directory,'blobs',blob.digest.replace(':','-'));if(fs.existsSync(destination)&&(await fsp.lstat(destination)).isSymbolicLink())throw Error('Bloco do modelo não pode ser um link.');await download({url:model.registry+blob.digest,sha256:blob.digest.slice(7),size:blob.size,destination,onProgress});}
+ const total=blobs.reduce((sum,blob)=>sum+blob.size,0);let completed=0;for(const blob of blobs){const destination=path.join(directory,'blobs',blob.digest.replace(':','-'));if(fs.existsSync(destination)&&(await fsp.lstat(destination)).isSymbolicLink())throw Error('Bloco do modelo não pode ser um link.');await download({url:model.registry+blob.digest,sha256:blob.digest.slice(7),size:blob.size,destination,onProgress:value=>onProgress({received:completed+value.received,total})});completed+=blob.size;onProgress({received:completed,total});}
  // Commit the usable tag only after every exact blob has been authenticated.
  const temporary=target+'.'+crypto.randomUUID()+'.tmp';await fsp.writeFile(temporary,bytes,{mode:0o600,flag:'wx'});await fsp.rename(temporary,target);
  return {name:model.name,sha256:model.manifestSHA256,bytes:blobs.reduce((sum,item)=>sum+item.size,0)};

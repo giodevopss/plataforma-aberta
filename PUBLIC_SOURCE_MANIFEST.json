@@ -89,8 +89,8 @@
     },
     {
       "path": "desktop/src/local-ai.mjs",
-      "size": 6030,
-      "sha256": "51bcd204a7dbfa3e3f9fe3be50dd3d27af6e0c0b7e8b9f45919ed5d117e38076"
+      "size": 6221,
+      "sha256": "9e94a2639f34a57c7afac1ab20e8be69495049faf195d9ce44921e27d4257508"
     },
     {
       "path": "desktop/src/local-apps.mjs",
@@ -1084,8 +1084,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15226,
-      "sha256": "2e963b4e001006e751d7e4642ea359b726996e309e30ca98cf770afc2cd9dd23"
+      "size": 15285,
+      "sha256": "ea5ebf53e2e1d23d4139452d588299d7b42d40d4c4b4d30c294f6c74d5124c31"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1101,6 +1101,16 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/database-workflow.mjs",
+      "size": 5381,
+      "sha256": "8c6416d94080f69c6f968a66fda8b7b165d98724d9f06a6492a48f1a6782434e"
+    },
+    {
+      "path": "suite/tests/database-cloud.mjs",
+      "size": 3810,
+      "sha256": "3813bc3c6d4365d32c88eaa8742b1abe16efdfb34a823b1bb8f4d0501f5c014f"
     },
     {
       "path": "suite/tests/cloud-service-runtime.mjs",
@@ -1189,8 +1199,8 @@
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
-      "size": 9444,
-      "sha256": "6c5ab95b982b9999734237ea2d360571edc612a523f87a1c29bb4a555202bc62"
+      "size": 9565,
+      "sha256": "42ed0487c2d232b2c3d2b8a52dd9a77a73d7851ace0cb6240ac8c8425c16e8c3"
     },
     {
       "path": "suite/tests/plane-account-workflow.mjs",
@@ -1325,17 +1335,22 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "00f09444ab747b0ded506d9dffdcfe3f402ba04d878a4d63e12e31f51f68b0d8"
+      "sha256": "f3fa205418666d6ea91dbfb9d18523fa96e24847d4f07d9b66e81d5513adcd9e"
+    },
+    {
+      "path": ".github/workflows/database-validation.yml",
+      "size": 1385,
+      "sha256": "d62742e0adabac9905580881a88078b17a10a99af22285c923ec9cbdb3407d99"
     },
     {
       "path": ".github/workflows/managed-runtime-macos.yml",
-      "size": 1262,
-      "sha256": "75b9c8fa0862467b0c37b59da8a5c52e7368f31c467e2edd19f40ab6771c9d34"
+      "size": 1528,
+      "sha256": "1c671d65b1be9787b20088bdf447aa6ff67ce3173205f358383e65f3833b1c49"
     },
     {
       "path": ".github/workflows/windows-services.yml",
-      "size": 2126,
-      "sha256": "e6bfe321cdf5712fff4b2f24f51da6e63a7a3b8eb36e9394a5d306b37fc4731d"
+      "size": 2290,
+      "sha256": "9f3e96e042e4c902fd6457a78c9bad90007880ba434834cf83de6c33844efb95"
     },
     {
       "path": ".github/workflows/presenton-validation.yml",
