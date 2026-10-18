@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-10-18T23:03:31.926Z",
+  "checked_at": "2026-10-18T23:12:58.705Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
     "presenton": {
       "acceptance": "pending",
-      "status": "Owned immutable Ollama/Qwen3 inference generated a real two-slide editable PPTX in 39164793512. Native QA URL bug corrected, non-thinking supported settings enabled and 8192 context configured. Run 39168038551 stopped before boot on registry HTTP 503; bounded retry added. Actual native/model cold recovery rerun 39168561806 remains pending."
+      "status": "Actual owned local Qwen3/Ollama generation produces editable two-slide PPTX and original frontend now sees valid local-provider settings. Original writes replace private configuration as Linux root; host access/snapshot issue found in 39173717031. Existing live settings now remain unread by host; stopped data snapshots materialize inside original Linux image without weakening source permissions. Fresh complete generation/native/cold recovery rerun 39174965305 pending."
     },
     "openwhispr": {
       "acceptance": "pending",
@@ -25,31 +25,31 @@
     },
     "affine": {
       "acceptance": "pending",
-      "status": "Complete original application with own local PostgreSQL/Redis integrated. Browser-to-server sync, original attachments, isolated snapshot restoration and fresh-browser recovery accepted. Global installer/backup/cross-platform release acceptance pending."
+      "status": "Actual original browser-only note edited with keyboard survives reload, original account/session cookie and complete product encrypted backup/independent profile recovery passed Linux and actual Windows WSL in 39172516206, and native Linux ARM in 39172930647. Original restored server verified in isolated sacrificial copy; candidate does not start before activation. Combined suite acceptance pending."
     },
     "baserow": {
       "acceptance": "pending",
-      "status": "Original local account, workspace/database/table, UTF-8 edits, real background CSV, attached native view, restart and independent encrypted recovery passed in Linux 39171266644. Original password-provider bootstrap prevents duplicate-provider race under sixteen concurrent requests; new owned application volume retains original permissions. Windows retest 39172624611 pending. Existing bind data preserved; explicit migration remains pending."
+      "status": "Original accounts, relational tables, UTF-8 edits, background CSV, attached native UI, restart and encrypted independent recovery passed Linux 39171266644, actual Windows WSL 39172624611, and native Linux ARM 39172930647. Sixteen concurrent original login-options requests preserve one password provider. Existing legacy bind data still require explicit migration; combined suite acceptance pending."
     },
     "activepieces": {
       "acceptance": "pending",
-      "status": "Original signup, UI manual-trigger selection/publishing, actual worker with distinct successful run IDs, authenticated history, native view/restart and independent encrypted recovery/new execution passed Linux 39171271372. Exact official 0.92.2 registry preserves all 13580 versions and bootstraps the original manual piece without changing edition/permission checks. Windows retest 39172629039 pending. Offline package coverage for the entire connector catalog remains pending."
+      "status": "Original UI manual-trigger configuration/publishing, real worker/new successful run IDs, authenticated history, attached native UI/restart and encrypted recovery/new execution passed Linux 39173721205, Linux ARM 39173725815 and actual Windows WSL 39173464921. Internal Linux package aliases materialize inside their original Linux path into ordinary owned snapshot files; host cannot follow WSL-only links. Official full 13580-version registry and exact manual metadata retained; other connectors require their original packages/provider credentials. Combined suite acceptance pending."
     },
     "plane": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified. Original native Linux ARM workflow, original content/account and independent encrypted recovery passed 39172930647; all fourteen selected public reports preserved with full SHA-256 read-back in acceptance-services-arm-windows-39173725815."
     },
     "formbricks": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159980100. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159980100. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified. Original native Linux ARM workflow, original content/account and independent encrypted recovery passed 39172930647; all fourteen selected public reports preserved with full SHA-256 read-back in acceptance-services-arm-windows-39173725815."
     },
     "postiz": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified. Original native Linux ARM workflow, original content/account and independent encrypted recovery passed 39172930647; all fourteen selected public reports preserved with full SHA-256 read-back in acceptance-services-arm-windows-39173725815."
     },
     "paperless": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified. Original native Linux ARM workflow, original content/account and independent encrypted recovery passed 39172930647; all fourteen selected public reports preserved with full SHA-256 read-back in acceptance-services-arm-windows-39173725815."
     }
   },
   "platforms": {
@@ -73,7 +73,7 @@
   "complete_backup_restore": "pending",
   "upgrade_rollback": "pending",
   "distribution_signatures": "pending",
-  "distribution": "All three complete internal unsigned installers built, installed, tested, uninstalled and fully remote read-back verified in 39165341821, including complete Screenity and thirteen-adaptation OpenWhispr. They precede newest managed-browser backup and Baserow changes; final rebuild, combined twelve-provider recovery, upgrade/rollback and signing remain pending.",
+  "distribution": "All three previous internal unsigned installers accepted in 39165341821. Newer source a3faf6e candidates passed full lifecycle, encrypted recovery and remote read-back on Windows and Mac Intel in 39172934763; Mac ARM passed all lifecycle/recovery tests but publication failed because its prerelease tag had not been precreated. Tags now exist. Final rebuild after latest Presenton/backup corrections, combined suite, upgrade/rollback and OS signing remain pending.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -83,8 +83,8 @@
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
-    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39172511596",
-    "core_test_result": "161 local tests passed with no failures/skips; 156 allowlisted public tests passed on all four targets in 39172511596. Five private-boundary/publication tests intentionally stay local.",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39174969595",
+    "core_test_result": "168 local tests passed, zero failures/skips; all 163 allowlisted public tests passed on Linux, Mac ARM, Mac Intel and Windows in 39174969595. Five private-boundary/publication tests stay local.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
@@ -100,6 +100,7 @@
     "windows_services": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39165080309",
     "scoped_service_reports": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-windows-services-39165080309",
     "current_native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39172521642",
-    "database_automation_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-database-automation-39171271372"
+    "database_automation_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-database-automation-39171271372",
+    "multiarchitecture_service_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-services-arm-windows-39173725815"
   }
 }

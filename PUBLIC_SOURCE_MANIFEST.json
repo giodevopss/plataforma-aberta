@@ -549,8 +549,8 @@
     },
     {
       "path": "desktop/tests/presenton-configuration.test.mjs",
-      "size": 1866,
-      "sha256": "c5ffd889fdd8f133270953512fa94e5aabb47d42218b538c1fcc9db503b8952c"
+      "size": 1849,
+      "sha256": "03af7e18bb2774d8a43b06439a85bac7574478461656aa38f9241ad952fe94af"
     },
     {
       "path": "desktop/tests/private-runtime.test.mjs",
@@ -1234,8 +1234,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 19819,
-      "sha256": "f5cbcb12947909f9c127868885c52deec8274c8fa48090f84f674b110a40765d"
+      "size": 20077,
+      "sha256": "f791eee9afdb182da22681fe9d71320aba1e3ae20fc11aef8233842d67d61e0e"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1499,8 +1499,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 10056,
-      "sha256": "5c2301e8509d87057d8c955fe6dd701e4ad85d9b7773f890d281a5ab7fb05574"
+      "size": 11617,
+      "sha256": "629776df693b50be0758764e0567f7782d94d16ec8730c02e9f75c34db66fc09"
     },
     {
       "path": ".github/workflows/complete-suite.yml",

@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
 import {preparePresentonConfiguration} from '../src/presenton-configuration.mjs';
-test('Existing provider credentials and preferences remain byte-identical and never enter a preparation container',async t=>{
+test('Live original provider credentials remain byte-identical without host reads or replacement',async t=>{
  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'pa-provider-'));t.after(()=>fs.rmSync(directory,{recursive:true,force:true}));fs.mkdirSync(path.join(directory,'data'));const file=path.join(directory,'data/userConfig.json'),bytes=JSON.stringify({LLM:'custom',CUSTOM_LLM_URL:'http://local-model:8080',CUSTOM_LLM_API_KEY:'synthetic preserved credential'});fs.writeFileSync(file,bytes);fs.chmodSync(file,0);await preparePresentonConfiguration({run:async()=>assert.fail('Live settings must not be replaced'),owned:async()=>({State:{Running:true}})},{directory});fs.chmodSync(file,0o600);assert.equal(fs.readFileSync(file,'utf8'),bytes);
 });
 test('Configuration symlinks and running original writers refuse preparation without changing another file',async t=>{
