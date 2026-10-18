@@ -1,0 +1,20 @@
+{
+  "release": "0.92.2",
+  "edition": "ce",
+  "checked_at": "2026-10-18",
+  "files": [
+    {
+      "source": "registry-0.92.2.json",
+      "bytes": 800618,
+      "sha256": "9bee98fdc0b7c12ff6aa14e98feeab2ae1b0d3270abea7d562ca0afbebe38218",
+      "url": "https://cloud.activepieces.com/api/v1/pieces/registry?edition=ce&release=0.92.2"
+    },
+    {
+      "source": "manual-trigger-0.0.8.json",
+      "bytes": 4932,
+      "sha256": "78dea5bfd7785fc110df76fbea7bcb6f1dcf4014819ada7aece9c1728faa4620",
+      "url": "https://cloud.activepieces.com/api/v1/pieces/@activepieces/piece-manual-trigger?version=0.0.8&audience=all"
+    }
+  ],
+  "scope": "Exact public official Community registry and original manual-trigger metadata. Preserve every registry entry; prioritize local manual trigger. No execution, permission, edition, license or original workflow behavior is replaced."
+}

@@ -239,8 +239,8 @@
     },
     {
       "path": "desktop/src/server-stacks.mjs",
-      "size": 15514,
-      "sha256": "4e0e4234ac65040097c1eda06c576510e2c7b8238eb5a36072c08938a8d717c5"
+      "size": 16252,
+      "sha256": "a00c62b4940565b8148115c88f2a3268affc93f9fed6642396c42e174f6296b6"
     },
     {
       "path": "desktop/src/service.mjs",
@@ -401,6 +401,11 @@
       "path": "desktop/scripts/setup-ocr.mjs",
       "size": 1373,
       "sha256": "f923eb97992a2cc7a3f635515c67d3082b47a9dbf8e87735277179a3d0cd0403"
+    },
+    {
+      "path": "desktop/tests/activepieces-catalog.test.mjs",
+      "size": 2751,
+      "sha256": "8a8b8e36b15c8a88083da6ed9f11c8e926ff3b94064c53e881a689ee8173b890"
     },
     {
       "path": "desktop/tests/affine-stack.test.mjs",
@@ -706,6 +711,31 @@
       "path": "desktop/resources/stack-config/activepieces/PROVENANCE.json",
       "size": 7020,
       "sha256": "772392346d1a120911d12db79eb2e42826113062491555d60f9efab10695cf90"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/catalog/FILES.json",
+      "size": 1185,
+      "sha256": "fee60cae4f389c0bdbdf11ea9d3633589c674993d0174730dd7d8471a86c0a35"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/catalog/catalog-provenance.json",
+      "size": 875,
+      "sha256": "82c2b0e732efa8ce45a04b123ad8ecaf0c7152a1fc7e9c2d5992fca2c7df9d38"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/catalog/catalog.cjs",
+      "size": 3140,
+      "sha256": "c5b9022b104f08fc37a47dee1a65730b74570e0868e7e0fad4c3934086df8d89"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/catalog/manual-trigger-0.0.8.json",
+      "size": 4932,
+      "sha256": "78dea5bfd7785fc110df76fbea7bcb6f1dcf4014819ada7aece9c1728faa4620"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/catalog/registry-0.92.2.json",
+      "size": 800618,
+      "sha256": "9bee98fdc0b7c12ff6aa14e98feeab2ae1b0d3270abea7d562ca0afbebe38218"
     },
     {
       "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/sandbox/dist/src/lib/cache/local-execution-cache.js",
@@ -1180,7 +1210,7 @@
     {
       "path": "suite/tests/automation-cloud.mjs",
       "size": 4176,
-      "sha256": "c6512b90f6adc5f2a2b5ce85cca7b643b2fb8e2ac4dc96cdd008eba40f15666b"
+      "sha256": "3793b94337ab78cf547b51fe393762109abcea0b99bc78e44d53de9eaa60b726"
     },
     {
       "path": "suite/tests/database-workflow.mjs",
@@ -1415,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "ce8d2eb7734a4a7f83b312e4d2be1930b9803210e929e2ec83d58c037841f84a"
+      "sha256": "5d296160d25dcc98e3e5b449530bdfa96b5144dcc3c8fa8476225dd5675d60d6"
     },
     {
       "path": ".github/workflows/notes-validation.yml",

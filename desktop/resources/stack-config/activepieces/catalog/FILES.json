@@ -1,0 +1,26 @@
+{
+  "image": "ghcr.io/activepieces/activepieces@sha256:87295caa32a14b4a35f3c8681ebbcb6c49bedfdf7bf732c5469d5a0a4417e5ee",
+  "files": [
+    {
+      "source": "catalog/catalog.cjs",
+      "target": "/opt/plataforma-catalog/catalog.cjs",
+      "sha256": "c5b9022b104f08fc37a47dee1a65730b74570e0868e7e0fad4c3934086df8d89"
+    },
+    {
+      "source": "catalog/catalog-provenance.json",
+      "target": "/opt/plataforma-catalog/catalog-provenance.json",
+      "sha256": "82c2b0e732efa8ce45a04b123ad8ecaf0c7152a1fc7e9c2d5992fca2c7df9d38"
+    },
+    {
+      "source": "catalog/registry-0.92.2.json",
+      "target": "/opt/plataforma-catalog/registry-0.92.2.json",
+      "sha256": "9bee98fdc0b7c12ff6aa14e98feeab2ae1b0d3270abea7d562ca0afbebe38218"
+    },
+    {
+      "source": "catalog/manual-trigger-0.0.8.json",
+      "target": "/opt/plataforma-catalog/manual-trigger-0.0.8.json",
+      "sha256": "78dea5bfd7785fc110df76fbea7bcb6f1dcf4014819ada7aece9c1728faa4620"
+    }
+  ],
+  "change": "Verify exact original public Community catalog for release 0.92.2; preserve every version, prioritize original manual trigger metadata and let original API sync/import/visibility logic run unchanged."
+}
