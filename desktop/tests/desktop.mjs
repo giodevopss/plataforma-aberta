@@ -7,6 +7,7 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+await fs.mkdir(path.join(root,'desktop/research'),{recursive:true});
 const temp=await fs.mkdtemp(path.join(os.tmpdir(),'pa-desktop-e2e-'));
 const env={...process.env,PA_DESKTOP_TEST_DATA:path.join(temp,'profile')};delete env.ELECTRON_RUN_AS_NODE;
 const executable=process.env.PA_DESKTOP_EXECUTABLE||createRequire(import.meta.url)('electron');
