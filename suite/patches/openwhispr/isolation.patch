@@ -1,6 +1,8 @@
+diff --git a/src/helpers/modelDirUtils.js b/src/helpers/modelDirUtils.js
+index 98724f9..c55c177 100644
 --- a/src/helpers/modelDirUtils.js
 +++ b/src/helpers/modelDirUtils.js
-@@ -121,6 +121,16 @@
+@@ -121,6 +121,16 @@ function migrateLegacyModelDirs(legacyRoot, targetRoot) {
  }
  
  function getCacheRoot() {
@@ -17,9 +19,11 @@
    const homeDir = app?.getPath?.("home") || os.homedir();
    const homeCache = path.join(homeDir, ".cache", "openwhispr");
    let targetRoot = getPreferredCacheRoot(homeCache);
+diff --git a/src/helpers/qdrantManager.js b/src/helpers/qdrantManager.js
+index 526690f..0fc7705 100644
 --- a/src/helpers/qdrantManager.js
 +++ b/src/helpers/qdrantManager.js
-@@ -30,9 +30,9 @@
+@@ -30,9 +30,9 @@ const MAX_RESTARTS_PER_SESSION = 3;
  const RESTART_EXIT_WAIT_MS = 2000;
  
  const STORAGE_DIR = path.join(
@@ -32,9 +36,11 @@
    process.env.NODE_ENV === "development" ? "qdrant-data-dev" : "qdrant-data"
  );
  
+diff --git a/src/helpers/localEmbeddings.js b/src/helpers/localEmbeddings.js
+index bf54728..19842a5 100644
 --- a/src/helpers/localEmbeddings.js
 +++ b/src/helpers/localEmbeddings.js
-@@ -16,9 +16,9 @@
+@@ -16,9 +16,9 @@ class LocalEmbeddings {
  
    _resolveModelDir() {
      const cacheDir = path.join(
@@ -47,9 +53,11 @@
        "embedding-models",
        MODEL_SUBDIR
      );
+diff --git a/src/helpers/cliBridge.js b/src/helpers/cliBridge.js
+index 13b057f..d58db98 100644
 --- a/src/helpers/cliBridge.js
 +++ b/src/helpers/cliBridge.js
-@@ -18,6 +18,12 @@
+@@ -18,6 +18,12 @@ const LOOPBACK_ADDRESSES = new Set(["127.0.0.1", "::1", "::ffff:127.0.0.1"]);
  const NO_CONTENT = Symbol("CliBridge.NoContent");
  
  function getBridgeFilePath() {
@@ -62,9 +70,11 @@
    return path.join(os.homedir(), ".openwhispr", "cli-bridge.json");
  }
  
+diff --git a/src/helpers/urlAudioDownloader.js b/src/helpers/urlAudioDownloader.js
+index 1924f48..95941d1 100644
 --- a/src/helpers/urlAudioDownloader.js
 +++ b/src/helpers/urlAudioDownloader.js
-@@ -33,7 +33,12 @@
+@@ -33,7 +33,12 @@ const USER_AGENT = "OpenWhispr/1.0";
  // OPENWHISPR_YTDLP_CACHE_DIR overrides the location (relocate it, or isolate it in tests).
  const YT_DLP_CACHE_DIR =
    process.env.OPENWHISPR_YTDLP_CACHE_DIR ||
@@ -78,9 +88,11 @@
  const YT_DLP_UPDATE_THROTTLE_MS = 24 * 60 * 60 * 1000;
  // Bound the self-update so a stalled GitHub request can never hang a download
  // or wedge the single-flight flag. Overridable via options.timeoutMs for tests.
+diff --git a/src/updater.js b/src/updater.js
+index 9ebcba8..e7fa286 100644
 --- a/src/updater.js
 +++ b/src/updater.js
-@@ -2,7 +2,9 @@
+@@ -2,7 +2,9 @@ const { autoUpdater } = require("electron-updater");
  
  // electron-updater can only replace an AppImage on Linux; deb, rpm and tar.gz
  // installs are updated by the package manager instead.
@@ -91,7 +103,7 @@
  
  class UpdateManager {
    constructor() {
-@@ -27,6 +29,7 @@
+@@ -27,6 +29,7 @@ class UpdateManager {
    }
  
    setupAutoUpdater() {
@@ -99,9 +111,19 @@
      if (process.env.NODE_ENV === "development") {
        return;
      }
+diff --git a/main.js b/main.js
+index a9cb5e2..2aec5df 100644
 --- a/main.js
 +++ b/main.js
-@@ -49,7 +49,7 @@
+@@ -1,3 +1,7 @@
++if (process.env.OPENWHISPR_SUITE_MANAGED === "1") {
++  require("./src/helpers/managed-process-registry.cjs").install();
++}
++
+ // Chromium picks the display backend before JS runs, so appendSwitch is too
+ // late — the flag has to come from a relaunch.
+ const { XWAYLAND_FLAG, shouldForceXWayland } = require("./src/helpers/xwayland");
+@@ -49,7 +53,7 @@ const DEFAULT_OAUTH_PROTOCOL_BY_CHANNEL = {
    staging: "openwhispr-staging",
    production: "openwhispr",
  };
@@ -110,20 +132,30 @@
  const DEFAULT_AUTH_BRIDGE_PORT = 5199;
  
  function isElectronBinaryExec() {
-@@ -93,6 +93,13 @@
- }
+@@ -94,6 +98,14 @@ function configureChannelUserDataPath() {
  
  configureChannelUserDataPath();
-+
+ 
 +// Managed fork: keep every writable native cache/bridge in this profile.
 +process.env.OPENWHISPR_SUITE_MANAGED = "1";
 +process.env.OPENWHISPR_PROTOCOL = "plataforma-openwhispr";
 +process.env.OPENWHISPR_CACHE_ROOT ||= path.join(app.getPath("userData"), "cache");
 +process.env.OPENWHISPR_BRIDGE_FILE ||= path.join(app.getPath("userData"), "cli-bridge.json");
 +process.env.OPENWHISPR_YTDLP_CACHE_DIR = path.join(process.env.OPENWHISPR_CACHE_ROOT, "yt-dlp");
- 
++require("./src/helpers/managed-process-registry.cjs").ready();
++
  // Load userData .env (contains DICTATION_KEY, API keys, etc.) early — before
  // hotkey registration, which needs DICTATION_KEY before the renderer loads.
+ require("dotenv").config({
+@@ -2139,3 +2151,6 @@ function performSyncTeardown() {
+   if (textEditMonitor) textEditMonitor.stopMonitoring();
+   if (updateManager) updateManager.cleanup();
+ }
++
++// The original quit handlers run first; stop only remaining owned helper children.
++app.on("will-quit", () => require("./src/helpers/managed-process-registry.cjs").shutdown());
+diff --git a/electron-builder.json b/electron-builder.json
+index 1afda8d..49da65b 100644
 --- a/electron-builder.json
 +++ b/electron-builder.json
 @@ -1,13 +1,14 @@
@@ -133,11 +165,10 @@
    "afterPack": "scripts/afterPack.js",
    "extraMetadata": {
 -    "windowsTrayIdentity": true
--  },
--  "productName": "OpenWhispr",
 +    "windowsTrayIdentity": true,
 +    "plataformaManagedFork": true
-+  },
+   },
+-  "productName": "OpenWhispr",
 +  "productName": "OpenWhispr Plataforma",
    "protocols": {
 -    "name": "OpenWhispr Protocol",
@@ -232,3 +263,247 @@
 -  }
 +  "publish": null
  }
+diff --git a/src/helpers/managed-process-registry.cjs b/src/helpers/managed-process-registry.cjs
+new file mode 100644
+index 0000000..2dd64c1
+--- /dev/null
++++ b/src/helpers/managed-process-registry.cjs
+@@ -0,0 +1,127 @@
++// SPDX-License-Identifier: MIT
++// Track only children started by this managed app; no system process scan.
++const fs = require("node:fs");
++const path = require("node:path");
++const crypto = require("node:crypto");
++const childProcess = require("node:child_process");
++const { identity } = require("./managed-process-identity.cjs");
++let installed = false;
++let directory = null;
++let directoryGetter = null;
++const originals = new Map();
++const children = new Map();
++function record(child) {
++  if (!child || typeof child.once !== "function") return child;
++  const entry = { child, file: null, exited: false };
++  children.set(child, entry);
++  const publish = () => {
++    if (
++      !directory ||
++      entry.exited ||
++      entry.file ||
++      !Number.isInteger(child.pid)
++    )
++      return;
++    const name =
++      "child-" +
++      child.pid +
++      "-" +
++      crypto.randomBytes(8).toString("hex") +
++      ".pid";
++    entry.file = path.join(directory, "sidecar-pids", name);
++    fs.writeFileSync(
++      entry.file,
++      JSON.stringify({ version: 1, pid: child.pid, identity: null }) + "\n",
++      { mode: 0o600, flag: "wx" },
++    );
++    identity(child.pid)
++      .then((started) => {
++        if (entry.exited || !started) return;
++        const temporary = entry.file + ".tmp";
++        fs.writeFileSync(
++          temporary,
++          JSON.stringify({ version: 1, pid: child.pid, identity: started }) +
++            "\n",
++          { mode: 0o600, flag: "wx" },
++        );
++        fs.renameSync(temporary, entry.file);
++      })
++      .catch((error) => {
++        if (entry.exited) return;
++        fs.rmSync(path.join(directory, "plataforma-process-registry.json"), {
++          force: true,
++        });
++        console.error(
++          "Managed native process identity could not be recorded:",
++          error.message,
++        );
++      });
++  };
++  const remove = () => {
++    entry.exited = true;
++    children.delete(child);
++    if (entry.file && fs.existsSync(entry.file)) fs.unlinkSync(entry.file);
++  };
++  entry.publish = publish;
++  child.once("spawn", publish);
++  child.once("exit", remove);
++  child.once("close", remove);
++  publish();
++  return child;
++}
++function install(options = {}) {
++  if (installed) return;
++  directoryGetter =
++    options.directory || (() => require("electron").app.getPath("userData"));
++  for (const name of ["spawn", "execFile", "exec", "fork"]) {
++    const original = childProcess[name];
++    originals.set(name, original);
++    childProcess[name] = function (...args) {
++      const child = original.apply(this, args);
++      return children.has(child) ? child : record(child);
++    };
++  }
++  require("node:module").syncBuiltinESMExports();
++  installed = true;
++}
++function ready() {
++  if (!installed) return false;
++  const root = directoryGetter();
++  if (!path.isAbsolute(root) || /[\0\r\n]/.test(root))
++    throw Error("Invalid managed process profile");
++  fs.mkdirSync(root, { recursive: true, mode: 0o700 });
++  if (fs.lstatSync(root).isSymbolicLink())
++    throw Error("Managed process profile cannot be a link");
++  directory = fs.realpathSync(root);
++  const pids = path.join(directory, "sidecar-pids");
++  fs.mkdirSync(pids, { recursive: true, mode: 0o700 });
++  if (fs.lstatSync(pids).isSymbolicLink())
++    throw Error("Managed sidecar registry cannot be a link");
++  const marker = path.join(directory, "plataforma-process-registry.json");
++  if (fs.existsSync(marker) && fs.lstatSync(marker).isSymbolicLink())
++    throw Error("Invalid native process capability marker");
++  fs.writeFileSync(marker, JSON.stringify({ version: 1 }) + "\n", {
++    mode: 0o600,
++  });
++  for (const entry of children.values()) entry.publish();
++  return true;
++}
++function resetForTests() {
++  for (const [name, original] of originals) childProcess[name] = original;
++  originals.clear();
++  require("node:module").syncBuiltinESMExports();
++  installed = false;
++  directory = null;
++  directoryGetter = null;
++}
++function shutdown() {
++  for (const { child } of children.values()) {
++    if (
++      child.exitCode === null &&
++      !child.killed &&
++      typeof child.kill === "function"
++    )
++      child.kill("SIGTERM");
++  }
++}
++module.exports = { install, ready, shutdown, resetForTests };
+diff --git a/src/helpers/managed-process-identity.cjs b/src/helpers/managed-process-identity.cjs
+new file mode 100644
+index 0000000..b7dd1a5
+--- /dev/null
++++ b/src/helpers/managed-process-identity.cjs
+@@ -0,0 +1,105 @@
++// SPDX-License-Identifier: MIT
++// Query only a recorded child PID. Never enumerate processes or command lines.
++const fs = require("node:fs/promises");
++const path = require("node:path");
++const { execFile } = require("node:child_process");
++let boot;
++const execute = (binary, args) =>
++  new Promise((resolve, reject) =>
++    execFile(
++      binary,
++      args,
++      {
++        windowsHide: true,
++        timeout: 15000,
++        maxBuffer: 100000,
++        env: { ...process.env, LANG: "C", LC_ALL: "C" },
++      },
++      (error, stdout) =>
++        error ? reject(error) : resolve(stdout.replace(/^\uFEFF/, "").trim()),
++    ),
++  );
++function exists(pid) {
++  try {
++    process.kill(pid, 0);
++    return true;
++  } catch (error) {
++    if (error.code === "ESRCH") return false;
++    throw error;
++  }
++}
++function powershell(script) {
++  const root = process.env.SystemRoot;
++  if (!root || !path.win32.isAbsolute(root))
++    throw Error("Windows system directory unavailable");
++  return execute(
++    path.join(root, "System32/WindowsPowerShell/v1.0/powershell.exe"),
++    [
++      "-NoProfile",
++      "-NonInteractive",
++      "-Command",
++      "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();" + script,
++    ],
++  );
++}
++async function bootIdentity() {
++  if (!boot)
++    boot = (async () => {
++      if (process.platform === "linux")
++        return (
++          await fs.readFile("/proc/sys/kernel/random/boot_id", "utf8")
++        ).trim();
++      if (process.platform === "darwin")
++        return execute("/usr/sbin/sysctl", ["-n", "kern.bootsessionuuid"]);
++      if (process.platform === "win32")
++        return powershell(
++          "(Get-CimInstance Win32_OperatingSystem).LastBootUpTime.ToUniversalTime().Ticks",
++        );
++      throw Error("Unsupported native process platform");
++    })().catch((error) => {
++      boot = null;
++      throw error;
++    });
++  return boot;
++}
++async function identity(pid) {
++  if (!Number.isInteger(pid) || pid < 1)
++    throw Error("Invalid recorded process PID");
++  const currentBoot = await bootIdentity();
++  try {
++    let started;
++    if (process.platform === "linux") {
++      const stat = await fs.readFile("/proc/" + pid + "/stat", "utf8");
++      started = stat.slice(stat.lastIndexOf(")") + 2).split(" ")[19];
++    } else if (process.platform === "darwin")
++      started = await execute("/bin/ps", ["-p", String(pid), "-o", "lstart="]);
++    else
++      started = await powershell(
++        "[System.Diagnostics.Process]::GetProcessById(" +
++          pid +
++          ").StartTime.ToUniversalTime().Ticks",
++      );
++    if (!started) {
++      if (!exists(pid)) return null;
++      throw Error("Native process start identity unavailable");
++    }
++    return JSON.stringify([currentBoot, started]);
++  } catch (error) {
++    if (!exists(pid)) return null;
++    throw error;
++  }
++}
++async function sameProcess(pid, expected) {
++  if (typeof expected !== "string")
++    throw Error("Native process identity is missing");
++  const token = JSON.parse(expected);
++  if (
++    !Array.isArray(token) ||
++    token.length !== 2 ||
++    token.some((item) => typeof item !== "string" || !item)
++  )
++    throw Error("Invalid native process identity");
++  if (token[0] !== (await bootIdentity())) return false;
++  return (await identity(pid)) === expected;
++}
++module.exports = { identity, sameProcess };

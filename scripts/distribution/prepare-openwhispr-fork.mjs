@@ -7,7 +7,7 @@ const git=args=>execFileSync('git',['-C',source,...args],{encoding:'utf8'}).trim
 if(git(['rev-parse','HEAD'])!==manifest.commit||git(['status','--porcelain','--untracked-files=no']))throw Error('The original source must match the clean pinned commit.');
 if(fs.existsSync(target))throw Error('Use a new managed build directory; no existing app will be overwritten.');
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
-for(const file of manifest.files)if(sha(fs.readFileSync(path.join(source,file.path)))!==file.original_sha256)throw Error('Unexpected original module: '+file.path);
+for(const file of manifest.files){const original=path.join(source,file.path);if(file.original_sha256===null){if(fs.existsSync(original))throw Error('Unexpected existing adaptation module: '+file.path);}else if(sha(fs.readFileSync(original))!==file.original_sha256)throw Error('Unexpected original module: '+file.path);}
 fs.mkdirSync(target,{recursive:true});
 try{
  const files=execFileSync('git',['-C',source,'ls-files','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);

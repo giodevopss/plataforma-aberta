@@ -25,6 +25,7 @@ jobs:
           node scripts/distribution/restore-upstream.mjs graphite
           node scripts/distribution/restore-upstream.mjs screenity
           npm ci --prefix desktop --no-audit --no-fund
+          node scripts/distribution/prepare-electron.mjs
           cd subprojetos/excalidraw/upstream
           npx --yes yarn@1.22.22 install --frozen-lockfile
       - name: Prepare isolated compiler paths

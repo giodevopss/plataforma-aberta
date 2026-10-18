@@ -2,7 +2,7 @@
   "repository": "https://github.com/OpenWhispr/openwhispr",
   "commit": "03f3134ba3935eef56eff319a30054766a3d6376",
   "license": "MIT",
-  "scope": "Complete native app fork; isolated model/semantic/yt-dlp caches, CLI bridge, OS identity and protocol. Standalone updater cannot replace this managed fork. No source features removed. Windows native models retain the upstream ASCII-path restriction and fail explicitly rather than moving personal caches.",
+  "scope": "Complete native app fork; isolated model/semantic/yt-dlp caches, CLI bridge, OS identity and protocol. Standalone updater cannot replace this managed fork. No source features removed. Windows native models retain the upstream ASCII-path restriction and fail explicitly rather than moving personal caches. Managed native child PID/start/boot identity registry prevents snapshots while orphaned model or search writers remain.",
   "status": "prepared; source regression and native rebuild acceptance pending",
   "files": [
     {
@@ -38,12 +38,22 @@
     {
       "path": "main.js",
       "original_sha256": "6bb3dce8a383aa51085e6b52e4fc426aca2adf5357241fd2720225c25c0012a8",
-      "sha256": "8937a7306e87f776ccbbfdd6f6ac01e7e01df90dd1ae4f075ec7d78c743d51a5"
+      "sha256": "9e39669395a2087626266b1be3559dad71e348bc46aff28507b1cdc601f3f6b1"
     },
     {
       "path": "electron-builder.json",
       "original_sha256": "3821db88ee57af0ee44b619070983ac5a8fad52f8c7e6f8a304be272c6880d04",
       "sha256": "e33f649f65001324b1169ae72812043c4bf4e9b62b21ab4c071c40eb7365084e"
+    },
+    {
+      "path": "src/helpers/managed-process-registry.cjs",
+      "original_sha256": null,
+      "sha256": "f57e19d7307ab992c420e6fce8b2f38f944a9850bc2daa1914593b414a306aca"
+    },
+    {
+      "path": "src/helpers/managed-process-identity.cjs",
+      "original_sha256": null,
+      "sha256": "15219868e23d8993fe4e3046dbc31f96586cf40d7a04697cbd21ec92ecbaab54"
     }
   ]
 }

@@ -74,8 +74,8 @@
     },
     {
       "path": "desktop/src/lima-installer.mjs",
-      "size": 10301,
-      "sha256": "efc7241459a2ae1912387f348a32a1c979c7a2d5e630b575094ade140663dae4"
+      "size": 10302,
+      "sha256": "539e6aa811a0f9ddf284689250e78c60a689a20c49653463fe290a84597076b9"
     },
     {
       "path": "desktop/src/local-apps.mjs",
@@ -99,8 +99,8 @@
     },
     {
       "path": "desktop/src/native-app-launcher.mjs",
-      "size": 15220,
-      "sha256": "032692d3936ada14aa7f728ddbfa83c245370c531ab731133b1d5c8bc93c609b"
+      "size": 16952,
+      "sha256": "044ade357efbfd2cc372d30ca9ec84b851b30c7e0aa0ca7b793b50da43453218"
     },
     {
       "path": "desktop/src/native-apps.json",
@@ -126,6 +126,11 @@
       "path": "desktop/src/preload.cjs",
       "size": 1305,
       "sha256": "59ddd21e1fd3da01a08e276f13b7a2387fe92c67aae721ec4698b1926ddd786f"
+    },
+    {
+      "path": "desktop/src/process-identity.cjs",
+      "size": 3292,
+      "sha256": "15219868e23d8993fe4e3046dbc31f96586cf40d7a04697cbd21ec92ecbaab54"
     },
     {
       "path": "desktop/src/profile-store.mjs",
@@ -359,23 +364,28 @@
     },
     {
       "path": "desktop/tests/native-app-launcher.test.mjs",
-      "size": 4997,
-      "sha256": "71093b3087c9a4d16eefad7d2390b260b3565bd72154a1ab10c68c878b499bf5"
+      "size": 5244,
+      "sha256": "a8ce61e4db7b48df1795884efd59733c08dbb1ffe2cc5c541d8e15abbe1fd44c"
     },
     {
       "path": "desktop/tests/native-archive.test.mjs",
-      "size": 2851,
-      "sha256": "bd18d281d5e74f045c7eaa621d49188675f72a8cd7e643931627af1c1488824b"
+      "size": 2855,
+      "sha256": "c408a4b5a9a8ee8f5d80510a6275f8a5d1e1e5ac8cd787e8611cb961061fd311"
     },
     {
       "path": "desktop/tests/native-process-registry.test.mjs",
-      "size": 2009,
-      "sha256": "2e3ed5f17f4d472666cac50e1326e0bbed2f206e6279ef6fc661b7bffd032b76"
+      "size": 2017,
+      "sha256": "a80c65e44f1422b744a27c6aec0a171bc9589a13ca7b9a3ca2e39db11e82f89f"
     },
     {
       "path": "desktop/tests/native-screenity.test.mjs",
       "size": 4170,
       "sha256": "9d7ff30e91ea690ca3e585c999d831c2db3ff436a731825c61ce07e856fb1d41"
+    },
+    {
+      "path": "desktop/tests/process-identity.test.mjs",
+      "size": 1468,
+      "sha256": "f4c1b9a80a59f4129c553ae9da19bcc20c52f6e8333f6c0c092c3831b1340087"
     },
     {
       "path": "desktop/tests/profile-store.test.mjs",
@@ -764,18 +774,23 @@
     },
     {
       "path": "suite/patches/openwhispr/PROVENANCE.json",
-      "size": 2397,
-      "sha256": "0cfd315dec92387600e4dc58965190313d20d21429368a3f6c40798a834b6ad2"
+      "size": 2887,
+      "sha256": "3b930fafaaf20ea4f3248fb2a9409e80ff2f42630ee4d3c5f5b1438a423b8793"
     },
     {
       "path": "suite/patches/openwhispr/isolation.patch",
-      "size": 7780,
-      "sha256": "000af6fb3fe881506060f121416fa928963cefaac588f3a8b87a04f0ed1ceabd"
+      "size": 17832,
+      "sha256": "d587da4fcbf2f327a1869a4d2efeb5957700110d3d6bfa60d795cc800ef597ea"
+    },
+    {
+      "path": "suite/patches/openwhispr/managed-process-identity.cjs",
+      "size": 3292,
+      "sha256": "15219868e23d8993fe4e3046dbc31f96586cf40d7a04697cbd21ec92ecbaab54"
     },
     {
       "path": "suite/patches/openwhispr/managed-process-registry.cjs",
-      "size": 2762,
-      "sha256": "8f02be4f576d1a6e2efc6e9a6e7cd28bdcdf6f42b7fd7cfb262b23c42a75701f"
+      "size": 4167,
+      "sha256": "f57e19d7307ab992c420e6fce8b2f38f944a9850bc2daa1914593b414a306aca"
     },
     {
       "path": "suite/patches/presenton/status_payload.py",
@@ -864,8 +879,8 @@
     },
     {
       "path": "scripts/distribution/prepare-openwhispr-fork.mjs",
-      "size": 2341,
-      "sha256": "e5893af233199b43eb8edbc25d7c3eddf4b23224ea4148bca32dd6863edd763c"
+      "size": 2497,
+      "sha256": "303993493b90dc4a81780c6172931babce8d9020f3ce33f4ce9a00fd6a744719"
     },
     {
       "path": "scripts/distribution/prepare-electron.mjs",
@@ -944,13 +959,13 @@
     },
     {
       "path": "suite/tests/managed-screenity-session.mjs",
-      "size": 2306,
-      "sha256": "18a699a0987ca46f815493ca7af56f3e031f0fc6ae1685b1826b62e27a0aaf19"
+      "size": 2396,
+      "sha256": "16c5885079dd8871269397b372f31ea246e381fb7c71a221e68eabdc7731ddc3"
     },
     {
       "path": "suite/tests/openwhispr-native-cloud.mjs",
-      "size": 9117,
-      "sha256": "bec8535ba0fd08fac0a2d50a7105f04ab1637e81ee0d3daeba73dc4ef425942c"
+      "size": 9242,
+      "sha256": "aa8e5dba7eeedb7ece75e4c2c51ce695cd2279ed03a2191cf066bac75910464b"
     },
     {
       "path": "suite/tests/openwhispr-isolation.mjs",
@@ -1120,7 +1135,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "ee3e208b186604f1039a07f5d8b0f7783ad6b34003f32eab7d07e9efb62ecd3e"
+      "sha256": "c86ec490b252086c4cdd5c32a5e9168d63dd98a4e2bc96717bc15a585a52dbad"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1154,8 +1169,8 @@
     },
     {
       "path": ".github/workflows/public-engines.yml",
-      "size": 4007,
-      "sha256": "d635b3ef36c184accff754248b9db746838d7f87ada76e7906e4974759b52bbd"
+      "size": 4064,
+      "sha256": "35268696fa40e300e65985ecd915fa444349c69c2c33a2912f7ba683f2a7133f"
     },
     {
       "path": ".github/workflows/public-core.yml",
