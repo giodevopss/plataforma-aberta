@@ -5,7 +5,7 @@ const directories=['desktop/src','desktop/renderer','desktop/scripts','desktop/t
 const files=['.gitignore','.gitattributes','desktop/package.json','desktop/package-lock.json','desktop/electron-builder.yml','desktop/resources/screenity-identity.json','desktop/resources/ocr-provenance.json','scripts/audit/projects.json','scripts/distribution/restore-upstream.mjs','scripts/distribution/prepare-graphite-icons.mjs','scripts/distribution/prepare-screenity-identity.mjs','scripts/distribution/prepare-screenity-native.mjs','scripts/distribution/prepare-openwhispr-fork.mjs','scripts/distribution/prepare-electron.mjs','scripts/distribution/installer-validation.mjs','scripts/distribution/reset-ci-evidence.mjs','scripts/distribution/release-artifacts.mjs','scripts/distribution/public-assets.mjs','scripts/distribution/publish-public-component.mjs','scripts/distribution/stage-public-repository.mjs','subprojetos/tests/fixtures/speech.wav','subprojetos/tests/fixtures/ocr.png','subprojetos/tests/fixtures/document.pdf'];
 const tests=['desktop-recovery-native','browser-storage-native','close-native-qa','graphite-durability','screenity-native-cloud','managed-screenity-session','openwhispr-native-cloud','openwhispr-isolation','run-openwhispr-upstream-tests','reuse-public-openwhispr-source','paperless-cloud','remaining-services-cloud','service-native-view','original-account-workflows','plane-account-workflow'];
 const workflows=['desktop-validation','graphite-acceptance','openwhispr-fork-validation','screenity-validation','complete-services','installer-validation','public-engines','public-core','public-recovery'];
-const deny=/(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AIza[0-9A-Za-z_-]{30,}|sk-[A-Za-z0-9]{30,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY|\/Users\/giovanniandrade|plataforma-aberta-suite\/releases|cloud-recovery-key|qa-recovery-2026)/;
+const deny=/(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AIza[0-9A-Za-z_-]{30,}|sk-[A-Za-z0-9]{30,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY|\/Users\/[^/\s]+\/(?:Documents|Library|\.codex)|plataforma-aberta-suite\/releases|cloud-recovery-key|qa-recovery-2026)/;
 export function stagePublicRepository(destination,{source=sourceRoot}={}){const root=path.resolve(source);
  destination=path.resolve(destination);if(fs.existsSync(destination))throw Error('Fresh staging directory required');const entries=[];
  function write(relative,bytes,mode=0o644){if(deny.test(bytes.toString('utf8'))&&relative!=='scripts/distribution/stage-public-repository.mjs')throw Error('Private material rejected: '+relative);const file=path.join(destination,relative);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,bytes,{mode});entries.push({path:relative,size:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')});}
@@ -20,14 +20,20 @@ export function stagePublicRepository(destination,{source=sourceRoot}={}){const 
   // A public source run may reuse only complete public acceptance of identical sources.
   if(name==='openwhispr-fork-validation'){
    source=source.replace('node suite/tests/reuse-openwhispr-source.mjs','node suite/tests/reuse-public-openwhispr-source.mjs');
+   source=source.replace(/      - name: Save compiled candidate independently of native test outcomes\n[\s\S]*?(?=      - name: Test isolated native app)/,'');
+   if(!source.includes('publish-public-component.mjs candidate')){
    source=source.replace('  native:\n','  native:\n    permissions:\n      contents: write\n');
    source=source.replace('      GITHUB_TOKEN: ${{ github.token }}\n','');
+   if(!source.includes('          GITHUB_TOKEN: ${{ github.token }}'))source=source.replace('        run: npm run prebuild:mac','        env:\n          GITHUB_TOKEN: ${{ github.token }}\n        run: npm run prebuild:mac').replace('        run: npm run prebuild:win','        env:\n          GITHUB_TOKEN: ${{ github.token }}\n        run: npm run prebuild:win');
    source=source.replace('      - name: Test isolated native app and real local transcription','      - name: Preserve public compiled component before acceptance\n        env:\n          GH_TOKEN: ${{ github.token }}\n        run: node scripts/distribution/publish-public-component.mjs candidate\n      - name: Test isolated native app and real local transcription');
    source=source.replace('      - name: Save internal native evidence','      - name: Preserve accepted public component and verify remote bytes\n        env:\n          GH_TOKEN: ${{ github.token }}\n        run: node scripts/distribution/publish-public-component.mjs accepted\n      - name: Save internal native evidence');
+   }
    // Large compiled candidates belong in a public prerelease, not metered Actions storage.
-   source=source.replace(/      - name: Save compiled candidate independently of native test outcomes\n[\s\S]*?(?=      - name: Test isolated native app)/,'');
   }
-  if(name==='screenity-validation'&&!source.includes('prepare-screenity-native.mjs'))source=source.replace('          npx playwright install --with-deps chromium','          npx playwright install --with-deps chromium\n          cd ..\n          node scripts/distribution/prepare-screenity-native.mjs');
+  if(name==='screenity-validation'){
+   source=source.replace('          node scripts/distribution/public-assets.mjs restore','          node scripts/distribution/restore-upstream.mjs screenity\n          node desktop/scripts/prepare-screenity.mjs');
+   if(!source.includes('prepare-screenity-native.mjs'))source=source.replace('          npx playwright install --with-deps chromium','          if [ "$RUNNER_OS" = "Linux" ]; then npx playwright install --with-deps chromium; fi\n          cd ..\n          node scripts/distribution/prepare-screenity-native.mjs');
+  }
   if(name==='installer-validation'&&!source.includes('prepare-platform-runtime.mjs'))source=source.replace('      - name: Build internal native installer','      - name: Prepare original target runtime binaries\n        run: node desktop/scripts/prepare-platform-runtime.mjs\n      - name: Build internal native installer');
   source=source.replace(/retention-days: 7/g,'retention-days: 1');write('.github/workflows/'+name+'.yml',Buffer.from(source));
  }

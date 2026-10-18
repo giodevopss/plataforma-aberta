@@ -28,10 +28,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/restore-upstream.mjs screenity
+          node desktop/scripts/prepare-screenity.mjs
           node scripts/distribution/prepare-screenity-identity.mjs
           cd desktop
-          npx playwright install --with-deps chromium
+          if [ "$RUNNER_OS" = "Linux" ]; then npx playwright install --with-deps chromium; fi
           cd ..
           node scripts/distribution/prepare-screenity-native.mjs
       - name: Original recording, edit and export

@@ -54,8 +54,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 5719,
-      "sha256": "b691a6e6d3bd33067b4ff1516baf1673f7603e1043cf62090870da39e7a07422"
+      "size": 5921,
+      "sha256": "f6b1307bd1899d4b782e3c683e182263c578e3a307abfed9ceb055d3f9db1521"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -71,6 +71,11 @@
       "path": "desktop/src/integrated-services.json",
       "size": 115,
       "sha256": "ba93b1ee3990dcdd7b8d8fd0b49df4bc6ecc8a1ebf5467e89f5c6c6aa1cf431c"
+    },
+    {
+      "path": "desktop/src/lima-installer.mjs",
+      "size": 10301,
+      "sha256": "efc7241459a2ae1912387f348a32a1c979c7a2d5e630b575094ade140663dae4"
     },
     {
       "path": "desktop/src/local-apps.mjs",
@@ -343,6 +348,11 @@
       "sha256": "008efaf12078e48fb1321da12bd700ab40bc732e0c97c2e728ad6b0c5fa4e5b4"
     },
     {
+      "path": "desktop/tests/lima-installer.test.mjs",
+      "size": 3544,
+      "sha256": "572f4d00c481062025bef48320619908ef0ba5f6d88d3196a2da6c94bc47377f"
+    },
+    {
       "path": "desktop/tests/local-runtime.test.mjs",
       "size": 7612,
       "sha256": "12c4d80f76093502ee260fac73414452be7590c9b9298006da3720023b8ad66d"
@@ -358,6 +368,11 @@
       "sha256": "bd18d281d5e74f045c7eaa621d49188675f72a8cd7e643931627af1c1488824b"
     },
     {
+      "path": "desktop/tests/native-process-registry.test.mjs",
+      "size": 2009,
+      "sha256": "2e3ed5f17f4d472666cac50e1326e0bbed2f206e6279ef6fc661b7bffd032b76"
+    },
+    {
       "path": "desktop/tests/native-screenity.test.mjs",
       "size": 4170,
       "sha256": "9d7ff30e91ea690ca3e585c999d831c2db3ff436a731825c61ce07e856fb1d41"
@@ -369,8 +384,8 @@
     },
     {
       "path": "desktop/tests/public-source.test.mjs",
-      "size": 2213,
-      "sha256": "6a0103abcdb144f77af9797a6b99610737656d607442eaf7a98c823ee358cea8"
+      "size": 2366,
+      "sha256": "db42d8d874751316df379c105a1a226a9f43cd70a5be46d25825550d5f683baf"
     },
     {
       "path": "desktop/tests/runtime-backup.test.mjs",
@@ -758,6 +773,11 @@
       "sha256": "000af6fb3fe881506060f121416fa928963cefaac588f3a8b87a04f0ed1ceabd"
     },
     {
+      "path": "suite/patches/openwhispr/managed-process-registry.cjs",
+      "size": 2762,
+      "sha256": "8f02be4f576d1a6e2efc6e9a6e7cd28bdcdf6f42b7fd7cfb262b23c42a75701f"
+    },
+    {
       "path": "suite/patches/presenton/status_payload.py",
       "size": 1811,
       "sha256": "b204b7b615a4d0aa3a194106aa3021204cb9bedc073d7fd683f8f07004ad07cc"
@@ -879,8 +899,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 12220,
-      "sha256": "827a46acd2d3001a37e326d054bf6966009c88a61a2eaee9663c2e759bfdeb04"
+      "size": 12945,
+      "sha256": "d7355cec05612bd3127395e9e84f82c9bb6e7ae61fca6c5e5a4b975d64510a71"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1100,7 +1120,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "67676727441eba4ab230fb1e41b84eacf336cacdd9481d699fc7e8d7cd2f0f57"
+      "sha256": "ee3e208b186604f1039a07f5d8b0f7783ad6b34003f32eab7d07e9efb62ecd3e"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1114,13 +1134,13 @@
     },
     {
       "path": ".github/workflows/openwhispr-fork-validation.yml",
-      "size": 5727,
-      "sha256": "d73436c1cfacf73e164e6112fd144c656bfc02eee0c4b10b7469517faebc549f"
+      "size": 6039,
+      "sha256": "6aefbd54fc61ef9c436d40a69136f0d8224e9770e39bc314c53126a2d3dcca48"
     },
     {
       "path": ".github/workflows/screenity-validation.yml",
-      "size": 1809,
-      "sha256": "7e9f43e4526edc85c1f25f25fed8c4515189797d97b210b478843f60f9f8c6cb"
+      "size": 1907,
+      "sha256": "9642120c195403d2ee8bb02354fd954f814574aeb2858959b151acd61259b20f"
     },
     {
       "path": ".github/workflows/complete-services.yml",

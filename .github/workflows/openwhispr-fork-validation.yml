@@ -103,10 +103,14 @@ jobs:
       - name: Compile original Mac helpers and prepare complete engines
         if: runner.os == 'macOS'
         working-directory: suite/runtime/openwhispr-build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: npm run prebuild:mac
       - name: Compile original Windows helpers and prepare complete engines
         if: runner.os == 'Windows'
         working-directory: suite/runtime/openwhispr-build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: npm run prebuild:win
       - name: Prepare bundled original semantic model
         working-directory: suite/runtime/openwhispr-build
@@ -118,6 +122,10 @@ jobs:
         run: node suite/tests/openwhispr-native-cloud.mjs build
       - name: Preserve complete compiled candidate before native acceptance
         run: node suite/tests/openwhispr-native-cloud.mjs candidate
+      - name: Preserve public compiled component before acceptance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/distribution/publish-public-component.mjs candidate
       - name: Test isolated native app and real local transcription
         run: node suite/tests/openwhispr-native-cloud.mjs test
       - name: Preserve tested package and dispose temporary application
