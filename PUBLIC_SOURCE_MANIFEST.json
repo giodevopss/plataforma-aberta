@@ -89,8 +89,8 @@
     },
     {
       "path": "desktop/src/local-ai.mjs",
-      "size": 6015,
-      "sha256": "fdaae89a543d5d3dcbe16097f1ebfae7bd2fe115c72b810da8f795bd01be38cd"
+      "size": 6030,
+      "sha256": "51bcd204a7dbfa3e3f9fe3be50dd3d27af6e0c0b7e8b9f45919ed5d117e38076"
     },
     {
       "path": "desktop/src/local-apps.mjs",
@@ -1315,7 +1315,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "14583cb631948043201061dacf86425ac64da7df5b34e4e6c618021a1540a9c3"
+      "sha256": "12fbe72ce25861e9aae600b027fa5a2f942393c4db07191d955d667cf792ce1c"
     },
     {
       "path": ".github/workflows/managed-runtime-macos.yml",

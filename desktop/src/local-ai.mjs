@@ -15,7 +15,7 @@ export async function installLocalModel({directory,model=localModel,download=ver
  if(blobs.some(item=>!/^sha256:[a-f0-9]{64}$/.test(item.digest)||!Number.isSafeInteger(item.size)||item.size<1))throw Error('Blocos do modelo local inválidos.');
  await fsp.mkdir(directory,{recursive:true,mode:0o700});if((await fsp.lstat(directory)).isSymbolicLink())throw Error('Pasta do modelo não pode ser um link.');
  // A restored or pre-existing nested directory must not redirect downloads.
- for(const relative of ['blobs',...model.manifestPath.split('/').slice(0,-1).map((_part,index,parts)=>parts.slice(0,index+1).join('/'))]){const child=path.join(directory,relative);await fsp.mkdir(child,{recursive:true,mode:0o700});const stat=await fsp.lstat(child);if(!stat.isDirectory()||stat.isSymbolicLink())throw Error('Pasta do modelo não pode ser um link.');}
+ for(const relative of ['blobs','manifests-v2',...model.manifestPath.split('/').slice(0,-1).map((_part,index,parts)=>parts.slice(0,index+1).join('/'))]){const child=path.join(directory,relative);await fsp.mkdir(child,{recursive:true,mode:0o700});const stat=await fsp.lstat(child);if(!stat.isDirectory()||stat.isSymbolicLink())throw Error('Pasta do modelo não pode ser um link.');}
  const target=path.join(directory,model.manifestPath);
  // Never silently replace a user-selected or newer model under this name.
  if(fs.existsSync(target)&&((await fsp.lstat(target)).isSymbolicLink()||await hashFile(target)!==model.manifestSHA256))throw Error('O modelo instalado difere da versão verificada. Preserve um backup antes da migração.');
