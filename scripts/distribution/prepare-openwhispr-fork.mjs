@@ -4,6 +4,8 @@ import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {applySourcePatch} from './apply-source-patch.mjs';
 const root=path.resolve(import.meta.dirname,'../..'),source=path.join(root,'subprojetos/openwhispr/upstream'),base=path.join(root,'suite/patches/openwhispr'),manifest=JSON.parse(fs.readFileSync(path.join(base,'PROVENANCE.json'))),target=path.join(root,'suite/runtime/openwhispr-build');
+if(manifest.localDefaultsSource&&shaEarly(fs.readFileSync(path.join(root,manifest.localDefaultsSource.path)))!==manifest.localDefaultsSource.sha256)throw Error('Local default preload source differs from its audited manifest');
+function shaEarly(bytes){return crypto.createHash('sha256').update(bytes).digest('hex');}
 const git=args=>execFileSync('git',['-C',source,...args],{encoding:'utf8'}).trim();
 if(git(['rev-parse','HEAD'])!==manifest.commit||git(['status','--porcelain','--untracked-files=no']))throw Error('The original source must match the clean pinned commit.');
 if(fs.existsSync(target))throw Error('Use a new managed build directory; no existing app will be overwritten.');

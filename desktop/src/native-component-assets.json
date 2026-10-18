@@ -1,47 +1,7 @@
 {
   "version": 1,
   "components": {
-    "openwhispr": {
-      "darwin-arm64": {
-        "version": 1,
-        "id": "openwhispr",
-        "target": "darwin-arm64",
-        "sourceCommit": "03f3134ba3935eef56eff319a30054766a3d6376",
-        "suiteCommit": "b8a0f15e82e5ac3faf22913aa187ab87faed329d",
-        "runId": "39158725841",
-        "accepted": true,
-        "scope": "Internal complete source component; not a final suite installer",
-        "url": "https://github.com/giodevopss/plataforma-aberta/releases/download/component-openwhispr-39158725841-darwin-arm64/OpenWhispr-Plataforma-1.10.3-internal-darwin-arm64.tar.gz",
-        "size": 415429001,
-        "sha256": "e5b5851a957b193ac881f99e037f735e25bd92fbcd881c384106376d98fe07cf"
-      },
-      "darwin-x64": {
-        "version": 1,
-        "id": "openwhispr",
-        "target": "darwin-x64",
-        "sourceCommit": "03f3134ba3935eef56eff319a30054766a3d6376",
-        "suiteCommit": "b8a0f15e82e5ac3faf22913aa187ab87faed329d",
-        "runId": "39158725841",
-        "accepted": true,
-        "scope": "Internal complete source component; not a final suite installer",
-        "url": "https://github.com/giodevopss/plataforma-aberta/releases/download/component-openwhispr-39158725841-darwin-x64/OpenWhispr-Plataforma-1.10.3-internal-darwin-x64.tar.gz",
-        "size": 406593091,
-        "sha256": "8f08f6e0d6274796c39e92f543ee781de7b74b3daac60c41026f387de9a3eeed"
-      },
-      "win32-x64": {
-        "version": 1,
-        "id": "openwhispr",
-        "target": "win32-x64",
-        "sourceCommit": "03f3134ba3935eef56eff319a30054766a3d6376",
-        "suiteCommit": "6dba93213b954b32e0ab5e80bcdb52f56448eb03",
-        "runId": "39160230792",
-        "accepted": true,
-        "scope": "Internal complete source component; not a final suite installer",
-        "url": "https://github.com/giodevopss/plataforma-aberta/releases/download/component-openwhispr-39160230792-win32-x64/OpenWhispr-Plataforma-1.10.3-internal-win32-x64.tar.gz",
-        "size": 430721351,
-        "sha256": "1e438ef72df36ef6b9605851381d359d5549828e7f437fbc10e58ab3eb98f121"
-      }
-    },
+    "openwhispr": {},
     "screenity": {
       "darwin-x64": {
         "version": 1,

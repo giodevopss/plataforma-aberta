@@ -129,8 +129,8 @@
     },
     {
       "path": "desktop/src/native-component-assets.json",
-      "size": 167512,
-      "sha256": "5658d32fa9bca2f7a127ea91b9f62462deed666e17531cdc0ef8dc48d8d783af"
+      "size": 165446,
+      "sha256": "bcc5b9c107aa78ba8701100cbbf14cfd81ba98a1de34df10b4198e15950577ac"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -426,6 +426,11 @@
       "path": "desktop/tests/native-screenity.test.mjs",
       "size": 4170,
       "sha256": "9d7ff30e91ea690ca3e585c999d831c2db3ff436a731825c61ce07e856fb1d41"
+    },
+    {
+      "path": "desktop/tests/openwhispr-defaults.test.mjs",
+      "size": 1887,
+      "sha256": "2ce1d1c957913091d426540b40c55b5260bb17708c63c23fcb4759ea368510a3"
     },
     {
       "path": "desktop/tests/private-runtime.test.mjs",
@@ -839,13 +844,18 @@
     },
     {
       "path": "suite/patches/openwhispr/PROVENANCE.json",
-      "size": 2887,
-      "sha256": "3b930fafaaf20ea4f3248fb2a9409e80ff2f42630ee4d3c5f5b1438a423b8793"
+      "size": 3960,
+      "sha256": "29091ce3bd474417ed6f69fdae7ae428856f395c1edab811052dba5535a13270"
     },
     {
       "path": "suite/patches/openwhispr/isolation.patch",
-      "size": 17832,
-      "sha256": "d587da4fcbf2f327a1869a4d2efeb5957700110d3d6bfa60d795cc800ef597ea"
+      "size": 21042,
+      "sha256": "f7f7cf52b00a9631be8e1f8875e401f8158009f42bd00c56f8c82059502a5012"
+    },
+    {
+      "path": "suite/patches/openwhispr/local-defaults-preload.cjs",
+      "size": 924,
+      "sha256": "9e3c601b1319494d42d837a0f9bc3241375058646a9377b54753a2b660006ffc"
     },
     {
       "path": "suite/patches/openwhispr/managed-process-identity.cjs",
@@ -964,8 +974,8 @@
     },
     {
       "path": "scripts/distribution/prepare-openwhispr-fork.mjs",
-      "size": 2579,
-      "sha256": "1682f5dcc12331a64c5fc00b83731cd76ea195bb871842a3a592d8fac6e0896b"
+      "size": 2896,
+      "sha256": "53f8481fbbb6a38b7a5bdf2b5128288da2d0b74902daed777781a5196a4e6ab8"
     },
     {
       "path": "scripts/distribution/apply-source-patch.mjs",
@@ -1034,8 +1044,8 @@
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
-      "size": 9928,
-      "sha256": "5c2441161276dbeef14c6afd2ae946258fab410d5d3f8b4b438b538630adecd9"
+      "size": 9950,
+      "sha256": "7807bc8fec2846bb46b6e1b7f29f44f699a8b5f7796ab1f432e85ff36ddcc2eb"
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
@@ -1245,7 +1255,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 7113,
-      "sha256": "d5d9db5bdeec7cc7b71c1f127918c6a642176f520fdb8f70ecfdc1a398e290d3"
+      "sha256": "e2b2a5d7ae8e83b014d408c7dfc9378021d72c0ed0fbf9d288692f4487524da9"
     },
     {
       "path": ".github/workflows/native-voice-recovery.yml",
@@ -1269,8 +1279,8 @@
     },
     {
       "path": ".github/workflows/openwhispr-fork-validation.yml",
-      "size": 6420,
-      "sha256": "d13f24923cdaef82f3e16b7c306a73a1ecc60269d3ab18639dd4d0f67679024b"
+      "size": 6388,
+      "sha256": "f9b3a7f07ba281327cc56b0fd8572bbbe58028c848af811171ac5c8e6a43f732"
     },
     {
       "path": ".github/workflows/screenity-validation.yml",

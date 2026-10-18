@@ -507,3 +507,86 @@ index 0000000..b7dd1a5
 +  return (await identity(pid)) === expected;
 +}
 +module.exports = { identity, sameProcess };
+diff --git a/src/helpers/ipcHandlers.js b/src/helpers/ipcHandlers.js
+index 2a5c51b..49b26cc 100644
+--- a/src/helpers/ipcHandlers.js
++++ b/src/helpers/ipcHandlers.js
+@@ -1936,7 +1936,9 @@ class IPCHandlers {
+ 
+     ipcMain.handle("get-audio-buffer", async (event, id) => {
+       const buffer = this.audioStorageManager.getAudioBuffer(id);
+-      return buffer ? buffer.buffer : null;
++      return buffer
++        ? buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength)
++        : null;
+     });
+ 
+     ipcMain.handle("delete-transcription-audio", async (event, id) => {
+diff --git a/src/helpers/windowConfig.js b/src/helpers/windowConfig.js
+index 7751ce3..7741e5b 100644
+--- a/src/helpers/windowConfig.js
++++ b/src/helpers/windowConfig.js
+@@ -183,6 +183,9 @@ const MAIN_WINDOW_CONFIG = {
+   title: "Voice Recorder",
+   webPreferences: {
+     preload: path.join(__dirname, "..", "..", "preload.js"),
++    ...(process.env.OPENWHISPR_SUITE_MANAGED === "1"
++      ? { additionalArguments: ["--plataforma-suite-managed"] }
++      : {}),
+     nodeIntegration: false,
+     contextIsolation: true,
+     sandbox: true,
+@@ -222,6 +225,9 @@ const CONTROL_PANEL_CONFIG = {
+   backgroundColor: process.platform === "darwin" ? "#00000000" : "#1c1c2e",
+   webPreferences: {
+     preload: path.join(__dirname, "..", "..", "preload.js"),
++    ...(process.env.OPENWHISPR_SUITE_MANAGED === "1"
++      ? { additionalArguments: ["--plataforma-suite-managed"] }
++      : {}),
+     nodeIntegration: false,
+     contextIsolation: true,
+     // sandbox: false is required because the preload script bridges IPC
+@@ -277,6 +283,9 @@ const NOTIFICATION_WINDOW_CONFIG = {
+   acceptFirstMouse: true,
+   webPreferences: {
+     preload: path.join(__dirname, "..", "..", "preload.js"),
++    ...(process.env.OPENWHISPR_SUITE_MANAGED === "1"
++      ? { additionalArguments: ["--plataforma-suite-managed"] }
++      : {}),
+     nodeIntegration: false,
+     contextIsolation: true,
+     sandbox: true,
+diff --git a/preload.js b/preload.js
+index 42ce31a..62af4c9 100644
+--- a/preload.js
++++ b/preload.js
+@@ -1,3 +1,29 @@
++// Suite profiles default to local inference before the original settings store hydrates.
++// Existing explicit provider/model preferences are preserved.
++if (typeof process !== "undefined" && process.argv?.includes("--plataforma-suite-managed")) {
++  try {
++    const providerKeys = [
++      "useLocalWhisper",
++      "transcriptionMode",
++      "cloudTranscriptionMode",
++      "cloudTranscriptionProvider",
++      "localTranscriptionProvider",
++      "whisperModel",
++    ];
++    if (providerKeys.every((key) => localStorage.getItem(key) === null)) {
++      const defaults = {
++        useLocalWhisper: "true",
++        transcriptionMode: "local",
++        localTranscriptionProvider: "whisper",
++        whisperModel: "tiny",
++      };
++      for (const [key, value] of Object.entries(defaults)) localStorage.setItem(key, value);
++    }
++  } catch {
++    // An unavailable origin must not prevent the original permission/onboarding UI.
++  }
++}
++
+ const { contextBridge, ipcRenderer, webUtils } = require("electron");
+ 
+ // BYOK API-key bridges, built once instead of hand-listed per key. Sandboxed

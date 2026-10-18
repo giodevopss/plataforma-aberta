@@ -2,7 +2,7 @@
   "repository": "https://github.com/OpenWhispr/openwhispr",
   "commit": "03f3134ba3935eef56eff319a30054766a3d6376",
   "license": "MIT",
-  "scope": "Complete native app fork; isolated model/semantic/yt-dlp caches, CLI bridge, OS identity and protocol. Standalone updater cannot replace this managed fork. No source features removed. Windows native models retain the upstream ASCII-path restriction and fail explicitly rather than moving personal caches. Managed native child PID/start/boot identity registry prevents snapshots while orphaned model or search writers remain.",
+  "scope": "Complete native app fork; isolated model/semantic/yt-dlp caches, CLI bridge, OS identity and protocol. Standalone updater cannot replace this managed fork. No source features removed. Windows native models retain the upstream ASCII-path restriction and fail explicitly rather than moving personal caches. Managed native child PID/start/boot identity registry prevents snapshots while orphaned model or search writers remain. Suite-managed new profiles default to local Whisper before original settings hydration while retaining existing choices. Original audio IPC returns the exact file buffer range, including short pooled buffers.",
   "status": "prepared; source regression and native rebuild acceptance pending",
   "files": [
     {
@@ -54,6 +54,25 @@
       "path": "src/helpers/managed-process-identity.cjs",
       "original_sha256": null,
       "sha256": "15219868e23d8993fe4e3046dbc31f96586cf40d7a04697cbd21ec92ecbaab54"
+    },
+    {
+      "path": "src/helpers/ipcHandlers.js",
+      "original_sha256": "c346236e4f4388fc13af0aff504dec45bb4a2117d5cb5a0d8ff8df5bd7f234dd",
+      "sha256": "ef2aba99380d9b5e894e7c2f6cc1dfce63ef4ad530fcc6fce84be805fe3e3c63"
+    },
+    {
+      "path": "src/helpers/windowConfig.js",
+      "original_sha256": "8e881369d94971be43b78ce3419bed9f6eab6dbb316bbda46ee97b1d65e9ebf4",
+      "sha256": "78028d8358760b65c03d69f661c85b97ea248d66f36b4b10c5b8665f9afea454"
+    },
+    {
+      "path": "preload.js",
+      "original_sha256": "df3bb5b0624bf38ea785bb0d5dd1f040f4b12f896f2e4047efa3308c47801c43",
+      "sha256": "dd6ec82732630de1bb28babe3d9b4f25fb1b5dd4be802eeaf1bdd31709bf5859"
     }
-  ]
+  ],
+  "localDefaultsSource": {
+    "path": "suite/patches/openwhispr/local-defaults-preload.cjs",
+    "sha256": "9e3c601b1319494d42d837a0f9bc3241375058646a9377b54753a2b660006ffc"
+  }
 }

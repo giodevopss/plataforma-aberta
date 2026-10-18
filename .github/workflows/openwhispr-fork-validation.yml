@@ -53,11 +53,11 @@ jobs:
         working-directory: suite/runtime/openwhispr-build
         run: npm run quality-check
       - name: Build original database bindings for Node tests
-        if: inputs.source_run == '' && !cancelled()
+        if: inputs.source_run == ''
         working-directory: suite/runtime/openwhispr-build
         run: npm rebuild better-sqlite3
       - name: Run original test suite including real database tests
-        if: inputs.source_run == '' && !cancelled()
+        if: inputs.source_run == ''
         env:
           PA_TEST_SCOPE: ${{ inputs.test_scope || 'full' }}
           REQUIRE_DB_TESTS: '1'
