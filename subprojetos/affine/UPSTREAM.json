@@ -1,0 +1,27 @@
+{
+  "id": "affine",
+  "name": "AFFiNE",
+  "repo": "toeverything/AFFiNE",
+  "domain": "Documentos e conhecimento",
+  "checked_at": "2026-10-15T21:29:32.271722+00:00",
+  "repository": {
+    "default_branch": "canary",
+    "archived": false,
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "pushed_at": "2026-10-12T09:51:10Z",
+    "created_at": "2022-07-31T18:45:21Z",
+    "open_issues_count": 772,
+    "size": 454981,
+    "html_url": "https://github.com/toeverything/AFFiNE",
+    "description": "There can be more than Notion and Miro. AFFiNE(pronounced [ə‘fain]) is a next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, open-source, customizable and ready to use. "
+  },
+  "commit": "0b69a6da21e8fd35beb85667bb8496d9b3852238",
+  "source_status": "cloned",
+  "issues_count": 19
+}

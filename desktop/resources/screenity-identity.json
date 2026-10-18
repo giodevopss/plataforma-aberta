@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "sourceCommit": "dddeeb668ad285155a48fa89298f0fe2ef273579",
+  "extensionVersion": "4.6.12",
+  "originalManifestSHA256": "7c2d21116833f5af5b4c7845ca98da2f6b859a0f9a5ce742709aa72c3214c159",
+  "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA14F4Gpu85p7u135dwEkdkNY40lPmpDGJM66kbrNp8MxT93EfPnK+sMimpzINLcPsFFR4b/Eh87tHRqrnCTX8eQmtqxIaJa/QoKLAtITZLiT/NOZK86fb9KJ3fL+NtBsZHzmCCSpavYp4jvyBuIqZZvjUnbPTKe2ABTYjBRAqCRZN5zqOwln3j7ScC+MVR266pPGoY6ZSoKimAakbEyrsae0bp5Q7SaQx9IGhvJNPgraNpKUmg43vfXoZB7yjwuUc2XWT5nJAFXyFQMXNjYWKEmBT2NbbJn3VODXCMs1RmqM/RVMBJvpaIMxYOZsJbv2g14F5x0zZ4sHbebFrAiExBQIDAQAB",
+  "extensionId": "ocalpfkdpodapjhklakibgjblnleapmg",
+  "purpose": "Stable own unpacked-extension identity across install paths and OS profiles. Public identity material only; no private signing key is generated as a distribution credential or persisted. Final desktop packages require independent distribution signatures."
+}

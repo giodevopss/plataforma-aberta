@@ -1,0 +1,37 @@
+name: Verify compiled Graphite persistence candidate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: graphite-candidate-acceptance
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - name: Restore verified complete engine candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          npm ci --prefix desktop --no-audit --no-fund
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+      - name: Verify real immediate persistence and independent browser recovery
+        run: xvfb-run -a node suite/tests/graphite-durability.mjs
+      - name: Preserve fresh candidate acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: graphite-candidate-acceptance
+          path: suite/research/graphite-durability/
+          retention-days: 1
+          if-no-files-found: error

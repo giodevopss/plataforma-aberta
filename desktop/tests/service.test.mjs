@@ -1,0 +1,24 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {startService} from '../src/service.mjs';
+import http from 'node:http';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+test('desktop service authenticates every route and exports real local documents',async t=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'pa-desktop-api-'));const token='test-only-token';const s=await startService({resources:path.join(root,'desktop/resources'),directory:dir,token});t.after(async()=>{await s.close();fs.rmSync(dir,{recursive:true,force:true});});
+ const request=(route,options={})=>fetch(s.origin+route,{...options,headers:{'X-PA-Session':token,...options.headers}});
+ assert.equal((await fetch(s.origin+'/api/projects')).status,403);
+ assert.equal((await request('/api/projects',{headers:{Origin:'https://example.org'}})).status,403);
+ const invalidHost=await new Promise((resolve,reject)=>{http.get(s.origin+'/api/projects',{headers:{Host:'example.org','X-PA-Session':token}},r=>{r.resume();resolve(r.statusCode);}).on('error',reject);});assert.equal(invalidHost,403);
+ const projects=await(await request('/api/projects')).json();assert.equal(projects.projects.length,12);
+ assert.equal((await request('/apps/plane/%2e%2e/%2e%2e/src/main.mjs')).status,404);
+ const save=await request('/api/state/plane',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({revision:0,data:{title:'Local'}})});assert.equal(save.status,200);
+ assert.equal((await request('/api/state/plane',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({revision:0,data:{title:'Stale'}})})).status,409);
+ assert.equal((await request('/api/export/pptx',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).status,404);
+ const upload=await request('/api/files?project=paperless&name=document.pdf',{method:'POST',headers:{'Content-Type':'application/pdf'},body:fs.readFileSync(path.join(root,'subprojetos/tests/fixtures/document.pdf'))});const file=await upload.json();assert.equal(upload.status,200);
+ const extract=await request('/api/files/extract',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:file.id})});const extracted=await extract.json();assert.equal(extract.status,200,extracted.error);assert.match(extracted.text,/Plataforma/);
+ assert.match((await request('/')).headers.get('Content-Security-Policy'),/script-src 'self'/);
+});

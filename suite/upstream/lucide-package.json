@@ -1,0 +1,28 @@
+{
+  "name": "lucide-static",
+  "version": "1.57.0",
+  "dist": {
+    "shasum": "11db0d9160a3981334abad47fef1cfd1d53edaec",
+    "tarball": "https://registry.npmjs.org/lucide-static/-/lucide-static-1.57.0.tgz",
+    "fileCount": 5963,
+    "integrity": "sha512-nuf4YoaKt3Pq9scXVQ71SLr0Q1/UZiTcfBBivFsCVL6biAzPplTikVWXLetBmK3oFEJS6f2L1rzgEsoJN/Ce0Q==",
+    "signatures": [
+      {
+        "sig": "MEUCIQCEIhFRNkho1Ak2Nd5HmBjDocSvtdcfhNyCrRSgesoyrAIgD/i7dskckqARxHbgkfdVXRcjPo/aMJi48sK7z/O4Ib8=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEUCIGDWzAWci18xi47QG2DAi5pNvEyYvDPORmBuG86GP1TzAiEAzvkWwMNeWndL1dELAmw20iTyRfPqozA40qeW2zeXJj4=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/lucide-static@1.57.0",
+      "provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1"
+      }
+    },
+    "unpackedSize": 51864820
+  },
+  "license": "ISC"
+}

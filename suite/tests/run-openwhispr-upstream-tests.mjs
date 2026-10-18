@@ -1,0 +1,23 @@
+// Run every original test file. Isolate the two observed high-heap files so a
+// private 7 GB runner never runs two 4 GB V8 workers concurrently.
+import fs from 'node:fs';import path from 'node:path';import {spawn} from 'node:child_process';
+if(process.env.CI!=='true'||!['giodevopss/plataforma-aberta-suite','giodevopss/plataforma-aberta'].includes(process.env.GITHUB_REPOSITORY))throw Error('Disposable source-test runner required.');
+const root=path.resolve('.'),source=path.join(root,'suite/runtime/openwhispr-build'),evidence=path.join(root,'suite/research/openwhispr-cloud');fs.mkdirSync(evidence,{recursive:true});
+const files=[];function walk(relative){for(const item of fs.readdirSync(path.join(source,relative),{withFileTypes:true})){const name=relative+'/'+item.name;if(item.isDirectory())walk(name);else if(item.isFile()&&item.name.endsWith('.test.js'))files.push(name);else if(item.isSymbolicLink())throw Error('Unexpected test-source link.');}}walk('test');files.sort();
+const heavy=['test/helpers/audioManagerStreamingFinalization.test.js','test/helpers/useChatStreamingTools.test.js'];for(const name of heavy)if(!files.includes(name))throw Error('Pinned high-heap test file missing.');
+const allGroups=[{name:'ordinary',files:files.filter(file=>!heavy.includes(file)),heap:2048,concurrency:2},...heavy.map((file,index)=>({name:'high-heap-'+(index+1),files:[file],heap:4096,concurrency:1}))];
+if(new Set(allGroups.flatMap(group=>group.files)).size!==files.length||allGroups.reduce((sum,group)=>sum+group.files.length,0)!==files.length)throw Error('Every original test file must run exactly once.');
+const diagnostic=process.env.PA_TEST_SCOPE==='heavy',groups=diagnostic?allGroups.filter(group=>group.heap===4096):allGroups;
+const heapProbe=path.join(evidence,'heap-probe.mjs');fs.writeFileSync(heapProbe,"import {getHeapStatistics} from 'node:v8';import {isMainThread,threadId} from 'node:worker_threads';const actual=Math.round(getHeapStatistics().heap_size_limit/1024/1024);console.log('ACTUAL_TEST_HEAP',JSON.stringify({actualMB:actual,expectedMB:Number(process.env.PA_TEST_HEAP_MB),isMainThread,threadId}));if(actual<Number(process.env.PA_TEST_HEAP_MB))throw Error('Test worker heap does not match its configured budget');\n");
+const report={checked_at:new Date().toISOString(),suiteCommit:process.env.GITHUB_SHA,upstreamCommit:JSON.parse(fs.readFileSync(path.join(source,'PLATAFORMA_SOURCE.json'))).commit,status:'failed',files,groups:[],scope:diagnostic?'Partial diagnostic: two original high-memory files only; native builds remain gated on a full passing run':'Complete original test suite, unchanged assertions and real SQLite bindings; explicit memory budgets per cohort'};
+async function execute(group){
+ const output=path.join(evidence,group.name+'.log'),stream=fs.createWriteStream(output,{flags:'w'});let code;
+ try{code=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,['--max-old-space-size='+group.heap,'--import',heapProbe,'--import','tsx','--test','--test-concurrency='+group.concurrency,'--test-reporter=spec',...group.files],{cwd:source,env:{...process.env,PA_TEST_HEAP_MB:String(group.heap),NODE_OPTIONS:((process.env.NODE_OPTIONS||'').replace(/--max-old-space-size(?:=| )\d+/g,'')+' --max-old-space-size='+group.heap).trim()},shell:false,stdio:['ignore','pipe','pipe']});child.stdout.on('data',bytes=>{stream.write(bytes);process.stdout.write(bytes);});child.stderr.on('data',bytes=>{stream.write(bytes);process.stderr.write(bytes);});child.on('error',reject);child.on('close',resolve);});}finally{await new Promise(resolve=>stream.end(resolve));}
+ const text=fs.readFileSync(output,'utf8').replace(/\x1b\[[0-9;]*m/g,'');const counts=Object.fromEntries(['tests','pass','fail','cancelled','skipped','todo'].map(name=>[name,Number(text.match(new RegExp('ℹ '+name+' (\\d+)'))?.[1]??NaN)]));
+ return {name:group.name,files:group.files.length,heapMB:group.heap,concurrency:group.concurrency,exitCode:code,...counts};
+}
+try{
+ for(const group of groups){const result=await execute(group);report.groups.push(result);fs.writeFileSync(path.join(evidence,'upstream-results.json'),JSON.stringify(report,null,2)+'\n');}
+ report.status=report.groups.every(group=>group.exitCode===0&&group.fail===0&&group.cancelled===0&&Number.isInteger(group.tests)&&group.tests>0)?'passed':'failed';report.totals=Object.fromEntries(['tests','pass','fail','cancelled','skipped','todo'].map(name=>[name,report.groups.reduce((sum,group)=>sum+group[name],0)]));
+ if(report.status!=='passed')process.exitCode=1;
+}finally{fs.writeFileSync(path.join(evidence,'upstream-results.json'),JSON.stringify(report,null,2)+'\n');}

@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/paperless-ngx/paperless-ngx",
+  "commit": "c50c6f5517e3fd8f97fa546ede69a52b622e2b20",
+  "source": "src/paperless/parsers/tika.py",
+  "original_sha256": "af83cdc7a248c28305fdc626a8b3f6058bd8a5efd2584f1f593360a33458d86a",
+  "sha256": "c29edb3c5ae092f4ea15eb6761a19d8b957c0d73e2078b40036a210d61bb2f86",
+  "adaptation": "Use pinned Tika 4 streaming JSON text/metadata endpoints with explicit Accept, retaining the original typed date/metadata model through aliases for renamed tk keys. Gotenberg conversion and all original parser features remain. HTTP errors propagate. No feature/license checks modified.",
+  "license": "GPL-3.0",
+  "compatibility_reference": "https://github.com/stumpylog/tika-client/issues/87"
+}

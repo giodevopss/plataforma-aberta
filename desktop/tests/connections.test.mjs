@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {validateConnections,readConnections,saveConnections,safeRemoteNavigation} from '../src/connections.mjs';
+test('complete app endpoints require HTTPS except loopback',()=>{assert.equal(validateConnections({plane:'http://127.0.0.1:8000'},['plane']).plane,'http://127.0.0.1:8000/');assert.throws(()=>validateConnections({plane:'http://example.com'},['plane']));assert.throws(()=>validateConnections({plane:'file:///etc/passwd'},['plane']));assert.throws(()=>validateConnections({plane:'javascript:alert(1)'},['plane']));});
+test('connections cannot include credentials, query tokens or unknown modules',()=>{for(const raw of ['https://user:secret@example.com','https://example.com?token=secret','https://example.com#secret'])assert.throws(()=>validateConnections({plane:raw},['plane']));assert.throws(()=>validateConnections({unknown:'https://example.com'},['plane']));});
+test('saved connection configuration is atomic and contains only allowed endpoints',t=>{const dir=fs.mkdtempSync(path.join(os.tmpdir(),'pa-connections-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));saveConnections(dir,{plane:'https://projects.example.com/',paperless:''},['plane','paperless']);assert.deepEqual(readConnections(dir,['plane','paperless']),{plane:'https://projects.example.com/'});assert.equal(fs.existsSync(path.join(dir,'connections.json.tmp')),false);});
+test('remote navigation never opens local files or downgrades to unrelated HTTP',()=>{assert.equal(safeRemoteNavigation('https://auth.example.com','https://app.example.com'),true);assert.equal(safeRemoteNavigation('http://127.0.0.1:8000/login','http://127.0.0.1:8000'),true);assert.equal(safeRemoteNavigation('http://evil.example.com','https://app.example.com'),false);assert.equal(safeRemoteNavigation('file:///secret','https://app.example.com'),false);});

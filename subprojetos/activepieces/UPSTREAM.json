@@ -1,0 +1,27 @@
+{
+  "id": "activepieces",
+  "name": "Activepieces",
+  "repo": "activepieces/activepieces",
+  "domain": "Automação",
+  "checked_at": "2026-10-15T21:29:32.271722+00:00",
+  "repository": {
+    "default_branch": "main",
+    "archived": false,
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "pushed_at": "2026-10-15T20:35:31Z",
+    "created_at": "2022-12-03T02:52:46Z",
+    "open_issues_count": 752,
+    "size": 960149,
+    "html_url": "https://github.com/activepieces/activepieces",
+    "description": "AI Agents & MCPs & AI Workflow Automation • (~400 MCP servers for AI agents) • AI Automation / AI Agent with MCPs • AI Workflows & AI Agents • MCPs for AI Agents"
+  },
+  "commit": "55134042a88da01be2229e06302a78c80f209ea0",
+  "source_status": "cloned",
+  "issues_count": 6
+}

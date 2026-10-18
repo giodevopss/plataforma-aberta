@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/makeplane/plane",
+  "commit": "ac0d55de30eb2876209016744e025c95647dffe4",
+  "source": "apps/proxy/Caddyfile.ce",
+  "original_sha256": "f1390e7bf1b26b1a756cef4a0bf6c3f80c54631f4940cb5981d93439926141b5",
+  "sha256": "ca254301c7b10385cf0c731e2f7484d1e666ef81a84bf4425da1a247abc907bf",
+  "adaptation": "Original port 3000 routing retained for all frontends. This loopback-only stack uses SITE_ADDRESS=:80 and disables automatic HTTPS, avoiding empty ACME environment placeholders. The suite authenticates the outer loopback gateway. No feature/license checks modified.",
+  "license": "AGPL-3.0",
+  "bootstrap": {
+    "image": "docker.io/makeplane/plane-frontend@sha256:22fd2434fb8d6658439f669ab72f999ce0773abe587663da21a77d70bd63ff61",
+    "source": "entry.client-BJhItYEm.js",
+    "target": "/usr/share/nginx/html/assets/entry.client-BJhItYEm.js",
+    "original_sha256": "247077e4e7ce10730799173b6e99ef41dc19d88b0efcf86794ecf96900d2ae23",
+    "sha256": "8ef802a79c021336a72785027f31e4f5751898125cb9d898506c2eca494d6316",
+    "adaptation": "The official static SPA shell mismatches its hydration fallback (upstream issue 8867). Render the existing complete HydratedRouter tree through React createRoot instead of hydrating unmatched static HTML. No routes, state, application features or licensing checks changed.",
+    "reference": "https://github.com/makeplane/plane/issues/8867",
+    "arm64_source_verification": {
+      "status": "passed",
+      "amd64_sha256": "247077e4e7ce10730799173b6e99ef41dc19d88b0efcf86794ecf96900d2ae23",
+      "arm64_sha256": "247077e4e7ce10730799173b6e99ef41dc19d88b0efcf86794ecf96900d2ae23",
+      "evidence": "suite/research/plane-bootstrap-both-architectures/bootstrap.json",
+      "run": "https://github.com/giodevopss/plataforma-aberta-suite/actions/runs/38963643410"
+    }
+  }
+}

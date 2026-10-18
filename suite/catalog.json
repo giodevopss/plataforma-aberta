@@ -1,0 +1,208 @@
+[
+  {
+    "id": "presenton",
+    "name": "Presenton",
+    "repository": "https://github.com/presenton/presenton",
+    "inspected_commit": "23d7347261f3b625b79782a5545d85d897d8ef01",
+    "adoption": "complete-local-service",
+    "status": "Complete original application integrated as a managed local service. Original canvas text editing, native PPTX download, local Ollama generation and regression fix accepted on macOS. Global installer/backup/cross-platform release acceptance pending.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE",
+      "servers/fastapi/LICENSE"
+    ],
+    "research_directory": "subprojetos/presenton",
+    "initial_research_app_in_desktop": false,
+    "complete_image": "ghcr.io/presenton/presenton@sha256:ddf0d1f26397764856acdf94489dbbae5a2c0644a280723fd80bc7a80de338ba",
+    "adaptations": [
+      "suite/patches/presenton/status_payload.py"
+    ],
+    "patch_manifest": "desktop/resources/presenton-patches/presentation.provenance.json"
+  },
+  {
+    "id": "openwhispr",
+    "name": "OpenWhispr",
+    "repository": "https://github.com/OpenWhispr/openwhispr",
+    "inspected_commit": "03f3134ba3935eef56eff319a30054766a3d6376",
+    "adoption": "native-application-port",
+    "status": "Complete official native OpenWhispr 1.10.3 archive and original code signature verified. Native app runs with isolated profile/protocol and model cache, and real whisper.cpp transcribed synthetic speech locally. Semantic search cache isolation, suite launcher/backup and Windows acceptance pending.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE",
+      "openwhispr-mobile/LICENSE",
+      "openwhispr-mobile/app/(account)/licenses.tsx",
+      "openwhispr-mobile/src/screens/LicensesScreen.tsx",
+      "resources/mediaremote-adapter/LICENSE"
+    ],
+    "research_directory": "subprojetos/openwhispr",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "graphite",
+    "name": "Graphite",
+    "repository": "https://github.com/GraphiteEditor/Graphite",
+    "inspected_commit": "243a83ce1743809e124aca8d4c0b08a3b2ddb127",
+    "adoption": "source-engine",
+    "status": "Complete Rust/WASM engine and Svelte UI integrated. Restricted branding assets replaced with Lucide/original SVGs. Native drawing, SVG and reload accepted; backup and shutdown durability acceptance pending.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "website/content/license.md",
+      "libraries/dyn-any/LICENSE-APACHE",
+      "libraries/dyn-any/LICENSE-MIT",
+      "libraries/rawkit/LICENSE-APACHE",
+      "libraries/rawkit/LICENSE-MIT",
+      "libraries/rawkit/rawkit-proc-macros/LICENSE-APACHE",
+      "libraries/rawkit/rawkit-proc-macros/LICENSE-MIT"
+    ],
+    "research_directory": "subprojetos/graphite",
+    "initial_research_app_in_desktop": false,
+    "asset_manifest": "desktop/resources/graphite-assets.json"
+  },
+  {
+    "id": "excalidraw",
+    "name": "Excalidraw",
+    "repository": "https://github.com/excalidraw/excalidraw",
+    "inspected_commit": "4c37956ba5f04ec342a9d9d5891a38f22c5b7b4e",
+    "adoption": "source-engine",
+    "status": "Integrated original engine; editable tables, tabs, JSON/PNG export and native persistence tested",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE",
+      "packages/laser-pointer/LICENSE"
+    ],
+    "research_directory": "subprojetos/excalidraw",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "screenity",
+    "name": "Screenity",
+    "repository": "https://github.com/alyssaxuu/screenity",
+    "inspected_commit": "dddeeb668ad285155a48fa89298f0fe2ef273579",
+    "adoption": "native-application-port",
+    "status": "Complete unmodified official Screenity 4.6.12 release verified against author SHA-256; corresponding source bundled. Dedicated Chromium profile, synthetic recording playback and MP4 export accepted. Suite launcher, screen capture, editing and WebM conversion acceptance pending.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE"
+    ],
+    "research_directory": "subprojetos/screenity",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "affine",
+    "name": "AFFiNE",
+    "repository": "https://github.com/toeverything/AFFiNE",
+    "inspected_commit": "0b69a6da21e8fd35beb85667bb8496d9b3852238",
+    "adoption": "complete-local-service",
+    "status": "Complete original application with own local PostgreSQL/Redis integrated. Browser-to-server sync, original attachments, isolated snapshot restoration and fresh-browser recovery accepted. Global installer/backup/cross-platform release acceptance pending.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE",
+      "LICENSE-MIT",
+      "packages/backend/native/LICENSE",
+      "packages/backend/server/LICENSE",
+      "packages/common/native/LICENSE"
+    ],
+    "research_directory": "subprojetos/affine",
+    "initial_research_app_in_desktop": false,
+    "complete_image": "ghcr.io/toeverything/affine@sha256:b649f5ce2384ffdf13c23bccf81d759e15973d59d0b0058af65d895a84373099"
+  },
+  {
+    "id": "baserow",
+    "name": "Baserow",
+    "repository": "https://github.com/baserow/baserow",
+    "inspected_commit": "bfe1b5868d7e6af742a254a99d21d65402104214",
+    "adoption": "complete-local-service",
+    "status": "Complete Baserow 2.4.1 integrated with local PostgreSQL/Redis. Synthetic signup, table creation, row persistence, original CSV export and native WebContentsView accepted on macOS ARM64. Unified backup and cross-platform release acceptance pending.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE",
+      "enterprise/LICENSE",
+      "backend/src/advocate/LICENSE",
+      "premium/LICENSE"
+    ],
+    "research_directory": "subprojetos/baserow",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "activepieces",
+    "name": "Activepieces",
+    "repository": "https://github.com/activepieces/activepieces",
+    "inspected_commit": "55134042a88da01be2229e06302a78c80f209ea0",
+    "adoption": "complete-local-service",
+    "status": "Complete Activepieces 0.92.2 integrated with local PostgreSQL/Redis and worker. Corrected 17 stale compiled contract modules from the original source. Original workflow publishing and real manual worker execution accepted in browser and native WebContentsView on macOS ARM64. Full offline catalog, unified restore and cross-platform release acceptance pending.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE",
+      ".agents/skills/mcp-builder/LICENSE.txt",
+      "docs/LICENSE",
+      "docs/install/configure-operate/enterprise-license.mdx",
+      "docs/resources/screenshots/activation-license-key-settings.webp",
+      "docs/about/license.mdx",
+      "packages/ee/LICENSE",
+      "brain/knowledge/platform-editions-ee/license-keys.md"
+    ],
+    "research_directory": "subprojetos/activepieces",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "plane",
+    "name": "Plane",
+    "repository": "https://github.com/makeplane/plane",
+    "inspected_commit": "ac0d55de30eb2876209016744e025c95647dffe4",
+    "adoption": "complete-local-service",
+    "status": "Managed complete stack prepared from original deployment sources, images pinned by official registry digests for ARM64/AMD64; isolation and Compose configuration tests passed. Runtime and workflow acceptance pending due insufficient free disk space.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE.txt"
+    ],
+    "research_directory": "subprojetos/plane",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "formbricks",
+    "name": "Formbricks",
+    "repository": "https://github.com/formbricks/formbricks",
+    "inspected_commit": "fc0ca3817c1d34a787e4e18c15dc0d146b2c7f72",
+    "adoption": "complete-local-service",
+    "status": "Managed complete stack prepared from original deployment sources, images pinned by official registry digests for ARM64/AMD64; isolation and Compose configuration tests passed. Runtime and workflow acceptance pending due insufficient free disk space.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE",
+      "charts/spicedb-operator/LICENSE",
+      "docs/self-hosting/advanced/license-activation.mdx",
+      "docs/self-hosting/advanced/license.mdx"
+    ],
+    "research_directory": "subprojetos/formbricks",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "postiz",
+    "name": "Postiz",
+    "repository": "https://github.com/gitroomhq/postiz-app",
+    "inspected_commit": "08b1e6b46f49bb92442123a2522d7f666a65d4f7",
+    "adoption": "complete-local-service",
+    "status": "Managed complete stack prepared from original deployment sources, images pinned by official registry digests for ARM64/AMD64; isolation and Compose configuration tests passed. Runtime and workflow acceptance pending due insufficient free disk space.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE"
+    ],
+    "research_directory": "subprojetos/postiz",
+    "initial_research_app_in_desktop": false
+  },
+  {
+    "id": "paperless",
+    "name": "Paperless-ngx",
+    "repository": "https://github.com/paperless-ngx/paperless-ngx",
+    "inspected_commit": "c50c6f5517e3fd8f97fa546ede69a52b622e2b20",
+    "adoption": "complete-local-service",
+    "status": "Managed complete stack prepared from original deployment sources, images pinned by official registry digests for ARM64/AMD64; isolation and Compose configuration tests passed. Runtime and workflow acceptance pending due insufficient free disk space.",
+    "source_modified": false,
+    "license_files": [
+      "LICENSE"
+    ],
+    "research_directory": "subprojetos/paperless",
+    "initial_research_app_in_desktop": false
+  }
+]

@@ -1,0 +1,2 @@
+import fs from 'node:fs';import path from 'node:path';import {prepareScreenityIdentity} from '../../desktop/src/screenity-identity.mjs';
+const root=path.resolve(import.meta.dirname,'../..'),identity=JSON.parse(fs.readFileSync(path.join(root,'desktop/resources/screenity-identity.json')));console.log(JSON.stringify(prepareScreenityIdentity({directory:path.join(root,'desktop/resources/screenity-extension'),identity}),null,2));

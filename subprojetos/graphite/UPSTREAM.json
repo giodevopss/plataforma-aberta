@@ -1,0 +1,27 @@
+{
+  "id": "graphite",
+  "name": "Graphite",
+  "repo": "GraphiteEditor/Graphite",
+  "domain": "Editor vetorial",
+  "checked_at": "2026-10-15T21:29:32.271722+00:00",
+  "repository": {
+    "default_branch": "master",
+    "archived": false,
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "pushed_at": "2026-10-15T19:59:54Z",
+    "created_at": "2020-04-26T07:29:29Z",
+    "open_issues_count": 445,
+    "size": 58233,
+    "html_url": "https://github.com/GraphiteEditor/Graphite",
+    "description": "Community-built comprehensive 2D content creation appplication for graphic design, digital art, and interactive real-time motion graphics powered by a node-based procedural graphics engine"
+  },
+  "commit": "243a83ce1743809e124aca8d4c0b08a3b2ddb127",
+  "source_status": "cloned",
+  "issues_count": 20
+}

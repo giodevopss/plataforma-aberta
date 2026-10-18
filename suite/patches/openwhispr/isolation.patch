@@ -1,0 +1,234 @@
+--- a/src/helpers/modelDirUtils.js
++++ b/src/helpers/modelDirUtils.js
+@@ -121,6 +121,16 @@
+ }
+ 
+ function getCacheRoot() {
++  if (process.env.OPENWHISPR_SUITE_MANAGED === "1") {
++    const managedRoot = process.env.OPENWHISPR_CACHE_ROOT;
++    if (!managedRoot || !path.isAbsolute(managedRoot))
++      throw new Error("Managed model cache requires an absolute suite-owned path");
++    if (process.platform === "win32" && pathHasProblematicChars(managedRoot))
++      throw new Error(
++        "Native speech models require a cache path without spaces or non-ASCII characters on Windows"
++      );
++    return ensureDir(managedRoot);
++  }
+   const homeDir = app?.getPath?.("home") || os.homedir();
+   const homeCache = path.join(homeDir, ".cache", "openwhispr");
+   let targetRoot = getPreferredCacheRoot(homeCache);
+--- a/src/helpers/qdrantManager.js
++++ b/src/helpers/qdrantManager.js
+@@ -30,9 +30,9 @@
+ const RESTART_EXIT_WAIT_MS = 2000;
+ 
+ const STORAGE_DIR = path.join(
+-  os.homedir(),
+-  ".cache",
+-  "openwhispr",
++  process.env.OPENWHISPR_SUITE_MANAGED === "1"
++    ? require("./modelDirUtils").getCacheRoot()
++    : path.join(os.homedir(), ".cache", "openwhispr"),
+   process.env.NODE_ENV === "development" ? "qdrant-data-dev" : "qdrant-data"
+ );
+ 
+--- a/src/helpers/localEmbeddings.js
++++ b/src/helpers/localEmbeddings.js
+@@ -16,9 +16,9 @@
+ 
+   _resolveModelDir() {
+     const cacheDir = path.join(
+-      os.homedir(),
+-      ".cache",
+-      "openwhispr",
++      process.env?.OPENWHISPR_SUITE_MANAGED === "1"
++        ? require("./modelDirUtils").getCacheRoot()
++        : path.join(os.homedir(), ".cache", "openwhispr"),
+       "embedding-models",
+       MODEL_SUBDIR
+     );
+--- a/src/helpers/cliBridge.js
++++ b/src/helpers/cliBridge.js
+@@ -18,6 +18,12 @@
+ const NO_CONTENT = Symbol("CliBridge.NoContent");
+ 
+ function getBridgeFilePath() {
++  if (process.env.OPENWHISPR_SUITE_MANAGED === "1") {
++    const file = process.env.OPENWHISPR_BRIDGE_FILE;
++    if (!file || !path.isAbsolute(file))
++      throw new Error("Managed CLI bridge requires an absolute suite-owned path");
++    return file;
++  }
+   return path.join(os.homedir(), ".openwhispr", "cli-bridge.json");
+ }
+ 
+--- a/src/helpers/urlAudioDownloader.js
++++ b/src/helpers/urlAudioDownloader.js
+@@ -33,7 +33,12 @@
+ // OPENWHISPR_YTDLP_CACHE_DIR overrides the location (relocate it, or isolate it in tests).
+ const YT_DLP_CACHE_DIR =
+   process.env.OPENWHISPR_YTDLP_CACHE_DIR ||
+-  path.join(os.homedir(), ".cache", "openwhispr", "yt-dlp");
++  path.join(
++    process.env.OPENWHISPR_SUITE_MANAGED === "1"
++      ? require("./modelDirUtils").getCacheRoot()
++      : path.join(os.homedir(), ".cache", "openwhispr"),
++    "yt-dlp"
++  );
+ const YT_DLP_UPDATE_THROTTLE_MS = 24 * 60 * 60 * 1000;
+ // Bound the self-update so a stalled GitHub request can never hang a download
+ // or wedge the single-flight flag. Overridable via options.timeoutMs for tests.
+--- a/src/updater.js
++++ b/src/updater.js
+@@ -2,7 +2,9 @@
+ 
+ // electron-updater can only replace an AppImage on Linux; deb, rpm and tar.gz
+ // installs are updated by the package manager instead.
+-const isUpdaterSupported = process.platform !== "linux" || Boolean(process.env.APPIMAGE);
++const isUpdaterSupported =
++  process.env.OPENWHISPR_SUITE_MANAGED !== "1" &&
++  (process.platform !== "linux" || Boolean(process.env.APPIMAGE));
+ 
+ class UpdateManager {
+   constructor() {
+@@ -27,6 +29,7 @@
+   }
+ 
+   setupAutoUpdater() {
++    if (!isUpdaterSupported) return;
+     if (process.env.NODE_ENV === "development") {
+       return;
+     }
+--- a/main.js
++++ b/main.js
+@@ -49,7 +49,7 @@
+   staging: "openwhispr-staging",
+   production: "openwhispr",
+ };
+-const BASE_WINDOWS_APP_ID = "com.gizmolabs.openwhispr";
++const BASE_WINDOWS_APP_ID = "com.plataformaaberta.openwhispr";
+ const DEFAULT_AUTH_BRIDGE_PORT = 5199;
+ 
+ function isElectronBinaryExec() {
+@@ -93,6 +93,13 @@
+ }
+ 
+ configureChannelUserDataPath();
++
++// Managed fork: keep every writable native cache/bridge in this profile.
++process.env.OPENWHISPR_SUITE_MANAGED = "1";
++process.env.OPENWHISPR_PROTOCOL = "plataforma-openwhispr";
++process.env.OPENWHISPR_CACHE_ROOT ||= path.join(app.getPath("userData"), "cache");
++process.env.OPENWHISPR_BRIDGE_FILE ||= path.join(app.getPath("userData"), "cli-bridge.json");
++process.env.OPENWHISPR_YTDLP_CACHE_DIR = path.join(process.env.OPENWHISPR_CACHE_ROOT, "yt-dlp");
+ 
+ // Load userData .env (contains DICTATION_KEY, API keys, etc.) early — before
+ // hotkey registration, which needs DICTATION_KEY before the renderer loads.
+--- a/electron-builder.json
++++ b/electron-builder.json
+@@ -1,13 +1,14 @@
+ {
+-  "appId": "com.gizmolabs.openwhispr",
++  "appId": "com.plataformaaberta.openwhispr",
+   "afterPack": "scripts/afterPack.js",
+   "extraMetadata": {
+-    "windowsTrayIdentity": true
+-  },
+-  "productName": "OpenWhispr",
++    "windowsTrayIdentity": true,
++    "plataformaManagedFork": true
++  },
++  "productName": "OpenWhispr Plataforma",
+   "protocols": {
+-    "name": "OpenWhispr Protocol",
+-    "schemes": ["openwhispr"]
++    "name": "Plataforma OpenWhispr Protocol",
++    "schemes": ["plataforma-openwhispr"]
+   },
+   "directories": {
+     "output": "dist"
+@@ -37,7 +38,6 @@
+     "src/components.json",
+     "!node_modules/.cache/**/*",
+     "!src/node_modules/**/*",
+-
+     "!**/node_modules/electron/**",
+     "!**/node_modules/electron-builder/**",
+     "!**/node_modules/app-builder-bin/**",
+@@ -45,7 +45,6 @@
+     "!**/node_modules/builder-util/**",
+     "!**/node_modules/dmg-builder/**",
+     "!**/node_modules/7zip-bin/**",
+-
+     "!**/node_modules/typescript/**",
+     "!**/node_modules/prettier/**",
+     "!**/node_modules/eslint/**",
+@@ -53,20 +52,17 @@
+     "!**/node_modules/@eslint/**",
+     "!**/node_modules/@typescript-eslint/**",
+     "!**/node_modules/globals/**",
+-
+     "!**/node_modules/vite/**",
+     "!**/node_modules/@vitejs/**",
+     "!**/node_modules/esbuild/**",
+     "!**/node_modules/@esbuild/**",
+     "!**/node_modules/rollup/**",
+     "!**/node_modules/@rollup/**",
+-
+     "!**/node_modules/postcss/**",
+     "!**/node_modules/autoprefixer/**",
+     "!**/node_modules/tailwindcss/**",
+     "!**/node_modules/@tailwindcss/**",
+     "!**/node_modules/lightningcss*/**",
+-
+     "!**/node_modules/react/**",
+     "!**/node_modules/react-dom/**",
+     "!**/node_modules/lucide-react/**",
+@@ -77,12 +73,10 @@
+     "!**/node_modules/tw-animate-css/**",
+     "!**/node_modules/react-markdown/**",
+     "!**/node_modules/shadcn-ui/**",
+-
+     "!**/node_modules/@types/**",
+     "!**/node_modules/concurrently/**",
+     "!**/node_modules/cross-env/**",
+     "!**/node_modules/@electron/notarize/**",
+-
+     "!**/node_modules/**/test/**",
+     "!**/node_modules/**/tests/**",
+     "!**/node_modules/**/*.ts",
+@@ -159,7 +153,7 @@
+     "hardenedRuntime": true,
+     "entitlements": "resources/mac/entitlements.mac.plist",
+     "entitlementsInherit": "resources/mac/entitlements.mac.plist",
+-    "identity": "Gizmo Labs Inc. (T832773L2J)",
++    "identity": null,
+     "notarize": true,
+     "extraResources": [
+       {
+@@ -181,12 +175,6 @@
+     "target": ["nsis"],
+     "icon": "src/assets/icon.ico",
+     "forceCodeSigning": true,
+-    "azureSignOptions": {
+-      "endpoint": "https://eus.codesigning.azure.net/",
+-      "certificateProfileName": "openwhispr-release",
+-      "codeSigningAccountName": "OpenWhispr",
+-      "publisherName": "CN=Gizmo Labs Inc., O=Gizmo Labs Inc., L=Wilmington, S=Delaware, C=US"
+-    },
+     "extraResources": [
+       {
+         "from": "resources/bin/nircmd.exe",
+@@ -275,11 +263,5 @@
+       "height": 380
+     }
+   },
+-  "publish": {
+-    "provider": "github",
+-    "owner": "OpenWhispr",
+-    "repo": "openwhispr",
+-    "private": false,
+-    "releaseType": "draft"
+-  }
++  "publish": null
+ }

@@ -1,0 +1,45 @@
+diff --git a/frontend/index.html b/frontend/index.html
+index e5447a6..6af2104 100644
+--- a/frontend/index.html
++++ b/frontend/index.html
+@@ -2,12 +2,9 @@
+ <html>
+ 	<head>
+ 		<meta charset="utf-8" />
+-		<title>Graphite</title>
+-		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+-		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+-		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
++<link rel="icon" type="image/svg+xml" href="favicon.svg" />
++		<title>Editor vetorial · Plataforma Aberta</title>
+ 		<link rel="manifest" href="site.webmanifest" />
+-		<link rel="mask-icon" href="safari-pinned-tab.svg" color="#473a3a" />
+ 		<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5" />
+ 		<meta name="apple-mobile-web-app-title" content="Graphite" />
+ 		<meta name="application-name" content="Graphite" />
+diff --git a/frontend/src/main.ts b/frontend/src/main.ts
+index 6eadab6..c0b8626 100644
+--- a/frontend/src/main.ts
++++ b/frontend/src/main.ts
+@@ -5,7 +5,7 @@ import App from "/src/App.svelte";
+ import { registerServiceWorker } from "/src/utility-functions/service-worker";
+ 
+ // Register the service worker, except in dev mode and native (CEF) builds
+-if (!import.meta.env.DEV && import.meta.env.MODE !== "native" && "serviceWorker" in navigator) {
++if (false && !import.meta.env.DEV && import.meta.env.MODE !== "native" && "serviceWorker" in navigator) {
+ 	registerServiceWorker();
+ }
+ 
+diff --git a/frontend/src/utility-functions/network.ts b/frontend/src/utility-functions/network.ts
+index c0b1173..d0817ed 100644
+--- a/frontend/src/utility-functions/network.ts
++++ b/frontend/src/utility-functions/network.ts
+@@ -40,7 +40,7 @@ export async function loadDemoArtwork(editor: EditorWrapper) {
+ 	if (!demoArtwork) return;
+ 
+ 	try {
+-		const url = new URL(`/demo-artwork/${demoArtwork}.graphite`, document.location.href);
++		const url = new URL(`${import.meta.env.BASE_URL}demo-artwork/${demoArtwork}.graphite`, document.location.href);
+ 		const response = await fetch(url);
+ 		if (!response.ok) throw new Error();
+ 

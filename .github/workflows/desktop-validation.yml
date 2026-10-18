@@ -1,0 +1,61 @@
+name: Native desktop validation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-desktop-validation
+  cancel-in-progress: false
+jobs:
+  validate:
+    name: ${{ matrix.runner }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, macos-15, macos-15-intel, windows-2025]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.12.0
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Install locked dependencies
+        working-directory: desktop
+        run: npm ci --no-audit --no-fund
+      - name: Start fresh evidence for this run
+        run: node scripts/distribution/reset-ci-evidence.mjs
+      - name: Unit and storage integration tests
+        working-directory: desktop
+        run: node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=research/unit-tests.xml tests/*.test.mjs
+      - name: Restore verified compiled engines for native QA
+        if: runner.os != 'Linux'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+      - name: Native application acceptance
+        if: runner.os != 'Linux'
+        run: node scripts/distribution/prepare-electron.mjs
+      - name: Native application workflows
+        if: runner.os != 'Linux'
+        working-directory: desktop
+        run: npm run test:desktop
+      - name: Native browser storage portability and independent recovery
+        if: runner.os != 'Linux'
+        run: node suite/tests/browser-storage-native.mjs
+      - name: Save synthetic QA evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: native-evidence-${{ matrix.runner }}-attempt-${{ github.run_attempt }}
+          path: |
+            desktop/research/
+            suite/research/browser-storage-native/
+          retention-days: 1
+          if-no-files-found: error

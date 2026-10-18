@@ -1,0 +1,503 @@
+{
+  "application": "formbricks",
+  "port": 3000,
+  "database": {
+    "service": "postgres",
+    "user": "postgres",
+    "database": "formbricks"
+  },
+  "compose": {
+    "services": {
+      "authzed-db-bootstrap": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": [
+          "/bin/sh",
+          "/usr/local/bin/authzed-postgres-bootstrap.sh"
+        ],
+        "environment": {
+          "AUTHZED_DATABASE_NAME": "spicedb",
+          "AUTHZED_DATABASE_PASSWORD": "__PA_AUTHZ_PASSWORD__",
+          "AUTHZED_DATABASE_USERNAME": "spicedb",
+          "POSTGRES_ADMIN_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/postgres?sslmode=disable"
+        },
+        "image": "docker.io/pgvector/pgvector@sha256:2358fcba361ed2233a5ed81b5fe4ca779ccb304120ce531a3bf51c0ed7e2bc11",
+        "volumes": [
+          {
+            "type": "bind",
+            "source": "stack-config/authzed-postgres-bootstrap.sh",
+            "target": "/usr/local/bin/authzed-postgres-bootstrap.sh",
+            "read_only": true,
+            "bind": {}
+          }
+        ],
+        "depends_on": {
+          "postgres": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "mem_limit": 536870912
+      },
+      "authzed-initialize": {
+        "restart": "no",
+        "command": [
+          "upgrade",
+          "prepare"
+        ],
+        "entrypoint": [
+          "formbricks-authzed"
+        ],
+        "environment": {
+          "AUTHZED_CONSISTENCY": "fully_consistent",
+          "AUTHZED_ENABLED": "true",
+          "AUTHZED_ENDPOINT": "spicedb:50051",
+          "AUTHZED_INSECURE": "true",
+          "AUTHZED_SYSTEM_KEY": "formbricks",
+          "AUTHZED_TOKEN": "__PA_AUTHZ_SECRET__",
+          "CUBEJS_API_SECRET": "authzed-initialize-unused",
+          "CUBEJS_API_URL": "http://localhost",
+          "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?schema=public",
+          "ENCRYPTION_KEY": "authzed-initialize-unused",
+          "HUB_API_KEY": "authzed-initialize-unused",
+          "HUB_API_URL": "http://localhost",
+          "LOG_LEVEL": "fatal",
+          "REDIS_URL": "redis://localhost"
+        },
+        "image": "ghcr.io/formbricks/formbricks@sha256:4c0134b1c9c919d6d63986d5ba2e3ff4a50cf02a05b3173922c75c17539ef4cf",
+        "depends_on": {
+          "formbricks-migrate": {
+            "condition": "service_completed_successfully",
+            "required": true
+          },
+          "spicedb": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "mem_limit": 536870912
+      },
+      "cube": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "CUBEJS_API_SECRET": "__PA_ANALYTICS_SECRET__",
+          "CUBEJS_CACHE_AND_QUEUE_DRIVER": "memory",
+          "CUBEJS_DB_HOST": "postgres",
+          "CUBEJS_DB_NAME": "formbricks",
+          "CUBEJS_DB_PASS": "__PA_DATABASE_PASSWORD__",
+          "CUBEJS_DB_PORT": "5432",
+          "CUBEJS_DB_TYPE": "postgres",
+          "CUBEJS_DB_USER": "postgres",
+          "CUBEJS_DEFAULT_API_SCOPES": "meta,data",
+          "CUBEJS_EXTERNAL_DEFAULT": "false",
+          "CUBEJS_JWT_AUDIENCE": "formbricks-cube",
+          "CUBEJS_JWT_ISSUER": "formbricks-web"
+        },
+        "image": "ghcr.io/formbricks/cube@sha256:30829527cb85b0a78855991c7d03963d25d1ad11e76abbacdac7c22f269eec77",
+        "volumes": [
+          {
+            "type": "bind",
+            "source": "stack-config/cube/cube.js",
+            "target": "/cube/conf/cube.js",
+            "read_only": true,
+            "bind": {}
+          },
+          {
+            "type": "bind",
+            "source": "stack-config/cube/schema",
+            "target": "/cube/conf/model",
+            "read_only": true,
+            "bind": {}
+          }
+        ],
+        "depends_on": {
+          "hub-migrate": {
+            "condition": "service_completed_successfully",
+            "required": true
+          },
+          "postgres": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "healthcheck": {
+          "test": [
+            "CMD",
+            "node",
+            "-e",
+            "require('http').get('http://127.0.0.1:4000/readyz', (res) => { res.resume(); process.exit(res.statusCode === 200 ? 0 : 1); }).on('error', () => process.exit(1));"
+          ],
+          "timeout": "5s",
+          "interval": "10s",
+          "retries": 12,
+          "start_period": "30s"
+        },
+        "mem_limit": 536870912
+      },
+      "formbricks": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "AUTHZED_CONSISTENCY": "fully_consistent",
+          "AUTHZED_ENABLED": "true",
+          "AUTHZED_ENDPOINT": "spicedb:50051",
+          "AUTHZED_INSECURE": "true",
+          "AUTHZED_SYSTEM_KEY": "formbricks",
+          "AUTHZED_TOKEN": "__PA_AUTHZ_SECRET__",
+          "AWS_BEARER_TOKEN_BEDROCK": "",
+          "BETTER_AUTH_SECRET": "__PA_SECRET__",
+          "BETTER_AUTH_URL": "__PA_ORIGIN__",
+          "CRON_SECRET": "__PA_SECRET_3__",
+          "CUBEJS_API_SECRET": "__PA_ANALYTICS_SECRET__",
+          "CUBEJS_API_URL": "http://cube:4000",
+          "CUBEJS_JWT_AUDIENCE": "formbricks-cube",
+          "CUBEJS_JWT_ISSUER": "formbricks-web",
+          "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?schema=public",
+          "EMAIL_VERIFICATION_DISABLED": "1",
+          "ENCRYPTION_KEY": "__PA_SECRET_2__",
+          "HUB_API_KEY": "__PA_HUB_SECRET__",
+          "HUB_API_URL": "http://hub:8080",
+          "HUB_INTERNAL_API_TOKEN": "",
+          "NEXTAUTH_SECRET": null,
+          "NEXTAUTH_URL": null,
+          "PASSWORD_RESET_DISABLED": "1",
+          "REDIS_URL": "redis://redis:6379",
+          "SKIP_STARTUP_MIGRATION": "true",
+          "TAXONOMY_BEDROCK_MODEL": "",
+          "TAXONOMY_GOOGLE_CLOUD_CREDENTIALS_JSON": "",
+          "TAXONOMY_LLM_API_KEY": "",
+          "TAXONOMY_LLM_BASE_URL": "",
+          "TAXONOMY_LLM_MODEL": "",
+          "TAXONOMY_LLM_PROVIDER": "",
+          "TAXONOMY_MAX_RECORDS": "",
+          "TAXONOMY_SERVICE_TOKEN": "",
+          "TAXONOMY_SERVICE_URL": "",
+          "TAXONOMY_VERTEX_LOCATION": "",
+          "TAXONOMY_VERTEX_PROJECT": "",
+          "WEBAPP_URL": "__PA_ORIGIN__",
+          "TELEMETRY_DISABLED": "1"
+        },
+        "image": "ghcr.io/formbricks/formbricks@sha256:4c0134b1c9c919d6d63986d5ba2e3ff4a50cf02a05b3173922c75c17539ef4cf",
+        "volumes": [
+          {
+            "type": "bind",
+            "source": "saml-connection",
+            "target": "/home/nextjs/apps/web/saml-connection",
+            "bind": {}
+          }
+        ],
+        "depends_on": {
+          "cube": {
+            "condition": "service_healthy",
+            "required": true
+          },
+          "postgres": {
+            "condition": "service_healthy",
+            "required": true
+          },
+          "redis": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "mem_limit": 2147483648
+      },
+      "formbricks-migrate": {
+        "restart": "no",
+        "command": [
+          "node /home/nextjs/validate-env.mjs && if command -v timeout >/dev/null 2>&1; then timeout 300 node packages/database/dist/scripts/apply-migrations.js; else node packages/database/dist/scripts/apply-migrations.js; fi"
+        ],
+        "entrypoint": [
+          "sh",
+          "-c"
+        ],
+        "environment": {
+          "AWS_BEARER_TOKEN_BEDROCK": "",
+          "BETTER_AUTH_SECRET": "__PA_SECRET__",
+          "BETTER_AUTH_URL": "__PA_ORIGIN__",
+          "CRON_SECRET": "__PA_SECRET_3__",
+          "CUBEJS_API_SECRET": "__PA_ANALYTICS_SECRET__",
+          "CUBEJS_API_URL": "http://cube:4000",
+          "CUBEJS_JWT_AUDIENCE": "formbricks-cube",
+          "CUBEJS_JWT_ISSUER": "formbricks-web",
+          "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?schema=public",
+          "EMAIL_VERIFICATION_DISABLED": "1",
+          "ENCRYPTION_KEY": "__PA_SECRET_2__",
+          "HUB_API_KEY": "__PA_HUB_SECRET__",
+          "HUB_API_URL": "http://hub:8080",
+          "HUB_INTERNAL_API_TOKEN": "",
+          "NEXTAUTH_SECRET": null,
+          "NEXTAUTH_URL": null,
+          "PASSWORD_RESET_DISABLED": "1",
+          "REDIS_URL": "redis://redis:6379",
+          "TAXONOMY_BEDROCK_MODEL": "",
+          "TAXONOMY_GOOGLE_CLOUD_CREDENTIALS_JSON": "",
+          "TAXONOMY_LLM_API_KEY": "",
+          "TAXONOMY_LLM_BASE_URL": "",
+          "TAXONOMY_LLM_MODEL": "",
+          "TAXONOMY_LLM_PROVIDER": "",
+          "TAXONOMY_MAX_RECORDS": "",
+          "TAXONOMY_SERVICE_TOKEN": "",
+          "TAXONOMY_SERVICE_URL": "",
+          "TAXONOMY_VERTEX_LOCATION": "",
+          "TAXONOMY_VERTEX_PROJECT": "",
+          "WEBAPP_URL": "__PA_ORIGIN__"
+        },
+        "image": "ghcr.io/formbricks/formbricks@sha256:4c0134b1c9c919d6d63986d5ba2e3ff4a50cf02a05b3173922c75c17539ef4cf",
+        "depends_on": {
+          "postgres": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "mem_limit": 536870912
+      },
+      "hub": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "API_KEY": "__PA_HUB_SECRET__",
+          "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?sslmode=disable",
+          "HUB_INTERNAL_API_TOKEN": "",
+          "TAXONOMY_SERVICE_TOKEN": "",
+          "TAXONOMY_SERVICE_URL": ""
+        },
+        "image": "ghcr.io/formbricks/hub@sha256:967089f22585f3c3730e455b8b20885b0739f26b5ce5e034324658aa51d627f2",
+        "depends_on": {
+          "hub-migrate": {
+            "condition": "service_completed_successfully",
+            "required": true
+          },
+          "postgres": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "mem_limit": 536870912
+      },
+      "hub-migrate": {
+        "restart": "no",
+        "command": [
+          "if [ -x /usr/local/bin/goose ] && [ -x /usr/local/bin/river ]; then /usr/local/bin/goose -dir /app/migrations postgres \"$$DATABASE_URL\" up && /usr/local/bin/river migrate-up --database-url \"$$DATABASE_URL\"; else echo 'Migration tools (goose/river) not in image.'; exit 1; fi"
+        ],
+        "entrypoint": [
+          "sh",
+          "-c"
+        ],
+        "environment": {
+          "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?sslmode=disable"
+        },
+        "image": "ghcr.io/formbricks/hub@sha256:967089f22585f3c3730e455b8b20885b0739f26b5ce5e034324658aa51d627f2",
+        "depends_on": {
+          "formbricks-migrate": {
+            "condition": "service_completed_successfully",
+            "required": true
+          }
+        },
+        "mem_limit": 536870912
+      },
+      "hub-worker": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": [
+          "/app/hub-worker"
+        ],
+        "environment": {
+          "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?sslmode=disable",
+          "HUB_INTERNAL_API_TOKEN": "",
+          "TAXONOMY_SERVICE_TOKEN": "",
+          "TAXONOMY_SERVICE_URL": ""
+        },
+        "image": "ghcr.io/formbricks/hub@sha256:967089f22585f3c3730e455b8b20885b0739f26b5ce5e034324658aa51d627f2",
+        "depends_on": {
+          "hub-migrate": {
+            "condition": "service_completed_successfully",
+            "required": true
+          },
+          "postgres": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "healthcheck": {
+          "disable": true
+        },
+        "mem_limit": 536870912
+      },
+      "postgres": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "POSTGRES_DB": "formbricks",
+          "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__"
+        },
+        "image": "docker.io/pgvector/pgvector@sha256:2358fcba361ed2233a5ed81b5fe4ca779ccb304120ce531a3bf51c0ed7e2bc11",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "postgres",
+            "target": "/var/lib/postgresql",
+            "volume": {}
+          }
+        ],
+        "healthcheck": {
+          "test": [
+            "CMD-SHELL",
+            "pg_isready -U postgres || exit 1"
+          ],
+          "timeout": "3s",
+          "interval": "5s",
+          "retries": 30,
+          "start_period": "30s"
+        },
+        "mem_limit": 1073741824
+      },
+      "redis": {
+        "restart": "no",
+        "command": [
+          "valkey-server",
+          "--appendonly",
+          "yes",
+          "--maxmemory-policy",
+          "noeviction"
+        ],
+        "entrypoint": null,
+        "image": "docker.io/valkey/valkey@sha256:48332870af354a799964c0012ae1194a0bf2bf894eb508f945810596dc2d8d11",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "redis",
+            "target": "/data",
+            "volume": {}
+          }
+        ],
+        "healthcheck": {
+          "test": [
+            "CMD",
+            "valkey-cli",
+            "ping"
+          ],
+          "timeout": "3s",
+          "interval": "5s",
+          "retries": 30,
+          "start_period": "10s"
+        },
+        "mem_limit": 536870912
+      },
+      "spicedb": {
+        "restart": "no",
+        "command": [
+          "serve"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "SPICEDB_DATASTORE_CONN_URI": "postgresql://spicedb:__PA_AUTHZ_PASSWORD__@postgres:5432/spicedb?sslmode=disable",
+          "SPICEDB_DATASTORE_ENGINE": "postgres",
+          "SPICEDB_GRPC_PRESHARED_KEY": "__PA_AUTHZ_SECRET__",
+          "SPICEDB_LOG_FORMAT": "json",
+          "SPICEDB_LOG_LEVEL": "info",
+          "SPICEDB_TELEMETRY_ENDPOINT": ""
+        },
+        "image": "docker.io/authzed/spicedb@sha256:1d205e9e98e39d87f9640893a06787c854a77d1ffcc3f7ece5e3293896565aa9",
+        "mem_limit": 536870912,
+        "depends_on": {
+          "spicedb-migrate": {
+            "condition": "service_completed_successfully",
+            "required": true
+          }
+        },
+        "healthcheck": {
+          "test": [
+            "CMD",
+            "/usr/local/bin/grpc_health_probe",
+            "-addr=localhost:50051"
+          ],
+          "timeout": "5s",
+          "interval": "5s",
+          "retries": 12,
+          "start_period": "10s"
+        }
+      },
+      "spicedb-migrate": {
+        "restart": "no",
+        "command": [
+          "datastore",
+          "migrate",
+          "head"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "SPICEDB_DATASTORE_CONN_URI": "postgresql://spicedb:__PA_AUTHZ_PASSWORD__@postgres:5432/spicedb?sslmode=disable",
+          "SPICEDB_DATASTORE_ENGINE": "postgres"
+        },
+        "image": "docker.io/authzed/spicedb@sha256:1d205e9e98e39d87f9640893a06787c854a77d1ffcc3f7ece5e3293896565aa9",
+        "depends_on": {
+          "authzed-db-bootstrap": {
+            "condition": "service_completed_successfully",
+            "required": true
+          }
+        },
+        "mem_limit": 536870912
+      }
+    },
+    "volumes": {
+      "postgres": {
+        "driver": "local"
+      },
+      "qwen-model-cache": {
+        "driver": "local"
+      },
+      "redis": {
+        "driver": "local"
+      }
+    },
+    "x-environment": {
+      "environment": {
+        "AWS_BEARER_TOKEN_BEDROCK": "",
+        "BETTER_AUTH_SECRET": null,
+        "BETTER_AUTH_URL": null,
+        "CRON_SECRET": null,
+        "CUBEJS_API_SECRET": "__PA_ANALYTICS_SECRET__",
+        "CUBEJS_API_URL": "http://cube:4000",
+        "CUBEJS_JWT_AUDIENCE": "formbricks-cube",
+        "CUBEJS_JWT_ISSUER": "formbricks-web",
+        "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?schema=public",
+        "EMAIL_VERIFICATION_DISABLED": 1,
+        "ENCRYPTION_KEY": null,
+        "HUB_API_KEY": "__PA_HUB_SECRET__",
+        "HUB_API_URL": "http://hub:8080",
+        "HUB_INTERNAL_API_TOKEN": "",
+        "NEXTAUTH_SECRET": null,
+        "NEXTAUTH_URL": null,
+        "PASSWORD_RESET_DISABLED": 1,
+        "REDIS_URL": "redis://redis:6379",
+        "TAXONOMY_BEDROCK_MODEL": "",
+        "TAXONOMY_GOOGLE_CLOUD_CREDENTIALS_JSON": "",
+        "TAXONOMY_LLM_API_KEY": "",
+        "TAXONOMY_LLM_BASE_URL": "",
+        "TAXONOMY_LLM_MODEL": "",
+        "TAXONOMY_LLM_PROVIDER": "",
+        "TAXONOMY_MAX_RECORDS": "",
+        "TAXONOMY_SERVICE_TOKEN": "",
+        "TAXONOMY_SERVICE_URL": "",
+        "TAXONOMY_VERTEX_LOCATION": "",
+        "TAXONOMY_VERTEX_PROJECT": "",
+        "WEBAPP_URL": null
+      }
+    },
+    "x-formbricks-database": {
+      "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?schema=public"
+    },
+    "x-hub-runtime-environment": {
+      "DATABASE_URL": "postgresql://postgres:__PA_DATABASE_PASSWORD__@postgres:5432/formbricks?sslmode=disable",
+      "HUB_INTERNAL_API_TOKEN": "",
+      "TAXONOMY_SERVICE_TOKEN": "",
+      "TAXONOMY_SERVICE_URL": ""
+    }
+  }
+}

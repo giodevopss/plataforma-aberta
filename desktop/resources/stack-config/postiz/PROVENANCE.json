@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/gitroomhq/postiz-app",
+  "commit": "08b1e6b46f49bb92442123a2522d7f666a65d4f7",
+  "license": "AGPL-3.0",
+  "image": "ghcr.io/gitroomhq/postiz-app@sha256:d2b37802e96757729fdea2d3d71287f841c2b619faa1cb4c21dac07df657fde1",
+  "source": "var/docker/nginx.conf",
+  "target": "/etc/nginx/nginx.conf",
+  "original_sha256": "3de8784ec0031427edd18b1e40cf7bcb8a6057441a7875ee94a2ac2a4264053a",
+  "sha256": "e094b74c6187ec1e193c0aa32a3c795de654fde424528a325f5b0b1f16e3b8fa",
+  "modifications": "Use literal IPv4 loopback for the original backend/frontend upstreams, preventing localhost IPv6/IPv4 selection from intermittently failing after startup. All original routes, headers, MIME restrictions and features retained. Original image configuration checksum is verified before mounting."
+}

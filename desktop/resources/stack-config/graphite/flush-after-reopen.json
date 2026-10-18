@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "sourceCommit": "243a83ce1743809e124aca8d4c0b08a3b2ddb127",
+  "compiledRun": "38978225098",
+  "compiledSuiteCommit": "014ec72ab11c0cf4068406ee6192a3c440c6ad17",
+  "javascript": "assets/index-CqtA26YO.js",
+  "originalJavaScriptSHA256": "7750ddd9ba012437b48152e9b50e22991a7095cde0e3bb6dd70644a89cc135a3",
+  "wasmSHA256": "33ca440946fcb63b8021862603430d98b09408959ef51f32209e3905fe18c519",
+  "purpose": "Before the existing verified WASM barrier, request original explicit autosave for every open document; the original all-documents autosave deliberately skips documents with unchanged graph hash, even when restored view metadata differs. No WASM edits or weakened checkpoint.",
+  "patchedJavaScriptSHA256": "bd776009d8a63ede84470400db244c9dc53de3bc9e3610bc5d8c9f3c3d48156a"
+}

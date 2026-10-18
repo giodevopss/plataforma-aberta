@@ -1,0 +1,25 @@
+{
+  "version": "v5.6.0",
+  "license": "Apache-2.0",
+  "source": "https://github.com/docker/compose",
+  "platforms": {
+    "darwin-arm64": {
+      "url": "https://github.com/docker/compose/releases/download/v5.6.0/docker-compose-darwin-aarch64",
+      "sha256": "bd714a42b46e51757fc1121085b3096b9064e3f80d3ca5a991e33f44df4f43c9",
+      "size": 30812418,
+      "filename": "docker-compose"
+    },
+    "darwin-x64": {
+      "url": "https://github.com/docker/compose/releases/download/v5.6.0/docker-compose-darwin-x86_64",
+      "sha256": "c76e3abf5fde1aeb3bd7c7306ff15bef2246afc1f9e54832a0a050dd7cdfb2f8",
+      "size": 32999760,
+      "filename": "docker-compose"
+    },
+    "win32-x64": {
+      "url": "https://github.com/docker/compose/releases/download/v5.6.0/docker-compose-windows-x86_64.exe",
+      "sha256": "8aeaa0055e660e12cf07cd70680dc8333957fe6718528b91ec3da084eab62483",
+      "size": 33352192,
+      "filename": "docker-compose.exe"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "repository": "https://github.com/OpenWhispr/openwhispr",
+  "commit": "03f3134ba3935eef56eff319a30054766a3d6376",
+  "license": "MIT",
+  "scope": "Complete native app fork; isolated model/semantic/yt-dlp caches, CLI bridge, OS identity and protocol. Standalone updater cannot replace this managed fork. No source features removed. Windows native models retain the upstream ASCII-path restriction and fail explicitly rather than moving personal caches.",
+  "status": "prepared; source regression and native rebuild acceptance pending",
+  "files": [
+    {
+      "path": "src/helpers/modelDirUtils.js",
+      "original_sha256": "e94f0dd7638fff3b6a9e35787c97b736db6766d6615639a6d96990d2ad5f7d54",
+      "sha256": "638947c7fbe58917609845dc233784591fb1b4e07b8069bf3d80a40bd7143783"
+    },
+    {
+      "path": "src/helpers/qdrantManager.js",
+      "original_sha256": "585e22e6924619088b57a3ad166da1cac8ad1a073bf67bb6ff7750d1aedf13ec",
+      "sha256": "f0783d56ff6fb3a9e51943e97d26087a575e133f2c3f63ad64005f515e7f75b5"
+    },
+    {
+      "path": "src/helpers/localEmbeddings.js",
+      "original_sha256": "760ab8c882528c5df8e421ef002780b5dc3a028cd3d099da8023762fa0e6db4e",
+      "sha256": "e0e161a65f0597da36f5e9867c1f4f4ef01cb6eb4c12f0e76f1abaf43eb416d5"
+    },
+    {
+      "path": "src/helpers/cliBridge.js",
+      "original_sha256": "38f0310ccb743df1a816d0f1291de33a93a4904ae6432cd56836053a9fe3c716",
+      "sha256": "a0334620b148055608787f9e4b7bf3aaddc1120996b5a646dceab3d7b2569c8a"
+    },
+    {
+      "path": "src/helpers/urlAudioDownloader.js",
+      "original_sha256": "25ec76de1ab61cd3b75ef6d21e7dc9ba9ad70705759d3d883ea7c7b93d76df7d",
+      "sha256": "cda1d7338f61ea6fff9ff9ce8fd6b942e3994b10391e194742fded4a5b78c6c1"
+    },
+    {
+      "path": "src/updater.js",
+      "original_sha256": "f8e07b8c9fb71f66a98407f20cd83a7ed3977fea909b663f61cc246c32c507ae",
+      "sha256": "934346f93273a7a3241aab47c323e30652e21ccf310be0d84ce58a4038fc6ae1"
+    },
+    {
+      "path": "main.js",
+      "original_sha256": "6bb3dce8a383aa51085e6b52e4fc426aca2adf5357241fd2720225c25c0012a8",
+      "sha256": "8937a7306e87f776ccbbfdd6f6ac01e7e01df90dd1ae4f075ec7d78c743d51a5"
+    },
+    {
+      "path": "electron-builder.json",
+      "original_sha256": "3821db88ee57af0ee44b619070983ac5a8fad52f8c7e6f8a304be272c6880d04",
+      "sha256": "e33f649f65001324b1169ae72812043c4bf4e9b62b21ab4c071c40eb7365084e"
+    }
+  ]
+}

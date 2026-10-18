@@ -1,0 +1,8 @@
+{
+  "upstream": "https://github.com/presenton/presenton",
+  "image": "ghcr.io/presenton/presenton@sha256:ddf0d1f26397764856acdf94489dbbae5a2c0644a280723fd80bc7a80de338ba",
+  "original_sha256": "993d5e656367e5b29e6b0c3a35317c91acd90e8d36b56c18a9ef1a8734c5ab6b",
+  "patched_sha256": "2d0cbef8972fcab1cee1715da6996d617ca54c886ebf8e864b54f2035adbdc6b",
+  "license": "Apache-2.0",
+  "change": "Return a JSON payload instead of mutating a deep-copied SQLAlchemy instrumented model"
+}

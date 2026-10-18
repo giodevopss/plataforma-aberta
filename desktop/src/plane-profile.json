@@ -1,0 +1,603 @@
+{
+  "application": "proxy",
+  "port": 80,
+  "database": {
+    "service": "plane-db",
+    "user": "plane",
+    "database": "plane"
+  },
+  "compose": {
+    "services": {
+      "admin": {
+        "command": null,
+        "entrypoint": null,
+        "image": "docker.io/makeplane/plane-admin@sha256:6e1bb1d800d3c7ce84a09f810d5588db8613b35d4464e722a1bec12556ca0ebb",
+        "depends_on": {
+          "api": {
+            "condition": "service_started",
+            "required": true
+          },
+          "web": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "api": {
+        "command": [
+          "./bin/docker-entrypoint-api.sh"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "AMQP_URL": "amqp://plane:plane@plane-mq:5672/plane",
+          "API_KEY_RATE_LIMIT": "60/minute",
+          "APP_DOMAIN": "__PA_HOST__",
+          "AWS_ACCESS_KEY_ID": "plataforma",
+          "AWS_REGION": "",
+          "AWS_S3_BUCKET_NAME": "uploads",
+          "AWS_S3_ENDPOINT_URL": "http://plane-minio:9000",
+          "AWS_SECRET_ACCESS_KEY": "__PA_STORAGE_SECRET__",
+          "BUCKET_NAME": "uploads",
+          "CERT_ACME_CA": "",
+          "CERT_ACME_DNS": "",
+          "CERT_EMAIL": "",
+          "CORS_ALLOWED_ORIGINS": "__PA_ORIGIN__",
+          "DATABASE_URL": "postgresql://plane:__PA_DATABASE_PASSWORD__@plane-db:5432/plane",
+          "DEBUG": "0",
+          "FILE_SIZE_LIMIT": "5242880",
+          "GUNICORN_WORKERS": "1",
+          "LISTEN_HTTPS_PORT": "443",
+          "LISTEN_HTTP_PORT": "80",
+          "LIVE_SERVER_SECRET_KEY": "__PA_SECRET_2__",
+          "MINIO_ENDPOINT_SSL": "0",
+          "MINIO_ROOT_PASSWORD": "__PA_STORAGE_SECRET__",
+          "MINIO_ROOT_USER": "plataforma",
+          "PGDATA": "/var/lib/postgresql/data",
+          "PGDATABASE": "plane",
+          "PGHOST": "plane-db",
+          "POSTGRES_DB": "plane",
+          "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__",
+          "POSTGRES_PORT": "5432",
+          "POSTGRES_USER": "plane",
+          "REDIS_HOST": "plane-redis",
+          "REDIS_PORT": "6379",
+          "REDIS_URL": "redis://plane-redis:6379/",
+          "SECRET_KEY": "__PA_SECRET__",
+          "SITE_ADDRESS": ":80",
+          "USE_MINIO": "1",
+          "WEBHOOK_ALLOWED_HOSTS": "",
+          "WEBHOOK_ALLOWED_IPS": "",
+          "WEB_URL": "__PA_ORIGIN__"
+        },
+        "image": "docker.io/makeplane/plane-backend@sha256:90032ce088708889b60c00d491897916f4deb882facda27db59fd10fb68729ef",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "logs_api",
+            "target": "/code/plane/logs",
+            "volume": {}
+          }
+        ],
+        "depends_on": {
+          "plane-db": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-mq": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-redis": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "beat-worker": {
+        "command": [
+          "./bin/docker-entrypoint-beat.sh"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "AMQP_URL": "amqp://plane:plane@plane-mq:5672/plane",
+          "API_KEY_RATE_LIMIT": "60/minute",
+          "APP_DOMAIN": "__PA_HOST__",
+          "AWS_ACCESS_KEY_ID": "plataforma",
+          "AWS_REGION": "",
+          "AWS_S3_BUCKET_NAME": "uploads",
+          "AWS_S3_ENDPOINT_URL": "http://plane-minio:9000",
+          "AWS_SECRET_ACCESS_KEY": "__PA_STORAGE_SECRET__",
+          "BUCKET_NAME": "uploads",
+          "CERT_ACME_CA": "",
+          "CERT_ACME_DNS": "",
+          "CERT_EMAIL": "",
+          "CORS_ALLOWED_ORIGINS": "__PA_ORIGIN__",
+          "DATABASE_URL": "postgresql://plane:__PA_DATABASE_PASSWORD__@plane-db:5432/plane",
+          "DEBUG": "0",
+          "FILE_SIZE_LIMIT": "5242880",
+          "GUNICORN_WORKERS": "1",
+          "LISTEN_HTTPS_PORT": "443",
+          "LISTEN_HTTP_PORT": "80",
+          "LIVE_SERVER_SECRET_KEY": "__PA_SECRET_2__",
+          "MINIO_ENDPOINT_SSL": "0",
+          "MINIO_ROOT_PASSWORD": "__PA_STORAGE_SECRET__",
+          "MINIO_ROOT_USER": "plataforma",
+          "PGDATA": "/var/lib/postgresql/data",
+          "PGDATABASE": "plane",
+          "PGHOST": "plane-db",
+          "POSTGRES_DB": "plane",
+          "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__",
+          "POSTGRES_PORT": "5432",
+          "POSTGRES_USER": "plane",
+          "REDIS_HOST": "plane-redis",
+          "REDIS_PORT": "6379",
+          "REDIS_URL": "redis://plane-redis:6379/",
+          "SECRET_KEY": "__PA_SECRET__",
+          "SITE_ADDRESS": ":80",
+          "USE_MINIO": "1",
+          "WEBHOOK_ALLOWED_HOSTS": "",
+          "WEBHOOK_ALLOWED_IPS": "",
+          "WEB_URL": "__PA_ORIGIN__"
+        },
+        "image": "docker.io/makeplane/plane-backend@sha256:90032ce088708889b60c00d491897916f4deb882facda27db59fd10fb68729ef",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "logs_beat-worker",
+            "target": "/code/plane/logs",
+            "volume": {}
+          }
+        ],
+        "depends_on": {
+          "api": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-db": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-mq": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-redis": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "live": {
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "API_BASE_URL": "http://api:8000",
+          "LIVE_SERVER_SECRET_KEY": "__PA_SECRET_2__",
+          "REDIS_HOST": "plane-redis",
+          "REDIS_PORT": "6379",
+          "REDIS_URL": "redis://plane-redis:6379/"
+        },
+        "image": "docker.io/makeplane/plane-live@sha256:cbb630ccaea24bb9998040cb45c11619a7501e8b6c75d449df2f8fd9b9cddbd0",
+        "depends_on": {
+          "api": {
+            "condition": "service_started",
+            "required": true
+          },
+          "web": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "migrator": {
+        "command": [
+          "./bin/docker-entrypoint-migrator.sh"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "AMQP_URL": "amqp://plane:plane@plane-mq:5672/plane",
+          "API_KEY_RATE_LIMIT": "60/minute",
+          "APP_DOMAIN": "__PA_HOST__",
+          "AWS_ACCESS_KEY_ID": "plataforma",
+          "AWS_REGION": "",
+          "AWS_S3_BUCKET_NAME": "uploads",
+          "AWS_S3_ENDPOINT_URL": "http://plane-minio:9000",
+          "AWS_SECRET_ACCESS_KEY": "__PA_STORAGE_SECRET__",
+          "BUCKET_NAME": "uploads",
+          "CERT_ACME_CA": "",
+          "CERT_ACME_DNS": "",
+          "CERT_EMAIL": "",
+          "CORS_ALLOWED_ORIGINS": "__PA_ORIGIN__",
+          "DATABASE_URL": "postgresql://plane:__PA_DATABASE_PASSWORD__@plane-db:5432/plane",
+          "DEBUG": "0",
+          "FILE_SIZE_LIMIT": "5242880",
+          "GUNICORN_WORKERS": "1",
+          "LISTEN_HTTPS_PORT": "443",
+          "LISTEN_HTTP_PORT": "80",
+          "LIVE_SERVER_SECRET_KEY": "__PA_SECRET_2__",
+          "MINIO_ENDPOINT_SSL": "0",
+          "MINIO_ROOT_PASSWORD": "__PA_STORAGE_SECRET__",
+          "MINIO_ROOT_USER": "plataforma",
+          "PGDATA": "/var/lib/postgresql/data",
+          "PGDATABASE": "plane",
+          "PGHOST": "plane-db",
+          "POSTGRES_DB": "plane",
+          "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__",
+          "POSTGRES_PORT": "5432",
+          "POSTGRES_USER": "plane",
+          "REDIS_HOST": "plane-redis",
+          "REDIS_PORT": "6379",
+          "REDIS_URL": "redis://plane-redis:6379/",
+          "SECRET_KEY": "__PA_SECRET__",
+          "SITE_ADDRESS": ":80",
+          "USE_MINIO": "1",
+          "WEBHOOK_ALLOWED_HOSTS": "",
+          "WEBHOOK_ALLOWED_IPS": "",
+          "WEB_URL": "__PA_ORIGIN__"
+        },
+        "image": "docker.io/makeplane/plane-backend@sha256:90032ce088708889b60c00d491897916f4deb882facda27db59fd10fb68729ef",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "logs_migrator",
+            "target": "/code/plane/logs",
+            "volume": {}
+          }
+        ],
+        "depends_on": {
+          "plane-db": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-redis": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "plane-db": {
+        "command": [
+          "postgres",
+          "-c",
+          "max_connections=1000"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "PGDATA": "/var/lib/postgresql/data",
+          "PGDATABASE": "plane",
+          "PGHOST": "plane-db",
+          "POSTGRES_DB": "plane",
+          "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__",
+          "POSTGRES_PORT": "5432",
+          "POSTGRES_USER": "plane"
+        },
+        "image": "docker.io/library/postgres@sha256:468d34fefd6338031787c7b8e94078975b3aaf4d66c7ead25c39cd3ba46a15c6",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "pgdata",
+            "target": "/var/lib/postgresql/data",
+            "volume": {}
+          }
+        ],
+        "restart": "no",
+        "mem_limit": 1073741824
+      },
+      "plane-minio": {
+        "command": [
+          "server",
+          "/export",
+          "--console-address",
+          ":9090"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "MINIO_ROOT_PASSWORD": "__PA_STORAGE_SECRET__",
+          "MINIO_ROOT_USER": "plataforma"
+        },
+        "image": "docker.io/pgsty/silo@sha256:635197cb9f36d01bee221d34d1c7d7960f6a95c48b0b6c01d99cd13bdae51a46",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "uploads",
+            "target": "/export",
+            "volume": {}
+          }
+        ],
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "plane-mq": {
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "RABBITMQ_DEFAULT_PASS": "__PA_QUEUE_SECRET__",
+          "RABBITMQ_DEFAULT_USER": "plane",
+          "RABBITMQ_DEFAULT_VHOST": "plane",
+          "RABBITMQ_HOST": "plane-mq",
+          "RABBITMQ_PORT": "5672",
+          "RABBITMQ_VHOST": "plane"
+        },
+        "image": "docker.io/library/rabbitmq@sha256:611107e29cce05c2acd968325d5dcbde7e2fee404970f1ead75fdb22be2821b3",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "rabbitmq_data",
+            "target": "/var/lib/rabbitmq",
+            "volume": {}
+          }
+        ],
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "plane-redis": {
+        "command": null,
+        "entrypoint": null,
+        "image": "docker.io/valkey/valkey@sha256:10328d00120dc14fbc87b2ed61b7677ddbb0d011e705361b4788329a0ec69a93",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "redisdata",
+            "target": "/data",
+            "volume": {}
+          }
+        ],
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "proxy": {
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "APP_DOMAIN": "__PA_HOST__",
+          "BUCKET_NAME": "uploads",
+          "CERT_ACME_CA": "",
+          "CERT_ACME_DNS": "",
+          "CERT_EMAIL": "",
+          "FILE_SIZE_LIMIT": "5242880",
+          "LISTEN_HTTPS_PORT": "443",
+          "LISTEN_HTTP_PORT": "80",
+          "SITE_ADDRESS": ":80"
+        },
+        "image": "docker.io/makeplane/plane-proxy@sha256:47e651c56749c287710cc26f82dc5d1046a2af76a332aa048ab7adb881cc4cd0",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "proxy_config",
+            "target": "/config",
+            "volume": {}
+          },
+          {
+            "type": "volume",
+            "source": "proxy_data",
+            "target": "/data",
+            "volume": {}
+          }
+        ],
+        "depends_on": {
+          "admin": {
+            "condition": "service_started",
+            "required": true
+          },
+          "api": {
+            "condition": "service_started",
+            "required": true
+          },
+          "live": {
+            "condition": "service_started",
+            "required": true
+          },
+          "space": {
+            "condition": "service_started",
+            "required": true
+          },
+          "web": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 2147483648
+      },
+      "space": {
+        "command": null,
+        "entrypoint": null,
+        "image": "docker.io/makeplane/plane-space@sha256:f8f842f05f41a16e9fe8c4f5e17a3bb175338ccdc094620e58ae49764ffbd671",
+        "depends_on": {
+          "api": {
+            "condition": "service_started",
+            "required": true
+          },
+          "web": {
+            "condition": "service_started",
+            "required": true
+          },
+          "worker": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "web": {
+        "command": null,
+        "entrypoint": null,
+        "image": "docker.io/makeplane/plane-frontend@sha256:22fd2434fb8d6658439f669ab72f999ce0773abe587663da21a77d70bd63ff61",
+        "depends_on": {
+          "api": {
+            "condition": "service_started",
+            "required": true
+          },
+          "worker": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "worker": {
+        "command": [
+          "./bin/docker-entrypoint-worker.sh"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "AMQP_URL": "amqp://plane:plane@plane-mq:5672/plane",
+          "API_KEY_RATE_LIMIT": "60/minute",
+          "APP_DOMAIN": "__PA_HOST__",
+          "AWS_ACCESS_KEY_ID": "plataforma",
+          "AWS_REGION": "",
+          "AWS_S3_BUCKET_NAME": "uploads",
+          "AWS_S3_ENDPOINT_URL": "http://plane-minio:9000",
+          "AWS_SECRET_ACCESS_KEY": "__PA_STORAGE_SECRET__",
+          "BUCKET_NAME": "uploads",
+          "CERT_ACME_CA": "",
+          "CERT_ACME_DNS": "",
+          "CERT_EMAIL": "",
+          "CORS_ALLOWED_ORIGINS": "__PA_ORIGIN__",
+          "DATABASE_URL": "postgresql://plane:__PA_DATABASE_PASSWORD__@plane-db:5432/plane",
+          "DEBUG": "0",
+          "FILE_SIZE_LIMIT": "5242880",
+          "GUNICORN_WORKERS": "1",
+          "LISTEN_HTTPS_PORT": "443",
+          "LISTEN_HTTP_PORT": "80",
+          "LIVE_SERVER_SECRET_KEY": "__PA_SECRET_2__",
+          "MINIO_ENDPOINT_SSL": "0",
+          "MINIO_ROOT_PASSWORD": "__PA_STORAGE_SECRET__",
+          "MINIO_ROOT_USER": "plataforma",
+          "PGDATA": "/var/lib/postgresql/data",
+          "PGDATABASE": "plane",
+          "PGHOST": "plane-db",
+          "POSTGRES_DB": "plane",
+          "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__",
+          "POSTGRES_PORT": "5432",
+          "POSTGRES_USER": "plane",
+          "REDIS_HOST": "plane-redis",
+          "REDIS_PORT": "6379",
+          "REDIS_URL": "redis://plane-redis:6379/",
+          "SECRET_KEY": "__PA_SECRET__",
+          "SITE_ADDRESS": ":80",
+          "USE_MINIO": "1",
+          "WEBHOOK_ALLOWED_HOSTS": "",
+          "WEBHOOK_ALLOWED_IPS": "",
+          "WEB_URL": "__PA_ORIGIN__"
+        },
+        "image": "docker.io/makeplane/plane-backend@sha256:90032ce088708889b60c00d491897916f4deb882facda27db59fd10fb68729ef",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "logs_worker",
+            "target": "/code/plane/logs",
+            "volume": {}
+          }
+        ],
+        "depends_on": {
+          "api": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-db": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-mq": {
+            "condition": "service_started",
+            "required": true
+          },
+          "plane-redis": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      }
+    },
+    "volumes": {
+      "logs_api": {},
+      "logs_beat-worker": {},
+      "logs_migrator": {},
+      "logs_worker": {},
+      "pgdata": {},
+      "proxy_config": {},
+      "proxy_data": {},
+      "rabbitmq_data": {},
+      "redisdata": {},
+      "uploads": {}
+    },
+    "x-app-env": {
+      "AMQP_URL": "amqp://plane:plane@plane-mq:5672/plane",
+      "API_KEY_RATE_LIMIT": "60/minute",
+      "CORS_ALLOWED_ORIGINS": "__PA_ORIGIN__",
+      "DATABASE_URL": "postgresql://plane:__PA_DATABASE_PASSWORD__@plane-db:5432/plane",
+      "DEBUG": "0",
+      "GUNICORN_WORKERS": 1,
+      "LIVE_SERVER_SECRET_KEY": "__PA_SECRET_2__",
+      "MINIO_ENDPOINT_SSL": "0",
+      "SECRET_KEY": "__PA_SECRET__",
+      "USE_MINIO": "1",
+      "WEBHOOK_ALLOWED_HOSTS": "",
+      "WEBHOOK_ALLOWED_IPS": "",
+      "WEB_URL": "__PA_ORIGIN__"
+    },
+    "x-aws-s3-env": {
+      "AWS_ACCESS_KEY_ID": "plataforma",
+      "AWS_REGION": "",
+      "AWS_S3_BUCKET_NAME": "uploads",
+      "AWS_S3_ENDPOINT_URL": "http://plane-minio:9000",
+      "AWS_SECRET_ACCESS_KEY": "__PA_STORAGE_SECRET__"
+    },
+    "x-db-env": {
+      "PGDATA": "/var/lib/postgresql/data",
+      "PGDATABASE": "plane",
+      "PGHOST": "plane-db",
+      "POSTGRES_DB": "plane",
+      "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__",
+      "POSTGRES_PORT": "5432",
+      "POSTGRES_USER": "plane"
+    },
+    "x-live-env": {
+      "API_BASE_URL": "http://api:8000",
+      "LIVE_SERVER_SECRET_KEY": "__PA_SECRET_2__"
+    },
+    "x-minio-env": {
+      "MINIO_ROOT_PASSWORD": "__PA_STORAGE_SECRET__",
+      "MINIO_ROOT_USER": "plataforma"
+    },
+    "x-mq-env": {
+      "RABBITMQ_DEFAULT_PASS": "__PA_QUEUE_SECRET__",
+      "RABBITMQ_DEFAULT_USER": "plane",
+      "RABBITMQ_DEFAULT_VHOST": "plane",
+      "RABBITMQ_HOST": "plane-mq",
+      "RABBITMQ_PORT": "5672",
+      "RABBITMQ_VHOST": "plane"
+    },
+    "x-proxy-env": {
+      "APP_DOMAIN": "__PA_HOST__",
+      "BUCKET_NAME": "uploads",
+      "CERT_ACME_CA": "",
+      "CERT_ACME_DNS": "",
+      "CERT_EMAIL": "",
+      "FILE_SIZE_LIMIT": "5242880",
+      "LISTEN_HTTPS_PORT": "443",
+      "LISTEN_HTTP_PORT": "80",
+      "SITE_ADDRESS": ":80"
+    },
+    "x-redis-env": {
+      "REDIS_HOST": "plane-redis",
+      "REDIS_PORT": "6379",
+      "REDIS_URL": "redis://plane-redis:6379/"
+    }
+  }
+}

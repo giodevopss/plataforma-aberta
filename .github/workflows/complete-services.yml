@@ -1,0 +1,94 @@
+name: Complete local service acceptance
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: Services to validate
+        type: choice
+        default: all
+        options: [all, paperless, remaining, plane, formbricks, postiz]
+permissions:
+  contents: read
+concurrency:
+  group: complete-local-service-acceptance-${{ inputs.scope || 'paperless' }}
+  cancel-in-progress: false
+jobs:
+  paperless:
+    if: inputs.scope == 'all' || inputs.scope == 'paperless'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Install locked test dependencies
+        working-directory: desktop
+        run: npm ci --no-audit --no-fund
+      - name: Prepare original browser
+        working-directory: desktop
+        run: npx playwright install --with-deps chromium
+      - name: Restore verified native service shell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+      - name: Test complete original Paperless and independent recovery
+        env:
+          PA_TEST_NATIVE_SERVICE: '1'
+        run: xvfb-run -a node suite/tests/paperless-cloud.mjs
+      - name: Save fresh service evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: paperless-complete-evidence
+          path: suite/research/cloud-paperless/
+          retention-days: 1
+          if-no-files-found: error
+  remaining:
+    if: inputs.scope != 'paperless'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        service: ${{ fromJSON(inputs.scope == 'plane' && '["plane"]' || inputs.scope == 'formbricks' && '["formbricks"]' || inputs.scope == 'postiz' && '["postiz"]' || '["plane","formbricks","postiz"]') }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Install locked test dependencies
+        working-directory: desktop
+        run: npm ci --no-audit --no-fund
+      - name: Prepare original browser
+        working-directory: desktop
+        run: npx playwright install --with-deps chromium
+      - name: Restore verified native service shell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+      - name: Validate original stack and browser
+        env:
+          PA_TEST_NATIVE_SERVICE: '1'
+        run: xvfb-run -a node suite/tests/remaining-services-cloud.mjs ${{ matrix.service }}
+      - name: Save fresh service evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ${{ matrix.service }}-initial-evidence
+          path: suite/research/cloud-${{ matrix.service }}/
+          retention-days: 1
+          if-no-files-found: error

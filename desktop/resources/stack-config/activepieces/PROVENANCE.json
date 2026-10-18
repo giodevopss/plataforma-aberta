@@ -1,0 +1,109 @@
+{
+  "image": "ghcr.io/activepieces/activepieces@sha256:87295caa32a14b4a35f3c8681ebbcb6c49bedfdf7bf732c5469d5a0a4417e5ee",
+  "reason": "The released image mixes new internalApiUrl worker code with stale compiled sandbox and resolver callers using publicApiUrl. This sends piece downloads to container loopback or leaves the internal URL undefined.",
+  "adaptation": "Align compiled resolver/prewarm arguments with the original pinned TypeScript source. Keep publicApiUrl in actual engine operations for public webhooks. No edition or permission checks changed.",
+  "files": [
+    {
+      "source": "compiled/packages/server/sandbox/dist/src/lib/cache/local-execution-cache.js",
+      "target": "/usr/src/app/packages/server/sandbox/dist/src/lib/cache/local-execution-cache.js",
+      "originalSha256": "eb47c97a18335c8e46d12d5289ba4c015b85513fcbd81bf908519b2b9cfdc797",
+      "sha256": "336c1a06e188783ce4aee5a626a2ecbb8d22345acabe6036a5b246252e43180b"
+    },
+    {
+      "source": "compiled/packages/server/sandbox/dist/src/lib/cache/pieces/piece-installer.js",
+      "target": "/usr/src/app/packages/server/sandbox/dist/src/lib/cache/pieces/piece-installer.js",
+      "originalSha256": "a912224f7df7a084d553bb797bc410f22e0d5fe5902f5171078f2c016c8a1782",
+      "sha256": "f503eabbbf1c7c6c83741a8f6363b0982b8b8a4adfadd5bfa3890fe58927f662"
+    },
+    {
+      "source": "compiled/packages/server/sandbox/dist/src/lib/resolver.js",
+      "target": "/usr/src/app/packages/server/sandbox/dist/src/lib/resolver.js",
+      "originalSha256": "57d4e13d0909111f174930c194a620e7f0a2906d432926d13128f430934df6df",
+      "sha256": "5842995be1679d42bfd4b1a7c69457f934eb71928161a0c558c9cfe1c962c957"
+    },
+    {
+      "source": "compiled/packages/server/sandbox/dist/src/lib/sandbox.js",
+      "target": "/usr/src/app/packages/server/sandbox/dist/src/lib/sandbox.js",
+      "originalSha256": "bef7148ec70334026ddfb654e0bb43c117f5e17389c1d1f87b59779441222caf",
+      "sha256": "56d36715026fa337a309ce992ce99dfeba44ca25d37dd75c1c9e97fe5c6ddd5b"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-action.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-action.js",
+      "originalSha256": "a38c63ee21e072ad8ab7154d63ad9934ed522c18d0e589f087e7a68035538e74",
+      "sha256": "4a5f1ea53173c9210ac823edaa98a5f50290fe79a407d70a28dd13cc1373579f"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-flow.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-flow.js",
+      "originalSha256": "130cb3afc5340537e1dff1fcca0b1abfbe8a794776427cb509a02a5dd0822526",
+      "sha256": "a7e6b6f0b8e51326bfd66ff4454bdd7e75ff18cd32c88181ce6cd53985953401"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-polling.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-polling.js",
+      "originalSha256": "2ed82b3b7048b3c48bf496bad6eb08f0a9b6db6e291515308bc8cc29fe26ba4a",
+      "sha256": "65ea44e4029db323423ac88075342ffc226da7950f0b7d22adf358a04ae33075"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-property.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-property.js",
+      "originalSha256": "33a8862e58d1db6eae28e9b72a7c6dcc0a32f4dd92f108a0ad237bb5c219969c",
+      "sha256": "5431abb9ceb176687196c80593728d7e4666080416a05573b3e74fc4f93da46a"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-token-refresh.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-token-refresh.js",
+      "originalSha256": "4459f1963132a9f439fd04d09e86a04fff8cef37379a4474131a8d73343d4747",
+      "sha256": "a37ddedaa2d2b9125586db7b9bb0232781d78edfea08e287f3ea844692b1dda8"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-trigger-hook.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-trigger-hook.js",
+      "originalSha256": "592e4e0c27da53673f267b4a0582fb721594de653fe2d7f0f64d4ebc3fc6b59b",
+      "sha256": "29738d99b8db030d40834c124948cf7f962a600a3b9947c00284b17b4ad08720"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-validation.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-validation.js",
+      "originalSha256": "0ee93455f54fe4cdf61cb16634bd53c9defd9e727cd8ede86d480b59c035f16b",
+      "sha256": "3ae45b938e322f629c788f90cdbc42bb02114794e3f2d1d7bf45874e8c2ecde0"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-webhook.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/execute-webhook.js",
+      "originalSha256": "6acca04775e98425c1ce3afaa23f2161f77b99f26af008073db1997aed6efc41",
+      "sha256": "73a1dcf7cebc51a574fca18dc3a32ccf2a81b4add7595d7c4f6035291f614737"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/extract-piece-info.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/extract-piece-info.js",
+      "originalSha256": "65e2c22fe53798d4b4ff4fab5468c9c7723265c0032cf175d9aeface05ce6ff8",
+      "sha256": "5dbdd49151891aac2369d04b6da2c1ad67cb8a1644d4350408c7de3a398b08cd"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/renew-webhook.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/renew-webhook.js",
+      "originalSha256": "34de95ee6099f10ef50858714cbc51456690fc4f1c32a7cb43d46d65f2275310",
+      "sha256": "1ffb69dff06d42dd5ec9ac7d1d3416640975ceb32add754b6b221b60e9110899"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/execute/jobs/resolve-connection-identifier.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/execute/jobs/resolve-connection-identifier.js",
+      "originalSha256": "fd0d7fe737b7b772d4ad31cef1b22f61c401962cfa4e521bd0e3447d3cabeb09",
+      "sha256": "ace45316108ed93cb2e182bd90e30322e20af2b4f60ba8b6e386f2ae6d3dd8b0"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/api-notify-service.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/api-notify-service.js",
+      "originalSha256": "7268ea6e8c86b21cc94def6a4e59905487b053810e5a43c3ad4d1f7fa47f4f92",
+      "sha256": "83e7c217d1d2b9162da7d8df772f38f814408bbf26e0a0bb57ecc10a7dbfbc71"
+    },
+    {
+      "source": "compiled/packages/server/worker/dist/src/lib/worker.js",
+      "target": "/usr/src/app/packages/server/worker/dist/src/lib/worker.js",
+      "originalSha256": "ab4bb09432461eef7b30e69b14f54fc3d1b04ffcdcdd2abe5b116a2d5af89407",
+      "sha256": "dd10cf40f33ea88578a90a1e8914c79f4c5582e76589890b6d0a32e598e69653"
+    }
+  ]
+}

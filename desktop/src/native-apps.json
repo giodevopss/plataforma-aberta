@@ -1,0 +1,27 @@
+{
+  "openwhispr": {
+    "version": "1.10.3",
+    "license": "MIT",
+    "source": "https://github.com/OpenWhispr/openwhispr",
+    "assets": {
+      "darwin-arm64": {
+        "size": 327659180,
+        "sha256": "3b4abc4df8da8b3ca76914d521e4fc408230dc2c5a9521cf12344aa1a69f404a",
+        "filename": "OpenWhispr-1.10.3-arm64-mac.zip",
+        "url": "https://github.com/OpenWhispr/openwhispr/releases/download/v1.10.3/OpenWhispr-1.10.3-arm64-mac.zip"
+      },
+      "darwin-x64": {
+        "size": 328026141,
+        "sha256": "30c8f680aced70ab7ba9420ae918426a39042cb0764b427e7a33d5584398709b",
+        "filename": "OpenWhispr-1.10.3-mac.zip",
+        "url": "https://github.com/OpenWhispr/openwhispr/releases/download/v1.10.3/OpenWhispr-1.10.3-mac.zip"
+      },
+      "win32-x64": {
+        "size": 254162608,
+        "sha256": "9e2d1cfd262b9c777f7be512a01dd9de6a5c79a34228e94ccdb59fcbb1f23f64",
+        "filename": "OpenWhispr-Setup-1.10.3.exe",
+        "url": "https://github.com/OpenWhispr/openwhispr/releases/download/v1.10.3/OpenWhispr-Setup-1.10.3.exe"
+      }
+    }
+  }
+}

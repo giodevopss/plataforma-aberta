@@ -1,0 +1,60 @@
+appId: com.plataformaaberta.suite
+productName: Plataforma Aberta
+directories:
+  output: release
+  buildResources: build
+files:
+  - src/**
+  - resources/**
+  - package.json
+  - '!resources/editor-components.json'
+  - '!**/*.map'
+  - '!resources/runtime/**'
+  - '!resources/screenity-extension/**'
+extraResources:
+  - from: resources/runtime
+    to: runtime
+  - from: resources/screenity-extension
+    to: extensions/screenity
+asar: true
+asarUnpack:
+  - node_modules/tesseract.js/**
+  - node_modules/tesseract.js-core/**
+  - node_modules/@napi-rs/**
+npmRebuild: false
+artifactName: Plataforma-Aberta-${version}-${os}-${arch}.${ext}
+mac:
+  category: public.app-category.productivity
+  target:
+    - dmg
+    - zip
+  identity: null
+  hardenedRuntime: true
+  extendInfo:
+    NSMicrophoneUsageDescription: Gravar áudio apenas quando você iniciar a captura.
+    NSScreenCaptureUsageDescription: Gravar a tela ou janela que você selecionar.
+win:
+  target:
+    - nsis
+    - portable
+  signAndEditExecutable: true
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  deleteAppDataOnUninstall: false
+portable:
+  artifactName: Plataforma-Aberta-${version}-windows-${arch}-portable.exe
+  requestExecutionLevel: user
+dmg:
+  title: Plataforma Aberta
+  contents:
+    - x: 150
+      y: 180
+      type: file
+    - x: 450
+      y: 180
+      type: link
+      path: /Applications

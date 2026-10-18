@@ -1,0 +1,121 @@
+name: Validate complete OpenWhispr source fork
+on:
+  workflow_dispatch:
+    inputs:
+      test_scope:
+        description: Full unchanged suite or isolated memory diagnostics
+        type: choice
+        default: full
+        options: [full, heavy]
+permissions:
+  actions: read
+  contents: read
+concurrency:
+  group: openwhispr-native-fork-validation
+  cancel-in-progress: false
+jobs:
+  source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - name: Prepare complete pinned source and verified adaptations
+        run: |
+          node scripts/distribution/restore-upstream.mjs openwhispr
+          node scripts/distribution/prepare-openwhispr-fork.mjs
+          node suite/tests/openwhispr-isolation.mjs
+      - name: Install original locked dependencies without native postinstall
+        working-directory: suite/runtime/openwhispr-build
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Original formatting and type checks
+        working-directory: suite/runtime/openwhispr-build
+        run: npm run quality-check
+      - name: Build original database bindings for Node tests
+        if: ${{ !cancelled() }}
+        working-directory: suite/runtime/openwhispr-build
+        run: npm rebuild better-sqlite3
+      - name: Run original test suite including real database tests
+        if: ${{ !cancelled() }}
+        env:
+          PA_TEST_SCOPE: ${{ inputs.test_scope || 'full' }}
+          REQUIRE_DB_TESTS: '1'
+          ELECTRON_OVERRIDE_DIST_PATH: ${{ runner.temp }}
+        run: node suite/tests/run-openwhispr-upstream-tests.mjs
+      - name: Preserve source evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: openwhispr-source-evidence
+          path: |
+            suite/research/openwhispr-cloud/
+            suite/runtime/openwhispr-build/PLATAFORMA_SOURCE.json
+          retention-days: 1
+  native:
+    if: inputs.test_scope != 'heavy'
+    needs: source
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, macos-15-intel, windows-2025]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      PA_INTERNAL_NATIVE_FORK_VALIDATION: '1'
+      QDRANT_VERSION: v1.19.2
+      BRAND_FONTS_REQUIRED: '0'
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - name: Prepare full native source fork
+        run: |
+          node scripts/distribution/restore-upstream.mjs openwhispr
+          node scripts/distribution/prepare-openwhispr-fork.mjs
+          node suite/tests/openwhispr-isolation.mjs
+      - name: Install locked test orchestration libraries
+        working-directory: desktop
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install original native build dependencies
+        working-directory: suite/runtime/openwhispr-build
+        run: npm ci --no-audit --no-fund
+      - name: Compile original Mac helpers and prepare complete engines
+        if: runner.os == 'macOS'
+        working-directory: suite/runtime/openwhispr-build
+        run: npm run prebuild:mac
+      - name: Compile original Windows helpers and prepare complete engines
+        if: runner.os == 'Windows'
+        working-directory: suite/runtime/openwhispr-build
+        run: npm run prebuild:win
+      - name: Prepare bundled original semantic model
+        working-directory: suite/runtime/openwhispr-build
+        run: npm run download:embedding-model -- --for-build
+      - name: Compile original renderer
+        working-directory: suite/runtime/openwhispr-build
+        run: npm run build:renderer
+      - name: Package internal native fork
+        run: node suite/tests/openwhispr-native-cloud.mjs build
+      - name: Preserve complete compiled candidate before native acceptance
+        run: node suite/tests/openwhispr-native-cloud.mjs candidate
+      - name: Test isolated native app and real local transcription
+        run: node suite/tests/openwhispr-native-cloud.mjs test
+      - name: Preserve tested package and dispose temporary application
+        run: node suite/tests/openwhispr-native-cloud.mjs archive
+      - name: Save internal native evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: openwhispr-native-${{ matrix.runner }}
+          path: |
+            suite/research/openwhispr-cloud/
+            !suite/research/openwhispr-cloud/*.tar.gz
+          retention-days: 1
+          if-no-files-found: error

@@ -1,0 +1,40 @@
+research/*.tmp
+research/cache/
+__pycache__/
+.DS_Store
+*.tar.gz
+
+games/**/node_modules/
+games/**/dist/
+
+# Pinned research checkouts and private local application data
+subprojetos/*/upstream/
+subprojetos/**/node_modules/
+subprojetos/**/.venv/
+subprojetos/**/target/
+subprojetos/**/test-results/
+subprojetos/**/runtime-data/
+subprojetos/**/.env
+subprojetos/runtime-data/
+subprojetos/_tooling/node_modules/
+
+# Desktop build products and local QA profiles
+desktop/node_modules/
+desktop/resources/apps/
+desktop/resources/shared/
+desktop/resources/editor/
+desktop/resources/ocr/
+desktop/release/
+desktop/test-results/
+desktop/.cache/
+desktop/resources/notes/
+desktop/resources/graphite/
+
+suite/runtime/
+suite/forks/
+suite/private/
+
+# Reproducible downloaded runtime and extension artifacts
+desktop/resources/runtime/
+desktop/resources/screenity-extension/
+suite/compose-templates/

@@ -1,0 +1,1091 @@
+{
+  "version": 1,
+  "scope": "Allowlisted public source; fresh history; no private repositories, credentials, backups, browser profiles or historical evidence",
+  "files": [
+    {
+      "path": "desktop/src/activepieces-patches.json",
+      "size": 7020,
+      "sha256": "772392346d1a120911d12db79eb2e42826113062491555d60f9efab10695cf90"
+    },
+    {
+      "path": "desktop/src/affine-stack.mjs",
+      "size": 2961,
+      "sha256": "eadefb4eb41330cb27da128bb96e3cb70d09e178eff59417a35b5e9845bfdb94"
+    },
+    {
+      "path": "desktop/src/backup-archive.mjs",
+      "size": 7722,
+      "sha256": "ccf45325d1183a9fa73796bc7188751194f02d1a4f0e4509f9e347b54802ccc7"
+    },
+    {
+      "path": "desktop/src/browser-storage.mjs",
+      "size": 11082,
+      "sha256": "67506cc659d1a10696523b6eaa6bbce603ebdc5c7b9915096f7af763780e146b"
+    },
+    {
+      "path": "desktop/src/complete-runtime.mjs",
+      "size": 7450,
+      "sha256": "a5951ae4372bec731418e5f022c596e73fc8fc169e8e0ceee2f7b92bc10df138"
+    },
+    {
+      "path": "desktop/src/connections.mjs",
+      "size": 1649,
+      "sha256": "dee2d5f4ff5f2796a5a91470b142313a127bb95510afccb382ec24a72e213455"
+    },
+    {
+      "path": "desktop/src/download.mjs",
+      "size": 1943,
+      "sha256": "e112a646a5b1771f61b36938849a57ee83d325ce5bbb5f35ccd14eb491d60b0b"
+    },
+    {
+      "path": "desktop/src/formbricks-profile.json",
+      "size": 17341,
+      "sha256": "b0972be3ec391ec5498ab128a17deebf734c10c05a4afb9e46e9a2aa09063eea"
+    },
+    {
+      "path": "desktop/src/graphite-flush-patch.mjs",
+      "size": 1576,
+      "sha256": "314c485a8c2b26022201b26da25241870621589abdc6404d24c422d7ace78f88"
+    },
+    {
+      "path": "desktop/src/guest-runtime.mjs",
+      "size": 5719,
+      "sha256": "b691a6e6d3bd33067b4ff1516baf1673f7603e1043cf62090870da39e7a07422"
+    },
+    {
+      "path": "desktop/src/image-pins.json",
+      "size": 3439,
+      "sha256": "d2851b74440a04f084dd52aec0d60f1cc7627715a096f097f45a3b75c0e60dc8"
+    },
+    {
+      "path": "desktop/src/image-sizes.json",
+      "size": 3366,
+      "sha256": "25dcde8c7c480594a6d5e31441bc8b409f6e6ae86fe17907c9e3bda58d3fd473"
+    },
+    {
+      "path": "desktop/src/integrated-services.json",
+      "size": 115,
+      "sha256": "ba93b1ee3990dcdd7b8d8fd0b49df4bc6ecc8a1ebf5467e89f5c6c6aa1cf431c"
+    },
+    {
+      "path": "desktop/src/local-apps.mjs",
+      "size": 919,
+      "sha256": "997fcc9a16563d58a7e6643ca8173aeb7417a81a5f44851776670f4a4fe2c884"
+    },
+    {
+      "path": "desktop/src/local-runtime.mjs",
+      "size": 15718,
+      "sha256": "b41b5029a0ceca6081f890e326d2706c8a581255e0ff356fdcffa96113a69ce9"
+    },
+    {
+      "path": "desktop/src/main.mjs",
+      "size": 12575,
+      "sha256": "b92b0c6427427f51d12ee845abaf6fe1f50d611e713694138a0ba1b5b37eb858"
+    },
+    {
+      "path": "desktop/src/native-app-launcher.mjs",
+      "size": 12393,
+      "sha256": "dce36a7f0021475c4a35e03c4dca1ededecc2ecae52a20ce62f94061c7e8d033"
+    },
+    {
+      "path": "desktop/src/native-apps.json",
+      "size": 1078,
+      "sha256": "12d85074e350e7e676f2881e1ee1eb6a6c2ffbe4eb00c8c6ae68e091d07bf70a"
+    },
+    {
+      "path": "desktop/src/plane-profile.json",
+      "size": 19292,
+      "sha256": "c7e6bf294ea332c74f664ab4d46a413e529892c21c15e46347a29033f50f367f"
+    },
+    {
+      "path": "desktop/src/postiz-profile.json",
+      "size": 8199,
+      "sha256": "2aaf572b8de41367a4be6a936a742803da906f7d5d91270e8af03a84b37508bc"
+    },
+    {
+      "path": "desktop/src/preload.cjs",
+      "size": 1039,
+      "sha256": "bd6246a81a20e8cab4be42d3565e3702938063fd6df4eaf0f3483911037a42c1"
+    },
+    {
+      "path": "desktop/src/profile-store.mjs",
+      "size": 5328,
+      "sha256": "5be6cc9d00f63a868db2a20ffd5bb60204a1dcd0b7a63b796b370f09335992ce"
+    },
+    {
+      "path": "desktop/src/restore-relocation.mjs",
+      "size": 2599,
+      "sha256": "7822f78c0ffb815e73eec3d396462cf5bc87476ae397acfacf230cfedcd02344"
+    },
+    {
+      "path": "desktop/src/runtime-assets.json",
+      "size": 956,
+      "sha256": "6fe3e6c959b149696b99ce457cfe8d0a83d7f333a27b14f4e6fbb155ea63b65d"
+    },
+    {
+      "path": "desktop/src/runtime-backup.mjs",
+      "size": 9648,
+      "sha256": "92d27c2366321b7425efb2f6ad05e129592ea6832b588e3aa552f30aeb309000"
+    },
+    {
+      "path": "desktop/src/screenity-identity.mjs",
+      "size": 2504,
+      "sha256": "cb9f76892e8ce3a4f4b8fe9316d9c7bcd836695d51f6b0e454852fbf00ef5ab6"
+    },
+    {
+      "path": "desktop/src/server-stacks.mjs",
+      "size": 14343,
+      "sha256": "6ebf722318334c5411e8e5d0ac64c587ac88bc811319a10b63f723233721533b"
+    },
+    {
+      "path": "desktop/src/service.mjs",
+      "size": 8154,
+      "sha256": "0ab50575fff11a8a52d6391ed93046df5b7fa765924080d9917d8fd236f2d594"
+    },
+    {
+      "path": "desktop/src/snapshot-files.mjs",
+      "size": 1245,
+      "sha256": "fe93448584ac44a28d68156a495fcd6093b6db9defa4a996661bf9d14766dde3"
+    },
+    {
+      "path": "desktop/src/storage.mjs",
+      "size": 12451,
+      "sha256": "43fafc9e5cbe16527af6b9e3f45887119c8cf2a9be6abdd984a6eaeeaf82417a"
+    },
+    {
+      "path": "desktop/src/unified-backup.mjs",
+      "size": 3921,
+      "sha256": "0bba86a3d9fb437f81f7482fc35f6c6756b074b349ece3f166648b30f2dc23ca"
+    },
+    {
+      "path": "desktop/src/unified-restore.mjs",
+      "size": 4308,
+      "sha256": "16623fd40fc5047e46c6d11ea14d92b9557a0b5fb2e3a0543fd5cb172514485a"
+    },
+    {
+      "path": "desktop/renderer/app.mjs",
+      "size": 10536,
+      "sha256": "7555ffc60b9696a14c2e14ea062ae005bb4a21f421731956a3ef62c1d4161e7a"
+    },
+    {
+      "path": "desktop/renderer/editor-src/bootstrap.mjs",
+      "size": 194,
+      "sha256": "c2af5dfb9c5931ff8ba22084e39adf1b374a643d5f96e78654d274fc9701ed50"
+    },
+    {
+      "path": "desktop/renderer/editor-src/editor.jsx",
+      "size": 7063,
+      "sha256": "82c06abeebfa99ec666570b79f5b1fbcb0265b945e85ee86458a01453caaa1ab"
+    },
+    {
+      "path": "desktop/renderer/editor-src/style.css",
+      "size": 1267,
+      "sha256": "ed86f3b63174d434fb32c7fd9408cfdca3c8189afa236a9ba4af4a31fc1535a1"
+    },
+    {
+      "path": "desktop/renderer/editor.html",
+      "size": 301,
+      "sha256": "9129bbe89caa68bdfbe6b0f91d7d2ff329fde0067658735587df4461c06637e3"
+    },
+    {
+      "path": "desktop/renderer/index.html",
+      "size": 1770,
+      "sha256": "e306ac8ff74118bd693fb28b71c58a44e8f15ec05b83342ced8ba220b23e86d9"
+    },
+    {
+      "path": "desktop/renderer/notes-src/notes.mjs",
+      "size": 7303,
+      "sha256": "f42c000ce24c77e1d27ce0e97823974e61f645ff68d1c49793deac925228b766"
+    },
+    {
+      "path": "desktop/renderer/notes-src/style.css",
+      "size": 2092,
+      "sha256": "8ec6901f0070e126c95ccb7d63119bb4ff047225777376ad2b498dcb8f432632"
+    },
+    {
+      "path": "desktop/renderer/notes.html",
+      "size": 1132,
+      "sha256": "36cc44ec5076b6dd073a0eda6638ff907b9edbd2d2cbcc5e33e11550553d8311"
+    },
+    {
+      "path": "desktop/renderer/storage-bridge.html",
+      "size": 104,
+      "sha256": "7924245bc419dd6af200e06de3b5a8373c5624e469cbffa2d32838ac495a269b"
+    },
+    {
+      "path": "desktop/renderer/style.css",
+      "size": 6832,
+      "sha256": "af75270f35f19568f6ee330661864d5542883cbcce77d49fdd85d2a29d9f2940"
+    },
+    {
+      "path": "desktop/scripts/build-editor.mjs",
+      "size": 5322,
+      "sha256": "c60ec4e47647c8e6e4b130cb51c7bce2adcae8f4b6219e22899156bd889d0ec7"
+    },
+    {
+      "path": "desktop/scripts/build-graphite.mjs",
+      "size": 6743,
+      "sha256": "ed660ded2d8c40110733c6173255d930877ce3c311f94b3a4ff2e87f41803a0a"
+    },
+    {
+      "path": "desktop/scripts/build-notes.mjs",
+      "size": 2257,
+      "sha256": "8953228082456e83736b795933a847ee814e1a6416074ff10622c201cfe78f06"
+    },
+    {
+      "path": "desktop/scripts/checksums.mjs",
+      "size": 797,
+      "sha256": "409b620f687730d9d3239d8e22b5324249bb45833393b1f529dcf56bb9a3067c"
+    },
+    {
+      "path": "desktop/scripts/graphite-desktop.patch",
+      "size": 2152,
+      "sha256": "36bfef76fc93883e011782ce413e629e94e850a00064980d335b9f5528e8a63c"
+    },
+    {
+      "path": "desktop/scripts/graphite-open-assets.mjs",
+      "size": 7020,
+      "sha256": "531447480f4e4bf07f32a7b37a435258151ebb95a4498b6b4f35c94e557063c3"
+    },
+    {
+      "path": "desktop/scripts/graphite-persistence-provenance.json",
+      "size": 1320,
+      "sha256": "ac51bafa99e9fd8dc1c04f401c81005efcfe18b9814e45a800f8af2282f8a254"
+    },
+    {
+      "path": "desktop/scripts/graphite-persistence.patch",
+      "size": 6733,
+      "sha256": "6a1f035b9bc8b2c4ce7410f6ad38bc360cf2caf7cb788103783495d7d3eb49c1"
+    },
+    {
+      "path": "desktop/scripts/prepare-assets.mjs",
+      "size": 3936,
+      "sha256": "dbc16ae837921cf565d0a604d74042559d0acd7d6e195bbec7f83bef8d744f11"
+    },
+    {
+      "path": "desktop/scripts/prepare-platform-runtime.mjs",
+      "size": 783,
+      "sha256": "eb1b26be2bdf73893187a5de9bf5e16a37d1160f27a7be7fc2323cac8e83a9e5"
+    },
+    {
+      "path": "desktop/scripts/prepare-screenity.mjs",
+      "size": 2101,
+      "sha256": "969731511ef98786d2212626c540181fb00259a9050129f069a1e8306b41e19c"
+    },
+    {
+      "path": "desktop/scripts/require-release.mjs",
+      "size": 1423,
+      "sha256": "436664a68d64775aaef15716b5004674265f3f405595c87afee8e7b4ea052221"
+    },
+    {
+      "path": "desktop/scripts/setup-ocr.mjs",
+      "size": 1373,
+      "sha256": "f923eb97992a2cc7a3f635515c67d3082b47a9dbf8e87735277179a3d0cd0403"
+    },
+    {
+      "path": "desktop/tests/affine-stack.test.mjs",
+      "size": 1439,
+      "sha256": "764e57886b40d5f54f01eb8c04bf42a4443903fbdc57f31880dcfb97d5b61ec5"
+    },
+    {
+      "path": "desktop/tests/backup-archive.test.mjs",
+      "size": 5355,
+      "sha256": "b6aeefac1524458f2a94aa0b5b39c98277b1e3b901a2a6a901befb671205b512"
+    },
+    {
+      "path": "desktop/tests/connections.test.mjs",
+      "size": 1973,
+      "sha256": "27af25cc372fd0dc5c7b87e9aa413861c901fa628bf99f94c026ea025f244c0e"
+    },
+    {
+      "path": "desktop/tests/desktop.mjs",
+      "size": 7989,
+      "sha256": "5be5379151d90f471f0e769de910a21fe03d989a9424a02461a350d6dceff3c7"
+    },
+    {
+      "path": "desktop/tests/download.test.mjs",
+      "size": 2129,
+      "sha256": "4bc431b7510be0bffb6d61963477f39b92d34eced71a15c4c95294f0bd740e86"
+    },
+    {
+      "path": "desktop/tests/electron-profile-probe.cjs",
+      "size": 126,
+      "sha256": "20ab57de8c18a3e467abfc6b507c15d730edead02434fcfe2931dd50dd31303e"
+    },
+    {
+      "path": "desktop/tests/graphite-flush.test.mjs",
+      "size": 2090,
+      "sha256": "253ff3d0b2e39cbeb506c71c5a83345e247ae0c2409fa0b5c37ebc424385c503"
+    },
+    {
+      "path": "desktop/tests/guest-runtime.test.mjs",
+      "size": 3884,
+      "sha256": "8e5e9e7197618d44bb1ab29ca5bb42d653d9c151d72860b153a1c71a8cedc3d8"
+    },
+    {
+      "path": "desktop/tests/local-runtime.test.mjs",
+      "size": 7612,
+      "sha256": "12c4d80f76093502ee260fac73414452be7590c9b9298006da3720023b8ad66d"
+    },
+    {
+      "path": "desktop/tests/native-app-launcher.test.mjs",
+      "size": 4997,
+      "sha256": "71093b3087c9a4d16eefad7d2390b260b3565bd72154a1ab10c68c878b499bf5"
+    },
+    {
+      "path": "desktop/tests/profile-store.test.mjs",
+      "size": 2950,
+      "sha256": "a617617be41e72bca39c1bcc9e0d67e48aef6c1f85ee4f5ca82091672c9a8e85"
+    },
+    {
+      "path": "desktop/tests/runtime-backup.test.mjs",
+      "size": 4350,
+      "sha256": "202f76f20109b7f6d5d29220dacddd21d6f6d49c12e86e4243740d8a4afa9b54"
+    },
+    {
+      "path": "desktop/tests/screenity-identity.test.mjs",
+      "size": 2391,
+      "sha256": "ebedf8cae0b2dc17ccefceec7ccbcc164c0923e9df4530b9ca26a7b086f5da4d"
+    },
+    {
+      "path": "desktop/tests/server-stacks.test.mjs",
+      "size": 4850,
+      "sha256": "a9364a723d213b71119d654eb2f674fb00853b49dc0537b191c642a791db6647"
+    },
+    {
+      "path": "desktop/tests/service.test.mjs",
+      "size": 2588,
+      "sha256": "b273e4a3cace6dee20e3d997e70aac7d947ed553081fa3af2a9c2cbe4cfbb05b"
+    },
+    {
+      "path": "desktop/tests/snapshot-files.test.mjs",
+      "size": 1716,
+      "sha256": "03777df91776dbb9fd787fcd0ec845bee4dbdc60a4a7c14fe366e37746a96a2e"
+    },
+    {
+      "path": "desktop/tests/storage.test.mjs",
+      "size": 3195,
+      "sha256": "133833148c5184e133aea4b091b8b9e5715b8d9d4a4e6778df4318fe00a6ed56"
+    },
+    {
+      "path": "desktop/tests/unified-backup.test.mjs",
+      "size": 3511,
+      "sha256": "893d88d5f0e98046403a800f9cc5ff5360b412321287ace5ed9fa1e8867aadcf"
+    },
+    {
+      "path": "desktop/tests/unified-restore.test.mjs",
+      "size": 5982,
+      "sha256": "ad9fbad49272df3499469c6a14910cf671639c908b7d7860d1fc6a67c3d533e5"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_128x128.png",
+      "size": 7263,
+      "sha256": "b451d5b3bbb9eee94504a42ff3bb5984b11d4e33f3de5cb30f1933f0ca08fcf3"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_128x128@2x.png",
+      "size": 24255,
+      "sha256": "863b77c822ff71c5adb5cc235e8e6faa4e2cb42d61f783f38d5fd24fb3b0913c"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_16x16.png",
+      "size": 598,
+      "sha256": "2487d47ae2a261af17c46c1e16eac5a8f3f6126bd5ff300e9acb94602702ed8a"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_16x16@2x.png",
+      "size": 1232,
+      "sha256": "654d8187748fe22bbffe5c11ff4265d6036cb030387acfb4d319b4285d51739e"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_256x256.png",
+      "size": 24255,
+      "sha256": "863b77c822ff71c5adb5cc235e8e6faa4e2cb42d61f783f38d5fd24fb3b0913c"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_256x256@2x.png",
+      "size": 104979,
+      "sha256": "6eb9bd133ad76c85cc4c2999eb46861f6f8885b01a408d9cea415a12e3f4c73c"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_32x32.png",
+      "size": 1232,
+      "sha256": "654d8187748fe22bbffe5c11ff4265d6036cb030387acfb4d319b4285d51739e"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_32x32@2x.png",
+      "size": 2950,
+      "sha256": "eb4fb1203af74a937df148374e5bf70e74b1a16ef43368b0481aba41e4758014"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_512x512.png",
+      "size": 104979,
+      "sha256": "6eb9bd133ad76c85cc4c2999eb46861f6f8885b01a408d9cea415a12e3f4c73c"
+    },
+    {
+      "path": "desktop/build/Plataforma.iconset/icon_512x512@2x.png",
+      "size": 366659,
+      "sha256": "85f715295b0c9b80a6d5686b0848206c4cbd5499fb6664f1bd6fbfab62dec226"
+    },
+    {
+      "path": "desktop/build/icon-1024.png",
+      "size": 366659,
+      "sha256": "85f715295b0c9b80a6d5686b0848206c4cbd5499fb6664f1bd6fbfab62dec226"
+    },
+    {
+      "path": "desktop/build/icon-128.png",
+      "size": 7263,
+      "sha256": "b451d5b3bbb9eee94504a42ff3bb5984b11d4e33f3de5cb30f1933f0ca08fcf3"
+    },
+    {
+      "path": "desktop/build/icon-16.png",
+      "size": 598,
+      "sha256": "2487d47ae2a261af17c46c1e16eac5a8f3f6126bd5ff300e9acb94602702ed8a"
+    },
+    {
+      "path": "desktop/build/icon-256.png",
+      "size": 24255,
+      "sha256": "863b77c822ff71c5adb5cc235e8e6faa4e2cb42d61f783f38d5fd24fb3b0913c"
+    },
+    {
+      "path": "desktop/build/icon-32.png",
+      "size": 1232,
+      "sha256": "654d8187748fe22bbffe5c11ff4265d6036cb030387acfb4d319b4285d51739e"
+    },
+    {
+      "path": "desktop/build/icon-512.png",
+      "size": 104979,
+      "sha256": "6eb9bd133ad76c85cc4c2999eb46861f6f8885b01a408d9cea415a12e3f4c73c"
+    },
+    {
+      "path": "desktop/build/icon-64.png",
+      "size": 2950,
+      "sha256": "eb4fb1203af74a937df148374e5bf70e74b1a16ef43368b0481aba41e4758014"
+    },
+    {
+      "path": "desktop/build/icon.icns",
+      "size": 1116088,
+      "sha256": "f873c1a50c690af7eb481730534de5e3908a577742707738e51877919432560b"
+    },
+    {
+      "path": "desktop/build/icon.ico",
+      "size": 24277,
+      "sha256": "81cbfe8725a0cb362a4a9a59086a49391ca57c9dc682067c4898754cf0fdc3f0"
+    },
+    {
+      "path": "desktop/build/icon.png",
+      "size": 366659,
+      "sha256": "85f715295b0c9b80a6d5686b0848206c4cbd5499fb6664f1bd6fbfab62dec226"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/LICENSE",
+      "size": 1629,
+      "sha256": "d490fc48488c4f5a721d354f0a5cce0972c7e3de768ac3e0c5851c3de79f3c9b"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/PROVENANCE.json",
+      "size": 7020,
+      "sha256": "772392346d1a120911d12db79eb2e42826113062491555d60f9efab10695cf90"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/sandbox/dist/src/lib/cache/local-execution-cache.js",
+      "size": 4398,
+      "sha256": "336c1a06e188783ce4aee5a626a2ecbb8d22345acabe6036a5b246252e43180b"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/sandbox/dist/src/lib/cache/pieces/piece-installer.js",
+      "size": 18032,
+      "sha256": "f503eabbbf1c7c6c83741a8f6363b0982b8b8a4adfadd5bfa3890fe58927f662"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/sandbox/dist/src/lib/resolver.js",
+      "size": 2337,
+      "sha256": "5842995be1679d42bfd4b1a7c69457f934eb71928161a0c558c9cfe1c962c957"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/sandbox/dist/src/lib/sandbox.js",
+      "size": 10505,
+      "sha256": "56d36715026fa337a309ce992ce99dfeba44ca25d37dd75c1c9e97fe5c6ddd5b"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/api-notify-service.js",
+      "size": 712,
+      "sha256": "83e7c217d1d2b9162da7d8df772f38f814408bbf26e0a0bb57ecc10a7dbfbc71"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-action.js",
+      "size": 3380,
+      "sha256": "4a5f1ea53173c9210ac823edaa98a5f50290fe79a407d70a28dd13cc1373579f"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-flow.js",
+      "size": 11692,
+      "sha256": "a7e6b6f0b8e51326bfd66ff4454bdd7e75ff18cd32c88181ce6cd53985953401"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-polling.js",
+      "size": 4002,
+      "sha256": "65ea44e4029db323423ac88075342ffc226da7950f0b7d22adf358a04ae33075"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-property.js",
+      "size": 2473,
+      "sha256": "5431abb9ceb176687196c80593728d7e4666080416a05573b3e74fc4f93da46a"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-token-refresh.js",
+      "size": 2160,
+      "sha256": "a37ddedaa2d2b9125586db7b9bb0232781d78edfea08e287f3ea844692b1dda8"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-trigger-hook.js",
+      "size": 3501,
+      "sha256": "29738d99b8db030d40834c124948cf7f962a600a3b9947c00284b17b4ad08720"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-validation.js",
+      "size": 2175,
+      "sha256": "3ae45b938e322f629c788f90cdbc42bb02114794e3f2d1d7bf45874e8c2ecde0"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/execute-webhook.js",
+      "size": 7454,
+      "sha256": "73a1dcf7cebc51a574fca18dc3a32ccf2a81b4add7595d7c4f6035291f614737"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/extract-piece-info.js",
+      "size": 1425,
+      "sha256": "5dbdd49151891aac2369d04b6da2c1ad67cb8a1644d4350408c7de3a398b08cd"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/renew-webhook.js",
+      "size": 2574,
+      "sha256": "1ffb69dff06d42dd5ec9ac7d1d3416640975ceb32add754b6b221b60e9110899"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/execute/jobs/resolve-connection-identifier.js",
+      "size": 2449,
+      "sha256": "ace45316108ed93cb2e182bd90e30322e20af2b4f60ba8b6e386f2ae6d3dd8b0"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/compiled/packages/server/worker/dist/src/lib/worker.js",
+      "size": 31191,
+      "sha256": "dd10cf40f33ea88578a90a1e8914c79f4c5582e76589890b6d0a32e598e69653"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/sandbox/lib/cache/local-execution-cache.js",
+      "size": 4398,
+      "sha256": "336c1a06e188783ce4aee5a626a2ecbb8d22345acabe6036a5b246252e43180b"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/sandbox/lib/cache/pieces/piece-installer.js",
+      "size": 18032,
+      "sha256": "f503eabbbf1c7c6c83741a8f6363b0982b8b8a4adfadd5bfa3890fe58927f662"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/sandbox/lib/resolver.js",
+      "size": 2337,
+      "sha256": "5842995be1679d42bfd4b1a7c69457f934eb71928161a0c558c9cfe1c962c957"
+    },
+    {
+      "path": "desktop/resources/stack-config/activepieces/sandbox/lib/sandbox.js",
+      "size": 10505,
+      "sha256": "56d36715026fa337a309ce992ce99dfeba44ca25d37dd75c1c9e97fe5c6ddd5b"
+    },
+    {
+      "path": "desktop/resources/stack-config/formbricks/authzed-postgres-bootstrap.sh",
+      "size": 1127,
+      "sha256": "70975701cdf0dcffef5d3573a7514360e87428bb07cc4bfb4dbf47ae0c2e93a5"
+    },
+    {
+      "path": "desktop/resources/stack-config/formbricks/bucket-init.mjs",
+      "size": 2182,
+      "sha256": "e6b3f023b63d16dd920f72963a5d6abc5c4861cc63cdf7701415cf5521d36b24"
+    },
+    {
+      "path": "desktop/resources/stack-config/formbricks/cube/cube.js",
+      "size": 8834,
+      "sha256": "62ff9f82489ffb0f10dbeedf5e4afd0f157f08e9c5ba389e0025ce227bb45af3"
+    },
+    {
+      "path": "desktop/resources/stack-config/formbricks/cube/schema/FeedbackRecords.js",
+      "size": 23401,
+      "sha256": "60f1c029920dd733323fec61af3e91a91e9d7094151a4ffdf4003652aec3a820"
+    },
+    {
+      "path": "desktop/resources/stack-config/graphite/flush-after-reopen.json",
+      "size": 796,
+      "sha256": "cfa12f079f46aaa9a51dbfc780cf76698dcae193d9ad470a528d09358090e450"
+    },
+    {
+      "path": "desktop/resources/stack-config/graphite/persistence-manager-original.js",
+      "size": 736,
+      "sha256": "e2a14550622e0302376eee3a7dd493f82a4bb06934d4de7786650661895577fa"
+    },
+    {
+      "path": "desktop/resources/stack-config/paperless/LICENSE",
+      "size": 35142,
+      "sha256": "d62f065830aa3739cc031156b9690805c7b2e811b4a178c8b4acd8725d561c94"
+    },
+    {
+      "path": "desktop/resources/stack-config/paperless/PROVENANCE.json",
+      "size": 751,
+      "sha256": "c693ca218fbfda9abf4cf09a9f42115c62e3d357c5ff50870f7043019245f0ce"
+    },
+    {
+      "path": "desktop/resources/stack-config/paperless/tika.py",
+      "size": 15752,
+      "sha256": "c29edb3c5ae092f4ea15eb6761a19d8b957c0d73e2078b40036a210d61bb2f86"
+    },
+    {
+      "path": "desktop/resources/stack-config/plane/Caddyfile",
+      "size": 677,
+      "sha256": "ca254301c7b10385cf0c731e2f7484d1e666ef81a84bf4425da1a247abc907bf"
+    },
+    {
+      "path": "desktop/resources/stack-config/plane/LICENSE",
+      "size": 34516,
+      "sha256": "0a4acb10f33c93841a8eedac172152096383ceaf7eb5a0aa7e303951cf204c7e"
+    },
+    {
+      "path": "desktop/resources/stack-config/plane/PROVENANCE.json",
+      "size": 1850,
+      "sha256": "de65ad98b3bf5d76664c794920141b867118f0bb97fb9b6d5751605c3d7624e1"
+    },
+    {
+      "path": "desktop/resources/stack-config/plane/entry.client-BJhItYEm.js",
+      "size": 4735,
+      "sha256": "8ef802a79c021336a72785027f31e4f5751898125cb9d898506c2eca494d6316"
+    },
+    {
+      "path": "desktop/resources/stack-config/postiz/LICENSE",
+      "size": 34478,
+      "sha256": "d322fb1066693d8ed25495d11029f443aa793316852749e1389773c1946251b3"
+    },
+    {
+      "path": "desktop/resources/stack-config/postiz/PROVENANCE.json",
+      "size": 816,
+      "sha256": "50b107b223ab1c0029f05e6fd49252b851b84e6c139db6977ae282bc9232f854"
+    },
+    {
+      "path": "desktop/resources/stack-config/postiz/dynamicconfig/development-cass.yaml",
+      "size": 143,
+      "sha256": "93974403e6c69537da3bcc35d31e507e4617df6bff71fc72bdb2e98cc177625f"
+    },
+    {
+      "path": "desktop/resources/stack-config/postiz/dynamicconfig/development-sql.yaml",
+      "size": 196,
+      "sha256": "7bf93f05a292f3fd12605fe0f7df2956ccd88ffedabc134109a75c154a173788"
+    },
+    {
+      "path": "desktop/resources/stack-config/postiz/nginx.conf",
+      "size": 2823,
+      "sha256": "e094b74c6187ec1e193c0aa32a3c795de654fde424528a325f5b0b1f16e3b8fa"
+    },
+    {
+      "path": "desktop/resources/presenton-patches/LICENSE",
+      "size": 11340,
+      "sha256": "23d6fd64bfcbd46b331098ed89454717fd1719faccbf632f8234b962aa43ed1a"
+    },
+    {
+      "path": "desktop/resources/presenton-patches/presentation.provenance.json",
+      "size": 478,
+      "sha256": "bb44d0d6b739061b47794725f18513fdd30d88e016749d93944288486d9cb403"
+    },
+    {
+      "path": "desktop/resources/presenton-patches/presentation.py",
+      "size": 116562,
+      "sha256": "2d0cbef8972fcab1cee1715da6996d617ca54c886ebf8e864b54f2035adbdc6b"
+    },
+    {
+      "path": "suite/patches/openwhispr/LICENSE",
+      "size": 1071,
+      "sha256": "ecf1a12d3dc51085d2f3a720dc177c7da3cd075ea3fadcc6a1b719fb44ed30e0"
+    },
+    {
+      "path": "suite/patches/openwhispr/PROVENANCE.json",
+      "size": 2397,
+      "sha256": "0cfd315dec92387600e4dc58965190313d20d21429368a3f6c40798a834b6ad2"
+    },
+    {
+      "path": "suite/patches/openwhispr/isolation.patch",
+      "size": 7780,
+      "sha256": "000af6fb3fe881506060f121416fa928963cefaac588f3a8b87a04f0ed1ceabd"
+    },
+    {
+      "path": "suite/patches/presenton/status_payload.py",
+      "size": 1811,
+      "sha256": "b204b7b615a4d0aa3a194106aa3021204cb9bedc073d7fd683f8f07004ad07cc"
+    },
+    {
+      "path": "suite/patches/presenton/test_status_payload.py",
+      "size": 2506,
+      "sha256": "9b3b6821b86d32f4220679ab7904ecea7a665a9ed04d2c4883789fbd56df3dc9"
+    },
+    {
+      "path": "suite/upstream/lucide-package.json",
+      "size": 1035,
+      "sha256": "cc7631284c92b3e48169504704192ec755cd34c3de5897d2840992b5bd0aeb8f"
+    },
+    {
+      "path": "suite/upstream/remaining-image-pins.json",
+      "size": 130628,
+      "sha256": "a23f3f0e0b2ec5bee21193a813acc713541ce4d1afa6302714afa8fbcc2bda91"
+    },
+    {
+      "path": "suite/upstream/screenity-release.json",
+      "size": 385,
+      "sha256": "888b9d0c348370a8685f8db896e18d727f73cadf6b156f84d07c380e8a087468"
+    },
+    {
+      "path": ".gitignore",
+      "size": 874,
+      "sha256": "dae91fecc4a50fc400710b06cb218ff2e9ab624e00b053f4ca6f4549eafb2aba"
+    },
+    {
+      "path": ".gitattributes",
+      "size": 290,
+      "sha256": "2d4cd1d737af6bc4ffdbe53745f3fa97b814a44c5d4742befcaa795621c04f28"
+    },
+    {
+      "path": "desktop/package.json",
+      "size": 1419,
+      "sha256": "e26a66208d6d5c35bf7529ee758dc4fe7be24a66edb9f6609a7c2c9e4a417f04"
+    },
+    {
+      "path": "desktop/package-lock.json",
+      "size": 141954,
+      "sha256": "0cee9a9db3b01b4cf3d85cd69f7571e94500fd853cd83c333445338a86b4b67b"
+    },
+    {
+      "path": "desktop/electron-builder.yml",
+      "size": 1459,
+      "sha256": "f199e77550dc1239ee533d2f676dd1f8f4b28cc5b1630572561215b9ac582f66"
+    },
+    {
+      "path": "desktop/resources/screenity-identity.json",
+      "size": 944,
+      "sha256": "5da168c5c8d8fed481bf6de07f65055a916ca46e2738ed344b3d5ab5d64d5150"
+    },
+    {
+      "path": "desktop/resources/ocr-provenance.json",
+      "size": 730,
+      "sha256": "0843959a64c053eec53b07bf452a224c88f496d094e964d35d3c5b226e2d404f"
+    },
+    {
+      "path": "scripts/audit/projects.json",
+      "size": 1191,
+      "sha256": "de7eebb4b7926b6ca29c9a86f554e088268bd78d8109d4a462ece61789717a69"
+    },
+    {
+      "path": "scripts/distribution/restore-upstream.mjs",
+      "size": 1160,
+      "sha256": "7e0dbde6366cce75a831a13c76cc9435d7dadd986ebf99c2b0261f6c24c1f306"
+    },
+    {
+      "path": "scripts/distribution/prepare-graphite-icons.mjs",
+      "size": 859,
+      "sha256": "afab6e550cffa4f15c39284ce56cffdd87edec5939710f780df12694139eb6c9"
+    },
+    {
+      "path": "scripts/distribution/prepare-screenity-identity.mjs",
+      "size": 428,
+      "sha256": "85d7f5ea60d3bf92e6df7b911abcc3158850e3b9b201dbe3b264b61abf722f92"
+    },
+    {
+      "path": "scripts/distribution/prepare-openwhispr-fork.mjs",
+      "size": 2341,
+      "sha256": "e5893af233199b43eb8edbc25d7c3eddf4b23224ea4148bca32dd6863edd763c"
+    },
+    {
+      "path": "scripts/distribution/prepare-electron.mjs",
+      "size": 921,
+      "sha256": "d02d50f3d58aa38c7dac22f2b8b03d5410007ed57a4768bc6e01f50bbbbeb398"
+    },
+    {
+      "path": "scripts/distribution/installer-validation.mjs",
+      "size": 5038,
+      "sha256": "25685f59c528848ea5abb64f9bbbdad5666405111394a1863cdc260f2881f9dc"
+    },
+    {
+      "path": "scripts/distribution/reset-ci-evidence.mjs",
+      "size": 964,
+      "sha256": "4022dfce24ef5f39d77012df83866e67af4519c8b468fd6fe657207c1fb66e83"
+    },
+    {
+      "path": "scripts/distribution/release-artifacts.mjs",
+      "size": 2572,
+      "sha256": "c411303e7bff0fe6d2ff51678314aee4e0398834546b6bb7e48e2eda4636edfe"
+    },
+    {
+      "path": "scripts/distribution/public-assets.mjs",
+      "size": 4910,
+      "sha256": "9732e45123172e92a8549fd23170331305f03dc7281caf4406c76a5ac298be80"
+    },
+    {
+      "path": "scripts/distribution/stage-public-repository.mjs",
+      "size": 10716,
+      "sha256": "43f0de4d80716fe2e2907ac2dd9ba643f33c91c3741f79def9c944f9c9a3aade"
+    },
+    {
+      "path": "subprojetos/tests/fixtures/speech.wav",
+      "size": 165034,
+      "sha256": "dfb869295744b2cab02fa00beebfee9e2d122b7cf2f2ba9c9ef20e5ee7b49cda"
+    },
+    {
+      "path": "subprojetos/tests/fixtures/ocr.png",
+      "size": 31389,
+      "sha256": "d73be7d819bb2b408c55e13de4fcf5dc51cfa9d3d1e9835b1e6ab31a5b5f280a"
+    },
+    {
+      "path": "subprojetos/tests/fixtures/document.pdf",
+      "size": 43370,
+      "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/browser-storage-native.mjs",
+      "size": 6293,
+      "sha256": "aa18d7b1b74cbc00d836651c658b65f1798ef21ea43f4c6b68b262743fa3995a"
+    },
+    {
+      "path": "suite/tests/close-native-qa.mjs",
+      "size": 957,
+      "sha256": "d3d58fb22870266f7cac5e0ed4c78b8489d8ba1894169ca3ebce1bfd731ba0a0"
+    },
+    {
+      "path": "suite/tests/graphite-durability.mjs",
+      "size": 7159,
+      "sha256": "ecc0843ab0381f2fc50f73e39d1d18cb4652f6ef89d8b935471f3475b7456489"
+    },
+    {
+      "path": "suite/tests/screenity-native-cloud.mjs",
+      "size": 11995,
+      "sha256": "b8793d0a2c7b5185ea3015415eac3c9db6d95d5f13685e2e0eb8f3ad3cfecdb5"
+    },
+    {
+      "path": "suite/tests/openwhispr-native-cloud.mjs",
+      "size": 8490,
+      "sha256": "090088e0865c436d22ef8940f5318f33bf769e7af20ebb932766e6b6ec868901"
+    },
+    {
+      "path": "suite/tests/openwhispr-isolation.mjs",
+      "size": 3314,
+      "sha256": "f38070ef5e78ac52a92b4f9f9c9c916fb25d34c01e9859e483fa3dd25f3c5ac3"
+    },
+    {
+      "path": "suite/tests/run-openwhispr-upstream-tests.mjs",
+      "size": 4650,
+      "sha256": "39ac529b6e0d1d8602fbdb8e3294857cdf531e9f2eb5d3ea4c445b5fada4da07"
+    },
+    {
+      "path": "suite/tests/paperless-cloud.mjs",
+      "size": 12683,
+      "sha256": "25d4ba2870a47407c18bbae2b98fa5109d7ab275759cae6d05d175fa2acbb6b5"
+    },
+    {
+      "path": "suite/tests/remaining-services-cloud.mjs",
+      "size": 12960,
+      "sha256": "99a3dd0a6b2f84a69a87e9c8fb697b451a849dfb7cf5c7094e80317e12499073"
+    },
+    {
+      "path": "suite/tests/service-native-view.mjs",
+      "size": 5987,
+      "sha256": "d74653b9c083692a77efbf248e8e264df1b7452aeef8d91eb4c34ac909bcc9ec"
+    },
+    {
+      "path": "suite/tests/original-account-workflows.mjs",
+      "size": 9444,
+      "sha256": "6c5ab95b982b9999734237ea2d360571edc612a523f87a1c29bb4a555202bc62"
+    },
+    {
+      "path": "suite/tests/plane-account-workflow.mjs",
+      "size": 6378,
+      "sha256": "15195b743426701b24c9a9704265b1e4091becec3d9b5f68d6b3601bf44c8111"
+    },
+    {
+      "path": "suite/catalog.json",
+      "size": 9779,
+      "sha256": "afac878a8918823219f3a7f5e80beaf17961900db094d1add1812ebadd88fba1"
+    },
+    {
+      "path": "subprojetos/presenton/UPSTREAM.json",
+      "size": 887,
+      "sha256": "26c2b780f7e8121991d43a85ff1f632c4995ba0fd9ab1efc63e060e4cb974a99"
+    },
+    {
+      "path": "subprojetos/presenton/INSPECAO.md",
+      "size": 270,
+      "sha256": "e1f77f7d28cc3f04ed43c03081ce580b5a7cfbb7b9ed824a9bf0cbc59c1a80ca"
+    },
+    {
+      "path": "subprojetos/openwhispr/UPSTREAM.json",
+      "size": 890,
+      "sha256": "595b624dc2d6c9d0e0e102563f428db6afc9eec8fdc8297e014d5180c8fdd335"
+    },
+    {
+      "path": "subprojetos/openwhispr/INSPECAO.md",
+      "size": 273,
+      "sha256": "82e9635edc6c0b5638c0f69398c3cc50bf5d1c4a517807b5047651162ec8b498"
+    },
+    {
+      "path": "subprojetos/graphite/UPSTREAM.json",
+      "size": 967,
+      "sha256": "2c10bc7eb74d62c776a32f655cd9d13e999bfa249892fc80969c4026f319cbde"
+    },
+    {
+      "path": "subprojetos/graphite/INSPECAO.md",
+      "size": 273,
+      "sha256": "aaa1a2067d811f5dd57b50752394234ec090972be5ce2f01c08cced89e806545"
+    },
+    {
+      "path": "subprojetos/excalidraw/UPSTREAM.json",
+      "size": 804,
+      "sha256": "56e49e3e7c3d712238a0d69c57ed1b7e8d29441ffc131098d4073cced5c918d5"
+    },
+    {
+      "path": "subprojetos/excalidraw/INSPECAO.md",
+      "size": 273,
+      "sha256": "3000f72e6907f8637f8fd0690102c38b1c8bfd98296a981e55f7cbbe79e6b1fd"
+    },
+    {
+      "path": "subprojetos/screenity/UPSTREAM.json",
+      "size": 843,
+      "sha256": "c71833be0fd76454316dc9cc215d6199b5b6d0461a4b35a26b4d5a85b5780fde"
+    },
+    {
+      "path": "subprojetos/screenity/INSPECAO.md",
+      "size": 270,
+      "sha256": "b6a330d9b4c4f0f974ec53bc38bb25acd4f481bafb0b49cb5bafe75f5108d691"
+    },
+    {
+      "path": "subprojetos/affine/UPSTREAM.json",
+      "size": 937,
+      "sha256": "36b73187f8b4a756ae4f0f5297246386bd60c0faa7af3e2d057790bc7b37cde5"
+    },
+    {
+      "path": "subprojetos/affine/INSPECAO.md",
+      "size": 267,
+      "sha256": "f9c8f1a8dd561b853e1860e89ef48568ea656314cf398e50cecdecc263663060"
+    },
+    {
+      "path": "subprojetos/baserow/UPSTREAM.json",
+      "size": 885,
+      "sha256": "7b1e2c5073a052a45ef1138805c4978ee618097c4c64d08a882843905a7649b0"
+    },
+    {
+      "path": "subprojetos/baserow/INSPECAO.md",
+      "size": 264,
+      "sha256": "8c67d5ced7b050a284c4cf01f8d870cd8a2365286d3555a8051570c8852a6b02"
+    },
+    {
+      "path": "subprojetos/activepieces/UPSTREAM.json",
+      "size": 897,
+      "sha256": "148af24ff5bbae916b6b6fc2f3ccb0996a153ff35ea3dbfa6310d1c395944aa2"
+    },
+    {
+      "path": "subprojetos/activepieces/INSPECAO.md",
+      "size": 279,
+      "sha256": "5aeb1b6f1940a3b7aa98f4066493ef13850b4c405be7d453235eac8aba4d49a8"
+    },
+    {
+      "path": "subprojetos/plane/UPSTREAM.json",
+      "size": 938,
+      "sha256": "31ba27f367328eef265acfad0b7f9f4e27b3f3e4d4d5ed53b00c0306118beae9"
+    },
+    {
+      "path": "subprojetos/plane/INSPECAO.md",
+      "size": 262,
+      "sha256": "3671a46bfbf8790e29857908aea5bd494d1e6bb691404cc9b3af33cf86bc834d"
+    },
+    {
+      "path": "subprojetos/formbricks/UPSTREAM.json",
+      "size": 763,
+      "sha256": "d818072b54765eacc683f63e87f86da131403e6fa6e73a3fabc1fe121812dbd8"
+    },
+    {
+      "path": "subprojetos/formbricks/INSPECAO.md",
+      "size": 273,
+      "sha256": "f7a07b090e2a93f42f223c42c1b798087f06ef7f5ccf66c657fbea0ca49cd82c"
+    },
+    {
+      "path": "subprojetos/postiz/UPSTREAM.json",
+      "size": 844,
+      "sha256": "b6285de1ce5e65b16ab4041d5db5bd304126231edeab3c434aa87e70ee640a08"
+    },
+    {
+      "path": "subprojetos/postiz/INSPECAO.md",
+      "size": 268,
+      "sha256": "b0f3c6a8caccb1b6dfc11efcf4dac31b0de9eac277955ed87bbd0ba8647cd791"
+    },
+    {
+      "path": "subprojetos/paperless/UPSTREAM.json",
+      "size": 901,
+      "sha256": "a4705ec8c058e659feb343ce71579335cfcf6263a4955ab1d11769d9afe6bf4e"
+    },
+    {
+      "path": "subprojetos/paperless/INSPECAO.md",
+      "size": 282,
+      "sha256": "bcef6f412c53be67b1a6c75714d3dfbeca7ffdabfbb052372e7ba9ed07ba983c"
+    },
+    {
+      "path": "suite/release-readiness.json",
+      "size": 5858,
+      "sha256": "92ed15a9dc7e0305ed41e7f0aff535804b205dfaa4797de3ef2d1c4ef25a8b0a"
+    },
+    {
+      "path": ".github/workflows/desktop-validation.yml",
+      "size": 2319,
+      "sha256": "87c5e1d49bfc8a3cf3324757a58a8d4e6f034f7f8504f70e574d85e2015c367a"
+    },
+    {
+      "path": ".github/workflows/graphite-acceptance.yml",
+      "size": 1304,
+      "sha256": "a2bf1b308474b3e2acdba04db3a2cb36f7b8f176b6e8f2b8962735bf477e2b01"
+    },
+    {
+      "path": ".github/workflows/openwhispr-fork-validation.yml",
+      "size": 4992,
+      "sha256": "3bdf46bbca048d74e5ce0a6c52b7351f5458f3e6e87c36d4161ff1e1a9b73894"
+    },
+    {
+      "path": ".github/workflows/screenity-validation.yml",
+      "size": 1728,
+      "sha256": "a05685fc7fbe73a05a42fe65d9d5e9affe3d07ac358d559ac3efd76ce3b9af32"
+    },
+    {
+      "path": ".github/workflows/complete-services.yml",
+      "size": 3581,
+      "sha256": "ae32740f18c101714e4cf71a6a77f2b90e08c096f0d83d75c0e0841a2f781d7a"
+    },
+    {
+      "path": ".github/workflows/installer-validation.yml",
+      "size": 2270,
+      "sha256": "85656a0384884b7ea98bde0dfef3adaa35b3d813c29135df75e09d58b774f100"
+    },
+    {
+      "path": ".github/workflows/public-engines.yml",
+      "size": 3954,
+      "sha256": "d8e82130abae2bcaae215dad899a0dd204500bb59484412238bb5f835e4babcc"
+    },
+    {
+      "path": "README.md",
+      "size": 1615,
+      "sha256": "6f320c69133a521cad4be2231a1130a7fbb5f7c84a69943f92c6e3c94074f0c9"
+    },
+    {
+      "path": "desktop/README.md",
+      "size": 308,
+      "sha256": "fc113d1b06a3725bf489970b39507987ac69a3cf9cdc29f145efe805294f75ab"
+    },
+    {
+      "path": "LICENSE",
+      "size": 1260,
+      "sha256": "2e5a3c5108d22c1c1799c3efa442bf5686292d01b749c7c1867d92dac27f54e6"
+    },
+    {
+      "path": "THIRD_PARTY.md",
+      "size": 2029,
+      "sha256": "24b876e772f4c2a4cd00bb35961ae4d3620bc29aceceda4e0fb681ad2256ad52"
+    }
+  ]
+}

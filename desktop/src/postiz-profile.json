@@ -1,0 +1,258 @@
+{
+  "application": "postiz",
+  "port": 5000,
+  "database": {
+    "service": "postiz-postgres",
+    "user": "postiz-user",
+    "database": "postiz-db-local"
+  },
+  "compose": {
+    "services": {
+      "postiz": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "API_LIMIT": "30",
+          "APPLE_CLIENT_ID": "",
+          "APPLE_KEY_ID": "",
+          "APPLE_PRIVATE_KEY": "",
+          "APPLE_TEAM_ID": "",
+          "BACKEND_INTERNAL_URL": "http://localhost:3000",
+          "BEEHIIVE_API_KEY": "",
+          "BEEHIIVE_PUBLICATION_ID": "",
+          "DATABASE_URL": "postgresql://postiz-user:__PA_DATABASE_PASSWORD__@postiz-postgres:5432/postiz-db-local",
+          "DISABLE_REGISTRATION": "false",
+          "DISCORD_BOT_TOKEN_ID": "",
+          "DISCORD_CLIENT_ID": "",
+          "DISCORD_CLIENT_SECRET": "",
+          "DRIBBBLE_CLIENT_ID": "",
+          "DRIBBBLE_CLIENT_SECRET": "",
+          "FACEBOOK_APP_ID": "",
+          "FACEBOOK_APP_SECRET": "",
+          "FEE_AMOUNT": "0.05",
+          "FRONTEND_URL": "__PA_ORIGIN__",
+          "GITHUB_CLIENT_ID": "",
+          "GITHUB_CLIENT_SECRET": "",
+          "IS_GENERAL": "true",
+          "JWT_SECRET": "__PA_SECRET__",
+          "LINKEDIN_CLIENT_ID": "",
+          "LINKEDIN_CLIENT_SECRET": "",
+          "MAIN_URL": "__PA_ORIGIN__",
+          "MASTODON_CLIENT_ID": "",
+          "MASTODON_CLIENT_SECRET": "",
+          "MASTODON_URL": "https://mastodon.social",
+          "NEXT_PUBLIC_BACKEND_URL": "__PA_ORIGIN__/api",
+          "NEXT_PUBLIC_DISCORD_SUPPORT": "",
+          "NEXT_PUBLIC_POLOTNO": "",
+          "NEXT_PUBLIC_UPLOAD_DIRECTORY": "/uploads",
+          "NX_ADD_PLUGINS": "false",
+          "OPENAI_API_KEY": "",
+          "OPENAI_OAUTH_CLIENT_ID": "",
+          "PINTEREST_CLIENT_ID": "",
+          "PINTEREST_CLIENT_SECRET": "",
+          "REDDIT_CLIENT_ID": "",
+          "REDDIT_CLIENT_SECRET": "",
+          "REDIS_URL": "redis://postiz-redis:6379",
+          "SLACK_ID": "",
+          "SLACK_SECRET": "",
+          "SLACK_SIGNING_SECRET": "",
+          "STORAGE_PROVIDER": "local",
+          "STRIPE_PUBLISHABLE_KEY": "",
+          "STRIPE_SECRET_KEY": "",
+          "STRIPE_SIGNING_KEY": "",
+          "STRIPE_SIGNING_KEY_CONNECT": "",
+          "TEMPORAL_ADDRESS": "temporal:7233",
+          "THREADS_APP_ID": "",
+          "THREADS_APP_SECRET": "",
+          "TIKTOK_BUSINESS_CLIENT_ID": "",
+          "TIKTOK_BUSINESS_CLIENT_SECRET": "",
+          "TIKTOK_CLIENT_ID": "",
+          "TIKTOK_CLIENT_SECRET": "",
+          "TUMBLR_CLIENT_ID": "",
+          "TUMBLR_CLIENT_SECRET": "",
+          "UPLOAD_DIRECTORY": "/uploads",
+          "X_API_KEY": "",
+          "X_API_SECRET": "",
+          "X_URL": "",
+          "YOUTUBE_CLIENT_ID": "",
+          "YOUTUBE_CLIENT_SECRET": ""
+        },
+        "image": "ghcr.io/gitroomhq/postiz-app@sha256:d2b37802e96757729fdea2d3d71287f841c2b619faa1cb4c21dac07df657fde1",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "postiz-config",
+            "target": "/config",
+            "volume": {}
+          },
+          {
+            "type": "volume",
+            "source": "postiz-uploads",
+            "target": "/uploads",
+            "volume": {}
+          }
+        ],
+        "depends_on": {
+          "postiz-postgres": {
+            "condition": "service_healthy",
+            "required": true
+          },
+          "postiz-redis": {
+            "condition": "service_healthy",
+            "required": true
+          }
+        },
+        "mem_limit": 2147483648
+      },
+      "postiz-postgres": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "POSTGRES_DB": "postiz-db-local",
+          "POSTGRES_PASSWORD": "__PA_DATABASE_PASSWORD__",
+          "POSTGRES_USER": "postiz-user"
+        },
+        "image": "docker.io/library/postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "postgres-volume",
+            "target": "/var/lib/postgresql/data",
+            "volume": {}
+          }
+        ],
+        "healthcheck": {
+          "test": [
+            "CMD-SHELL",
+            "pg_isready -U postiz-user -d postiz-db-local"
+          ],
+          "timeout": "3s",
+          "interval": "10s",
+          "retries": 3
+        },
+        "mem_limit": 1073741824
+      },
+      "postiz-redis": {
+        "restart": "no",
+        "command": null,
+        "entrypoint": null,
+        "image": "docker.io/library/redis@sha256:46f15cf64fdef63e483dcda99e74e3d51c017b1175547b6bb874152ee2391aad",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "postiz-redis-data",
+            "target": "/data",
+            "volume": {}
+          }
+        ],
+        "healthcheck": {
+          "test": [
+            "CMD-SHELL",
+            "redis-cli ping"
+          ],
+          "timeout": "3s",
+          "interval": "10s",
+          "retries": 3
+        },
+        "mem_limit": 536870912
+      },
+      "temporal": {
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "DB": "postgres12",
+          "DB_PORT": "5432",
+          "DYNAMIC_CONFIG_FILE_PATH": "config/dynamicconfig/development-sql.yaml",
+          "ENABLE_ES": "true",
+          "ES_SEEDS": "temporal-elasticsearch",
+          "ES_VERSION": "v7",
+          "POSTGRES_PWD": "__PA_QUEUE_SECRET__",
+          "POSTGRES_SEEDS": "temporal-postgresql",
+          "POSTGRES_USER": "temporal",
+          "TEMPORAL_NAMESPACE": "default"
+        },
+        "image": "docker.io/temporalio/auto-setup@sha256:607d68caa111338d754771efb876c92dfcdae06d056e4530bb31cd0f37406e6a",
+        "labels": {
+          "kompose.volume.type": "configMap"
+        },
+        "volumes": [
+          {
+            "type": "bind",
+            "source": "stack-config/dynamicconfig",
+            "target": "/etc/temporal/config/dynamicconfig",
+            "bind": {}
+          }
+        ],
+        "depends_on": {
+          "temporal-elasticsearch": {
+            "condition": "service_started",
+            "required": true
+          },
+          "temporal-postgresql": {
+            "condition": "service_started",
+            "required": true
+          }
+        },
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "temporal-elasticsearch": {
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "ES_JAVA_OPTS": "-Xms256m -Xmx256m",
+          "cluster.routing.allocation.disk.threshold_enabled": "true",
+          "cluster.routing.allocation.disk.watermark.flood_stage": "128mb",
+          "cluster.routing.allocation.disk.watermark.high": "256mb",
+          "cluster.routing.allocation.disk.watermark.low": "512mb",
+          "discovery.type": "single-node",
+          "xpack.security.enabled": "false"
+        },
+        "image": "docker.io/library/elasticsearch@sha256:9a6443f55243f6acbfeb4a112d15eb3b9aac74bf25e0e39fa19b3ddd3a6879d0",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "temporal_es",
+            "target": "/usr/share/elasticsearch/data"
+          }
+        ],
+        "expose": [
+          "9200"
+        ],
+        "restart": "no",
+        "mem_limit": 536870912
+      },
+      "temporal-postgresql": {
+        "command": null,
+        "entrypoint": null,
+        "environment": {
+          "POSTGRES_PASSWORD": "__PA_QUEUE_SECRET__",
+          "POSTGRES_USER": "temporal"
+        },
+        "image": "docker.io/library/postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "temporal_pg",
+            "target": "/var/lib/postgresql/data"
+          }
+        ],
+        "expose": [
+          "5432"
+        ],
+        "restart": "no",
+        "mem_limit": 1073741824
+      }
+    },
+    "volumes": {
+      "postgres-volume": {},
+      "postiz-config": {},
+      "postiz-redis-data": {},
+      "postiz-uploads": {},
+      "temporal_pg": {},
+      "temporal_es": {}
+    }
+  }
+}

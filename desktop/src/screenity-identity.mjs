@@ -1,0 +1,12 @@
+import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';
+const PIN='dddeeb668ad285155a48fa89298f0fe2ef273579';const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+export function extensionId(publicKey){const bytes=Buffer.from(publicKey,'base64');crypto.createPublicKey({key:bytes,type:'spki',format:'der'});return [...crypto.createHash('sha256').update(bytes).digest().subarray(0,16)].map(n=>String.fromCharCode(97+(n>>4),97+(n&15))).join('');}
+export function prepareScreenityIdentity({directory,identity}){
+ if(identity?.version!==1||identity.sourceCommit!==PIN||identity.extensionVersion!=='4.6.12'||extensionId(identity.publicKey)!==identity.extensionId)throw Error('Identidade Screenity inválida.');
+ const file=path.join(directory,'manifest.json');if(fs.lstatSync(file).isSymbolicLink())throw Error('Manifesto Screenity não pode ser um link.');const bytes=fs.readFileSync(file),manifest=JSON.parse(bytes),recordFile=path.join(directory,'PLATAFORMA_IDENTITY.json');
+ if(manifest.key===identity.publicKey&&fs.existsSync(recordFile)){const record=JSON.parse(fs.readFileSync(recordFile));if(record.sourceCommit!==PIN||record.extensionId!==identity.extensionId||record.patchedManifestSHA256!==sha(bytes))throw Error('Manifesto integrado foi alterado.');return record;}
+ if(manifest.version!==identity.extensionVersion||manifest.manifest_version!==3||manifest.key!==undefined||sha(bytes)!==identity.originalManifestSHA256)throw Error('O manifesto difere da versão oficial auditada.');
+ manifest.key=identity.publicKey;const patched=Buffer.from(JSON.stringify(manifest,null,2)+'\n');
+ const record={version:1,sourceCommit:PIN,extensionId:identity.extensionId,originalManifestSHA256:identity.originalManifestSHA256,patchedManifestSHA256:sha(patched),modifications:['Only own stable public extension key added; original recording/editor code and optional permissions unchanged'],limits:['Original external Google Drive OAuth client is not owned by this fork; own provider configuration and acceptance required before claiming external Drive integration','Native suite launcher, cross-platform recording recovery and distribution signing remain separate acceptance']};
+ const temporary=file+'.'+crypto.randomUUID()+'.tmp';try{fs.writeFileSync(temporary,patched,{flag:'wx',mode:0o644});fs.renameSync(temporary,file);fs.writeFileSync(recordFile,JSON.stringify(record,null,2)+'\n',{mode:0o644});}finally{fs.rmSync(temporary,{force:true});}return record;
+}

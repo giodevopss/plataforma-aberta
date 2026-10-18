@@ -1,0 +1,16 @@
+# Preserve byte identity of the verified Linux adaptations on every build host.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.icns binary
+*.woff2 binary
+*.wasm binary
+*.zip binary
+*.pdf binary
+*.wav binary
+*.mp4 binary
+*.tar.gz binary

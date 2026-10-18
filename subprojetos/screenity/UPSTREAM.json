@@ -1,0 +1,27 @@
+{
+  "id": "screenity",
+  "name": "Screenity",
+  "repo": "alyssaxuu/screenity",
+  "domain": "Gravação de tela",
+  "checked_at": "2026-10-15T21:29:32.271722+00:00",
+  "repository": {
+    "default_branch": "master",
+    "archived": false,
+    "license": {
+      "key": "gpl-3.0",
+      "name": "GNU General Public License v3.0",
+      "spdx_id": "GPL-3.0",
+      "url": "https://api.github.com/licenses/gpl-3.0",
+      "node_id": "MDc6TGljZW5zZTk="
+    },
+    "pushed_at": "2026-10-05T14:17:23Z",
+    "created_at": "2020-11-01T15:16:31Z",
+    "open_issues_count": 12,
+    "size": 94753,
+    "html_url": "https://github.com/alyssaxuu/screenity",
+    "description": "The free and privacy-friendly screen recorder with no limits 🎥"
+  },
+  "commit": "dddeeb668ad285155a48fa89298f0fe2ef273579",
+  "source_status": "cloned",
+  "issues_count": 9
+}

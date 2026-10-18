@@ -1,0 +1,27 @@
+{
+  "id": "plane",
+  "name": "Plane",
+  "repo": "makeplane/plane",
+  "domain": "Gestão de projetos",
+  "checked_at": "2026-10-15T21:29:32.271722+00:00",
+  "repository": {
+    "default_branch": "preview",
+    "archived": false,
+    "license": {
+      "key": "agpl-3.0",
+      "name": "GNU Affero General Public License v3.0",
+      "spdx_id": "AGPL-3.0",
+      "url": "https://api.github.com/licenses/agpl-3.0",
+      "node_id": "MDc6TGljZW5zZTE="
+    },
+    "pushed_at": "2026-10-15T20:51:17Z",
+    "created_at": "2022-11-19T12:55:01Z",
+    "open_issues_count": 1135,
+    "size": 217980,
+    "html_url": "https://github.com/makeplane/plane",
+    "description": "🔥🔥🔥 Open-source Jira, Linear, Monday, and ClickUp alternative. Plane is a modern project management platform to manage tasks, sprints, docs, and triage."
+  },
+  "commit": "ac0d55de30eb2876209016744e025c95647dffe4",
+  "source_status": "cloned",
+  "issues_count": 8
+}

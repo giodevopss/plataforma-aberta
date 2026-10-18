@@ -1,0 +1,78 @@
+{
+  "checked_at": "2026-10-18T18:18:58.352Z",
+  "release_ready": false,
+  "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
+  "applications": {
+    "presenton": {
+      "acceptance": "pending",
+      "status": "Complete original application integrated as a managed local service. Original canvas text editing, native PPTX download, local Ollama generation and regression fix accepted on macOS. Global installer/backup/cross-platform release acceptance pending."
+    },
+    "openwhispr": {
+      "acceptance": "pending",
+      "status": "Complete original 803-file test suite passed: 7938 pass, 35 original skips, 1 todo, no failures. Full isolated native source fork packaged and transcribed synthetic speech through original whisper.cpp on Windows in run 38971505623; component cloud preservation fully verified. Mac fork, actual suite launcher/restore and final signing pending."
+    },
+    "graphite": {
+      "acceptance": "pending",
+      "status": "Complete engine compiled in 38978225098; four production Rust checkpoint tests passed, immediate native shutdown/reopen recovered the drawing in 76 ms navigation, but clean reopened flush still failed. Original all-documents autosave skips unchanged graph hashes. Explicit original per-document saves before the same verified WASM/OPFS checkpoint now pass in actual Chrome on Mac ARM, including byte-identical typed browser snapshot restoration under a new origin and visible original editable layer. Native Electron/all-target rerun pending."
+    },
+    "excalidraw": {
+      "acceptance": "pending",
+      "status": "Integrated original engine; editable tables, tabs, JSON/PNG export and native persistence tested"
+    },
+    "screenity": {
+      "acceptance": "pending",
+      "status": "Complete original extension plays synthetic recording, crops actual video and exports independently decoded MP4/WebM on Mac Intel and Linux in run 38978531497 after requesting original optional offscreen permission. Mac ARM crop intermittent failure and Windows source stabilization remain unresolved; capture, launcher and unified recovery pending."
+    },
+    "affine": {
+      "acceptance": "pending",
+      "status": "Complete original application with own local PostgreSQL/Redis integrated. Browser-to-server sync, original attachments, isolated snapshot restoration and fresh-browser recovery accepted. Global installer/backup/cross-platform release acceptance pending."
+    },
+    "baserow": {
+      "acceptance": "pending",
+      "status": "Complete Baserow 2.4.1 integrated with local PostgreSQL/Redis. Synthetic signup, table creation, row persistence, original CSV export and native WebContentsView accepted on macOS ARM64. Unified backup and cross-platform release acceptance pending."
+    },
+    "activepieces": {
+      "acceptance": "pending",
+      "status": "Complete Activepieces 0.92.2 integrated with local PostgreSQL/Redis and worker. Corrected 17 stale compiled contract modules from the original source. Original workflow publishing and real manual worker execution accepted in browser and native WebContentsView on macOS ARM64. Full offline catalog, unified restore and cross-platform release acceptance pending."
+    },
+    "plane": {
+      "acceptance": "pending",
+      "status": "Complete original admin/user onboarding, workspace, project, visible task list in attached native view, stop/reopen and independent encrypted restore passed in disposable Linux run 38970843649. Final native target/runtime/global backup gates pending."
+    },
+    "formbricks": {
+      "acceptance": "pending",
+      "status": "Complete original local account/workspace, survey editing/activation, real respondent response, private S3 attachments including 70 MB, attached native view, stop/reopen and independent encrypted restore passed in disposable Linux run 38969582362. Final target/runtime/global backup gates pending."
+    },
+    "postiz": {
+      "acceptance": "pending",
+      "status": "Complete original account/calendar/tags/media, three native stop/reopen cycles and independent encrypted restore with byte-identical media served from the new own origin passed in run 38973641164. Final target/runtime/global backup and optional external publishing acceptance pending."
+    },
+    "paperless": {
+      "acceptance": "pending",
+      "status": "Complete original OCR, PNG/PDF/DOCX conversion, tags/search, byte-identical originals, attached native Electron view with visible thumbnails, stop/reopen and independent encrypted recovery passed in disposable Linux run 38965088802. Final native target/runtime/global-backup gates remain pending."
+    }
+  },
+  "platforms": {
+    "darwin-arm64": {
+      "status": "partial",
+      "evidence": "suite/research/native-ci-67-tests",
+      "scope": "Native core workflows accepted on actual target OS; all application runtimes, installers and complete backup acceptance pending"
+    },
+    "darwin-x64": {
+      "status": "partial",
+      "evidence": "suite/research/native-ci-67-tests",
+      "scope": "Native core workflows accepted on actual target OS; all application runtimes, installers and complete backup acceptance pending"
+    },
+    "win32-x64": {
+      "status": "partial",
+      "evidence": "suite/research/native-ci-67-tests",
+      "scope": "Native core workflows accepted on actual target OS; all application runtimes, installers and complete backup acceptance pending"
+    }
+  },
+  "runtime_installer": "pending",
+  "complete_backup_restore": "pending",
+  "upgrade_rollback": "pending",
+  "distribution_signatures": "pending",
+  "distribution": "Final release gate remains closed. Obsolete internal Mac app removed to reclaim temporary disk space. No final installers generated.",
+  "remaining_complete_integrations": 3
+}

@@ -1,0 +1,14 @@
+[
+ {"id":"presenton","name":"Presenton","repo":"presenton/presenton","domain":"Apresentações"},
+ {"id":"openwhispr","name":"OpenWhispr","repo":"OpenWhispr/openwhispr","domain":"Ditado e transcrição"},
+ {"id":"graphite","name":"Graphite","repo":"GraphiteEditor/Graphite","domain":"Editor vetorial"},
+ {"id":"excalidraw","name":"Excalidraw","repo":"excalidraw/excalidraw","domain":"Diagramas"},
+ {"id":"screenity","name":"Screenity","repo":"alyssaxuu/screenity","domain":"Gravação de tela"},
+ {"id":"affine","name":"AFFiNE","repo":"toeverything/AFFiNE","domain":"Documentos e conhecimento"},
+ {"id":"baserow","name":"Baserow","repo":"baserow/baserow","domain":"Bases de dados"},
+ {"id":"activepieces","name":"Activepieces","repo":"activepieces/activepieces","domain":"Automação"},
+ {"id":"plane","name":"Plane","repo":"makeplane/plane","domain":"Gestão de projetos"},
+ {"id":"formbricks","name":"Formbricks","repo":"formbricks/formbricks","domain":"Formulários e pesquisas"},
+ {"id":"postiz","name":"Postiz","repo":"gitroomhq/postiz-app","domain":"Planejamento social"},
+ {"id":"paperless","name":"Paperless-ngx","repo":"paperless-ngx/paperless-ngx","domain":"Arquivo documental"}
+]

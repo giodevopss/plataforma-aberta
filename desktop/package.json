@@ -1,0 +1,41 @@
+{
+  "name": "plataforma-aberta-suite",
+  "productName": "Plataforma Aberta",
+  "version": "0.2.0-alpha.1",
+  "description": "Suíte desktop local de criação e trabalho",
+  "author": "Plataforma Aberta",
+  "private": true,
+  "type": "module",
+  "main": "src/main.mjs",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "prepare:assets": "node scripts/prepare-assets.mjs",
+    "build:editor": "node scripts/build-editor.mjs",
+    "build": "npm run build:editor && npm run prepare:assets",
+    "start": "electron .",
+    "test": "node --test tests/*.test.mjs",
+    "test:desktop": "node tests/desktop.mjs",
+    "dist:mac": "node scripts/require-release.mjs && npm run build && electron-builder --mac dmg zip --arm64 --publish never",
+    "dist:win": "node scripts/require-release.mjs && npm run build && electron-builder --win nsis portable --x64 --publish never",
+    "checksums": "node scripts/checksums.mjs",
+    "build:graphite": "node scripts/build-graphite.mjs",
+    "test:local-apps": "node ../suite/tests/verify-local-apps.mjs"
+  },
+  "dependencies": {
+    "fflate": "0.8.3",
+    "pdfjs-dist": "6.4.299",
+    "tar": "7.5.22",
+    "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "electron": "44.7.2",
+    "electron-builder": "26.15.3",
+    "playwright": "1.64.1"
+  },
+  "optionalDependencies": {
+    "@napi-rs/canvas-darwin-x64": "1.0.11",
+    "@napi-rs/canvas-win32-x64-msvc": "1.0.11"
+  }
+}

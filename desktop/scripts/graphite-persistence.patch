@@ -1,0 +1,150 @@
+diff --git a/editor/src/application.rs b/editor/src/application.rs
+--- a/editor/src/application.rs
++++ b/editor/src/application.rs
+@@ -1,4 +1,7 @@
+ use crate::dispatcher::Dispatcher;
++#[cfg(target_family = "wasm")]
++#[path = "persistence_checkpoint.rs"]
++mod persistence_checkpoint;
+ use crate::messages::prelude::*;
+ use graph_craft::application_io::PlatformApplicationIo;
+ use graph_craft::application_io::resource::ResourceStorage;
+@@ -50,6 +53,30 @@
+ 		self.dispatcher.handle_message(message, true);
+ 
+ 		std::mem::take(&mut self.dispatcher.responses)
++	}
++
++	/// Capture owned document containers without retaining the editor lock across awaited I/O.
++	/// OPFS reads place a FIFO barrier after queued document/resource writes, then verify actual disk bytes.
++	#[cfg(target_family = "wasm")]
++	pub fn persistence_checkpoint(&self) -> Option<std::pin::Pin<Box<dyn std::future::Future<Output = Result<(), String>>>>> {
++		use document_container::{AnyContainer, AsyncContainer};
++		let mut checks = Vec::new();
++		for document in self.dispatcher.message_handlers.portfolio_message_handler.documents.values() {
++			let container = document.container.clone()?;
++			if !matches!(container, AnyContainer::Opfs(_)) {
++				return Some(Box::pin(async { Err("Persistent document storage is unavailable; keep the editor open and export your work.".to_string()) }));
++			}
++			checks.push((container, document.serialize_document()));
++		}
++		Some(Box::pin(async move {
++			for (container, expected) in checks {
++				let bytes = container.read(crate::messages::portfolio::document_storage_io::legacy_path()).await.map_err(|error| error.to_string())?;
++				if bytes.as_slice() != expected.as_bytes() && !persistence_checkpoint::snapshot_matches(bytes.as_slice(), expected.as_bytes()).map_err(|error| error.to_string())? {
++					return Err("The last edit has not reached persistent storage. Keep the editor open and try again.".to_string());
++				}
++			}
++			Ok(())
++		}))
+ 	}
+ 
+ 	pub fn poll_node_graph_evaluation(&mut self, responses: &mut VecDeque<Message>) -> Result<(), String> {
+diff --git a/frontend/wrapper/src/editor_wrapper.rs b/frontend/wrapper/src/editor_wrapper.rs
+--- a/frontend/wrapper/src/editor_wrapper.rs
++++ b/frontend/wrapper/src/editor_wrapper.rs
+@@ -52,6 +52,26 @@
+ 
+ #[wasm_bindgen]
+ impl EditorWrapper {
++	/// Await the original OPFS mutation queue and verify each open document before a suite backup or close.
++	#[cfg(all(not(feature = "native"), target_family = "wasm"))]
++	pub async fn flush_persistence(&self) -> Result<(), JsValue> {
++		for _ in 0..300 {
++			self.auto_save_all_documents();
++			let checkpoint = EDITOR.with(|slot| slot.lock().ok().and_then(|guard| guard.as_ref().and_then(Editor::persistence_checkpoint)));
++			if let Some(checkpoint) = checkpoint {
++				return checkpoint.await.map_err(|error| JsValue::from_str(&error));
++			}
++			// New document containers attach asynchronously through the original message loop.
++			let delay = js_sys::Promise::new(&mut |resolve, reject| {
++				if let Err(error) = web_sys::window().unwrap().set_timeout_with_callback_and_timeout_and_arguments_0(&resolve, 100) {
++					let _ = reject.call1(&JsValue::UNDEFINED, &error);
++				}
++			});
++			wasm_bindgen_futures::JsFuture::from(delay).await?;
++		}
++		Err(JsValue::from_str("Document storage did not become ready. Keep the editor open and export your work."))
++	}
++
+ 	#[cfg(all(not(feature = "native"), target_family = "wasm"))]
+ 	pub async fn create(platform: String, uuid_random_seed: u64, frontend_message_handler_callback: js_sys::Function) -> EditorWrapper {
+ 		use graph_craft::application_io::PlatformApplicationIo;
+diff --git a/frontend/src/managers/persistence.ts b/frontend/src/managers/persistence.ts
+--- a/frontend/src/managers/persistence.ts
++++ b/frontend/src/managers/persistence.ts
+@@ -1,3 +1,4 @@
++import { get } from "svelte/store";
+ import type { PortfolioStore } from "/src/stores/portfolio";
+ import type { SubscriptionsRouter } from "/src/subscriptions-router";
+ import { saveEditorPreferences, loadEditorPreferences, writePersistedState, readPersistedState } from "/src/utility-functions/persistence";
+@@ -16,11 +17,30 @@
+ 
+ 	// Run persistence operations in request order
+ 	let tail: Promise<void> = Promise.resolve();
++	let failure: unknown;
++	let pendingFlush: Promise<void> | undefined;
+ 	const enqueue = (operation: () => Promise<void>): Promise<void> => {
+ 		const next = tail.then(operation);
+-		tail = next.catch(() => undefined);
++		tail = next.catch((error) => { failure = error; });
+ 		return next;
+ 	};
++
++	Object.assign(window, { suiteDocument: {
++		status: () => !failure,
++		flush: () => pendingFlush ??= (async () => {
++			const previousInert = document.body.inert;
++			document.body.inert = true;
++			try {
++				// A restored document can have unchanged graph hash but updated persisted view metadata.
++				for (const document of get(portfolio).documents) editor.triggerAutoSave(document.id);
++				await editor.flush_persistence();
++				await tail;
++				if (failure) throw failure;
++			} finally {
++				document.body.inert = previousInert;
++			}
++		})().finally(() => { pendingFlush = undefined; }),
++	} });
+ 
+ 	subscriptions.subscribeFrontendMessage("TriggerSavePreferences", (data) => enqueue(() => saveEditorPreferences(data.preferences)));
+ 
+diff --git a/editor/src/persistence_checkpoint.rs b/editor/src/persistence_checkpoint.rs
+new file mode 100644
+--- /dev/null
++++ b/editor/src/persistence_checkpoint.rs
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: MIT OR Apache-2.0
++// JSON object order changes when a document's randomized HashMaps are
++// reconstructed in another process. Object order is not a persisted edit.
++pub fn snapshot_matches(stored: &[u8], current: &[u8]) -> Result<bool, serde_json::Error> {
++    let stored: serde_json::Value = serde_json::from_slice(stored)?;
++    let current: serde_json::Value = serde_json::from_slice(current)?;
++    Ok(stored == current)
++}
++
++#[cfg(test)]
++mod tests {
++    use super::snapshot_matches;
++
++    #[test]
++    fn reloaded_object_order_preserves_the_document() {
++        assert!(snapshot_matches(br#"{"nodes":{"a":1,"b":2},"name":"QA"}"#, br#"{"name":"QA","nodes":{"b":2,"a":1}}"#).unwrap());
++    }
++
++    #[test]
++    fn changed_geometry_is_not_persisted() {
++        assert!(!snapshot_matches(br#"{"rectangle":{"width":220,"height":150}}"#, br#"{"rectangle":{"width":221,"height":150}}"#).unwrap());
++    }
++
++    #[test]
++    fn layer_order_is_meaningful() {
++        assert!(!snapshot_matches(br#"{"layers":[1,2]}"#, br#"{"layers":[2,1]}"#).unwrap());
++    }
++
++    #[test]
++    fn corrupt_storage_is_an_error() {
++        assert!(snapshot_matches(b"broken", br#"{"layers":[1,2]}"#).is_err());
++    }
++}

@@ -1,0 +1,74 @@
+name: Build public original engines
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: public-engine-build
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - name: Restore only original public source and locked dependencies
+        run: |
+          node scripts/distribution/restore-upstream.mjs excalidraw
+          node scripts/distribution/restore-upstream.mjs graphite
+          node scripts/distribution/restore-upstream.mjs screenity
+          npm ci --prefix desktop --no-audit --no-fund
+          cd subprojetos/excalidraw/upstream
+          npx --yes yarn@1.22.22 install --frozen-lockfile
+      - name: Prepare isolated compiler paths
+        run: |
+          echo "CARGO_TARGET_DIR=$GITHUB_WORKSPACE/desktop/.cache/graphite-target" >> "$GITHUB_ENV"
+          echo "CARGO_HOME=$GITHUB_WORKSPACE/desktop/.cache/cargo" >> "$GITHUB_ENV"
+          echo "RUSTUP_HOME=$RUNNER_TEMP/graphite-rustup" >> "$GITHUB_ENV"
+          echo "PA_GRAPHITE_CARGO_BIN=$(dirname "$(command -v cargo)")" >> "$GITHUB_ENV"
+          echo "PA_GRAPHITE_BINDGEN_BIN=$GITHUB_WORKSPACE/desktop/.cache/build-tools/wasm-bindgen/bin" >> "$GITHUB_ENV"
+          echo "PA_GRAPHITE_ABOUT_BIN=$GITHUB_WORKSPACE/desktop/.cache/build-tools/cargo-about/bin" >> "$GITHUB_ENV"
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            desktop/.cache/cargo
+            desktop/.cache/build-tools
+            desktop/.cache/graphite-target
+          key: public-graphite-rust-1.99.0-${{ hashFiles('desktop/scripts/graphite-persistence.patch') }}
+          restore-keys: public-graphite-rust-1.99.0-
+      - name: Prepare pinned original Rust tools
+        run: |
+          rustup toolchain install 1.99.0 --profile minimal --target wasm32-unknown-unknown
+          rustup default 1.99.0
+          test -x desktop/.cache/build-tools/wasm-bindgen/bin/wasm-bindgen || cargo install wasm-bindgen-cli --version 0.2.121 --locked --root desktop/.cache/build-tools/wasm-bindgen --jobs 2
+          test -x desktop/.cache/build-tools/cargo-about/bin/cargo-about || cargo install cargo-about --version 0.9.2 --features cli --locked --root desktop/.cache/build-tools/cargo-about --jobs 2
+          node scripts/distribution/prepare-graphite-icons.mjs
+      - name: Build complete engines and original license notices
+        run: |
+          node desktop/scripts/build-editor.mjs
+          node desktop/scripts/build-graphite.mjs
+          node desktop/scripts/setup-ocr.mjs
+          node desktop/scripts/prepare-screenity.mjs
+          node desktop/scripts/prepare-assets.mjs
+          node scripts/distribution/public-assets.mjs pack "$RUNNER_TEMP/public-engines"
+      - name: Preserve compiler cache
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            desktop/.cache/cargo
+            desktop/.cache/build-tools
+            desktop/.cache/graphite-target
+          key: public-graphite-rust-1.99.0-${{ hashFiles('desktop/scripts/graphite-persistence.patch') }}
+      - name: Publish only rebuilt engines and provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG=$(node scripts/distribution/public-assets.mjs tag)
+          gh release create "$TAG" "$RUNNER_TEMP/public-engines/engines.tar.gz" "$RUNNER_TEMP/public-engines/engines.json" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "Original engine build $TAG" --notes "Rebuilt from pinned public source with license notices. Internal test components; not final suite installers."

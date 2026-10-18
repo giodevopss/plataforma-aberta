@@ -1,0 +1,50 @@
+name: Complete original Screenity native editing
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: screenity-native-validation
+  cancel-in-progress: false
+jobs:
+  extension:
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, macos-15, macos-15-intel, windows-2025]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - name: Install locked orchestration dependencies
+        run: npm ci --prefix desktop --ignore-scripts --no-audit --no-fund
+      - name: Restore verified complete original extension
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-screenity-identity.mjs
+          cd desktop
+          npx playwright install --with-deps chromium
+      - name: Original recording, edit and export
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            xvfb-run -a node suite/tests/screenity-native-cloud.mjs
+          else
+            node suite/tests/screenity-native-cloud.mjs
+          fi
+      - name: Preserve fresh synthetic evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: screenity-native-${{ matrix.runner }}
+          path: suite/research/screenity-native/
+          retention-days: 1
+          if-no-files-found: error

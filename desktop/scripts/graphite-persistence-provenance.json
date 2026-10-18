@@ -1,0 +1,28 @@
+{
+  "repository": "https://github.com/GraphiteEditor/Graphite",
+  "commit": "243a83ce1743809e124aca8d4c0b08a3b2ddb127",
+  "license": "Apache-2.0",
+  "purpose": "Force the original explicit autosave for every open document before the original OPFS FIFO/read-back checkpoint and frontend IndexedDB queue. Retain semantic JSON comparison and fail closed on real errors.",
+  "files": [
+    {
+      "path": "editor/src/application.rs",
+      "original_sha256": "0bbf920738415dea93baf874a03fa0872c59ee68b348aa0467f664389f581d15",
+      "patched_sha256": "81554b5a0d23cf67f395813b5f5c3b1235f4da7859492352920743a211510d61"
+    },
+    {
+      "path": "frontend/wrapper/src/editor_wrapper.rs",
+      "original_sha256": "dfd6eb3e65213d3e3f3196b6b612a9d297b3cbd3629d97c72dbb3abd3e4660db",
+      "patched_sha256": "e5f90277a161683ea1e22beda708b06bde23ef9fa43422829841aa08f85c3529"
+    },
+    {
+      "path": "frontend/src/managers/persistence.ts",
+      "original_sha256": "a02ff23d74fc05b72579343af68ffd93dfdf8af104b725943b4cef34ec2f4844",
+      "patched_sha256": "74b923d174c2fe26c930bd6f8c1ca0300bf84588e1beb09005af8dd82df740a5"
+    },
+    {
+      "path": "editor/src/persistence_checkpoint.rs",
+      "original_sha256": null,
+      "patched_sha256": "e57026eacd84dc2c08a8a6cd5d9d0820b09b7f1067f7871d2235404a5b440744"
+    }
+  ]
+}

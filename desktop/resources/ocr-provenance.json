@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/naptha/tessdata",
+  "commit": "806cd9adc8c6e8abc11c782db1818c990576bebc",
+  "license": "Apache-2.0 (Tesseract language data)",
+  "files": {
+    "por.traineddata.gz": {
+      "url": "https://raw.githubusercontent.com/naptha/tessdata/806cd9adc8c6e8abc11c782db1818c990576bebc/4.0.0/por.traineddata.gz",
+      "sha256": "3f5feea9dfc39106c92348089097a39bec66e9d6d09ca49befebb0bb60947374",
+      "size": 6755162
+    },
+    "eng.traineddata.gz": {
+      "url": "https://raw.githubusercontent.com/naptha/tessdata/806cd9adc8c6e8abc11c782db1818c990576bebc/4.0.0/eng.traineddata.gz",
+      "sha256": "ed350f3752f81ee8f38769edc14d92d997dababe23b565c59879372cc46a2468",
+      "size": 10923060
+    }
+  }
+}
