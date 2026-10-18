@@ -123,6 +123,11 @@
       "sha256": "8a50c00b18250c78fae9b7aa543c7f19026e219dde44ef56ddf4888a672d9cdb"
     },
     {
+      "path": "desktop/src/managed-storage-bridge.mjs",
+      "size": 2885,
+      "sha256": "adf57b14d18145418cabeea6e9908e832524b093bb01dc391ce70486f92ff37b"
+    },
+    {
       "path": "desktop/src/module-partition.mjs",
       "size": 326,
       "sha256": "1071934471090c8f2eb0ab04ac7e75d43a069d31f03dd47d01aabf73fbc74688"
@@ -146,6 +151,16 @@
       "path": "desktop/src/native-component-assets.json",
       "size": 167512,
       "sha256": "e5d1f53f23e1edef4a985d5cb8a56cb077be0cf2c5791c419a7bb7af327c379b"
+    },
+    {
+      "path": "desktop/src/origin-storage-browser.mjs",
+      "size": 17532,
+      "sha256": "619db466dc38de26b2291dd54627828c8bd5a5a957d3fc48c4b2d7bf6046a31b"
+    },
+    {
+      "path": "desktop/src/origin-storage.mjs",
+      "size": 7867,
+      "sha256": "7d437f3352a24ebabfa1523b82cd5b6f0140d65a03deb9e29fdf0c05ae7c8bfa"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -471,6 +486,11 @@
       "path": "desktop/tests/openwhispr-defaults.test.mjs",
       "size": 1887,
       "sha256": "2ce1d1c957913091d426540b40c55b5260bb17708c63c23fcb4759ea368510a3"
+    },
+    {
+      "path": "desktop/tests/origin-storage.test.mjs",
+      "size": 2957,
+      "sha256": "9c5dc6aaad22d46b441f1f26eaa6e62898c18d0b76eae0b57888fa9c164e5988"
     },
     {
       "path": "desktop/tests/private-runtime.test.mjs",
@@ -1094,8 +1114,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15350,
-      "sha256": "df9cf97f90fbed7880ff2cf7553fec7fa2741f92460092899a737eb9bbd2b556"
+      "size": 15402,
+      "sha256": "df74018a3dadc4c487f3df5ccf660ea613d8ad0e8fb6526d2c50cb1e21186927"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1111,6 +1131,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/origin-storage-native.mjs",
+      "size": 9304,
+      "sha256": "9740c182a2eb1e3fa6538b5ce6069b53806c394a584e34f51ed271bc7cbe3826"
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
@@ -1355,7 +1380,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "87f62d7d8f5a639d825984d55d094ecdc7c42ef1ee8467e87dff4a133bb6a6dc"
+      "sha256": "2125847e27e6f01fbc1dca97a6861967bc2ae1fa130bbf79b4df5ae930426656"
+    },
+    {
+      "path": ".github/workflows/origin-storage-validation.yml",
+      "size": 1295,
+      "sha256": "098ef763a6c6c47dc3933f709564eb12e4ddd61a0e514ba79b4c5816ea602018"
     },
     {
       "path": ".github/workflows/automation-validation.yml",

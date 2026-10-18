@@ -1,0 +1,15 @@
+import {BrowserWindow,session} from 'electron';import {OriginStorageSnapshot} from './origin-storage.mjs';
+const inUse=new Set(),route='/.plataforma-private-storage-bridge';
+export async function openManagedStorageBridge({partition,origin}){
+ const url=new URL(origin);if(url.protocol!=='http:'||url.hostname!=='127.0.0.1'||!url.port||url.pathname!=='/'||url.search||url.hash||url.username||url.password||!/^persist:complete-(?:[a-f0-9]{32}-)?[a-z][a-z0-9-]{1,40}$/.test(partition))throw Error('Ponte de armazenamento exige a origem e o perfil privados do aplicativo.');
+ if(inUse.has(partition))throw Error('O navegador deste aplicativo já está em recuperação.');inUse.add(partition);const isolated=session.fromPartition(partition);let window,handled=false;
+ const dispose=async()=>{if(window&&!window.isDestroyed())window.destroy();if(handled)isolated.protocol.unhandle('http');inUse.delete(partition);await isolated.flushStorageData();};
+ try{
+  isolated.protocol.handle('http',request=>{const address=new URL(request.url);if(address.origin!==url.origin||address.pathname!==route||request.method!=='GET')return new Response('Private browser storage is frozen',{status:503});return new Response('<!doctype html><html><head><meta charset="utf-8"><title>Private storage checkpoint</title></head><body></body></html>',{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"}});});handled=true;
+  window=new BrowserWindow({show:false,webPreferences:{partition,sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true}});window.webContents.setWindowOpenHandler(()=>({action:'deny'}));window.webContents.on('will-navigate',(event,address)=>{if(address!==url.origin+route)event.preventDefault();});isolated.setPermissionRequestHandler((_contents,_permission,callback)=>callback(false));
+  window.webContents.debugger.attach('1.3');await window.webContents.debugger.sendCommand('Network.enable');await window.webContents.debugger.sendCommand('Network.setBypassServiceWorker',{bypass:true});await window.webContents.debugger.sendCommand('ServiceWorker.enable');await window.webContents.debugger.sendCommand('ServiceWorker.stopAllWorkers');
+  for(let attempt=0;Object.keys(isolated.serviceWorkers.getAllRunning()).length;attempt++){if(attempt>=50)throw Error('Aguarde o encerramento dos gravadores em segundo plano do aplicativo.');await new Promise(resolve=>setTimeout(resolve,100));}
+  await isolated.flushStorageData();await window.loadURL(url.origin+route);if(window.webContents.getURL()!==url.origin+route)throw Error('A ponte privada foi redirecionada.');
+  return {window,session:isolated,browser:new OriginStorageSnapshot(script=>window.webContents.executeJavaScript(script)),dispose};
+ }catch(error){await dispose();throw error;}
+}
