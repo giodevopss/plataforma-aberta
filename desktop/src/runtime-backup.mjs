@@ -4,6 +4,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {affineImages} from './affine-stack.mjs';
 import {validateTar} from './backup-archive.mjs';
+import {copyLinuxSnapshotTree} from './linux-snapshot-tree.mjs';
 import {copyPortableTree} from './snapshot-files.mjs';
 const OWNER='app.plataforma-aberta.workspace';
 export class RuntimeBackup {
@@ -68,7 +69,9 @@ export class RuntimeBackup {
   for(const item of this.items){
    const source=path.join(this.runtime.directory,item.id);const target=path.join(destination,'applications',item.id);
    await fsp.mkdir(path.dirname(target),{recursive:true,mode:0o700});
-   await copyPortableTree(source,target);
+   const linuxCache=item.id==='activepieces'?path.join(source,'cache'):null;
+   await copyPortableTree(source,target,{exclude:file=>file===linuxCache});
+   if(linuxCache)await copyLinuxSnapshotTree(this.runtime,{source:linuxCache,destination:path.join(target,'cache'),image:this.runtime.specs.get(item.id).image,containerPath:'/usr/src/app/cache'});
    if(item.compose&&!fs.existsSync(path.join(target,'compose.json')))await fsp.writeFile(path.join(target,'compose.json'),JSON.stringify(item.compose)+'\n',{mode:0o600,flag:'wx'});
    for(const volume of item.volumes){
     const filename=item.id+'-'+volume.key.replaceAll('_','-')+'.tar.gz';const archive=path.join(destination,'volumes',filename);

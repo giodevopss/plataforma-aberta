@@ -93,6 +93,11 @@
       "sha256": "6e6dfe97ad0ec77cb714469cb4f872e1e35c87f1d2309fa3dee4036d52824c4e"
     },
     {
+      "path": "desktop/src/linux-snapshot-tree.mjs",
+      "size": 2753,
+      "sha256": "1997877ae29482e3c3f62cac531a64288f7a23863da9efd9fbc326ecc9f8d522"
+    },
+    {
       "path": "desktop/src/local-ai.mjs",
       "size": 6276,
       "sha256": "d7ab3137dd053a083308689a13b8e2822e755c5106c29d35880bbf08c2e59a2e"
@@ -224,8 +229,8 @@
     },
     {
       "path": "desktop/src/runtime-backup.mjs",
-      "size": 11505,
-      "sha256": "452e6109625a126f3b186702b85130888c5aadfe9064248c3c42885c3020ac98"
+      "size": 11878,
+      "sha256": "8ea02edc97c7977f39a8c5d00f3293aab67e55ebb52a879b423ac9f4715c9186"
     },
     {
       "path": "desktop/src/screenity-browser-assets.json",
@@ -476,6 +481,11 @@
       "path": "desktop/tests/lima-installer.test.mjs",
       "size": 6249,
       "sha256": "91ed7cb1cab0ca8556f5dfbc62d6d2d902fa6608c567334d44342cf9c9db8f5e"
+    },
+    {
+      "path": "desktop/tests/linux-snapshot-tree.test.mjs",
+      "size": 3618,
+      "sha256": "21769dac2d050d1fe780bc077d92af2e54fe682f6d9587444d03ef01d4d5c1db"
     },
     {
       "path": "desktop/tests/local-ai.test.mjs",
@@ -1475,7 +1485,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 10056,
-      "sha256": "b9c722437d19c62e8b091032dc69a88b6467f9ee2e57034a629714e26334fc78"
+      "sha256": "55e5137bc0c14d21eb23e01917c0e2bb174ce63ff4b8d37efc1232a9b1acac03"
     },
     {
       "path": ".github/workflows/arm-services.yml",
