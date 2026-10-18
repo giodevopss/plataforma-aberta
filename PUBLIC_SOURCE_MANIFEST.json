@@ -1190,7 +1190,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "a9f2491177475d3b415c9c3154e4cfe5e3e6a1f03abf016e709622a3dac327be"
+      "sha256": "06b0f6fa57b8d591df73c56425e32df9e22c4f9052eaac55ff780fdafe475b75"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1204,8 +1204,8 @@
     },
     {
       "path": ".github/workflows/openwhispr-fork-validation.yml",
-      "size": 6039,
-      "sha256": "6aefbd54fc61ef9c436d40a69136f0d8224e9770e39bc314c53126a2d3dcca48"
+      "size": 6420,
+      "sha256": "d13f24923cdaef82f3e16b7c306a73a1ecc60269d3ab18639dd4d0f67679024b"
     },
     {
       "path": ".github/workflows/screenity-validation.yml",

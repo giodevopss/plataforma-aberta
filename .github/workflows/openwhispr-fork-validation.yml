@@ -7,6 +7,11 @@ on:
         type: choice
         default: full
         options: [full, heavy]
+      native_target:
+        description: Native targets to compile and accept
+        type: choice
+        default: all
+        options: [all, windows, macos-arm, macos-intel]
       source_run:
         description: Optional prior full source acceptance for the exact unchanged source fork
         type: string
@@ -75,7 +80,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [macos-15, macos-15-intel, windows-2025]
+        runner: ${{ fromJSON(inputs.native_target == 'windows' && '["windows-2025"]' || inputs.native_target == 'macos-arm' && '["macos-15"]' || inputs.native_target == 'macos-intel' && '["macos-15-intel"]' || '["macos-15","macos-15-intel","windows-2025"]') }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     env:
