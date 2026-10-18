@@ -16,7 +16,7 @@ export class RuntimeBackup {
     if(!fs.existsSync(file))continue;
     const compose=JSON.parse(fs.readFileSync(file));await this.runtime.checkStackOwnership(id);
     result.push({id,compose,containers:Object.values(compose.services).map(s=>s.container_name),volumes:Object.entries(compose.volumes||{}).map(([key,value])=>({key,name:value.name}))});
-   }else result.push({id,containers:['application','gateway'].map(s=>'pa-'+this.runtime.identity.id+'-'+id+'-'+s),volumes:[]});
+   }else result.push({id,containers:[...(this.runtime.specs.get(id).localAI?['ollama']:[]),'application','gateway'].map(s=>'pa-'+this.runtime.identity.id+'-'+id+'-'+s),volumes:[]});
   }
   return result;
  }

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import net from 'node:net';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
+import {startLocalAI} from './local-ai.mjs';
 const imageSizes=JSON.parse(fs.readFileSync(fileURLToPath(new URL('./image-sizes.json',import.meta.url))));
 
 const OWNER='app.plataforma-aberta.workspace';
@@ -143,6 +144,7 @@ export class LocalRuntime {
   async startOnce(id){
     const spec=this.specs.get(id);if(!spec)throw Error('A integração completa deste aplicativo ainda não foi validada.');
     const probe=await this.probe();if(!probe.available)throw Error(probe.reason);
+    if(spec.localAI&&probe.memoryBytes<(spec.memoryMB+spec.localAI.engine.memoryMB+384)*1024**2)throw Error('A geração de apresentações exige pelo menos 8 GB de memória na máquina Linux local. Aumente a memória do runtime antes de continuar.');
     const dir=path.join(this.directory,id);fs.mkdirSync(dir,{recursive:true,mode:0o700});if(dir.includes(','))throw Error('O caminho de dados não pode conter vírgulas para este runtime.');
     const settingsFile=path.join(dir,'runtime.json');let settings;
     if(fs.existsSync(settingsFile))settings=JSON.parse(fs.readFileSync(settingsFile));else{settings={port:await this.allocatePort(),token:crypto.randomBytes(32).toString('hex')};atomicJSON(settingsFile,settings);}
@@ -151,6 +153,9 @@ export class LocalRuntime {
     this.setStatus(id,'downloading','Verificando o aplicativo completo…');
     await this.ensureImage(spec.image,{progress:()=>this.setStatus(id,'downloading','Baixando/verificando o aplicativo completo…')});
     if(!await this.owned('network',network))await this.run(['network','create','--label',OWNER+'='+this.identity.id,network]);
+    // Track partial installation too, so shutdown also stops a started model.
+    this.started.add(id);
+    if(spec.localAI)await startLocalAI(this,{spec,directory:dir,prefix,network});
     const env=spec.environment({origin});
     if(Object.entries(env).some(([k,v])=>!/^[_A-Z0-9]+$/.test(k)||/[\r\n\0]/.test(String(v))))throw Error('Ambiente do aplicativo inválido.');
     const envFile=path.join(dir,'application.env');fs.writeFileSync(envFile,Object.entries(env).map(([k,v])=>k+'='+v).join('\n')+'\n',{mode:0o600});
@@ -162,7 +167,7 @@ export class LocalRuntime {
       const materialized=path.join(patchDirectory,digest+path.extname(patch.source));fs.writeFileSync(materialized,fs.readFileSync(patch.source),{mode:0o644});
       return {...patch,source:materialized};
     });
-    const hash=crypto.createHash('sha256').update(JSON.stringify({image:spec.image,environment:env,volumes:spec.volumes,memoryMB:spec.memoryMB,patches:patches.map(({target,sha256})=>({target,sha256}))})).digest('hex');
+    const hash=crypto.createHash('sha256').update(JSON.stringify({image:spec.image,environment:env,volumes:spec.volumes,memoryMB:spec.memoryMB,localAI:spec.localAI?{image:spec.localAI.engine.image,model:spec.localAI.manifestSHA256}:undefined,patches:patches.map(({target,sha256})=>({target,sha256}))})).digest('hex');
     this.setStatus(id,'starting','Iniciando aplicativo completo…');
     await this.container(prefix+'-application',['--network',network,'--network-alias','application','--memory',spec.memoryMB+'m','--cpus','2','--env-file',envFile,...mounts,...patches.flatMap(p=>['--mount',`type=bind,source=${p.source},target=${p.target},readonly`]),spec.image],hash);
     // The application's own port is never published. Its bundled nginx is used
@@ -181,7 +186,7 @@ export class LocalRuntime {
   async stop(id){
     if(!this.specs.has(id))throw Error('Ferramenta desconhecida.');if(this.pending.has(id))throw Error('Aguarde a inicialização antes de parar o aplicativo.');
     const prefix='pa-'+this.identity.id+'-'+id;
-    for(const suffix of ['gateway','application']){const name=prefix+'-'+suffix;const item=await this.owned('container',name);if(item?.State.Running)await this.run(['stop','--time','30',name],{timeout:45000});}
+    for(const suffix of ['gateway','application',...(this.specs.get(id).localAI?['ollama']:[])]){const name=prefix+'-'+suffix;const item=await this.owned('container',name);if(item?.State.Running)await this.run(['stop','--time','30',name],{timeout:45000});}
     this.started.delete(id);this.setStatus(id,'stopped');
   }
   async close(){await Promise.allSettled([...this.pending.values()]);for(const id of [...this.started])await this.stop(id);}

@@ -1,0 +1,35 @@
+name: Original presentations with owned local AI and recovery
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  local-presentations:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - run: npm ci --prefix desktop --no-audit --no-fund
+      - name: Restore verified original desktop engines
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+      - name: Actual original generation, attached native editor and independent cold recovery
+        env:
+          PA_TEST_NATIVE_SERVICE: '1'
+        run: xvfb-run -a node suite/tests/presenton-cloud.mjs
+      - name: Preserve small synthetic results only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-presentations-local-ai
+          path: suite/research/cloud-presenton/
+          retention-days: 1
+          if-no-files-found: error

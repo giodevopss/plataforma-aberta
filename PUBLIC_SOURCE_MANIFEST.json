@@ -34,8 +34,8 @@
     },
     {
       "path": "desktop/src/desktop-backup.mjs",
-      "size": 7087,
-      "sha256": "67371a716932ab50a15b1c55b9e14eafbbb38100cf0881c692b1a375878a7e48"
+      "size": 6794,
+      "sha256": "f63e2172c91a36458009154aabae4445bcf696ee6e257fbf3f43b8d34fe166d0"
     },
     {
       "path": "desktop/src/download.mjs",
@@ -69,8 +69,8 @@
     },
     {
       "path": "desktop/src/image-sizes.json",
-      "size": 3366,
-      "sha256": "25dcde8c7c480594a6d5e31441bc8b409f6e6ae86fe17907c9e3bda58d3fd473"
+      "size": 3596,
+      "sha256": "19964a948166eb0a422a40827be20fb9b0d1c845416b857fb969c4d81f03f238"
     },
     {
       "path": "desktop/src/integrated-services.json",
@@ -88,14 +88,24 @@
       "sha256": "6e6dfe97ad0ec77cb714469cb4f872e1e35c87f1d2309fa3dee4036d52824c4e"
     },
     {
+      "path": "desktop/src/local-ai.mjs",
+      "size": 4378,
+      "sha256": "cc302fb8697542c35cd98c21d39c511b50f47920e1003cb2103a88e5e46ec480"
+    },
+    {
       "path": "desktop/src/local-apps.mjs",
-      "size": 919,
-      "sha256": "997fcc9a16563d58a7e6643ca8173aeb7417a81a5f44851776670f4a4fe2c884"
+      "size": 973,
+      "sha256": "4fe04a4bc3cbdfea267a97b579d3596157f5d1bcbd0bad2965c435ec7d7c12d6"
+    },
+    {
+      "path": "desktop/src/local-model.json",
+      "size": 2299,
+      "sha256": "4440cac8a24d62b5744e2949acd3c7432ab1edd83f28128fabda95fd947b3ef9"
     },
     {
       "path": "desktop/src/local-runtime.mjs",
-      "size": 15718,
-      "sha256": "b41b5029a0ceca6081f890e326d2706c8a581255e0ff356fdcffa96113a69ce9"
+      "size": 16347,
+      "sha256": "de1bc2a148e3bb229b7d60269c130c41ec9f146c9e334944ae4250d5eaf2d357"
     },
     {
       "path": "desktop/src/main.mjs",
@@ -174,8 +184,8 @@
     },
     {
       "path": "desktop/src/runtime-backup.mjs",
-      "size": 10443,
-      "sha256": "e699a2f9c883617d5cf7be23cb52f11e7f15da0ec3e2e7dee4b9a379c44902f8"
+      "size": 10497,
+      "sha256": "e7e45a39e776d02c7ae9a01edb23614114a6bcbc8d554f1853063fa3c2cd4925"
     },
     {
       "path": "desktop/src/screenity-browser-assets.json",
@@ -221,6 +231,11 @@
       "path": "desktop/src/unified-restore.mjs",
       "size": 4308,
       "sha256": "16623fd40fc5047e46c6d11ea14d92b9557a0b5fb2e3a0543fd5cb172514485a"
+    },
+    {
+      "path": "desktop/src/verify-managed-applications.mjs",
+      "size": 992,
+      "sha256": "ce4879fdcd5b9467bdcdfd2d8f281b9ea947dc2759285800bce5c7b3366d016e"
     },
     {
       "path": "desktop/src/wsl-installer.mjs",
@@ -398,6 +413,11 @@
       "sha256": "7d00a6a21cd4b2fa164a3bb967d9595b4f19c61d4926441d8914138b67e7a5d0"
     },
     {
+      "path": "desktop/tests/local-ai.test.mjs",
+      "size": 4724,
+      "sha256": "8b10326b51c91a2d79ed9ef76e1d38d85fcbc0a293b6438b82ab50a1f57595c7"
+    },
+    {
       "path": "desktop/tests/local-runtime.test.mjs",
       "size": 7612,
       "sha256": "12c4d80f76093502ee260fac73414452be7590c9b9298006da3720023b8ad66d"
@@ -454,8 +474,8 @@
     },
     {
       "path": "desktop/tests/runtime-backup.test.mjs",
-      "size": 6137,
-      "sha256": "53541a49768bf4ed6153614b3c4798cebd7718afebc6dcf87fdc28dea9d031d7"
+      "size": 7327,
+      "sha256": "20ac90f1adf2bb1d67fdcbfbbd7106fc30485c228712ada07b0f99d26c195dbb"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -501,6 +521,11 @@
       "path": "desktop/tests/unified-restore.test.mjs",
       "size": 5982,
       "sha256": "ad9fbad49272df3499469c6a14910cf671639c908b7d7860d1fc6a67c3d533e5"
+    },
+    {
+      "path": "desktop/tests/verify-managed-applications.test.mjs",
+      "size": 1982,
+      "sha256": "4c89dc0a945e3635b0fb2550930130cb8cfb9fcba0b5d344ef843f0eb630abf2"
     },
     {
       "path": "desktop/tests/wsl-installer.test.mjs",
@@ -751,6 +776,26 @@
       "path": "desktop/resources/stack-config/graphite/persistence-manager-original.js",
       "size": 736,
       "sha256": "e2a14550622e0302376eee3a7dd493f82a4bb06934d4de7786650661895577fa"
+    },
+    {
+      "path": "desktop/resources/stack-config/local-ai/OLLAMA_LICENSE",
+      "size": 1058,
+      "sha256": "5934ed2ce0d15154bcdb9c85203210abac0da4314af34081e36df4599f90b226"
+    },
+    {
+      "path": "desktop/resources/stack-config/local-ai/QWEN_LICENSE",
+      "size": 11338,
+      "sha256": "d18a5cc71b84bc4af394a31116bd3932b42241de70c77d2b76d69a314ec8aa12"
+    },
+    {
+      "path": "desktop/resources/stack-config/local-ai/README.md",
+      "size": 987,
+      "sha256": "bb94ee2721c9a1b1d336b0f191f3965cb67d2da9cfc689ec76ae6de0f1105724"
+    },
+    {
+      "path": "desktop/resources/stack-config/local-ai/qwen3-4b-manifest.json",
+      "size": 859,
+      "sha256": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
     },
     {
       "path": "desktop/resources/stack-config/paperless/LICENSE",
@@ -1024,8 +1069,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15118,
-      "sha256": "986a4e719a1db5ffb35834679f16e23f4204f5042f3615b80900396bf370ac13"
+      "size": 15159,
+      "sha256": "b79d926faff3ec5bae6f34401f70ff9ba68a58ab6777a3679ea92524549b98ee"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1041,6 +1086,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/presenton-cloud.mjs",
+      "size": 9026,
+      "sha256": "d14064c49137fa4e6ea35fb05bdca71b003ad27f9f6992c1159c0d08147ecea8"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1255,7 +1305,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 7113,
-      "sha256": "72a6316ecf997b8498d2c603f20557c539a697c9b496fca1039b0e34f4126f00"
+      "sha256": "3eb9e189c1892993b808b6d36db528eb24185cd3f700d1bfd8d7324c22dc662c"
+    },
+    {
+      "path": ".github/workflows/presenton-validation.yml",
+      "size": 1284,
+      "sha256": "02c4f15cae52df77294022b70595e2f14594d30a825ec345e15ca40a27a1456e"
     },
     {
       "path": ".github/workflows/native-voice-recovery.yml",

@@ -1,0 +1,23 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import crypto from 'node:crypto';
+import {installLocalModel,localModel} from '../src/local-ai.mjs';import {verifiedDownload} from '../src/download.mjs';import {localApps} from '../src/local-apps.mjs';
+const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+function fixture(t){const root=fs.mkdtempSync(path.join(os.tmpdir(),'pa-local-model-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));const payloads=[Buffer.from('model configuration'),Buffer.from('synthetic model bytes')],blobs=payloads.map(bytes=>({digest:'sha256:'+sha(bytes),size:bytes.length})),manifestBytes=Buffer.from(JSON.stringify({schemaVersion:2,config:blobs[0],layers:[blobs[1]]})),model={name:'synthetic:4b',manifestSHA256:sha(manifestBytes),manifestBytes,manifestPath:'manifests/registry.ollama.ai/library/synthetic/4b',registry:'https://registry.ollama.ai/v2/library/synthetic/blobs/'},calls=[];const fetcher=async url=>{calls.push(url);const index=blobs.findIndex(item=>url.endsWith(item.digest));return new Response(payloads[index]);};return {root,payloads,blobs,model,calls,fetcher,target:path.join(root,model.manifestPath)};}
+test('Model is committed only after all official immutable bytes verify; an installed model starts offline',async t=>{
+ const f=fixture(t);const result=await installLocalModel({directory:f.root,model:f.model,download:options=>verifiedDownload({...options,fetcher:f.fetcher})});assert.equal(result.sha256,f.model.manifestSHA256);assert.deepEqual(fs.readFileSync(f.target),f.model.manifestBytes);assert.equal(f.calls.length,2);
+ await installLocalModel({directory:f.root,model:f.model,download:options=>verifiedDownload({...options,fetcher:()=>{throw Error('offline');}})});assert.equal(f.calls.length,2);
+ // Corrupt existing model bytes must be repaired and authenticated, never reused.
+ const blobFile=path.join(f.root,'blobs',f.blobs[1].digest.replace(':','-'));fs.writeFileSync(blobFile,'changed bytes');await installLocalModel({directory:f.root,model:f.model,download:options=>verifiedDownload({...options,fetcher:f.fetcher})});assert.deepEqual(fs.readFileSync(blobFile),f.payloads[1]);assert.equal(f.calls.length,3);
+});
+test('Interrupted or substituted downloads never activate a model tag and can resume verified blobs',async t=>{
+ const f=fixture(t);await assert.rejects(installLocalModel({directory:f.root,model:f.model,download:options=>verifiedDownload({...options,fetcher:url=>url.endsWith(f.blobs[1].digest)?new Response(Buffer.alloc(f.payloads[1].length)):f.fetcher(url)})}),/SHA-256/);assert.equal(fs.existsSync(f.target),false);
+ await installLocalModel({directory:f.root,model:f.model,download:options=>verifiedDownload({...options,fetcher:f.fetcher})});assert.equal(f.calls.length,2);assert.ok(fs.existsSync(f.target));
+});
+test('Existing user model tags and invalid source manifests are preserved without download',async t=>{
+ const f=fixture(t);fs.mkdirSync(path.dirname(f.target),{recursive:true});fs.writeFileSync(f.target,'user selected version');const download=()=>{throw Error('unexpected network');};await assert.rejects(installLocalModel({directory:f.root,model:f.model,download}),/migração/);assert.equal(fs.readFileSync(f.target,'utf8'),'user selected version');await assert.rejects(installLocalModel({directory:f.root,model:{...f.model,manifestSHA256:'0'.repeat(64)},download}),/Manifesto/);
+});
+test('Nested model symlinks cannot redirect downloaded bytes outside the owned model folder',async t=>{
+ const f=fixture(t),foreign=fs.mkdtempSync(path.join(os.tmpdir(),'pa-foreign-model-'));t.after(()=>fs.rmSync(foreign,{recursive:true,force:true}));fs.symlinkSync(foreign,path.join(f.root,'blobs'),'junction');await assert.rejects(installLocalModel({directory:f.root,model:f.model,download:()=>{throw Error('unexpected download');}}),/link/);assert.deepEqual(fs.readdirSync(foreign),[]);
+});
+test('Presenton uses its private, pinned local inference service without host cloud credentials or install scripts',()=>{
+ const spec=localApps.find(item=>item.id==='presenton'),env=spec.environment({origin:'http://127.0.0.1:1234'});assert.equal(env.OLLAMA_URL,'http://ollama:11434');assert.equal(env.START_OLLAMA,'false');assert.equal(env.OLLAMA_MODEL,localModel.name);assert.match(localModel.engine.image,/@sha256:[a-f0-9]{64}$/);assert.equal(localModel.manifestSHA256,'359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7');assert.ok(localModel.engine.platforms.some(item=>item.platform?.architecture==='arm64'));assert.ok(localModel.engine.platforms.some(item=>item.platform?.architecture==='amd64'));
+});

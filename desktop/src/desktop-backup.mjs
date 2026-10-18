@@ -7,6 +7,7 @@ import {UnifiedBackup} from './unified-backup.mjs';
 import {UnifiedRestore} from './unified-restore.mjs';
 import {NativeAppLauncher} from './native-app-launcher.mjs';
 import {startService} from './service.mjs';
+import {verifyManagedApplications} from './verify-managed-applications.mjs';
 
 export const profilePartition=id=>id==='legacy'?'persist:plataforma-suite':'persist:plataforma-suite-'+id;
 export function nativeForProfile({directory,resources,id='openwhispr',nativeResources=path.join(resources,'native'),extension=path.join(resources,'screenity-extension'),onStatus}){
@@ -52,7 +53,7 @@ export class DesktopRecovery {
       await original.window.loadURL(targetService.origin+'/graphite/');
       const result=await original.window.webContents.executeJavaScript('(async()=>{const deadline=Date.now()+60000;while(typeof window.suiteDocument?.flush!=="function"){if(Date.now()>deadline)throw Error("Original Graphite did not initialize in restored profile");await new Promise(resolve=>setTimeout(resolve,100));}await window.suiteDocument.flush();return true;})()');if(result!==true)throw Error('O editor original não confirmou a recuperação.');checks.push('Original complete Graphite engine opens and confirms restored document persistence');
      }
-     for(const id of manifest.applications){const endpoint=await runtime.start(id);const response=await fetch(endpoint.origin+(runtime.specs.get(id).healthPath||'/'),{headers:{'X-PA-Session':endpoint.token},signal:AbortSignal.timeout(15000)});await response.body?.cancel();if(!response.ok)throw Error('Aplicativo restaurado não respondeu: '+id);checks.push('Original managed '+id+' initialized its restored data under an independent runtime identity');}
+     checks.push(...await verifyManagedApplications(runtime,manifest.applications));
      return checks;
     },dispose:async()=>{await runtime.close();bridge?.window.destroy();bridge=null;await isolated?.flushStorageData();await targetService?.close();targetService=null;},markVerified:checks=>this.profileStore.markVerified(candidate.id,checks),rollback:async()=>{
      // Keep a failed candidate if it owns service volumes; deleting only its
