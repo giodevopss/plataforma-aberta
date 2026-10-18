@@ -69,9 +69,10 @@ export class RuntimeBackup {
   for(const item of this.items){
    const source=path.join(this.runtime.directory,item.id);const target=path.join(destination,'applications',item.id);
    await fsp.mkdir(path.dirname(target),{recursive:true,mode:0o700});
-   const linuxCache=item.id==='activepieces'?path.join(source,'cache'):null;
-   await copyPortableTree(source,target,{exclude:file=>file===linuxCache});
-   if(linuxCache)await copyLinuxSnapshotTree(this.runtime,{source:linuxCache,destination:path.join(target,'cache'),image:this.runtime.specs.get(item.id).image,containerPath:'/usr/src/app/cache'});
+   const linuxDirectory=item.id==='activepieces'?'cache':item.id==='presenton'?'data':null;
+   const linuxTree=linuxDirectory?path.join(source,linuxDirectory):null;
+   await copyPortableTree(source,target,{exclude:file=>file===linuxTree});
+   if(linuxTree)await copyLinuxSnapshotTree(this.runtime,{source:linuxTree,destination:path.join(target,linuxDirectory),image:this.runtime.specs.get(item.id).image,containerPath:item.id==='presenton'?'/app_data':'/usr/src/app/cache'});
    if(item.compose&&!fs.existsSync(path.join(target,'compose.json')))await fsp.writeFile(path.join(target,'compose.json'),JSON.stringify(item.compose)+'\n',{mode:0o600,flag:'wx'});
    for(const volume of item.volumes){
     const filename=item.id+'-'+volume.key.replaceAll('_','-')+'.tar.gz';const archive=path.join(destination,'volumes',filename);

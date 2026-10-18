@@ -194,8 +194,8 @@
     },
     {
       "path": "desktop/src/presenton-configuration.mjs",
-      "size": 3203,
-      "sha256": "246c49c32e10ddd9f5e0fa5582ce15c5259bfe524acfdfecd5e768e32e2da7ca"
+      "size": 3277,
+      "sha256": "8b6875c9434b90410868aeef70b67e0ffe25308c090297f5ed53a8173e453a98"
     },
     {
       "path": "desktop/src/private-runtime.mjs",
@@ -229,8 +229,8 @@
     },
     {
       "path": "desktop/src/runtime-backup.mjs",
-      "size": 11878,
-      "sha256": "8ea02edc97c7977f39a8c5d00f3293aab67e55ebb52a879b423ac9f4715c9186"
+      "size": 12004,
+      "sha256": "603b464d2cada874ca2afda9200d361557f6e1bf64707443a715b4c008ec3d19"
     },
     {
       "path": "desktop/src/screenity-browser-assets.json",
@@ -549,8 +549,8 @@
     },
     {
       "path": "desktop/tests/presenton-configuration.test.mjs",
-      "size": 1843,
-      "sha256": "83a43ba59e3cee0a3f8d2d7e8c53dd8f3f6e68a629f394f4a8bd982994d7fa84"
+      "size": 1866,
+      "sha256": "c5ffd889fdd8f133270953512fa94e5aabb47d42218b538c1fcc9db503b8952c"
     },
     {
       "path": "desktop/tests/private-runtime.test.mjs",
@@ -1500,7 +1500,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 10056,
-      "sha256": "7a41241865a6ee79d3bb588d4f1c830116133519e0eb382b5a2950a41bd955bc"
+      "sha256": "5c2301e8509d87057d8c955fe6dd701e4ad85d9b7773f890d281a5ab7fb05574"
     },
     {
       "path": ".github/workflows/complete-suite.yml",

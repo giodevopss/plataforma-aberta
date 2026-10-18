@@ -21,8 +21,11 @@ console.log('Original local provider configuration initialized');`;
 
 export async function preparePresentonConfiguration(runtime,{directory,prefix,envFile,image}){
  const data=path.join(directory,'data');if(fs.lstatSync(data).isSymbolicLink())throw Error('Pasta de configuração Presenton inválida.');const file=path.join(data,'userConfig.json'),stat=fs.lstatSync(file,{throwIfNoEntry:false});
- if(stat){if(!stat.isFile()||stat.isSymbolicLink()||stat.size>1024*1024)throw Error('Configuração original Presenton inválida; os dados foram preservados.');const existing=JSON.parse(fs.readFileSync(file));if(existing&&typeof existing==='object'&&!Array.isArray(existing)&&existing.LLM)return;}
- if((await runtime.owned('container',prefix+'-application'))?.State.Running)throw Error('Encerre o Presenton antes de preparar sua configuração local.');
+ if(stat&&(!stat.isFile()||stat.isSymbolicLink()||stat.size>1024*1024))throw Error('Configuração original Presenton inválida; os dados foram preservados.');
+ const running=(await runtime.owned('container',prefix+'-application'))?.State.Running;
+ // Original Python/Node atomic saves may replace this private file as Linux
+ // root. The host must neither read it nor chmod a live provider's credentials.
+ if(running){if(stat&&stat.size>2)return;throw Error('Encerre o Presenton antes de preparar sua configuração local.');}
  const owner=fs.statSync(data);
  const helper=prefix+'-provider-configuration';runtime.verificationHelpers?.add(helper);
  await runtime.run(['run','--rm','--name',helper,'--label','app.plataforma-aberta.workspace='+runtime.identity.id,'--network','none','--user','0:0','--read-only','--cap-drop','ALL','--cap-add','DAC_OVERRIDE','--cap-add','CHOWN','--security-opt','no-new-privileges:true','--env-file',envFile,'--mount',`type=bind,source=${data},target=/app_data`,'--entrypoint','node',image,'-e',script,JSON.stringify({uid:owner.uid,gid:owner.gid})],{timeout:30000});
