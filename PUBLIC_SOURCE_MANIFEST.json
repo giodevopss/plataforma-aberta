@@ -359,8 +359,8 @@
     },
     {
       "path": "desktop/tests/service.test.mjs",
-      "size": 2588,
-      "sha256": "b273e4a3cace6dee20e3d997e70aac7d947ed553081fa3af2a9c2cbe4cfbb05b"
+      "size": 2925,
+      "sha256": "9df4cc541d1e0345d00ed954aadc2cdd39747abf4db31fe7b027fbfa72e9d90f"
     },
     {
       "path": "desktop/tests/snapshot-files.test.mjs",
@@ -1035,7 +1035,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "87f6cfc5c6462e6c4b726a5d65c9ff6d5386ec3f7b81bda5c680943bb0c681da"
+      "sha256": "fcad6ba8229e3875dc2ca83c6e07047aef7bc67a35c3306250ff4c6977e5c2da"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",

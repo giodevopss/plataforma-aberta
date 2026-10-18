@@ -8,7 +8,7 @@ import {startService} from '../src/service.mjs';
 import http from 'node:http';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 test('desktop service authenticates every route and exports real local documents',async t=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'pa-desktop-api-'));const token='test-only-token';const s=await startService({resources:path.join(root,'desktop/resources'),directory:dir,token});t.after(async()=>{await s.close();fs.rmSync(dir,{recursive:true,force:true});});
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'pa-desktop-api-'));let s;t.after(async()=>{await s?.close();fs.rmSync(dir,{recursive:true,force:true});});const resources=path.join(dir,'resources');fs.mkdirSync(path.join(resources,'shell'),{recursive:true});fs.copyFileSync(path.join(root,'scripts/audit/projects.json'),path.join(resources,'projects.json'));for(const file of ['index.html','app.mjs','style.css'])fs.copyFileSync(path.join(root,'desktop/renderer',file),path.join(resources,'shell',file));const token='test-only-token';s=await startService({resources,directory:path.join(dir,'workspace'),token});
  const request=(route,options={})=>fetch(s.origin+route,{...options,headers:{'X-PA-Session':token,...options.headers}});
  assert.equal((await fetch(s.origin+'/api/projects')).status,403);
  assert.equal((await request('/api/projects',{headers:{Origin:'https://example.org'}})).status,403);
