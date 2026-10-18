@@ -1144,8 +1144,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15402,
-      "sha256": "df74018a3dadc4c487f3df5ccf660ea613d8ad0e8fb6526d2c50cb1e21186927"
+      "size": 15435,
+      "sha256": "bad68efbffa96b562de50d06ad42d461a29bacbb3164fb2d04c6181b61292b7e"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1161,6 +1161,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/notes-cloud.mjs",
+      "size": 8645,
+      "sha256": "0a7f85c13774b6e0adccdedd2757e7f564e6e852843079afbd3015b43f8c9c36"
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
@@ -1410,7 +1415,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "5495d233c6f3cb314a3db569b1a78f5cfa6d1bd6b08f2bbe67fe9eda25cec288"
+      "sha256": "8cc9faeb277769f041cabc5493a023f4445618262d19255f59455f492f293b06"
+    },
+    {
+      "path": ".github/workflows/notes-validation.yml",
+      "size": 1764,
+      "sha256": "1336ab40e102369231a06e820266d8ac1be943f566f808ca69f1f0c2391873fb"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",
