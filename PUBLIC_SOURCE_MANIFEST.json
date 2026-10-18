@@ -1189,8 +1189,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15487,
-      "sha256": "92e7e167561aaa2fc0220f0288aec158d87ce42177792cd4047182705a080f23"
+      "size": 15502,
+      "sha256": "228865811198a5b39586ed1b7b916211742eb6dd961c94741f88d7b8ed5326e4"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1465,7 +1465,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 10056,
-      "sha256": "734c224e4a95808d10ab40ed646f7f7d508dd76687ba79aadbe9e18e4a685fd8"
+      "sha256": "664d06d463f5157bb8da72ab0fece7d3547006532855d95f272dd1de46a0892d"
+    },
+    {
+      "path": ".github/workflows/arm-services.yml",
+      "size": 2518,
+      "sha256": "a62ea5ff81346e9de868402368b99df5d1f05618a3960683b70f951990109005"
     },
     {
       "path": ".github/workflows/verification-network.yml",

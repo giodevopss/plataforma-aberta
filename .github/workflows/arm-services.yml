@@ -1,0 +1,56 @@
+name: Original local services on native Linux ARM
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        type: choice
+        default: all
+        options: [all, affine, baserow, activepieces, paperless, plane, formbricks, postiz]
+permissions:
+  contents: read
+jobs:
+  arm-service:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        service: ${{ fromJSON(inputs.service == 'affine' && '["affine"]' || inputs.service == 'baserow' && '["baserow"]' || inputs.service == 'activepieces' && '["activepieces"]' || inputs.service == 'paperless' && '["paperless"]' || inputs.service == 'plane' && '["plane"]' || inputs.service == 'formbricks' && '["formbricks"]' || inputs.service == 'postiz' && '["postiz"]' || '["affine","baserow","activepieces","paperless","plane","formbricks","postiz"]') }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - run: npm ci --prefix desktop --no-audit --no-fund
+      - name: Original native ARM browser
+        working-directory: desktop
+        run: npx playwright install --with-deps chromium
+      - name: Restore verified original shell engines
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+      - name: Original workflow, native ARM Electron and independent recovery
+        env:
+          PA_TEST_NATIVE_SERVICE: '1'
+        shell: bash
+        run: |
+          case '${{ matrix.service }}' in
+            affine) xvfb-run -a node suite/tests/notes-cloud.mjs ;;
+            baserow) xvfb-run -a node suite/tests/database-cloud.mjs ;;
+            activepieces) xvfb-run -a node suite/tests/automation-cloud.mjs ;;
+            paperless) xvfb-run -a node suite/tests/paperless-cloud.mjs ;;
+            *) xvfb-run -a node suite/tests/remaining-services-cloud.mjs '${{ matrix.service }}' ;;
+          esac
+      - name: Preserve small synthetic ARM evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-arm-${{ matrix.service }}
+          path: suite/research/cloud-${{ matrix.service }}/
+          retention-days: 1
+          if-no-files-found: error
