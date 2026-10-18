@@ -5,6 +5,7 @@ import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {startService} from './service.mjs';
 import {readConnections,saveConnections,safeRemoteNavigation} from './connections.mjs';
+import {createPrivateRuntime} from './private-runtime.mjs';
 import {CompleteRuntime,serverApps} from './complete-runtime.mjs';
 import {localApps} from './local-apps.mjs';
 import {ProfileStore} from './profile-store.mjs';
@@ -14,11 +15,11 @@ const here=path.dirname(fileURLToPath(import.meta.url));
 const qa=process.argv.includes('--suite-test');
 if(qa&&process.env.PA_DESKTOP_TEST_DATA)app.setPath('userData',process.env.PA_DESKTOP_TEST_DATA);
 const acquired=app.requestSingleInstanceLock();if(!acquired)app.quit();
-let win,service,runtime,recovery,native,screenityNative,profiles,activeProfile,closing=false,remoteView=null,openGeneration=0;const remoteViews=new Map();
+let win,service,runtime,runtimeHost,recovery,native,screenityNative,profiles,activeProfile,closing=false,remoteView=null,openGeneration=0;const remoteViews=new Map();
 app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
 app.on('window-all-closed',()=>{if(process.platform!=='darwin')app.quit();});
 app.on('activate',()=>win?.show());
-app.on('before-quit',(e)=>{if(service&&!closing){e.preventDefault();if(recovery?.busy){dialog.showErrorBox('Recuperação em andamento','Aguarde o término do backup ou da restauração antes de encerrar.');return;}closing=true;(async()=>{if(win&&!win.isDestroyed()&&!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true')){closing=false;return;}if(win&&!win.isDestroyed())await win.webContents.executeJavaScript('window.paDesktopSuspendForBackup?.()');for(const view of remoteViews.values())view.webContents.close();remoteViews.clear();await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();await runtime?.close();await service.close();app.quit();})().catch(e=>{closing=false;dialog.showErrorBox('Serviços locais',e.message);});}});
+app.on('before-quit',(e)=>{if(service&&!closing){e.preventDefault();if(runtimeHost?.pending){dialog.showErrorBox('Preparação local em andamento','Aguarde a preparação do runtime alcançar um estado seguro antes de encerrar.');return;}if(recovery?.busy){dialog.showErrorBox('Recuperação em andamento','Aguarde o término do backup ou da restauração antes de encerrar.');return;}closing=true;(async()=>{if(win&&!win.isDestroyed()&&!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true')){closing=false;return;}if(win&&!win.isDestroyed())await win.webContents.executeJavaScript('window.paDesktopSuspendForBackup?.()');for(const view of remoteViews.values())view.webContents.close();remoteViews.clear();await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();await runtime?.close();await runtimeHost?.stop();await service.close();app.quit();})().catch(e=>{closing=false;dialog.showErrorBox('Serviços locais',e.message);});}});
 
 function trusted(event){if(!win||event.sender!==win.webContents||event.senderFrame!==win.webContents.mainFrame||new URL(event.senderFrame.url).origin!==service.origin)throw Error('Operação desktop não autorizada.');}
 async function saveBackup(){if(recovery?.busy)throw Error('Aguarde a operação de recuperação.');if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return {canceled:true};const r=await dialog.showSaveDialog(win,{title:'Exportar quadros Excalidraw',defaultPath:'Quadros-'+new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Bahia'}).format(new Date())+'.pasuite',filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const bytes=service.workspace.backup();const temp=r.filePath+'.'+crypto.randomUUID()+'.tmp';fs.writeFileSync(temp,bytes);fs.renameSync(temp,r.filePath);return {saved:true,name:path.basename(r.filePath),size:bytes.length};}
@@ -38,7 +39,17 @@ if(acquired)app.whenReady().then(async()=>{
   if(!savedPort)fs.writeFileSync(portFile,JSON.stringify({port:Number(new URL(service.origin).port)})+'\n',{mode:0o600});
   const integrated=JSON.parse(fs.readFileSync(path.join(here,'integrated-services.json')));
   const completeApps=[...localApps,...serverApps.filter(app=>integrated.includes(app.id))];
-  const createRuntime=runtimeDirectory=>new CompleteRuntime({directory:runtimeDirectory,specs:completeApps,composeBinary:qa&&process.env.PA_DESKTOP_TEST_COMPOSE_BINARY?process.env.PA_DESKTOP_TEST_COMPOSE_BINARY:app.isPackaged?path.join(process.resourcesPath,'runtime',process.platform+'-'+process.arch,process.platform==='win32'?'docker-compose.exe':'docker-compose'):path.join(here,'../.cache/docker-compose'),onStatus:status=>{if(win&&!win.isDestroyed())win.webContents.send('suite:runtime-status',status);}});
+  const runtimeStatus=status=>{if(win&&!win.isDestroyed())win.webContents.send('suite:runtime-status',status);};
+  if(!qa)runtimeHost=createPrivateRuntime({applicationDirectory:profiles.root,homeDirectory:app.getPath('home'),onStatus:runtimeStatus});
+  const createRuntime=runtimeDirectory=>{
+    const requested=path.resolve(runtimeDirectory),parent=path.dirname(requested),profileId=parent===path.resolve(profiles.root)?'legacy':path.basename(parent);
+    if(!qa&&path.resolve(profiles.directory(profileId))!==parent)throw Error('Destino dos serviços não pertence a um perfil da suíte.');
+    const legacy=completeApps.some(spec=>fs.existsSync(path.join(requested,spec.id,'runtime.json')));
+    if(runtimeHost&&!legacy)return runtimeHost.create({profileId,specs:completeApps});
+    // Existing experimental data remains on its old owned engine. Restoring its
+    // unified backup into a new profile selects the new private guest instead.
+    const instance=new CompleteRuntime({directory:requested,specs:completeApps,composeBinary:qa&&process.env.PA_DESKTOP_TEST_COMPOSE_BINARY?process.env.PA_DESKTOP_TEST_COMPOSE_BINARY:app.isPackaged?path.join(process.resourcesPath,'runtime',process.platform+'-'+process.arch,process.platform==='win32'?'docker-compose.exe':'docker-compose'):path.join(here,'../.cache/docker-compose'),onStatus:runtimeStatus});instance.isLegacy=legacy;return instance;
+  };
   runtime=createRuntime(qa&&process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY?process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY:path.join(activeProfile.directory,'applications'));
   const nativeOptions={nativeResources:app.isPackaged?path.join(process.resourcesPath,'native'):path.join(resources,'native'),extension:app.isPackaged?path.join(process.resourcesPath,'extensions/screenity'):path.join(resources,'screenity-extension')};
   native=nativeForProfile({directory:activeProfile.directory,resources,...nativeOptions,onStatus:status=>win?.webContents.send('suite:runtime-status',status)});
@@ -73,7 +84,11 @@ if(acquired)app.whenReady().then(async()=>{
   ipcMain.handle('suite:connections',event=>{trusted(event);return readConnections(configDirectory,ids);});
   ipcMain.handle('suite:configure',(event,value)=>{trusted(event);const result=saveConnections(configDirectory,value,ids);hideModule();for(const view of remoteViews.values())view.webContents.close();remoteViews.clear();return result;});
   ipcMain.handle('suite:hide-module',event=>{trusted(event);hideModule();return true;});
-  ipcMain.handle('suite:runtime',async event=>{trusted(event);return {engine:await runtime.probe(),applications:completeApps.map(spec=>({id:spec.id,...runtime.states.get(spec.id)}))};});
+  ipcMain.handle('suite:prepare-runtime',async event=>{trusted(event);if(recovery?.busy)throw Error('Aguarde a recuperação atual.');if(!runtimeHost)throw Error('O teste descartável usa um runtime fornecido explicitamente.');
+    if(process.platform==='win32'&&!(await runtimeHost.installer.prerequisites()).available){const result=await dialog.showMessageBox(win,{type:'question',buttons:['Cancelar','Ativar WSL2'],defaultId:0,cancelId:0,message:'Preparar o componente Linux do Windows?',detail:'O Windows pode solicitar permissão de administrador e reinicialização. Depois, a suíte cria sua própria distribuição Linux.'});if(result.response!==1)return {canceled:true};return runtimeHost.installer.installPrerequisites();}
+    await runtimeHost.connection();return {prepared:true};
+  });
+  ipcMain.handle('suite:runtime',async event=>{trusted(event);return {engine:await runtime.probe(),managed:Boolean(runtimeHost)&&!runtime.isLegacy,legacy:Boolean(runtime.isLegacy),applications:completeApps.map(spec=>({id:spec.id,...runtime.states.get(spec.id)}))};});
   ipcMain.handle('suite:stop-module',async(event,id)=>{trusted(event);if(remoteView===remoteViews.get(id))hideModule();const view=remoteViews.get(id);view?.webContents.close();remoteViews.delete(id);await runtime.stop(id);return true;});
   ipcMain.handle('suite:open-module',async(event,id)=>{
     trusted(event);if(recovery?.busy)throw Error('Aguarde o backup ou a restauração.');if(!ids.includes(id))throw Error('Ferramenta desconhecida.');
@@ -97,7 +112,7 @@ if(acquired)app.whenReady().then(async()=>{
     remoteView=view;win.contentView.addChildView(view);remoteBounds();view.webContents.focus();return {available:true};
   });
   ipcMain.handle('suite:ready',event=>{trusted(event);profiles.confirmLaunch(activeProfile.id);return true;});
-  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,channel:'alpha',signed:false,managedServices:completeApps.map(s=>s.id),nativeApplications:[native,screenityNative].filter(manager=>manager.manifest).map(manager=>manager.id),activeProfile:activeProfile.id};});
+  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,managedRuntime:Boolean(runtimeHost)&&!runtime.isLegacy,legacyRuntime:Boolean(runtime.isLegacy),channel:'alpha',signed:false,managedServices:completeApps.map(s=>s.id),nativeApplications:[native,screenityNative].filter(manager=>manager.manifest).map(manager=>manager.id),activeProfile:activeProfile.id};});
   recovery=new DesktopRecovery({profileStore:profiles,active:activeProfile,service,runtime,native,screenity:screenityNative,nativeOptions,resources,ids,createRuntime,quiesce:async()=>{
     if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))throw Error('O editor não confirmou o salvamento.');
     hideModule();return win.webContents.executeJavaScript('window.paDesktopSuspendForBackup()');

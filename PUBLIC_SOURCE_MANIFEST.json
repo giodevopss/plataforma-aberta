@@ -94,8 +94,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 17101,
-      "sha256": "34889327af2065f0317b8955489d747912fe1e1b2319d759604d06b875daa882"
+      "size": 19229,
+      "sha256": "fbfdef7f9c8448e3919ecc4bd837625ff43d2529d503b723d5fbb5e791745004"
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
@@ -124,8 +124,8 @@
     },
     {
       "path": "desktop/src/native-component-assets.json",
-      "size": 166144,
-      "sha256": "feea309cb42f36ac839148d0f4228768eb63fd48d6eb7047c4c49c36b174d662"
+      "size": 167512,
+      "sha256": "5658d32fa9bca2f7a127ea91b9f62462deed666e17531cdc0ef8dc48d8d783af"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -139,8 +139,8 @@
     },
     {
       "path": "desktop/src/preload.cjs",
-      "size": 1305,
-      "sha256": "59ddd21e1fd3da01a08e276f13b7a2387fe92c67aae721ec4698b1926ddd786f"
+      "size": 1371,
+      "sha256": "eb435f51bc8c75d62e9ae02b1ff6e1e4dfcba3e6ff02278d51488ff731c89327"
     },
     {
       "path": "desktop/src/private-runtime.mjs",
@@ -219,13 +219,13 @@
     },
     {
       "path": "desktop/src/wsl-installer.mjs",
-      "size": 11487,
-      "sha256": "b9f183fdd131230ff596876803cbcfbdafa4f3629788961149c912122e53403e"
+      "size": 12130,
+      "sha256": "1c7f162a9d56512026ae333706a8494af68a97165d4085c45cc4e7fff3810fef"
     },
     {
       "path": "desktop/renderer/app.mjs",
-      "size": 14617,
-      "sha256": "d8ad7fb5e9312d5b147de285321dce40d14d7a8ecc4f4f7b0b3d4b51bf74b5c5"
+      "size": 15703,
+      "sha256": "afb6905f15a4022aca05684add48284bfb6e3a53d4b727ecb563e31915ca0a31"
     },
     {
       "path": "desktop/renderer/editor-src/bootstrap.mjs",
@@ -1024,8 +1024,8 @@
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
-      "size": 8360,
-      "sha256": "0dc36ef17f768488cb7c5f6ffda25f966ae3c12e5a587c93f74ef3349c71f5d3"
+      "size": 8686,
+      "sha256": "af0e796bd2e426f091f61000a50533ec7f4b43ac5c02a9f65ade29ab256e022c"
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
@@ -1230,7 +1230,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 7113,
-      "sha256": "1a2b95d849bc7066154ec3e03cae1857073dd06794a22ca73c989b68a46ce63a"
+      "sha256": "c69d8e068facfc4a645cf552c76a9d261ef094d5b6645b8bcc961ad442eeb4d0"
     },
     {
       "path": ".github/workflows/managed-runtime-windows.yml",
