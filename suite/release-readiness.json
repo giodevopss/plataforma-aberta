@@ -1,15 +1,15 @@
 {
-  "checked_at": "2026-10-18T21:37:27.698Z",
+  "checked_at": "2026-10-18T21:40:07.522Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
     "presenton": {
       "acceptance": "pending",
-      "status": "Complete original application integrated; prior original editing/native PPTX export accepted. New owned Ollama 0.40.6 and immutable verified Qwen3 4B model replace the foreign host dependency; models are cold-backed up. First actual new inference run exposed a container access/startup failure; file-owner/read-only model correction is under actual generation/native-view/recovery test 39164385688. Not yet accepted."
+      "status": "Owned immutable Ollama/Qwen3 inference generated a real two-slide editable PPTX in 39164793512. Native QA URL bug corrected, non-thinking supported settings enabled and 8192 context configured. Run 39168038551 stopped before boot on registry HTTP 503; bounded retry added. Actual native/model cold recovery rerun 39168561806 remains pending."
     },
     "openwhispr": {
       "acceptance": "pending",
-      "status": "Complete ten-adaptation fork passed original local whisper.cpp on all three targets (39158725841 Macs, 39160230792 Windows). Deeper recovery uncovered an original pooled ArrayBuffer leak and first-profile cloud/default race; thirteen reviewed adaptations are under full 803-file regression in 39163138904. Three new native components and cold voice recovery remain required."
+      "status": "Complete thirteen-adaptation fork: all 803 original test files passed (7938 pass, 35 original skips, 1 todo), all three native components compiled and accepted. Real local whisper.cpp, SQLite and exact audio/model recovery passed on Mac ARM/Intel (39165336888 successful Mac jobs) and Windows (39165793344). Combined twelve-provider backup remains pending."
     },
     "graphite": {
       "acceptance": "pending",
@@ -29,27 +29,27 @@
     },
     "baserow": {
       "acceptance": "pending",
-      "status": "Complete Baserow 2.4.1 integrated with local PostgreSQL/Redis. Synthetic signup, table creation, row persistence, original CSV export and native WebContentsView accepted on macOS ARM64. Unified backup and cross-platform release acceptance pending."
+      "status": "Fresh original account/workspace/database/table and UTF-8 row editing succeeded. Fresh CSV export exposed a real /baserow/data permission failure in 39167627001. New installations use a private application_data volume with original image ownership; full native/export/recovery retests 39168357004 Linux and 39168561911 Windows remain pending. Existing bind-based data are never silently migrated."
     },
     "activepieces": {
       "acceptance": "pending",
-      "status": "Complete Activepieces 0.92.2 integrated with local PostgreSQL/Redis and worker. Corrected 17 stale compiled contract modules from the original source. Original workflow publishing and real manual worker execution accepted in browser and native WebContentsView on macOS ARM64. Full offline catalog, unified restore and cross-platform release acceptance pending."
+      "status": "Original full application and worker integrated; historical Mac real execution accepted. Fresh portable test found original dnd-kit aria-disabled draggable ancestor interferes with Playwright selection. Actual button checked enabled and clicked directly; full run/history/native/cold recovery retest 39168687416 pending. Full offline pieces catalog remains pending."
     },
     "plane": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
     },
     "formbricks": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159980100. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159980100. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
     },
     "postiz": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
     },
     "paperless": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified."
     }
   },
   "platforms": {
@@ -73,7 +73,7 @@
   "complete_backup_restore": "pending",
   "upgrade_rollback": "pending",
   "distribution_signatures": "pending",
-  "distribution": "Current complete native application installers were built, installed, tested, uninstalled and read-back preserved for Mac ARM/Intel (39161571428 successful Mac jobs) and Windows (39162322355). They precede the newest thirteen-adaptation voice and managed AI/runtime changes and remain unsigned internal candidates. Final combined twelve-provider recovery, actual eight-service native runtime, upgrade/rollback and OS signing gates remain closed.",
+  "distribution": "All three complete internal unsigned installers built, installed, tested, uninstalled and fully remote read-back verified in 39165341821, including complete Screenity and thirteen-adaptation OpenWhispr. They precede newest managed-browser backup and Baserow changes; final rebuild, combined twelve-provider recovery, upgrade/rollback and signing remain pending.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -81,21 +81,23 @@
     "billing": "Standard public hosted runners only; large native packages use public prereleases with full streamed remote SHA-256 read-back, not metered Actions artifact storage",
     "native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39159502334",
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
-    "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39158725841",
+    "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
-    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39164020266",
-    "core_test_result": "128 tests passed on each of four OS targets, no failures or skips; subsequent transport/common-AI edits require the next regression.",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39168560638",
+    "core_test_result": "152 current local tests passed; new four-target regression pending.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
       "sha256": "49790bfd6f3d979236cbf403b57c05d266e1e8fc5e487d99c57c78db49c33178"
     },
-    "windows_services_in_progress": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39164218101",
-    "local_presentations_in_progress": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39164385688",
-    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39162322355-win32-x64",
+    "windows_services_in_progress": null,
+    "local_presentations_in_progress": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39168561806",
+    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-win32-x64",
     "internal_mac_installers": [
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39161571428-darwin-arm64",
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39161571428-darwin-x64"
-    ]
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-darwin-arm64",
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-darwin-x64"
+    ],
+    "windows_services": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39165080309",
+    "scoped_service_reports": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-windows-services-39165080309"
   }
 }

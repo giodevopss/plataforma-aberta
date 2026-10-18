@@ -29,8 +29,8 @@
     },
     {
       "path": "desktop/src/complete-runtime.mjs",
-      "size": 7460,
-      "sha256": "7a1c355dbdc2ddbbd794b642364a991a2de136719b90b9018ede32c10d28cd49"
+      "size": 7480,
+      "sha256": "7f326f525b1bef82fa2f918000817ec096f7b5b8232007724296b81ea5a310cf"
     },
     {
       "path": "desktop/src/connections.mjs",
@@ -239,8 +239,8 @@
     },
     {
       "path": "desktop/src/server-stacks.mjs",
-      "size": 14377,
-      "sha256": "70b8ff35274a1f70bde98a82116a6619d3ac6cceb427669106558ff3f09647bc"
+      "size": 15308,
+      "sha256": "0b6de058b8953c95b4def438e14bd4e77c938a0c1aa3db1cc1d6f933d5add722"
     },
     {
       "path": "desktop/src/service.mjs",
@@ -813,6 +813,16 @@
       "sha256": "56d36715026fa337a309ce992ce99dfeba44ca25d37dd75c1c9e97fe5c6ddd5b"
     },
     {
+      "path": "desktop/resources/stack-config/baserow/PROVENANCE.json",
+      "size": 473,
+      "sha256": "be293d01b8ce83f96f62debc8bceed493de8bedc6ab4f31228bd99cc3313a007"
+    },
+    {
+      "path": "desktop/resources/stack-config/baserow/bootstrap.py",
+      "size": 1097,
+      "sha256": "9ddccf95cfa8b50fde9dfa5d59114d87ae44adce92a6d5db7801971ce3f5b121"
+    },
+    {
       "path": "desktop/resources/stack-config/formbricks/authzed-postgres-bootstrap.sh",
       "size": 1127,
       "sha256": "70975701cdf0dcffef5d3573a7514360e87428bb07cc4bfb4dbf47ae0c2e93a5"
@@ -1174,8 +1184,8 @@
     },
     {
       "path": "suite/tests/database-cloud.mjs",
-      "size": 3810,
-      "sha256": "3813bc3c6d4365d32c88eaa8742b1abe16efdfb34a823b1bb8f4d0501f5c014f"
+      "size": 4651,
+      "sha256": "3568db5ce03d04735341a62cfabf3342a7c39646e09bf567f6953ecca2f77667"
     },
     {
       "path": "suite/tests/cloud-service-runtime.mjs",
@@ -1399,8 +1409,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 8673,
-      "sha256": "d16c6fc978c296ded211883c4af95d574e8c0afac364af975000e55387ec1bbc"
+      "size": 9529,
+      "sha256": "5d54ccd8c6a28462913b87f856aea3811dd2162a6dcb6214a8796730285ae92a"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",

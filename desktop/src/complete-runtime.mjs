@@ -50,7 +50,7 @@ export class CompleteRuntime extends LocalRuntime {
   const origin='http://127.0.0.1:'+settings.port;
   let stableResponses=0;
   for(let attempt=0;attempt<(['plane','postiz','baserow'].includes(id)?600:120);attempt++){
-   try{const response=await fetch(origin+(this.specs.get(id).healthPath||'/'),{headers:{'X-PA-Session':settings.token},signal:AbortSignal.timeout(3000)});let healthy=response.ok;if(id==='postiz')healthy=healthy&&String(response.headers.get('content-type')).includes('application/json')&&typeof(await response.json()).register==='boolean';else await response.body?.cancel();stableResponses=healthy?stableResponses+1:0;if(stableResponses>=(id==='postiz'?3:1)){this.setStatus(id,'ready');return {id,origin,token:settings.token};}}catch{stableResponses=0;}
+   try{const response=await fetch(origin+(this.specs.get(id).healthPath||'/'),{headers:{'X-PA-Session':settings.token},signal:AbortSignal.timeout(3000)});let healthy=response.ok;if(id==='postiz')healthy=healthy&&String(response.headers.get('content-type')).includes('application/json')&&typeof(await response.json()).register==='boolean';else await response.body?.cancel();stableResponses=healthy?stableResponses+1:0;if(stableResponses>=(['postiz','baserow'].includes(id)?3:1)){this.setStatus(id,'ready');return {id,origin,token:settings.token};}}catch{stableResponses=0;}
    await new Promise(resolve=>setTimeout(resolve,1000));
   }
   throw Error('O aplicativo não ficou pronto. Os dados locais foram preservados.');
