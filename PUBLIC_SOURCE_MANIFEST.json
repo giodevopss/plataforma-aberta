@@ -1084,8 +1084,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15285,
-      "sha256": "ea5ebf53e2e1d23d4139452d588299d7b42d40d4c4b4d30c294f6c74d5124c31"
+      "size": 15350,
+      "sha256": "df9cf97f90fbed7880ff2cf7553fec7fa2741f92460092899a737eb9bbd2b556"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1101,6 +1101,16 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/automation-workflow.mjs",
+      "size": 5601,
+      "sha256": "97e06434f0ba9690b1d48bddc24c5bc7bab48af86aa5e49029b0ff3993df891d"
+    },
+    {
+      "path": "suite/tests/automation-cloud.mjs",
+      "size": 4176,
+      "sha256": "c6512b90f6adc5f2a2b5ce85cca7b643b2fb8e2ac4dc96cdd008eba40f15666b"
     },
     {
       "path": "suite/tests/database-workflow.mjs",
@@ -1335,7 +1345,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "9093c991d208e169a4e054b27a5da852d02fe88f12f58c37edb31e36744fed53"
+      "sha256": "ee5a78fd8217cf03e1089864a7e13c9fa098e5c1c878d79452b7bfcd841c4522"
+    },
+    {
+      "path": ".github/workflows/automation-validation.yml",
+      "size": 1391,
+      "sha256": "d24652172bfbda2f2d9043cfbcf8f1f8db6a4efca2d59ef232eeb4cb2b2d27e3"
     },
     {
       "path": ".github/workflows/database-validation.yml",
@@ -1349,8 +1364,8 @@
     },
     {
       "path": ".github/workflows/windows-services.yml",
-      "size": 2290,
-      "sha256": "9f3e96e042e4c902fd6457a78c9bad90007880ba434834cf83de6c33844efb95"
+      "size": 2481,
+      "sha256": "e192682088ddad57ccbc2f501faaf97bc6b5f7b1758c2155c5b8eb5678e614cf"
     },
     {
       "path": ".github/workflows/presenton-validation.yml",
