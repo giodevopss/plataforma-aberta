@@ -8,6 +8,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   installer:
+    permissions:
+      contents: write
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 35
     strategy:
@@ -50,15 +52,16 @@ jobs:
       - name: Uninstall the tested application
         if: always()
         run: node scripts/distribution/installer-validation.mjs uninstall
+      - name: Preserve accepted installer without metered Actions storage
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/distribution/publish-public-installer.mjs
       - name: Preserve internal QA package and evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: internal-installer-${{ matrix.runner }}-attempt-${{ github.run_attempt }}
           path: |
-            desktop/release/Plataforma-Aberta-*.dmg
-            desktop/release/Plataforma-Aberta-*.exe
-            desktop/release/SHA256SUMS
             desktop/research/
           retention-days: 1
           if-no-files-found: error

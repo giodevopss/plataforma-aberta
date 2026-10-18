@@ -1,0 +1,11 @@
+// Publish accepted disposable-runner packages; never QA state or credentials.
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {publishArtifact} from './release-artifacts.mjs';
+const repo=process.env.GITHUB_REPOSITORY,run=process.env.GITHUB_RUN_ID,commit=process.env.GITHUB_SHA,target=process.platform+'-'+process.arch;
+if(process.env.CI!=='true'||repo!=='giodevopss/plataforma-aberta'||!/^\d+$/.test(run||'')||!['darwin-arm64','darwin-x64','win32-x64'].includes(target))throw Error('Reviewed public native installer workflow required.');
+const report=JSON.parse(fs.readFileSync('desktop/research/desktop-packaged.json')),installation=JSON.parse(fs.readFileSync('desktop/research/internal-installation.json'));
+if(report.status!=='passed'||report.packaged!==true||report.suiteCommit!==commit||report.platform+'-'+report.arch!==target||installation.status!=='installed-tested-uninstalled'||installation.target!==target)throw Error('Fresh installed application and uninstall acceptance required.');
+const extension=process.platform==='darwin'?'.dmg':'.exe',files=fs.readdirSync('desktop/release').filter(name=>/^Plataforma-Aberta-[a-zA-Z0-9._-]+\.(?:dmg|exe)$/.test(name)&&name.endsWith(extension));if(files.length!==1)throw Error('Exactly one accepted native installer required.');
+const tag='installer-validation-'+run+'-'+target;execFileSync('gh',['release','view',tag,'--repo',repo],{stdio:'ignore'});
+const receipt=await publishArtifact({file:path.resolve('desktop/release',files[0]),repo,tag,receipt:'desktop/research/public-installer-receipt.json'}),manifest=path.resolve('desktop/research/installer-'+target+'.json');
+fs.writeFileSync(manifest,JSON.stringify({version:1,target,suiteCommit:commit,runId:run,name:files[0],size:receipt.size,sha256:receipt.sha256,acceptedChecks:report.checks,signed:false,finalRelease:false,scope:'Internal unsigned installer tested, installed and uninstalled on a disposable runner. Full suite release gates remain closed.'},null,2)+'\n');
+await publishArtifact({file:manifest,repo,tag,receipt:'desktop/research/public-installer-metadata-receipt.json'});console.log('Accepted internal installer saved to a public prerelease and fully read back:',target);

@@ -1,0 +1,21 @@
+--- a/src/pages/EditorApp/context/ContentState.jsx
++++ b/src/pages/EditorApp/context/ContentState.jsx
+@@ -362,6 +362,7 @@
+     _setContentState((prev) => {
+       const next = typeof updater === "function" ? updater(prev) : updater;
+       contentStateRef.current = next;
++      window.paScreenityDrafts?.observe(next);
+       return next;
+     });
+   }, []);
+@@ -1292,6 +1293,10 @@
+   const makeVideoTab = async (sendResponse = null, message) => {
+     if (makeVideoCheck.current) return;
+     makeVideoCheck.current = true;
++    if (await window.paScreenityDrafts?.restore(setContentState)) {
++      sendResponse?.({ status: "ok" });
++      return;
++    }
+     perfMark("Sandbox makeVideoTab.enter", { override: message?.override });
+     if (DEBUG_POSTSTOP)
+       console.debug("[Screenity][Sandbox] makeVideoTab invoked", {
