@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "scope": "Original open Chromium fork with original licenses and source pins; native compatibility acceptance required on each target",
+  "platforms": {
+    "darwin-arm64": {
+      "repository": "https://github.com/ungoogled-software/ungoogled-chromium-macos",
+      "sourceCommit": "b1238bb72b02cd36219991d9029c1c65183ea295",
+      "coreSource": "https://github.com/ungoogled-software/ungoogled-chromium",
+      "coreCommit": "ffeb45a2bb88bc56a1dfed31410aeb10e9efcd5a",
+      "version": "155.0.8059.39-1.1",
+      "license": "BSD-3-Clause plus original Chromium third-party terms",
+      "url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/155.0.8059.39-1.1/ungoogled-chromium_155.0.8059.39-1.1_arm64-macos.dmg",
+      "size": 148896848,
+      "sha256": "1a71ee2aa987f471e5ba61e853a0d9aa4b634fa68213ad24df2e970b7729385b",
+      "filename": "ungoogled-chromium_155.0.8059.39-1.1_arm64-macos.dmg"
+    },
+    "darwin-x64": {
+      "repository": "https://github.com/ungoogled-software/ungoogled-chromium-macos",
+      "sourceCommit": "b1238bb72b02cd36219991d9029c1c65183ea295",
+      "coreSource": "https://github.com/ungoogled-software/ungoogled-chromium",
+      "coreCommit": "ffeb45a2bb88bc56a1dfed31410aeb10e9efcd5a",
+      "version": "155.0.8059.39-1.1",
+      "license": "BSD-3-Clause plus original Chromium third-party terms",
+      "url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/155.0.8059.39-1.1/ungoogled-chromium_155.0.8059.39-1.1_x86_64-macos.dmg",
+      "size": 158415042,
+      "sha256": "5814e2c8f9f36d1f383fbdde5bdb7b24379f5254493efc9c954eb7feaa2344c7",
+      "filename": "ungoogled-chromium_155.0.8059.39-1.1_x86_64-macos.dmg"
+    },
+    "win32-x64": {
+      "repository": "https://github.com/ungoogled-software/ungoogled-chromium-windows",
+      "sourceCommit": "a1e3123c8d543b5c9a1eecfaf0f06cf242c0db37",
+      "coreSource": "https://github.com/ungoogled-software/ungoogled-chromium",
+      "coreCommit": "9f145d8815e6e50cc4a2537fcac40966d911e027",
+      "version": "155.0.8059.79-1.1",
+      "license": "BSD-3-Clause plus original Chromium third-party terms",
+      "url": "https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/155.0.8059.79-1.1/ungoogled-chromium_155.0.8059.79-1.1_windows_x64.zip",
+      "size": 200314213,
+      "sha256": "2c7714cfab9791c522d891fc80a3539dc673f5897621a6ec3e90b181945c1f07",
+      "filename": "ungoogled-chromium_155.0.8059.79-1.1_windows_x64.zip"
+    }
+  }
+}

@@ -88,6 +88,11 @@
       "sha256": "5b781ae784d7127b115678d9c5e5f5a07b30d8fe00c9499b7714f938a2e173a6"
     },
     {
+      "path": "desktop/src/managed-runtime-assets.json",
+      "size": 3067,
+      "sha256": "47a7dbf0312e32dc62af0b00ab07affb2062aef3fcbf7abe847f33b4c95f1344"
+    },
+    {
       "path": "desktop/src/native-app-launcher.mjs",
       "size": 15220,
       "sha256": "032692d3936ada14aa7f728ddbfa83c245370c531ab731133b1d5c8bc93c609b"
@@ -96,6 +101,11 @@
       "path": "desktop/src/native-apps.json",
       "size": 1078,
       "sha256": "12d85074e350e7e676f2881e1ee1eb6a6c2ffbe4eb00c8c6ae68e091d07bf70a"
+    },
+    {
+      "path": "desktop/src/native-archive.mjs",
+      "size": 2770,
+      "sha256": "b95161fef23ea6f9cbe6ef0a9c8b1314c84093fd9abc73e95a0b8a7e3ee9ea4e"
     },
     {
       "path": "desktop/src/plane-profile.json",
@@ -131,6 +141,11 @@
       "path": "desktop/src/runtime-backup.mjs",
       "size": 9648,
       "sha256": "92d27c2366321b7425efb2f6ad05e129592ea6832b588e3aa552f30aeb309000"
+    },
+    {
+      "path": "desktop/src/screenity-browser-assets.json",
+      "size": 2540,
+      "sha256": "bf1eab0951850756d168802421117c2f010299e5042180b45986285dc7a37769"
     },
     {
       "path": "desktop/src/screenity-identity.mjs",
@@ -249,8 +264,8 @@
     },
     {
       "path": "desktop/scripts/graphite-open-assets.mjs",
-      "size": 7020,
-      "sha256": "531447480f4e4bf07f32a7b37a435258151ebb95a4498b6b4f35c94e557063c3"
+      "size": 7137,
+      "sha256": "660311d893076554638f90d98a57d9bb9b72f5f7686a2b9ebbf16aa1dbd87a22"
     },
     {
       "path": "desktop/scripts/graphite-persistence-provenance.json",
@@ -336,6 +351,11 @@
       "path": "desktop/tests/native-app-launcher.test.mjs",
       "size": 4997,
       "sha256": "71093b3087c9a4d16eefad7d2390b260b3565bd72154a1ab10c68c878b499bf5"
+    },
+    {
+      "path": "desktop/tests/native-archive.test.mjs",
+      "size": 2851,
+      "sha256": "bd18d281d5e74f045c7eaa621d49188675f72a8cd7e643931627af1c1488824b"
     },
     {
       "path": "desktop/tests/native-screenity.test.mjs",
@@ -698,6 +718,16 @@
       "sha256": "e094b74c6187ec1e193c0aa32a3c795de654fde424528a325f5b0b1f16e3b8fa"
     },
     {
+      "path": "desktop/resources/stack-config/screenity-browser/MACOS-LICENSE",
+      "size": 1503,
+      "sha256": "2fdd1ed451121c07df0726a8ac8b86b49315d89a22c683edaf98b579e710504b"
+    },
+    {
+      "path": "desktop/resources/stack-config/screenity-browser/WINDOWS-LICENSE",
+      "size": 1503,
+      "sha256": "9539b394e4179952698894bd62ef6566b6804ab0ff360dcf3a511cfaf7f78c4d"
+    },
+    {
       "path": "desktop/resources/presenton-patches/LICENSE",
       "size": 11340,
       "sha256": "23d6fd64bfcbd46b331098ed89454717fd1719faccbf632f8234b962aa43ed1a"
@@ -754,8 +784,8 @@
     },
     {
       "path": ".gitignore",
-      "size": 874,
-      "sha256": "dae91fecc4a50fc400710b06cb218ff2e9ab624e00b053f4ca6f4549eafb2aba"
+      "size": 901,
+      "sha256": "cfd99b3f17139e22d489d187aa2859c6c5e63b52f2c88a0c950ba10d5a7f989a"
     },
     {
       "path": ".gitattributes",
@@ -809,8 +839,8 @@
     },
     {
       "path": "scripts/distribution/prepare-screenity-native.mjs",
-      "size": 2875,
-      "sha256": "50d868a43cbb61a05fffcaa5bd78aa6f3c538dd3ca9d55ba065acfa0a2f51378"
+      "size": 5267,
+      "sha256": "fb1732d3ed3bf6189808d1f384f04f5b2936767c9b695d00bec55db9ada78be4"
     },
     {
       "path": "scripts/distribution/prepare-openwhispr-fork.mjs",
@@ -894,8 +924,8 @@
     },
     {
       "path": "suite/tests/openwhispr-native-cloud.mjs",
-      "size": 8490,
-      "sha256": "090088e0865c436d22ef8940f5318f33bf769e7af20ebb932766e6b6ec868901"
+      "size": 8507,
+      "sha256": "83df3ec4e37b375b21bdf9fce74347bd88168b34771055050edec2e2477f2a0d"
     },
     {
       "path": "suite/tests/openwhispr-isolation.mjs",
@@ -1060,7 +1090,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "d261bc5cb26e7f37ef85498259a694daa1853847132418b2b6d831d7d5724076"
+      "sha256": "a56cabdc29ef3184d569935e40e08d07c695ee8ae90f9a23373a18b740a57c67"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1094,8 +1124,8 @@
     },
     {
       "path": ".github/workflows/public-engines.yml",
-      "size": 3954,
-      "sha256": "d8e82130abae2bcaae215dad899a0dd204500bb59484412238bb5f835e4babcc"
+      "size": 4007,
+      "sha256": "d635b3ef36c184accff754248b9db746838d7f87ada76e7906e4974759b52bbd"
     },
     {
       "path": ".github/workflows/public-core.yml",

@@ -59,6 +59,8 @@ jobs:
           node desktop/scripts/prepare-assets.mjs
           node scripts/distribution/public-assets.mjs pack "$RUNNER_TEMP/public-engines"
       - name: Preserve compiler cache
+        if: always()
+        continue-on-error: true
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: |

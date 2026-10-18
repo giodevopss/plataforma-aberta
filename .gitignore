@@ -38,3 +38,5 @@ suite/private/
 desktop/resources/runtime/
 desktop/resources/screenity-extension/
 suite/compose-templates/
+
+desktop/resources/native/

@@ -32,6 +32,7 @@ export function prepareGraphiteAssets(source){
  fs.mkdirSync(path.join(dir,'favicons'));fs.writeFileSync(path.join(dir,'favicons/favicon.svg'),ownMark);
  fs.writeFileSync(path.join(dir,'favicons/site.webmanifest'),JSON.stringify({name:'Editor vetorial · Plataforma Aberta',short_name:'Editor vetorial',icons:[{src:'favicon.svg',sizes:'any',type:'image/svg+xml'}],display:'standalone'}));
  fs.writeFileSync(path.join(dir,'LICENSE.txt'),'Original suite mark and mathematical/label glyphs: Copyright 2026 Plataforma Aberta, MIT.\n\nLucide '+metadata.version+' — '+fs.readFileSync(path.join(lucide,'LICENSE'),'utf8'));
+ fs.copyFileSync(path.join(dir,'LICENSE.txt'),path.join(root,'desktop/resources/graphite-open-assets-license.txt'));
  fs.writeFileSync(path.join(root,'desktop/resources/graphite-assets.json'),JSON.stringify({source:'Lucide ISC and original suite SVGs; all original restricted branding assets excluded',lucide_version:metadata.version,icons:mappings,review:'Core tool mapping explicit; remaining node icon semantics require visual acceptance before final release'},null,2)+'\n');
  const index=path.join(source,'frontend/index.html');let html=fs.readFileSync(index,'utf8');html=html.replace(/\s*<link[^>]*(?:apple-touch-icon|rel="icon"|mask-icon)[^>]*>/g,'').replace('<title>Graphite</title>','<title>Editor vetorial · Plataforma Aberta</title>');html=html.replace('<meta charset="utf-8" />','<meta charset="utf-8" />\n<link rel="icon" type="image/svg+xml" href="favicon.svg" />');fs.writeFileSync(index,html);
  return mappings;
