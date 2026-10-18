@@ -454,8 +454,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 8692,
-      "sha256": "411217ddd51adcd89d2718f724fa90c28e1c9f4f1b4a4195ca59fda45e562ccd"
+      "size": 9929,
+      "sha256": "c7bebd77b24e3ed61816df5d17abc63df548282416b7efbb66b30a27800cc2a6"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -1505,7 +1505,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11545,
-      "sha256": "ad461ed45f0c28b56f2f71b1442f25985ce9023e26bb7ef290445a3a29a81183"
+      "sha256": "d73990b037fcd0d278253cac1e3d51e2c75fb37955fcd1e8c445caa3ee93494e"
     },
     {
       "path": ".github/workflows/native-providers.yml",
