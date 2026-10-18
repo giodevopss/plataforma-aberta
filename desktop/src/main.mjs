@@ -46,7 +46,7 @@ app.on('before-quit',event=>{
 
 function trusted(event){if(!win||event.sender!==win.webContents||event.senderFrame!==win.webContents.mainFrame||new URL(event.senderFrame.url).origin!==service.origin)throw Error('Operação desktop não autorizada.');}
 async function saveBackup(){if(recovery?.busy)throw Error('Aguarde a operação de recuperação.');if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return {canceled:true};const r=await dialog.showSaveDialog(win,{title:'Exportar quadros Excalidraw',defaultPath:'Quadros-'+new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Bahia'}).format(new Date())+'.pasuite',filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const bytes=service.workspace.backup();const temp=r.filePath+'.'+crypto.randomUUID()+'.tmp';fs.writeFileSync(temp,bytes);fs.renameSync(temp,r.filePath);return {saved:true,name:path.basename(r.filePath),size:bytes.length};}
-async function restoreBackup(){const r=await dialog.showOpenDialog(win,{title:'Restaurar quadros Excalidraw',properties:['openFile'],filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const ok=await dialog.showMessageBox(win,{type:'warning',buttons:['Cancelar','Restaurar backup'],defaultId:0,cancelId:0,message:'Substituir os quadros Excalidraw pelo backup?',detail:'Uma cópia de recuperação do espaço atual será preservada. Feche edições pendentes antes de restaurar.'});if(ok.response!==1)return {canceled:true};const filename=r.filePaths[0];if(fs.statSync(filename).size>500_000_000)throw Error('Backup excede 500 MB.');const result=service.workspace.restore(fs.readFileSync(filename));win.webContents.reload();return {restored:true,recovery:path.basename(result.recovery)};}
+async function restoreBackup(){if(recovery?.busy)throw Error('Aguarde a operação de recuperação.');const r=await dialog.showOpenDialog(win,{title:'Restaurar quadros Excalidraw',properties:['openFile'],filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const ok=await dialog.showMessageBox(win,{type:'warning',buttons:['Cancelar','Restaurar backup'],defaultId:0,cancelId:0,message:'Substituir os quadros Excalidraw pelo backup?',detail:'Uma cópia de recuperação do espaço atual será preservada. Feche edições pendentes antes de restaurar.'});if(ok.response!==1)return {canceled:true};const filename=r.filePaths[0];if(fs.statSync(filename).size>500_000_000)throw Error('Backup excede 500 MB.');const result=service.workspace.restore(fs.readFileSync(filename));win.webContents.reload();return {restored:true,recovery:path.basename(result.recovery)};}
 if(acquired)app.whenReady().then(async()=>{
   app.setName('Plataforma Aberta');
   const resources=path.resolve(here,'../resources');
@@ -114,16 +114,16 @@ if(acquired)app.whenReady().then(async()=>{
   function remoteBounds(){if(remoteView)remoteView.setBounds(moduleBounds());}
   win.on('resize',remoteBounds);
   ipcMain.handle('suite:connections',event=>{trusted(event);return readConnections(configDirectory,ids);});
-  ipcMain.handle('suite:configure',async(event,value)=>{trusted(event);await closeManagedViews();return saveConnections(configDirectory,value,ids);});
+  ipcMain.handle('suite:configure',async(event,value)=>{trusted(event);if(recovery?.busy)throw Error('Aguarde a operação de recuperação.');await closeManagedViews();return saveConnections(configDirectory,value,ids);});
   ipcMain.handle('suite:hide-module',event=>{trusted(event);hideModule();return true;});
   ipcMain.handle('suite:prepare-runtime',async event=>{trusted(event);if(recovery?.busy)throw Error('Aguarde a recuperação atual.');if(!runtimeHost)throw Error('O teste descartável usa um runtime fornecido explicitamente.');
     if(process.platform==='win32'&&!(await runtimeHost.installer.prerequisites()).available){const result=await dialog.showMessageBox(win,{type:'question',buttons:['Cancelar','Ativar WSL2'],defaultId:0,cancelId:0,message:'Preparar o componente Linux do Windows?',detail:'O Windows pode solicitar permissão de administrador e reinicialização. Depois, a suíte cria sua própria distribuição Linux.'});if(result.response!==1)return {canceled:true};return runtimeHost.installer.installPrerequisites();}
     await runtimeHost.connection();return {prepared:true};
   });
   ipcMain.handle('suite:runtime',async event=>{trusted(event);return {engine:await runtime.probe(),managed:Boolean(runtimeHost)&&!runtime.isLegacy,legacy:Boolean(runtime.isLegacy),applications:completeApps.map(spec=>({id:spec.id,...runtime.states.get(spec.id)}))};});
-  ipcMain.handle('suite:stop-module',async(event,id)=>{trusted(event);if(remoteView===remoteViews.get(id))hideModule();const view=remoteViews.get(id);if(view?.webContents)await closeBrowserWriters([view.webContents]);remoteViews.delete(id);await runtime.stop(id);return true;});
+  ipcMain.handle('suite:stop-module',async(event,id)=>{trusted(event);if(recovery?.busy)throw Error('Aguarde a operação de recuperação.');if(remoteView===remoteViews.get(id))hideModule();const view=remoteViews.get(id);if(view?.webContents)await closeBrowserWriters([view.webContents]);remoteViews.delete(id);await runtime.stop(id);return true;});
   ipcMain.handle('suite:open-module',async(event,id)=>{
-    trusted(event);if(recovery?.busy)throw Error('Aguarde o backup ou a restauração.');if(!ids.includes(id))throw Error('Ferramenta desconhecida.');
+    trusted(event);if(recovery?.allowNavigation===false)throw Error('Aguarde o backup ou a restauração.');if(!ids.includes(id))throw Error('Ferramenta desconhecida.');
     if(id==='openwhispr'||id==='screenity'){await (id==='screenity'?screenityNative:native).open(id);return {available:true,external:true};}
     hideModule();const generation=openGeneration;
     if(!completeApps.some(app=>app.id===id))return {available:false};
@@ -156,7 +156,7 @@ if(acquired)app.whenReady().then(async()=>{
   ipcMain.handle('suite:backup',event=>{trusted(event);return saveBackup();});
   ipcMain.handle('suite:restore',event=>{trusted(event);return restoreBackup();});
   ipcMain.handle('suite:folder',event=>{trusted(event);return shell.openPath(directory);});
-  ipcMain.handle('suite:licenses',event=>{trusted(event);win.webContents.send('suite:command','licenses');});
+  ipcMain.handle('suite:licenses',event=>{trusted(event);if(recovery?.allowNavigation===false)return;win.webContents.send('suite:command','licenses');});
   const reloadSuite=async()=>{
     if(recovery.busy||runtimeHost?.pending)throw Error('Aguarde a operação local antes de recarregar a suíte.');
     if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return;
@@ -165,7 +165,7 @@ if(acquired)app.whenReady().then(async()=>{
     try{await session.fromPartition(profilePartition(activeProfile.id)).flushStorageData();win.webContents.reload();}
     catch(error){await win.webContents.executeJavaScript('window.paDesktopResumeAfterBackup('+JSON.stringify(state)+')');throw error;}
   };
-  const command=id=>win.webContents.send('suite:command',id);
+  const command=id=>{if(recovery?.allowNavigation===false)return;win.webContents.send('suite:command',id);};
   const menu=[...(process.platform==='darwin'?[{label:app.name,submenu:[{role:'about'},{type:'separator'},{role:'hide'},{role:'hideOthers'},{role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'Arquivo',submenu:[{label:'Início',accelerator:'CmdOrCtrl+Shift+H',click:()=>command('home')},{label:'Buscar ferramenta',accelerator:'CmdOrCtrl+K',click:()=>command('search')},{type:'separator'},{label:'Exportar quadros Excalidraw…',click:()=>saveBackup().catch(e=>dialog.showErrorBox('Backup',e.message))},{label:'Restaurar espaço…',click:()=>restoreBackup().catch(e=>dialog.showErrorBox('Restauração',e.message))},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]},{role:'editMenu',label:'Editar'},{label:'Visualizar',submenu:[{label:'Recarregar suíte',accelerator:'CmdOrCtrl+R',click:()=>reloadSuite().catch(error=>dialog.showErrorBox('Recarregar suíte',error.message))},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]},{label:'Ajuda',submenu:[{label:'Configurações e diagnóstico',click:()=>command('settings')},{label:'Licenças e componentes',click:()=>command('licenses')}]}];
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
   await win.loadURL(service.origin+'/');win.show();

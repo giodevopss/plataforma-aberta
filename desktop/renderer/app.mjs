@@ -60,7 +60,8 @@ async function recoveryPassword(mode){
 }
 async function recoveryAction(mode){
  const passphrase=await recoveryPassword(mode);if(passphrase===null)return;
- try{toast(mode==='backup'?'Preparando backup consistente…':'Autenticando backup e verificando outro perfil…');const result=await window.suite[mode==='backup'?'backupUnified':'restoreUnified']({passphrase});if(result.canceled)return;if(mode==='backup'){toast('Backup criptografado salvo: '+result.name);return;}const area=$('#recovery-result');area.replaceChildren();const text=document.createElement('p');text.textContent='Restauração verificada. O perfil atual continua ativo.';const activate=document.createElement('button');activate.textContent='Usar restauração e reiniciar…';activate.onclick=()=>window.suite.activateProfile(result.id).catch(error=>toast(error.message));area.append(text,activate);toast('Restauração independente verificada.');}catch(error){toast(error.message);}
+ if(mode==='restore')document.body.inert=true;
+ try{toast(mode==='backup'?'Preparando backup consistente…':'Autenticando backup e verificando outro perfil…');const result=await window.suite[mode==='backup'?'backupUnified':'restoreUnified']({passphrase});if(result.canceled)return;if(mode==='backup'){toast('Backup criptografado salvo: '+result.name);return;}const area=$('#recovery-result');area.replaceChildren();const text=document.createElement('p');text.textContent='Restauração verificada. O perfil atual continua ativo.';const activate=document.createElement('button');activate.textContent='Usar restauração e reiniciar…';activate.onclick=()=>window.suite.activateProfile(result.id).catch(error=>toast(error.message));area.append(text,activate);toast('Restauração independente verificada.');}catch(error){toast(error.message);}finally{if(mode==='restore')document.body.inert=false;}
 }
 
 window.paDesktopReady=true;await window.suite.ready();

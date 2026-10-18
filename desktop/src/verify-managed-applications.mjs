@@ -6,9 +6,11 @@ export async function verifyManagedApplications(runtime, applications, fetcher =
   let failure;
   try {
    const endpoint=await runtime.start(id);
+   if(runtime.verificationMode){await runtime.checkVerificationHealth(id);}else{
    const response=await fetcher(endpoint.origin+(runtime.specs.get(id).healthPath||'/'),{headers:{'X-PA-Session':endpoint.token},signal:AbortSignal.timeout(15000)});
    await response.body?.cancel();
    if(!response.ok)throw Error('Aplicativo restaurado não respondeu: '+id);
+   }
    checks.push('Original managed '+id+' initialized its restored data under an independent runtime identity');
   }catch(error){failure=error;}
   try{await runtime.stop(id);}catch(error){failure=failure?new AggregateError([failure,error],'Falha na verificação e no encerramento do aplicativo restaurado: '+id):error;}

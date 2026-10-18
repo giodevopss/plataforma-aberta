@@ -51,7 +51,7 @@ export class RuntimeBackup {
   const destination=path.dirname(archive);if(destination.includes(',')||name.includes(','))throw Error('Caminho de backup incompatível com o runtime.');
   await fsp.mkdir(destination,{recursive:true,mode:0o700});
   await this.runtime.ensureImage(affineImages.gateway);
-  const helper='pa-'+this.runtime.identity.id+'-backup-'+crypto.randomBytes(6).toString('hex');
+  const helper='pa-'+this.runtime.identity.id+'-backup-'+crypto.randomBytes(6).toString('hex');this.runtime.verificationHelpers?.add(helper);
   const outputName=path.basename(archive);if(!/^[a-z0-9-]+\.tar\.gz$/.test(outputName))throw Error('Nome de arquivo inválido.');
   const command=mode==='export'?['tar','czf','/backup/'+outputName,'--directory=/data','--exclude=./lost+found','.']:['tar','xzf','/backup/'+outputName,'--directory=/data','--numeric-owner'];
   await this.runtime.run(['run','--rm','--name',helper,'--label',OWNER+'='+this.runtime.identity.id,'--network','none','--user','0:0','--read-only','--cap-drop','ALL','--cap-add','DAC_OVERRIDE',...(mode==='import'?['--cap-add','CHOWN','--cap-add','FOWNER']:[]),'--security-opt','no-new-privileges:true','--mount',`type=volume,source=${name},target=/data${mode==='export'?',readonly':''}`,'--mount',`type=bind,source=${destination},target=/backup${mode==='import'?',readonly':''}`,'--entrypoint',command[0],affineImages.gateway,...command.slice(1)],{timeout:1800000});

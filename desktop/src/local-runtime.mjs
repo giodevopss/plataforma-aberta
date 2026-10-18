@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import net from 'node:net';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
+import {enableVerification,verificationHealth,destroyVerification,isolatedGateway} from './verification-runtime.mjs';
 import {startLocalAI} from './local-ai.mjs';
 const imageSizes=JSON.parse(fs.readFileSync(fileURLToPath(new URL('./image-sizes.json',import.meta.url))));
 
@@ -109,6 +110,9 @@ export class LocalRuntime {
     this.identity=fs.existsSync(identity)?JSON.parse(fs.readFileSync(identity)): {id:crypto.randomBytes(12).toString('hex')};
     if(!/^[a-f0-9]{24}$/.test(this.identity.id))throw Error('Identidade local inválida.');if(!fs.existsSync(identity))atomicJSON(identity,this.identity);
   }
+  enableVerification(){enableVerification(this);}
+  checkVerificationHealth(id){return verificationHealth(this,id);}
+  destroyVerification(){return destroyVerification(this);}
   setStatus(id,status,detail=''){const value={id,status,detail};const previous=this.states.get(id);this.states.set(id,value);if(previous?.status!==status||previous?.detail!==detail)this.onStatus(value);return value;}
   async probe(){try{
     const endpoint=this.engineEndpoint||(!process.env.DOCKER_CONTEXT&&process.env.DOCKER_HOST)||JSON.parse(await this.run(['context','inspect','--format','{{json .Endpoints.docker.Host}}'],{timeout:10000}));
@@ -153,7 +157,8 @@ export class LocalRuntime {
     const origin='http://127.0.0.1:'+settings.port;const prefix='pa-'+this.identity.id+'-'+id;const network=prefix+'-network';
     this.setStatus(id,'downloading','Verificando o aplicativo completo…');
     await this.ensureImage(spec.image,{progress:()=>this.setStatus(id,'downloading','Baixando/verificando o aplicativo completo…')});
-    if(!await this.owned('network',network))await this.run(['network','create','--label',OWNER+'='+this.identity.id,network]);
+    if(!await this.owned('network',network))await this.run(['network','create','--label',OWNER+'='+this.identity.id,...(this.verificationMode?['--internal','--opt',isolatedGateway+'=isolated']:[]),network]);
+    if(this.verificationMode){const isolated=await this.owned('network',network);if(!isolated?.Internal||isolated.Options?.[isolatedGateway]!=='isolated')throw Error('A rede de verificação não está isolada.');}
     // Track partial installation too, so shutdown also stops a started model.
     this.started.add(id);
     if(spec.localAI)await startLocalAI(this,{spec,directory:dir,prefix,network});
@@ -170,16 +175,16 @@ export class LocalRuntime {
     });
     const hash=crypto.createHash('sha256').update(JSON.stringify({image:spec.image,environment:env,volumes:spec.volumes,memoryMB:spec.memoryMB,localAI:spec.localAI?{image:spec.localAI.engine.image,model:spec.localAI.manifestSHA256}:undefined,patches:patches.map(({target,sha256})=>({target,sha256}))})).digest('hex');
     this.setStatus(id,'starting','Iniciando aplicativo completo…');
-    await this.container(prefix+'-application',['--network',network,'--network-alias','application','--memory',spec.memoryMB+'m','--cpus','2','--env-file',envFile,...mounts,...patches.flatMap(p=>['--mount',`type=bind,source=${p.source},target=${p.target},readonly`]),spec.image],hash);
+    await this.container(prefix+'-application',['--network',network,...(this.verificationMode?['--dns','127.0.0.1','--cap-drop','NET_RAW','--cap-drop','NET_ADMIN','--cap-drop','SYS_ADMIN']:[]),'--network-alias','application','--memory',spec.memoryMB+'m','--cpus','2','--env-file',envFile,...mounts,...patches.flatMap(p=>['--mount',`type=bind,source=${p.source},target=${p.target},readonly`]),spec.image],hash);
     // The application's own port is never published. Its bundled nginx is used
     // as a small authenticated gateway with no additional image download.
-    const config=gatewayConfig({token:settings.token,port:settings.port,upstreamPort:spec.port});const nginxFile=path.join(dir,'gateway.conf');fs.writeFileSync(nginxFile,config,{mode:0o644});fs.chmodSync(nginxFile,0o644);
+    const config=gatewayConfig({token:settings.token,port:settings.port,upstreamPort:spec.port,...(this.verificationMode?{listenPort:settings.port}:{})});const nginxFile=path.join(dir,'gateway.conf');fs.writeFileSync(nginxFile,config,{mode:0o644});fs.chmodSync(nginxFile,0o644);
     const gatewayHash=crypto.createHash('sha256').update(spec.image+config).digest('hex');
     await this.run(['run','--rm','--name',prefix+'-gateway-config-check','--label',OWNER+'='+this.identity.id,'--network','none','--user','65534:65534','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,size=64m','--cap-drop','ALL','--mount',`type=bind,source=${nginxFile},target=/etc/pa-gateway.conf,readonly`,'--entrypoint','nginx',spec.image,'-c','/etc/pa-gateway.conf','-t']);
-    await this.container(prefix+'-gateway',['--network',network,'--publish',`127.0.0.1:${settings.port}:8080`,'--user','65534:65534','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,size=64m','--memory','128m','--cap-drop','ALL','--security-opt','no-new-privileges:true','--mount',`type=bind,source=${nginxFile},target=/etc/pa-gateway.conf,readonly`,'--entrypoint','nginx',spec.image,'-c','/etc/pa-gateway.conf','-g','daemon off;'],gatewayHash,{ephemeralGateway:true});
+    await this.container(prefix+'-gateway',['--network',network,...(this.verificationMode?['--dns','127.0.0.1']:['--publish',`127.0.0.1:${settings.port}:8080`]),'--user','65534:65534','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,size=64m','--memory','128m','--cap-drop','ALL','--security-opt','no-new-privileges:true','--mount',`type=bind,source=${nginxFile},target=/etc/pa-gateway.conf,readonly`,'--entrypoint','nginx',spec.image,'-c','/etc/pa-gateway.conf','-g','daemon off;'],gatewayHash,{ephemeralGateway:true});
     this.started.add(id);
     for(let attempts=0;attempts<120;attempts++){
-      try{const response=await fetch(origin+spec.healthPath,{headers:{'X-PA-Session':settings.token},signal:AbortSignal.timeout(3000)});await response.body?.cancel();if(response.ok){this.setStatus(id,'ready');return {id,origin,token:settings.token};}}catch{}
+      try{if(this.verificationMode){await this.checkVerificationHealth(id);this.setStatus(id,'ready');return {id,origin,token:settings.token};}const response=await fetch(origin+spec.healthPath,{headers:{'X-PA-Session':settings.token},signal:AbortSignal.timeout(3000)});await response.body?.cancel();if(response.ok){this.setStatus(id,'ready');return {id,origin,token:settings.token};}}catch{}
       await new Promise(resolve=>setTimeout(resolve,1000));
     }
     throw Error('O aplicativo não ficou pronto. Seus dados foram preservados; consulte o diagnóstico local.');
