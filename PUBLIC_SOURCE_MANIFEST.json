@@ -149,8 +149,8 @@
     },
     {
       "path": "desktop/src/native-app-launcher.mjs",
-      "size": 16952,
-      "sha256": "044ade357efbfd2cc372d30ca9ec84b851b30c7e0aa0ca7b793b50da43453218"
+      "size": 17146,
+      "sha256": "21ff131b7fc9deb0e09940c660b7a8adcdd1ecb833642791fde8baf0affa4f73"
     },
     {
       "path": "desktop/src/native-apps.json",
@@ -534,8 +534,8 @@
     },
     {
       "path": "desktop/tests/native-screenity.test.mjs",
-      "size": 4170,
-      "sha256": "9d7ff30e91ea690ca3e585c999d831c2db3ff436a731825c61ce07e856fb1d41"
+      "size": 4463,
+      "sha256": "ed74dd650df1f959f00524b48eefc5df92fa9dd1572b6f6346d56b669b1966f6"
     },
     {
       "path": "desktop/tests/openwhispr-defaults.test.mjs",
@@ -546,6 +546,11 @@
       "path": "desktop/tests/origin-storage.test.mjs",
       "size": 2957,
       "sha256": "9c5dc6aaad22d46b441f1f26eaa6e62898c18d0b76eae0b57888fa9c164e5988"
+    },
+    {
+      "path": "desktop/tests/packaged-extension.test.mjs",
+      "size": 2190,
+      "sha256": "b8531b4f46fa0c1f3445161865884c488f2b9c3b23e06ea221f7d0fde17542e0"
     },
     {
       "path": "desktop/tests/presenton-configuration.test.mjs",
@@ -1154,8 +1159,13 @@
     },
     {
       "path": "scripts/distribution/prepare-public-native.mjs",
-      "size": 3748,
-      "sha256": "345a43083fc0dd6fcf592ad128be617365d1b0e8ddf1d08712b51482acd4c7bc"
+      "size": 3361,
+      "sha256": "99f914c2de268038679ef92e1322e5af400fa4ba8f447d3c48f51597b542c79b"
+    },
+    {
+      "path": "scripts/distribution/normalize-extension-for-package.mjs",
+      "size": 1903,
+      "sha256": "1ba6d80890bb5f9f4527d72cd7c4ccd04ceaaf2337d3e0a0f9124843398cdd85"
     },
     {
       "path": "scripts/distribution/prepare-screenity-projects.mjs",
@@ -1219,8 +1229,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15632,
-      "sha256": "17d63adbf72880217659e2fa5b28844160085dbebd458cc84d4b8f1d6aa59510"
+      "size": 15691,
+      "sha256": "ed606090ac4e0be5426fe8f0f3ffc88a40d0ccdc169ecf5b33340f3a7f1bd8e2"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1505,7 +1515,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11545,
-      "sha256": "a9aca12575007141b11998ad2e1eab98789b5b805f6a613fdda3504cabc45737"
+      "sha256": "667293134e3bd2c1fa7fcad32cfa3f586dc44ab8f3f877de0ecff83ee1731797"
     },
     {
       "path": ".github/workflows/native-providers.yml",
