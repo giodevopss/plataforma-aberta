@@ -59,8 +59,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 6394,
-      "sha256": "ddc8d8240e7f33fd561a4a647eeafde5cab451bca4c3c2f92abf5ce2cc3bc703"
+      "size": 6419,
+      "sha256": "ee5eaed4a8e738947c7abc60879a3bb3b9fa3170bebfd747d6f282447e589237"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -79,8 +79,8 @@
     },
     {
       "path": "desktop/src/lima-installer.mjs",
-      "size": 9417,
-      "sha256": "e59468a8d285551c9164b17ca5853e4097e2aa9f6c67f18e43d73ae5cdf99007"
+      "size": 10011,
+      "sha256": "f82f22c1441b19f346b8b240302c5fcaa78d8811ae52b2c53630a27af62c8c37"
     },
     {
       "path": "desktop/src/linux-engine.mjs",
@@ -109,8 +109,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 19596,
-      "sha256": "934792a4d675ebf98884155d65fe398ad22c5f098dd78262d7212e9c20f68136"
+      "size": 19623,
+      "sha256": "33209bfcd2aae15b0d93641864b0b9bb59573995c6c318143a4ba58db7022871"
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
@@ -174,8 +174,8 @@
     },
     {
       "path": "desktop/src/qa-guest-runtime.mjs",
-      "size": 1721,
-      "sha256": "38f6b0f25fc61c9d6d2a01f00d09463b9cf542fd4d5f90b02c3098b4f1208946"
+      "size": 1758,
+      "sha256": "55f43337f87da4752208aead4a56f824e5bbbd1f4f9fedabea48515ad0b7cad4"
     },
     {
       "path": "desktop/src/restore-relocation.mjs",
@@ -244,8 +244,13 @@
     },
     {
       "path": "desktop/src/wsl-installer.mjs",
-      "size": 12370,
-      "sha256": "45e467d574a08ffd8a259f02af6e8c1d45b2cbeb28e525d8ca1eb96165f19c58"
+      "size": 12826,
+      "sha256": "75bcf7007730d5d08f3f8e242b428618f30e78c4cd3a276cc92a053ee30cd394"
+    },
+    {
+      "path": "desktop/src/wsl-lease.mjs",
+      "size": 1812,
+      "sha256": "4df58d885581a5b5ba0a19f487027e5fa510369c256aefed9161de06f1dc0d9e"
     },
     {
       "path": "desktop/renderer/app.mjs",
@@ -414,8 +419,8 @@
     },
     {
       "path": "desktop/tests/lima-installer.test.mjs",
-      "size": 4255,
-      "sha256": "7d00a6a21cd4b2fa164a3bb967d9595b4f19c61d4926441d8914138b67e7a5d0"
+      "size": 6249,
+      "sha256": "91ed7cb1cab0ca8556f5dfbc62d6d2d902fa6608c567334d44342cf9c9db8f5e"
     },
     {
       "path": "desktop/tests/local-ai.test.mjs",
@@ -536,6 +541,11 @@
       "path": "desktop/tests/wsl-installer.test.mjs",
       "size": 1850,
       "sha256": "e8d8194d272792faa2807379c0d73be3e867a84423229f92978e74d25eed74c9"
+    },
+    {
+      "path": "desktop/tests/wsl-lease.test.mjs",
+      "size": 2175,
+      "sha256": "f160632f175ab1ba5a7f979b1f0594ff0ce46634cb20e13786dd33aea2f15a4c"
     },
     {
       "path": "desktop/build/Plataforma.iconset/icon_128x128.png",
@@ -1109,8 +1119,8 @@
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
-      "size": 8686,
-      "sha256": "af0e796bd2e426f091f61000a50533ec7f4b43ac5c02a9f65ade29ab256e022c"
+      "size": 9337,
+      "sha256": "4b39b9f12e98e00a529d5bd0c3f94b855480664d1b1aae416db17a2d87eedcbb"
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
@@ -1164,13 +1174,13 @@
     },
     {
       "path": "suite/tests/paperless-cloud.mjs",
-      "size": 12387,
-      "sha256": "cb1cd2031f18c16650e14a82af08293b9e9ec2d01899a95491cae22e65f1bfce"
+      "size": 12476,
+      "sha256": "55559fe7a6375d98799d6d3af814d1fa4ded541ff7eb58d074ec8c6929e8bd46"
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 12605,
-      "sha256": "4382c71296c1eeef9e9e8406a27c9f07965beb8c275c2b9f031a8fa54ed25f5c"
+      "size": 12726,
+      "sha256": "8f011a3951d27ca8b1fb4de2dfad0f6a84b7ac9ba966a9a4edf3107fe3a32112"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1315,7 +1325,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "12fbe72ce25861e9aae600b027fa5a2f942393c4db07191d955d667cf792ce1c"
+      "sha256": "beebc3867900a7510411b3b5da5cf9ac9093a98214dc93d7a552817b8d697f15"
     },
     {
       "path": ".github/workflows/managed-runtime-macos.yml",

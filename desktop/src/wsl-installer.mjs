@@ -1,5 +1,6 @@
 import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';
 import {GuestRuntime,guestCommand,guestPath} from './guest-runtime.mjs';import {verifiedDownload} from './download.mjs';import {hashFile} from './backup-archive.mjs';import {linuxEngineBootstrap} from './linux-engine.mjs';
+import {acquireWslLease} from './wsl-lease.mjs';
 const assets=JSON.parse(fs.readFileSync(new URL('./managed-runtime-assets.json',import.meta.url))),quote=value=>"'"+String(value).replaceAll("'","'\"'\"'")+"'";
 const encoded=script=>Buffer.from(script,'utf16le').toString('base64');
 const atomic=(file,value)=>{const temporary=file+'.'+crypto.randomUUID()+'.tmp';fs.writeFileSync(temporary,JSON.stringify(value,null,2)+'\n',{mode:0o600,flag:'wx'});const fd=fs.openSync(temporary,'r+');try{fs.fsyncSync(fd);}finally{fs.closeSync(fd);}fs.renameSync(temporary,file);};
@@ -33,7 +34,7 @@ export class WslInstaller {
    this.write({...old,status:'installing',binarySHA256,imported});
    if(!imported){const downloads=path.join(this.directory,'downloads');fs.mkdirSync(downloads,{recursive:true,mode:0o700});const disk=fs.statfsSync(downloads);if(disk.bavail*disk.bsize<6_000_000_000)throw Error('A preparação WSL exige pelo menos 6 GB livres.');const file=path.join(downloads,'ubuntu.wsl');this.onProgress('Verificando a distribuição Linux privada…');await this.download({...image,destination:file,onProgress:progress=>this.onProgress('Linux: '+Math.floor(progress.received/progress.total*100)+'%')});if(fs.existsSync(this.installLocation))throw Error('O destino da nova distro precisa estar vazio.');this.write({status:'installing',imported:false,binarySHA256,phase:'import-intent'});await this.command(['--import',this.name,this.installLocation,file,'--version','2']);imported=true;this.write({status:'installing',imported:true,binarySHA256,configured:false});await this.registration();fs.rmSync(file,{force:true});}
    const guest=this.guest(binarySHA256),state=this.state();if(!state.configured){await guest.invoke(['/bin/sh','-s'],{input:wslConfiguration({owner:this.identity.owner,imageSHA256:image.sha256})});await guest.verifyOwnership();this.write({...state,status:'installing',configured:true,imported:true,binarySHA256});await this.command(['--terminate',this.name],{timeout:120000});}
-   await guest.verifyOwnership();await guest.invoke(['/bin/sh','-s'],{input:wslMountScript(this.mountRoot)});
+   await guest.verifyOwnership();await this.releaseLease();this.lease=await acquireWslLease(guest,{onExit:()=>this.onProgress('A sessão do runtime Windows encerrou. Reinicie os serviços locais.')});const lease=this.lease;guest.assertAvailable=()=>lease.assertAvailable();await guest.invoke(['/bin/sh','-s'],{input:wslMountScript(this.mountRoot)});
    const engine=JSON.parse(await guest.invoke(['/usr/bin/cat','/etc/plataforma-runtime-owner.json']));if(engine.imageSHA256!==image.sha256||engine.dockerVersion!==assets.docker.version||engine.composeVersion!==assets.compose.version)throw Error('A versão do runtime mudou; backup e migração são necessários.');
    if(old.status!=='ready'){
     const downloads=path.join(this.directory,'downloads');fs.mkdirSync(downloads,{recursive:true,mode:0o700});for(const [name,spec]of [['docker',assets.docker.platforms.x64],['compose',assets.compose.platforms.x64]]){const destination=path.join(downloads,name);this.onProgress('Verificando o componente Linux '+name+'…');await this.download({...spec,destination});const remote='/tmp/plataforma-'+name;await guest.invoke(['/bin/sh','-c','umask 077; cat > '+quote(remote)],{input:fs.readFileSync(destination)});}
@@ -42,5 +43,6 @@ export class WslInstaller {
    const version=JSON.parse(await guest.run(['version','--format','{{json .Server}}']));if(version.Version!==assets.docker.version)throw Error('Versão inesperada do motor Linux.');this.write({status:'ready',imported:true,configured:true,binarySHA256,dockerVersion:version.Version,imageSHA256:image.sha256});return guest;
   }catch(error){this.write({...this.state(),status:'failed',imported,message:error.message.slice(0,400)});throw error;}
  }
- async stop(){const state=this.state();if(!state.imported)return;await this.registration();const sha=await this.verifyBinary(),guest=this.guest(sha);await guest.verifyOwnership();await this.command(['--terminate',this.name],{timeout:120000});}
+ async releaseLease(){if(this.lease){const lease=this.lease;this.lease=null;await lease.close();}}
+ async stop(){const state=this.state();if(!state.imported){await this.releaseLease();return;}await this.registration();const sha=await this.verifyBinary(),guest=this.guest(sha);await guest.verifyOwnership();try{await this.command(['--terminate',this.name],{timeout:120000});}finally{await this.releaseLease();}}
 }

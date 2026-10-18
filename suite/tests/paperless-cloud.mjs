@@ -7,7 +7,7 @@ import {cloudServiceRuntime} from './cloud-service-runtime.mjs';
 if(process.env.CI!=='true'||!['linux','win32'].includes(process.platform))throw Error('This acceptance test requires a disposable Linux CI runner.');
 const root=path.resolve('.'),temporary=fs.mkdtempSync(path.join(process.env.RUNNER_TEMP||os.tmpdir(),'pa-paperless-acceptance-')),evidence=path.join(root,'suite/research/cloud-paperless');fs.mkdirSync(evidence,{recursive:true});
 const {runtime,restored,run,closeGuest}=await cloudServiceRuntime({temporary,specs:serverApps.filter(s=>s.id==='paperless'),onStatus:s=>console.log(s.id,s.status,s.detail)});
-const captured=async args=>{try{return await run(args,{timeout:120000});}catch(error){return error.message;}};
+const captured=async args=>{let output='';try{await run(args,{timeout:120000,progress:chunk=>output=(output+chunk).slice(-2_000_000)});return output;}catch(error){return output+'\n'+error.message;}};
 const checks=[];let browser,manager;const report={checked_at:new Date().toISOString(),status:'failed',commit:process.env.GITHUB_SHA,platform:process.platform,arch:process.arch,scope:'Full original Paperless service on Linux: OCR, Office conversion, metadata, downloads, browser UI and independent encrypted backup restore. Native desktop launcher/runtime installation remain separate acceptance.',checks};
 const digest=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 async function request(endpoint,route,{method='GET',body,headers={}}={}){
