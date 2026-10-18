@@ -23,6 +23,11 @@
       "sha256": "67506cc659d1a10696523b6eaa6bbce603ebdc5c7b9915096f7af763780e146b"
     },
     {
+      "path": "desktop/src/close-browser-writers.mjs",
+      "size": 1145,
+      "sha256": "2e3fb1c64e49239e89ee843c175e55b3de5c2650c3705b34d5f13f8e82110e02"
+    },
+    {
       "path": "desktop/src/complete-runtime.mjs",
       "size": 7460,
       "sha256": "7a1c355dbdc2ddbbd794b642364a991a2de136719b90b9018ede32c10d28cd49"
@@ -34,8 +39,8 @@
     },
     {
       "path": "desktop/src/desktop-backup.mjs",
-      "size": 6794,
-      "sha256": "f63e2172c91a36458009154aabae4445bcf696ee6e257fbf3f43b8d34fe166d0"
+      "size": 7179,
+      "sha256": "ea39e4d0c550aca73c4147f1d70ec00d2b76e3a0ef54131a56f5048d4903064e"
     },
     {
       "path": "desktop/src/download.mjs",
@@ -109,8 +114,13 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 19707,
-      "sha256": "5f9c7bb0a29249a5dbdb20a28f096d68b86d7ac820e505fa460285d56d254963"
+      "size": 20502,
+      "sha256": "711f145f0358ef2a0bcc28a73322229934b62c748d31bd8493131229dbc36130"
+    },
+    {
+      "path": "desktop/src/managed-browser-snapshots.mjs",
+      "size": 6403,
+      "sha256": "512740f7a521b66081a74789b257b32d87fa2156846b4b6fa3c95529cbd6d686"
     },
     {
       "path": "desktop/src/managed-runtime-assets.json",
@@ -119,13 +129,13 @@
     },
     {
       "path": "desktop/src/managed-runtime-host.mjs",
-      "size": 4017,
-      "sha256": "8a50c00b18250c78fae9b7aa543c7f19026e219dde44ef56ddf4888a672d9cdb"
+      "size": 4061,
+      "sha256": "d6ddd719cdcc5d13005cf2c67f5b4e6ae5abe94c43763588a137d45a3bf89f19"
     },
     {
       "path": "desktop/src/managed-storage-bridge.mjs",
-      "size": 2885,
-      "sha256": "adf57b14d18145418cabeea6e9908e832524b093bb01dc391ce70486f92ff37b"
+      "size": 3064,
+      "sha256": "b28727fd0c0470a42d55cf2445a87619e9c27dfb3b46a74cd1e0999fefa07522"
     },
     {
       "path": "desktop/src/module-partition.mjs",
@@ -209,8 +219,8 @@
     },
     {
       "path": "desktop/src/runtime-backup.mjs",
-      "size": 10497,
-      "sha256": "e7e45a39e776d02c7ae9a01edb23614114a6bcbc8d554f1853063fa3c2cd4925"
+      "size": 10681,
+      "sha256": "df3af98ae32ee284f92a9916dfd4ebdb928f35a088591f2a5ac9a85229f72689"
     },
     {
       "path": "desktop/src/screenity-browser-assets.json",
@@ -229,8 +239,8 @@
     },
     {
       "path": "desktop/src/server-stacks.mjs",
-      "size": 14343,
-      "sha256": "6ebf722318334c5411e8e5d0ac64c587ac88bc811319a10b63f723233721533b"
+      "size": 14377,
+      "sha256": "70b8ff35274a1f70bde98a82116a6619d3ac6cceb427669106558ff3f09647bc"
     },
     {
       "path": "desktop/src/service.mjs",
@@ -249,13 +259,13 @@
     },
     {
       "path": "desktop/src/unified-backup.mjs",
-      "size": 3921,
-      "sha256": "0bba86a3d9fb437f81f7482fc35f6c6756b074b349ece3f166648b30f2dc23ca"
+      "size": 4378,
+      "sha256": "9af8d76dd791ca42bde6968dabd7d363c49f91ebf9d2a0e53a2930fb87afd52e"
     },
     {
       "path": "desktop/src/unified-restore.mjs",
-      "size": 4308,
-      "sha256": "16623fd40fc5047e46c6d11ea14d92b9557a0b5fb2e3a0543fd5cb172514485a"
+      "size": 4830,
+      "sha256": "d80ee3bdc9f205373653e3380fbcb70377ad49be2aa09ec8cb359bd768a9bb8e"
     },
     {
       "path": "desktop/src/verify-managed-applications.mjs",
@@ -403,6 +413,11 @@
       "sha256": "b6aeefac1524458f2a94aa0b5b39c98277b1e3b901a2a6a901befb671205b512"
     },
     {
+      "path": "desktop/tests/close-browser-writers.test.mjs",
+      "size": 1272,
+      "sha256": "85999ed2f9cfd82ec0040bd096d9cd7ac828bbd697b22cb62d3fba2052de24d9"
+    },
+    {
       "path": "desktop/tests/connections.test.mjs",
       "size": 1973,
       "sha256": "27af25cc372fd0dc5c7b87e9aa413861c901fa628bf99f94c026ea025f244c0e"
@@ -451,6 +466,11 @@
       "path": "desktop/tests/local-runtime.test.mjs",
       "size": 8067,
       "sha256": "ee71562e3723be6c0c73c549b94e165ef4941241f57af681a3ff7ab06959c81f"
+    },
+    {
+      "path": "desktop/tests/managed-browser-snapshots.test.mjs",
+      "size": 3788,
+      "sha256": "c783cd0300fef935ae639b7a8d42d6de00a5b37f846429d8da26f208977ae7cc"
     },
     {
       "path": "desktop/tests/managed-runtime-host.test.mjs",
@@ -514,8 +534,8 @@
     },
     {
       "path": "desktop/tests/runtime-backup.test.mjs",
-      "size": 7327,
-      "sha256": "20ac90f1adf2bb1d67fdcbfbbd7106fc30485c228712ada07b0f99d26c195dbb"
+      "size": 7393,
+      "sha256": "3f0f3bc48bd42b80540b54ac6acf89791958b95b48d4b54397ad4c862a91827d"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -1134,13 +1154,13 @@
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
-      "size": 9304,
-      "sha256": "9740c182a2eb1e3fa6538b5ce6069b53806c394a584e34f51ed271bc7cbe3826"
+      "size": 9953,
+      "sha256": "e95a0f71640785096ab459fd24fbb241caf59faf043bdcc1fe3357e56efa0c10"
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
-      "size": 5996,
-      "sha256": "e93ace9b16375e01f3574d1ed3417ff81ec7eb354090b16f092d2aa428169c01"
+      "size": 5994,
+      "sha256": "f5ff562bec7dd034f59138832ea673e3b3f972e25c53c1145f88bc66abd8b78b"
     },
     {
       "path": "suite/tests/automation-cloud.mjs",
@@ -1380,12 +1400,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 8673,
-      "sha256": "483f49fc2d26c47a14a576dfe5bd6ea0f6b35aa5ff9a29bdda98fb42623a120c"
+      "sha256": "4551aca78424e4bf19d8dd0f2564c56d980307b090a434b84d55f9542cf489ca"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",
-      "size": 1295,
-      "sha256": "098ef763a6c6c47dc3933f709564eb12e4ddd61a0e514ba79b4c5816ea602018"
+      "size": 1695,
+      "sha256": "e58a9e9acfe3ec2f11e0d6e2b0f63a676d1c33c70a1230b8361ae4caf418fefc"
     },
     {
       "path": ".github/workflows/automation-validation.yml",

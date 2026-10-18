@@ -9,10 +9,10 @@ test('Backup refuses concurrent initialization and foreign resources before stop
 test('A failed pause attempts to resume every previously running resource and releases the maintenance lock',async()=>{const f=fixture();try{f.runtime.runCompose=async()=>{f.running.clear();throw Error('stop failed');};const manager=new RuntimeBackup(f.runtime);await assert.rejects(manager.freeze(),/stop failed/);assert.equal(f.running.size,2);assert.equal(f.runtime.maintenance,false);}finally{fs.rmSync(f.directory,{recursive:true,force:true});}});
 test('Restore never overwrites an existing application directory',async()=>{const f=fixture();try{const manager=new RuntimeBackup(f.runtime);await assert.rejects(manager.restoreIntoEmpty({snapshot:f.directory,manifest:{applications:['affine'],volumes:[]}}),/pasta de aplicativos nova/);assert.equal(f.calls.length,0);}finally{fs.rmSync(f.directory,{recursive:true,force:true});}});
 
-test('Binary database restore refuses another CPU architecture before creating any volume',async()=>{
+test('A malformed volume inventory is rejected before preparing a fresh private runtime',async()=>{
  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'pa-restore-arch-'));const calls=[];
- const runtime={directory,specs:new Map(),probe:async()=>({available:true,architecture:'aarch64'}),run:async args=>calls.push(args)};
- try{await assert.rejects(new RuntimeBackup(runtime).restoreIntoEmpty({snapshot:directory,manifest:{applications:[],volumes:[{application:'affine',key:'postgres_data'}],engineArchitecture:'x86_64'}}),/mesma arquitetura/);assert.deepEqual(calls,[]);}finally{fs.rmSync(directory,{recursive:true,force:true});}
+ const runtime={directory,specs:new Map(),prepare:async()=>calls.push('prepare'),probe:async()=>{throw Error('A malformed manifest must not start a private engine');},run:async args=>calls.push(args)};
+ try{await assert.rejects(new RuntimeBackup(runtime).restoreIntoEmpty({snapshot:directory,manifest:{applications:[],volumes:[{application:'affine',key:'postgres_data'}],engineArchitecture:'x86_64'}}),/Volume inesperado/);assert.deepEqual(calls,[]);}finally{fs.rmSync(directory,{recursive:true,force:true});}
 });
 
 test('A resumed application cannot be snapshotted through a stale backup object',async()=>{const f=fixture();try{const manager=new RuntimeBackup(f.runtime);await manager.freeze();await manager.resume();await assert.rejects(manager.snapshot(path.join(f.directory,'snapshot')),/Pause os serviços/);assert.equal(fs.existsSync(path.join(f.directory,'snapshot')),false);}finally{fs.rmSync(f.directory,{recursive:true,force:true});}});

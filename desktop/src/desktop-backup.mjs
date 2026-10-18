@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {BrowserWindow,session} from 'electron';
+import {ManagedBrowserSnapshots} from './managed-browser-snapshots.mjs';
+import {openManagedStorageBridge} from './managed-storage-bridge.mjs';
 import {BrowserStorageSnapshot} from './browser-storage.mjs';
 import {UnifiedBackup} from './unified-backup.mjs';
 import {UnifiedRestore} from './unified-restore.mjs';
@@ -32,7 +34,7 @@ export class DesktopRecovery {
   if(this.busy)throw Error('Aguarde a operação de recuperação atual.');this.busy=true;let bridge;
   try{
    const browser={exportInto:async directory=>{bridge=await openBridge({partition:profilePartition(this.active.id),origin:this.service.origin});return bridge.browser.exportInto(directory);}};
-   const backup=new UnifiedBackup({runtime:this.runtime,workspace:this.service.workspace,browser,native:[this.native,...(this.screenity?[this.screenity]:[])].map(manager=>manager.provider()),stagingDirectory:this.stagingDirectory,quiesce:async()=>{const state=await this.quiesce();try{await this.service.pauseWrites();return state;}catch(error){await this.resume(state);throw error;}},resume:async state=>{this.service.resumeWrites();await this.resume(state);}});
+   const backup=new UnifiedBackup({runtime:this.runtime,workspace:this.service.workspace,browser,managedBrowser:new ManagedBrowserSnapshots({runtime:this.runtime,profileId:this.active.id,openBridge:openManagedStorageBridge}),native:[this.native,...(this.screenity?[this.screenity]:[])].map(manager=>manager.provider()),stagingDirectory:this.stagingDirectory,quiesce:async()=>{const state=await this.quiesce();try{await this.service.pauseWrites();return state;}catch(error){await this.resume(state);throw error;}},resume:async state=>{this.service.resumeWrites();await this.resume(state);}});
    return await backup.save({destination,passphrase});
   }finally{bridge?.window.destroy();this.busy=false;}
  }
@@ -46,7 +48,7 @@ export class DesktopRecovery {
      const token=crypto.randomBytes(32).toString('hex');targetService=await startService({resources:this.resources,directory:path.join(candidate.directory,'workspace'),token});isolated=configureLocalSession(profilePartition(candidate.id),targetService.origin,token);
      const settings=path.join(candidate.directory,'settings');fs.mkdirSync(settings,{recursive:true,mode:0o700});fs.writeFileSync(path.join(settings,'desktop-port.json'),JSON.stringify({port:Number(new URL(targetService.origin).port)})+'\n',{mode:0o600});bridge=await openBridge({partition:profilePartition(candidate.id),origin:targetService.origin});return bridge;
     };
-    return {...candidate,runtime,native:[native.provider(),screenity.provider()],browser:{restoreFrom:async directory=>(await ensureBridge()).browser.restoreFrom(directory)},verify:async()=>{
+    return {...candidate,runtime,managedBrowser:new ManagedBrowserSnapshots({runtime,profileId:candidate.id,openBridge:openManagedStorageBridge}),native:[native.provider(),screenity.provider()],browser:{restoreFrom:async directory=>(await ensureBridge()).browser.restoreFrom(directory)},verify:async()=>{
      const checks=['Consistent workspace restored into a new profile; active workspace preserved'];
      const original=await ensureBridge();const state=await original.browser.call('describe');
      if(state.databases.some(db=>db.stores.some(store=>store.records.length))){

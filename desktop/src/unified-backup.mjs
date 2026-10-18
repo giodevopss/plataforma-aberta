@@ -1,13 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {validateManagedBrowserInventory} from './managed-browser-snapshots.mjs';
 import {RuntimeBackup} from './runtime-backup.mjs';
 import {writeArchive,readArchive} from './backup-archive.mjs';
 
 // Product coordination is explicit: no raw copy of live Chromium databases or
 // live native SQLite profiles. Every provider must flush/close before snapshot.
 export class UnifiedBackup {
- constructor({runtime,workspace,browser,native=[],quiesce,resume,stagingDirectory}){
-  this.runtime=runtime;this.workspace=workspace;this.browser=browser;this.native=native;this.quiesce=quiesce;this.resume=resume;this.stagingDirectory=path.resolve(stagingDirectory);for(const original of [runtime.directory,workspace.directory]){const resolved=path.resolve(original);if(this.stagingDirectory===resolved||this.stagingDirectory.startsWith(resolved+path.sep))throw Error('O staging do backup deve ficar fora dos dados copiados.');}this.busy=false;
+ constructor({runtime,workspace,browser,managedBrowser,native=[],quiesce,resume,stagingDirectory}){
+  this.runtime=runtime;this.workspace=workspace;this.browser=browser;this.managedBrowser=managedBrowser;this.native=native;this.quiesce=quiesce;this.resume=resume;this.stagingDirectory=path.resolve(stagingDirectory);for(const original of [runtime.directory,workspace.directory]){const resolved=path.resolve(original);if(this.stagingDirectory===resolved||this.stagingDirectory.startsWith(resolved+path.sep))throw Error('O staging do backup deve ficar fora dos dados copiados.');}this.busy=false;
  }
  async save({destination,passphrase}){
   if(this.busy)throw Error('Um backup já está em andamento.');if(typeof passphrase!=='string'||passphrase.length<12||passphrase.length>1024)throw Error('Use uma senha de backup com pelo menos 12 caracteres.');this.busy=true;
@@ -18,8 +19,9 @@ export class UnifiedBackup {
    for(const provider of this.native){if(!/^[a-z][a-z0-9-]+$/.test(provider.id)||typeof provider.freeze!=='function'||typeof provider.snapshot!=='function'||typeof provider.resume!=='function')throw Error('Aplicativo nativo sem contrato de backup.');await provider.freeze();frozen.push(provider);}
    await manager.freeze();runtimeFrozen=true;
    const metadata=await manager.snapshot(stage);metadata.workspace=await this.workspace.snapshotTo(path.join(stage,'workspace'));metadata.browser=await this.browser.exportInto(path.join(stage,'browser'));metadata.native=[];
+   if(this.managedBrowser)metadata.managedBrowser=await this.managedBrowser.exportInto(path.join(stage,'managed-browser'),metadata.applications);
    for(const provider of this.native){const record=await provider.snapshot(path.join(stage,'native',provider.id));metadata.native.push({id:provider.id,...record});}
-   metadata.productSnapshotVersion=1;metadata.scope='Persisted workspace, original Graphite IndexedDB/OPFS, installed managed local service data and registered native providers';
+   metadata.productSnapshotVersion=this.managedBrowser?2:1;metadata.scope='Persisted workspace, original Graphite IndexedDB/OPFS, installed managed service databases, managed browser-local data and registered native providers';
    // Compression/encryption do not require keeping writers paused once the
    // consistent private staging snapshot has been materialized.
    await manager.resume();runtimeFrozen=false;while(frozen.length){await frozen.at(-1).resume();frozen.pop();}await this.resume(releaseUI);uiFrozen=false;
@@ -29,6 +31,6 @@ export class UnifiedBackup {
   }
  }
  static async verify({source,passphrase,directory}){
-  const manifest=await readArchive({source,passphrase,directory});if(manifest.productSnapshotVersion!==1||manifest.workspace?.version!==1||!manifest.browser||!Array.isArray(manifest.native))throw Error('Este arquivo não contém um snapshot unificado do produto.');return manifest;
+  const manifest=await readArchive({source,passphrase,directory});if(![1,2].includes(manifest.productSnapshotVersion)||manifest.workspace?.version!==1||!manifest.browser||!Array.isArray(manifest.native))throw Error('Este arquivo não contém um snapshot unificado do produto.');if(manifest.productSnapshotVersion===2)validateManagedBrowserInventory(manifest.managedBrowser,manifest.applications);return manifest;
  }
 }

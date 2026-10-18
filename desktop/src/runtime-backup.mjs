@@ -81,8 +81,6 @@ export class RuntimeBackup {
   const entries=await fsp.readdir(this.runtime.directory);
   if(entries.some(name=>name!=='identity.json'))throw Error('Restauração exige uma pasta de aplicativos nova; o ambiente atual será preservado.');
   if(!Array.isArray(manifest.applications)||!Array.isArray(manifest.volumes))throw Error('Manifesto dos aplicativos inválido.');
-  const engine=manifest.applications.length||manifest.volumes.length?await this.runtime.probe():{available:true,architecture:null};if(!engine.available)throw Error('Runtime local indisponível.');
-  if(manifest.volumes.length&&(!manifest.engineArchitecture||manifest.engineArchitecture!==engine.architecture))throw Error('Este snapshot binário exige a mesma arquitetura Linux. A restauração lógica entre ARM e Intel ainda precisa ser validada.');
   const volumes=[];const apps=new Set();
   for(const id of manifest.applications){
    if(!this.runtime.specs.has(id)||apps.has(id))throw Error('Aplicativo incompatível no backup.');apps.add(id);
@@ -98,12 +96,17 @@ export class RuntimeBackup {
      const records=manifest.volumes.filter(v=>v.application===id&&v.key===key);
      if(records.length!==1||records[0].file!=='volumes/'+id+'-'+key.replaceAll('_','-')+'.tar.gz')throw Error('Volume ausente ou duplicado no backup.');
      const archive=path.join(snapshot,records[0].file);await validateTar(archive,{volumeRoot:true});
-     if(await this.runtime.owned('volume',volume.name))throw Error('O destino já contém um volume. Nenhum dado será substituído.');
      volumes.push({name:volume.name,archive,labels:volume.labels});
     }
    }
   }
   if(volumes.length!==manifest.volumes.length)throw Error('Volume inesperado no backup.');
+  // Authenticate and validate application identities and volume archives before
+  // intentionally preparing a fresh private guest. Editor-only imports stay light.
+  if(apps.size)await this.runtime.prepare?.();
+  const engine=apps.size?await this.runtime.probe():{available:true,architecture:null};if(!engine.available)throw Error('Runtime local indisponível.');
+  if(volumes.length&&(!manifest.engineArchitecture||manifest.engineArchitecture!==engine.architecture))throw Error('Este snapshot binário exige a mesma arquitetura Linux. A restauração lógica entre ARM e Intel ainda precisa ser validada.');
+  for(const volume of volumes)if(await this.runtime.owned('volume',volume.name))throw Error('O destino já contém um volume. Nenhum dado será substituído.');
   const created=[];const copied=[];
   try{
    for(const volume of volumes){await this.runtime.run(['volume','create','--label',OWNER+'='+this.runtime.identity.id,volume.name]);created.push(volume.name);await this.withVolume({...volume,mode:'import'});}
