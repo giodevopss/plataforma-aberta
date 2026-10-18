@@ -1204,8 +1204,8 @@
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
-      "size": 7337,
-      "sha256": "4ceeec2d1f1981a60b5323e8bb419665ba2c177e937a773823d9ebe43733220d"
+      "size": 7338,
+      "sha256": "da35c386b8289f152ba5b2001788739c9455b32dd6cabd58ea7c5ba8e5142560"
     },
     {
       "path": "suite/tests/automation-cloud.mjs",
@@ -1445,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "7dab38eae55fd01bbaf3aa712349472d67517e9cb23c8cffafad93190dd4d8ae"
+      "sha256": "0dc852155c22be338f7caa5d8db2f80aaf3f4dc1beb57e663d4a276c83167911"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
