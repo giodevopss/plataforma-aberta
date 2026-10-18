@@ -224,8 +224,8 @@
     },
     {
       "path": "desktop/src/wsl-installer.mjs",
-      "size": 12329,
-      "sha256": "9bf1fceaf15772af31e3ba79389ddfd38da48f6aa7546cf9dc81f9fa177ef6f4"
+      "size": 12370,
+      "sha256": "45e467d574a08ffd8a259f02af6e8c1d45b2cbeb28e525d8ca1eb96165f19c58"
     },
     {
       "path": "desktop/renderer/app.mjs",
@@ -504,8 +504,8 @@
     },
     {
       "path": "desktop/tests/wsl-installer.test.mjs",
-      "size": 1797,
-      "sha256": "939a307a1500dca8fd2f6b8fbe267446486a78c48972226bb954918e0dc149c1"
+      "size": 1850,
+      "sha256": "e8d8194d272792faa2807379c0d73be3e867a84423229f92978e74d25eed74c9"
     },
     {
       "path": "desktop/build/Plataforma.iconset/icon_128x128.png",
@@ -1255,7 +1255,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 7113,
-      "sha256": "e2b2a5d7ae8e83b014d408c7dfc9378021d72c0ed0fbf9d288692f4487524da9"
+      "sha256": "72a6316ecf997b8498d2c603f20557c539a697c9b496fca1039b0e34f4126f00"
     },
     {
       "path": ".github/workflows/native-voice-recovery.yml",

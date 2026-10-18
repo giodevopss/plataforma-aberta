@@ -8,7 +8,7 @@ export function wslConfiguration({owner,imageSHA256}){
  const config='[boot]\nsystemd=true\n[automount]\nenabled=false\nmountFsTab=false\n[interop]\nenabled=false\nappendWindowsPath=false\n[user]\ndefault=root\n';
  return 'set -eu\nprintf %s '+quote(config)+' > /etc/wsl.conf\nprintf %s '+quote(JSON.stringify({version:1,owner,imageSHA256,dockerVersion:assets.docker.version,composeVersion:assets.compose.version}))+' > /etc/plataforma-runtime-owner.json\nchmod 0644 /etc/wsl.conf /etc/plataforma-runtime-owner.json\n';
 }
-export function wslMountScript(mountRoot){const guest=guestPath(mountRoot,'win32');return 'set -eu\nmkdir -p '+quote(guest)+'\nif ! mountpoint -q '+quote(guest)+'; then mount -t drvfs -o metadata,umask=077 -- '+quote(path.win32.normalize(mountRoot))+' '+quote(guest)+'; fi\n';}
+export function wslMountScript(mountRoot){const guest=guestPath(mountRoot,'win32');return 'set -eu\nmkdir -p '+quote(guest)+'\nif ! mountpoint -q '+quote(guest)+'; then mount -t drvfs -o metadata,uid=0,gid=0,umask=022 -- '+quote(path.win32.normalize(mountRoot))+' '+quote(guest)+'; fi\nchmod 0700 '+quote(guest)+'\n';}
 // Never changes WSL defaults, global .wslconfig, another distro or Docker Desktop.
 export class WslInstaller {
  constructor({directory,mountRoot,platform=process.platform,architecture=process.arch,systemRoot=process.env.SystemRoot,download=verifiedDownload,execute=guestCommand,onProgress=()=>{}}){
