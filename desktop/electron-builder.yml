@@ -10,8 +10,11 @@ files:
   - '!resources/editor-components.json'
   - '!**/*.map'
   - '!resources/runtime/**'
+  - '!resources/native/**'
   - '!resources/screenity-extension/**'
 extraResources:
+  - from: resources/native
+    to: native
   - from: resources/runtime
     to: runtime
   - from: resources/screenity-extension

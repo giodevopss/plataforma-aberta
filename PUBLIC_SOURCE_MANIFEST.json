@@ -34,8 +34,8 @@
     },
     {
       "path": "desktop/src/desktop-backup.mjs",
-      "size": 6701,
-      "sha256": "0e990d5b1eb099f85810606f65d78bd5d30710e836e83d85cf92864dc7b9a622"
+      "size": 7087,
+      "sha256": "67371a716932ab50a15b1c55b9e14eafbbb38100cf0881c692b1a375878a7e48"
     },
     {
       "path": "desktop/src/download.mjs",
@@ -84,13 +84,13 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 16214,
-      "sha256": "0a05df9b6032d965448a9962f3fc9bf4ce64126e577816bef1d32857839c9772"
+      "size": 16827,
+      "sha256": "5b781ae784d7127b115678d9c5e5f5a07b30d8fe00c9499b7714f938a2e173a6"
     },
     {
       "path": "desktop/src/native-app-launcher.mjs",
-      "size": 12393,
-      "sha256": "dce36a7f0021475c4a35e03c4dca1ededecc2ecae52a20ce62f94061c7e8d033"
+      "size": 15220,
+      "sha256": "032692d3936ada14aa7f728ddbfa83c245370c531ab731133b1d5c8bc93c609b"
     },
     {
       "path": "desktop/src/native-apps.json",
@@ -336,6 +336,11 @@
       "path": "desktop/tests/native-app-launcher.test.mjs",
       "size": 4997,
       "sha256": "71093b3087c9a4d16eefad7d2390b260b3565bd72154a1ab10c68c878b499bf5"
+    },
+    {
+      "path": "desktop/tests/native-screenity.test.mjs",
+      "size": 4170,
+      "sha256": "9d7ff30e91ea690ca3e585c999d831c2db3ff436a731825c61ce07e856fb1d41"
     },
     {
       "path": "desktop/tests/profile-store.test.mjs",
@@ -769,8 +774,8 @@
     },
     {
       "path": "desktop/electron-builder.yml",
-      "size": 1459,
-      "sha256": "f199e77550dc1239ee533d2f676dd1f8f4b28cc5b1630572561215b9ac582f66"
+      "size": 1528,
+      "sha256": "d1a73dd86f134ef022fb2e7f999efb5fd1a48645efa8faa83bd0cd105281663d"
     },
     {
       "path": "desktop/resources/screenity-identity.json",
@@ -801,6 +806,11 @@
       "path": "scripts/distribution/prepare-screenity-identity.mjs",
       "size": 428,
       "sha256": "85d7f5ea60d3bf92e6df7b911abcc3158850e3b9b201dbe3b264b61abf722f92"
+    },
+    {
+      "path": "scripts/distribution/prepare-screenity-native.mjs",
+      "size": 2875,
+      "sha256": "50d868a43cbb61a05fffcaa5bd78aa6f3c538dd3ca9d55ba065acfa0a2f51378"
     },
     {
       "path": "scripts/distribution/prepare-openwhispr-fork.mjs",
@@ -834,8 +844,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 10835,
-      "sha256": "7d58c338b431ee0a955fab8f8a737d28782c0d161b435145ede01c42002aa066"
+      "size": 11544,
+      "sha256": "6865c6f8dedf4100c9c2b89693227f99666dfa0375a8c34b2566794f74e83675"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -874,8 +884,13 @@
     },
     {
       "path": "suite/tests/screenity-native-cloud.mjs",
-      "size": 11995,
-      "sha256": "b8793d0a2c7b5185ea3015415eac3c9db6d95d5f13685e2e0eb8f3ad3cfecdb5"
+      "size": 14436,
+      "sha256": "6b7c50790ec45b8438cdfbb7b77c5a0d5f30dbfff6535d4c362b7d133cbb2832"
+    },
+    {
+      "path": "suite/tests/managed-screenity-session.mjs",
+      "size": 2306,
+      "sha256": "18a699a0987ca46f815493ca7af56f3e031f0fc6ae1685b1826b62e27a0aaf19"
     },
     {
       "path": "suite/tests/openwhispr-native-cloud.mjs",
@@ -1045,7 +1060,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "958aa5625bd487f5b35f5db437a05881237131714bea8404e21bfc0bbca92265"
+      "sha256": "d261bc5cb26e7f37ef85498259a694daa1853847132418b2b6d831d7d5724076"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1064,8 +1079,8 @@
     },
     {
       "path": ".github/workflows/screenity-validation.yml",
-      "size": 1728,
-      "sha256": "a05685fc7fbe73a05a42fe65d9d5e9affe3d07ac358d559ac3efd76ce3b9af32"
+      "size": 1809,
+      "sha256": "7e9f43e4526edc85c1f25f25fed8c4515189797d97b210b478843f60f9f8c6cb"
     },
     {
       "path": ".github/workflows/complete-services.yml",
@@ -1074,8 +1089,8 @@
     },
     {
       "path": ".github/workflows/installer-validation.yml",
-      "size": 2270,
-      "sha256": "85656a0384884b7ea98bde0dfef3adaa35b3d813c29135df75e09d58b774f100"
+      "size": 2388,
+      "sha256": "b38b20d67b25044e4b2c1ec9b761ec855ceb3e43f843aca4fc3f8454ba22f94e"
     },
     {
       "path": ".github/workflows/public-engines.yml",

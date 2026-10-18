@@ -32,6 +32,8 @@ jobs:
           node scripts/distribution/prepare-screenity-identity.mjs
           cd desktop
           npx playwright install --with-deps chromium
+          cd ..
+          node scripts/distribution/prepare-screenity-native.mjs
       - name: Original recording, edit and export
         shell: bash
         run: |

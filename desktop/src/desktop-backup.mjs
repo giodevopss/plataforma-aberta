@@ -9,9 +9,9 @@ import {NativeAppLauncher} from './native-app-launcher.mjs';
 import {startService} from './service.mjs';
 
 export const profilePartition=id=>id==='legacy'?'persist:plataforma-suite':'persist:plataforma-suite-'+id;
-export function nativeForProfile({directory,resources,onStatus}){
- const manifestFile=path.join(resources,'native/openwhispr/native-launcher.json');
- return new NativeAppLauncher({directory:path.join(directory,'native'),resources:path.join(resources,'native/openwhispr'),manifest:fs.existsSync(manifestFile)?JSON.parse(fs.readFileSync(manifestFile)):null,onStatus});
+export function nativeForProfile({directory,resources,id='openwhispr',nativeResources=path.join(resources,'native'),extension=path.join(resources,'screenity-extension'),onStatus}){
+ const manifestFile=path.join(nativeResources,id,'native-launcher.json');
+ return new NativeAppLauncher({id,extension,directory:path.join(directory,'native'),resources:path.join(nativeResources,id),manifest:fs.existsSync(manifestFile)?JSON.parse(fs.readFileSync(manifestFile)):null,onStatus});
 }
 function configureLocalSession(partition,origin,token){
  const isolated=session.fromPartition(partition);
@@ -26,12 +26,12 @@ async function openBridge({partition,origin}){
  try{await window.loadURL(origin+'/shell/storage-bridge.html');return {window,browser:new BrowserStorageSnapshot(script=>window.webContents.executeJavaScript(script))};}catch(error){window.destroy();throw error;}
 }
 export class DesktopRecovery {
- constructor({profileStore,active,service,runtime,native,resources,ids,createRuntime,quiesce,resume}){Object.assign(this,{profileStore,active,service,runtime,native,resources,ids,createRuntime,quiesce,resume});this.busy=false;this.stagingDirectory=path.join(profileStore.root,'recovery-staging');}
+ constructor({profileStore,active,service,runtime,native,screenity,nativeOptions={},resources,ids,createRuntime,quiesce,resume}){Object.assign(this,{profileStore,active,service,runtime,native,screenity,nativeOptions,resources,ids,createRuntime,quiesce,resume});this.busy=false;this.stagingDirectory=path.join(profileStore.root,'recovery-staging');}
  async save({destination,passphrase}){
   if(this.busy)throw Error('Aguarde a operação de recuperação atual.');this.busy=true;let bridge;
   try{
    const browser={exportInto:async directory=>{bridge=await openBridge({partition:profilePartition(this.active.id),origin:this.service.origin});return bridge.browser.exportInto(directory);}};
-   const backup=new UnifiedBackup({runtime:this.runtime,workspace:this.service.workspace,browser,native:[this.native.provider()],stagingDirectory:this.stagingDirectory,quiesce:async()=>{const state=await this.quiesce();try{await this.service.pauseWrites();return state;}catch(error){await this.resume(state);throw error;}},resume:async state=>{this.service.resumeWrites();await this.resume(state);}});
+   const backup=new UnifiedBackup({runtime:this.runtime,workspace:this.service.workspace,browser,native:[this.native,...(this.screenity?[this.screenity]:[])].map(manager=>manager.provider()),stagingDirectory:this.stagingDirectory,quiesce:async()=>{const state=await this.quiesce();try{await this.service.pauseWrites();return state;}catch(error){await this.resume(state);throw error;}},resume:async state=>{this.service.resumeWrites();await this.resume(state);}});
    return await backup.save({destination,passphrase});
   }finally{bridge?.window.destroy();this.busy=false;}
  }
@@ -39,13 +39,13 @@ export class DesktopRecovery {
   if(this.busy)throw Error('Aguarde a operação de recuperação atual.');this.busy=true;
   try{
    const restore=new UnifiedRestore({stagingDirectory:this.stagingDirectory,ids:this.ids,createTarget:async manifest=>{
-    const candidate=this.profileStore.create(),runtime=this.createRuntime(path.join(candidate.directory,'applications')),native=nativeForProfile({directory:candidate.directory,resources:this.resources});let targetService,bridge,isolated;
+    const candidate=this.profileStore.create(),runtime=this.createRuntime(path.join(candidate.directory,'applications')),native=nativeForProfile({directory:candidate.directory,resources:this.resources,...this.nativeOptions}),screenity=nativeForProfile({id:'screenity',directory:candidate.directory,resources:this.resources,...this.nativeOptions});let targetService,bridge,isolated;
     const ensureBridge=async()=>{
      if(bridge)return bridge;
      const token=crypto.randomBytes(32).toString('hex');targetService=await startService({resources:this.resources,directory:path.join(candidate.directory,'workspace'),token});isolated=configureLocalSession(profilePartition(candidate.id),targetService.origin,token);
      const settings=path.join(candidate.directory,'settings');fs.mkdirSync(settings,{recursive:true,mode:0o700});fs.writeFileSync(path.join(settings,'desktop-port.json'),JSON.stringify({port:Number(new URL(targetService.origin).port)})+'\n',{mode:0o600});bridge=await openBridge({partition:profilePartition(candidate.id),origin:targetService.origin});return bridge;
     };
-    return {...candidate,runtime,native:[native.provider()],browser:{restoreFrom:async directory=>(await ensureBridge()).browser.restoreFrom(directory)},verify:async()=>{
+    return {...candidate,runtime,native:[native.provider(),screenity.provider()],browser:{restoreFrom:async directory=>(await ensureBridge()).browser.restoreFrom(directory)},verify:async()=>{
      const checks=['Consistent workspace restored into a new profile; active workspace preserved'];
      const original=await ensureBridge();const state=await original.browser.call('describe');
      if(state.databases.some(db=>db.stores.some(store=>store.records.length))){

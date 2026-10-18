@@ -38,6 +38,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           node scripts/distribution/public-assets.mjs restore
+      - name: Prepare original target runtime binaries
+        run: node desktop/scripts/prepare-platform-runtime.mjs
       - name: Build internal native installer
         run: node scripts/distribution/installer-validation.mjs build
       - name: Install into disposable runner

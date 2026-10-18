@@ -14,7 +14,7 @@ const here=path.dirname(fileURLToPath(import.meta.url));
 const qa=process.argv.includes('--suite-test');
 if(qa&&process.env.PA_DESKTOP_TEST_DATA)app.setPath('userData',process.env.PA_DESKTOP_TEST_DATA);
 const acquired=app.requestSingleInstanceLock();if(!acquired)app.quit();
-let win,service,runtime,recovery,native,profiles,activeProfile,closing=false,remoteView=null,openGeneration=0;const remoteViews=new Map();
+let win,service,runtime,recovery,native,screenityNative,profiles,activeProfile,closing=false,remoteView=null,openGeneration=0;const remoteViews=new Map();
 app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
 app.on('window-all-closed',()=>{if(process.platform!=='darwin')app.quit();});
 app.on('activate',()=>win?.show());
@@ -40,7 +40,9 @@ if(acquired)app.whenReady().then(async()=>{
   const completeApps=[...localApps,...serverApps.filter(app=>integrated.includes(app.id))];
   const createRuntime=runtimeDirectory=>new CompleteRuntime({directory:runtimeDirectory,specs:completeApps,composeBinary:qa&&process.env.PA_DESKTOP_TEST_COMPOSE_BINARY?process.env.PA_DESKTOP_TEST_COMPOSE_BINARY:app.isPackaged?path.join(process.resourcesPath,'runtime',process.platform+'-'+process.arch,process.platform==='win32'?'docker-compose.exe':'docker-compose'):path.join(here,'../.cache/docker-compose'),onStatus:status=>{if(win&&!win.isDestroyed())win.webContents.send('suite:runtime-status',status);}});
   runtime=createRuntime(qa&&process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY?process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY:path.join(activeProfile.directory,'applications'));
-  native=nativeForProfile({directory:activeProfile.directory,resources,onStatus:status=>win?.webContents.send('suite:runtime-status',status)});
+  const nativeOptions={nativeResources:app.isPackaged?path.join(process.resourcesPath,'native'):path.join(resources,'native'),extension:app.isPackaged?path.join(process.resourcesPath,'extensions/screenity'):path.join(resources,'screenity-extension')};
+  native=nativeForProfile({directory:activeProfile.directory,resources,...nativeOptions,onStatus:status=>win?.webContents.send('suite:runtime-status',status)});
+  screenityNative=nativeForProfile({id:'screenity',directory:activeProfile.directory,resources,...nativeOptions,onStatus:status=>win?.webContents.send('suite:runtime-status',status)});
   const partition=profilePartition(activeProfile.id);
   const isolated=session.fromPartition(partition);
   isolated.webRequest.onBeforeSendHeaders((details,callback)=>{
@@ -75,7 +77,7 @@ if(acquired)app.whenReady().then(async()=>{
   ipcMain.handle('suite:stop-module',async(event,id)=>{trusted(event);if(remoteView===remoteViews.get(id))hideModule();const view=remoteViews.get(id);view?.webContents.close();remoteViews.delete(id);await runtime.stop(id);return true;});
   ipcMain.handle('suite:open-module',async(event,id)=>{
     trusted(event);if(recovery?.busy)throw Error('Aguarde o backup ou a restauração.');if(!ids.includes(id))throw Error('Ferramenta desconhecida.');
-    if(id==='openwhispr'){await native.open(id);return {available:true,external:true};}
+    if(id==='openwhispr'||id==='screenity'){await (id==='screenity'?screenityNative:native).open(id);return {available:true,external:true};}
     hideModule();const generation=openGeneration;
     if(!completeApps.some(app=>app.id===id))return {available:false};
     const {origin:endpoint,token:moduleToken}=await runtime.start(id);
@@ -95,8 +97,8 @@ if(acquired)app.whenReady().then(async()=>{
     remoteView=view;win.contentView.addChildView(view);remoteBounds();view.webContents.focus();return {available:true};
   });
   ipcMain.handle('suite:ready',event=>{trusted(event);profiles.confirmLaunch(activeProfile.id);return true;});
-  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,channel:'alpha',signed:false,managedServices:completeApps.map(s=>s.id),nativeApplications:native.manifest?['openwhispr']:[],activeProfile:activeProfile.id};});
-  recovery=new DesktopRecovery({profileStore:profiles,active:activeProfile,service,runtime,native,resources,ids,createRuntime,quiesce:async()=>{
+  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,channel:'alpha',signed:false,managedServices:completeApps.map(s=>s.id),nativeApplications:[native,screenityNative].filter(manager=>manager.manifest).map(manager=>manager.id),activeProfile:activeProfile.id};});
+  recovery=new DesktopRecovery({profileStore:profiles,active:activeProfile,service,runtime,native,screenity:screenityNative,nativeOptions,resources,ids,createRuntime,quiesce:async()=>{
     if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))throw Error('O editor não confirmou o salvamento.');
     hideModule();return win.webContents.executeJavaScript('window.paDesktopSuspendForBackup()');
   },resume:state=>win.webContents.executeJavaScript('window.paDesktopResumeAfterBackup('+JSON.stringify(state)+')')});
