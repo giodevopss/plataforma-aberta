@@ -423,6 +423,11 @@
       "sha256": "03777df91776dbb9fd787fcd0ec845bee4dbdc60a4a7c14fe366e37746a96a2e"
     },
     {
+      "path": "desktop/tests/source-patch.test.mjs",
+      "size": 1199,
+      "sha256": "798bd8fe6ce331b78b48e1de7189d6caaf0e622a0fefd53def3b8e127635ec48"
+    },
+    {
       "path": "desktop/tests/storage.test.mjs",
       "size": 3195,
       "sha256": "133833148c5184e133aea4b091b8b9e5715b8d9d4a4e6778df4318fe00a6ed56"
@@ -879,8 +884,13 @@
     },
     {
       "path": "scripts/distribution/prepare-openwhispr-fork.mjs",
-      "size": 2497,
-      "sha256": "303993493b90dc4a81780c6172931babce8d9020f3ce33f4ce9a00fd6a744719"
+      "size": 2579,
+      "sha256": "1682f5dcc12331a64c5fc00b83731cd76ea195bb871842a3a592d8fac6e0896b"
+    },
+    {
+      "path": "scripts/distribution/apply-source-patch.mjs",
+      "size": 505,
+      "sha256": "a3fd135ac56c133a39c86d90f4ebdc8bfd543865d37572b7bf368a7a4e2c9ed9"
     },
     {
       "path": "scripts/distribution/prepare-electron.mjs",
@@ -914,8 +924,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 12945,
-      "sha256": "d7355cec05612bd3127395e9e84f82c9bb6e7ae61fca6c5e5a4b975d64510a71"
+      "size": 12991,
+      "sha256": "6c9de18c7284b4e58cc7ac704d0d4ac9b320165366e7ee0187ae0cc06a9c7078"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1135,7 +1145,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "c86ec490b252086c4cdd5c32a5e9168d63dd98a4e2bc96717bc15a585a52dbad"
+      "sha256": "38577822dbd1ed2d4fac28a980a9dcdb7f72ff8cbaf99cb676b801cd58a874e7"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
