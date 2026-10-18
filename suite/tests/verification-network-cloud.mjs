@@ -5,7 +5,7 @@ import {commandRunner,LocalRuntime} from '../../desktop/src/local-runtime.mjs';
 import {affineImages} from '../../desktop/src/affine-stack.mjs';
 if(process.env.CI!=='true'||process.platform!=='linux')throw Error('Disposable Linux acceptance required.');
 const root=fs.mkdtempSync(path.join(os.tmpdir(),'pa-quarantine-')),evidence=path.resolve('suite/research/cloud-verification');fs.mkdirSync(evidence,{recursive:true});
-const run=commandRunner('docker'),runtime=new LocalRuntime({directory:root,specs:[{id:'networkcheck',image:affineImages.gateway,port:80,memoryMB:128,volumes:[],healthPath:'/'}],run}),normal='pa-'+runtime.identity.id+'-positive-control',owner='app.plataforma-aberta.workspace';runtime.enableVerification();let normalCreated=false,hits=0;
+const run=commandRunner('docker'),runtime=new LocalRuntime({directory:root,specs:[{id:'networkcheck',image:affineImages.gateway,port:80,memoryMB:256,volumes:[],healthPath:'/'}],run}),normal='pa-'+runtime.identity.id+'-positive-control',owner='app.plataforma-aberta.workspace';runtime.enableVerification();let normalCreated=false,hits=0;
 const server=http.createServer((_request,response)=>{hits++;response.end('OWN-HOST-SENTINEL');});await new Promise(resolve=>server.listen(0,'0.0.0.0',resolve));const port=server.address().port;
 const report={status:'failed',commit:process.env.GITHUB_SHA,checks:[]};
 try{

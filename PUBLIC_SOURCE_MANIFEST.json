@@ -1210,7 +1210,7 @@
     {
       "path": "suite/tests/verification-network-cloud.mjs",
       "size": 4182,
-      "sha256": "65855abe1239be70026e9b4c73d705d29c337876c827a29647a001400b96267f"
+      "sha256": "cffea5848f91d0ec1d45790b130ef5a74c401ad841b14b74a3af745a777badc7"
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
@@ -1465,7 +1465,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "d08c986461a23c18629f49aac0bb3fb94e58b06fffe49f0b7eb73076e36cb8ff"
+      "sha256": "742dcdb98bf9376724e5b10513aa70305c2f845d14c462b4eede332ce604df7e"
     },
     {
       "path": ".github/workflows/verification-network.yml",
