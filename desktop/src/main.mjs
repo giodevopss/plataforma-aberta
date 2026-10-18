@@ -7,26 +7,29 @@ import {startService} from './service.mjs';
 import {readConnections,saveConnections,safeRemoteNavigation} from './connections.mjs';
 import {CompleteRuntime,serverApps} from './complete-runtime.mjs';
 import {localApps} from './local-apps.mjs';
+import {ProfileStore} from './profile-store.mjs';
+import {DesktopRecovery,nativeForProfile,profilePartition} from './desktop-backup.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url));
 const qa=process.argv.includes('--suite-test');
 if(qa&&process.env.PA_DESKTOP_TEST_DATA)app.setPath('userData',process.env.PA_DESKTOP_TEST_DATA);
 const acquired=app.requestSingleInstanceLock();if(!acquired)app.quit();
-let win,service,runtime,closing=false,remoteView=null,openGeneration=0;const remoteViews=new Map();
+let win,service,runtime,recovery,native,profiles,activeProfile,closing=false,remoteView=null,openGeneration=0;const remoteViews=new Map();
 app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
 app.on('window-all-closed',()=>{if(process.platform!=='darwin')app.quit();});
 app.on('activate',()=>win?.show());
-app.on('before-quit',(e)=>{if(service&&!closing){e.preventDefault();closing=true;(async()=>{if(win&&!win.isDestroyed()&&!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true')){closing=false;return;}await runtime?.close();await service.close();app.quit();})().catch(e=>{closing=false;dialog.showErrorBox('Serviços locais',e.message);});}});
+app.on('before-quit',(e)=>{if(service&&!closing){e.preventDefault();if(recovery?.busy){dialog.showErrorBox('Recuperação em andamento','Aguarde o término do backup ou da restauração antes de encerrar.');return;}closing=true;(async()=>{if(win&&!win.isDestroyed()&&!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true')){closing=false;return;}await runtime?.close();await service.close();app.quit();})().catch(e=>{closing=false;dialog.showErrorBox('Serviços locais',e.message);});}});
 
 function trusted(event){if(!win||event.sender!==win.webContents||event.senderFrame!==win.webContents.mainFrame||new URL(event.senderFrame.url).origin!==service.origin)throw Error('Operação desktop não autorizada.');}
-async function saveBackup(){if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return {canceled:true};const r=await dialog.showSaveDialog(win,{title:'Exportar quadros Excalidraw',defaultPath:'Quadros-'+new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Bahia'}).format(new Date())+'.pasuite',filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const bytes=service.workspace.backup();const temp=r.filePath+'.'+crypto.randomUUID()+'.tmp';fs.writeFileSync(temp,bytes);fs.renameSync(temp,r.filePath);return {saved:true,name:path.basename(r.filePath),size:bytes.length};}
+async function saveBackup(){if(recovery?.busy)throw Error('Aguarde a operação de recuperação.');if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return {canceled:true};const r=await dialog.showSaveDialog(win,{title:'Exportar quadros Excalidraw',defaultPath:'Quadros-'+new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Bahia'}).format(new Date())+'.pasuite',filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const bytes=service.workspace.backup();const temp=r.filePath+'.'+crypto.randomUUID()+'.tmp';fs.writeFileSync(temp,bytes);fs.renameSync(temp,r.filePath);return {saved:true,name:path.basename(r.filePath),size:bytes.length};}
 async function restoreBackup(){const r=await dialog.showOpenDialog(win,{title:'Restaurar quadros Excalidraw',properties:['openFile'],filters:[{name:'Backup da Plataforma Aberta',extensions:['pasuite']}]});if(r.canceled)return {canceled:true};const ok=await dialog.showMessageBox(win,{type:'warning',buttons:['Cancelar','Restaurar backup'],defaultId:0,cancelId:0,message:'Substituir os quadros Excalidraw pelo backup?',detail:'Uma cópia de recuperação do espaço atual será preservada. Feche edições pendentes antes de restaurar.'});if(ok.response!==1)return {canceled:true};const filename=r.filePaths[0];if(fs.statSync(filename).size>500_000_000)throw Error('Backup excede 500 MB.');const result=service.workspace.restore(fs.readFileSync(filename));win.webContents.reload();return {restored:true,recovery:path.basename(result.recovery)};}
 if(acquired)app.whenReady().then(async()=>{
   app.setName('Plataforma Aberta');
   const resources=path.resolve(here,'../resources');
   const ids=JSON.parse(fs.readFileSync(path.join(resources,'projects.json'))).map(p=>p.id);
-  const configDirectory=path.join(app.getPath('userData'),'settings');
-  const directory=path.join(app.getPath('userData'),'workspace');
+  profiles=new ProfileStore(app.getPath('userData'));activeProfile=profiles.selectForLaunch();
+  const configDirectory=path.join(activeProfile.directory,'settings');
+  const directory=path.join(activeProfile.directory,'workspace');
   const token=crypto.randomBytes(32).toString('hex');
   fs.mkdirSync(configDirectory,{recursive:true,mode:0o700});
   const portFile=path.join(configDirectory,'desktop-port.json');const savedPort=fs.existsSync(portFile)?JSON.parse(fs.readFileSync(portFile)).port:0;
@@ -35,8 +38,11 @@ if(acquired)app.whenReady().then(async()=>{
   if(!savedPort)fs.writeFileSync(portFile,JSON.stringify({port:Number(new URL(service.origin).port)})+'\n',{mode:0o600});
   const integrated=JSON.parse(fs.readFileSync(path.join(here,'integrated-services.json')));
   const completeApps=[...localApps,...serverApps.filter(app=>integrated.includes(app.id))];
-  runtime=new CompleteRuntime({directory:qa&&process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY?process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY:path.join(app.getPath('userData'),'applications'),specs:completeApps,composeBinary:qa&&process.env.PA_DESKTOP_TEST_COMPOSE_BINARY?process.env.PA_DESKTOP_TEST_COMPOSE_BINARY:app.isPackaged?path.join(process.resourcesPath,'runtime',process.platform+'-'+process.arch,process.platform==='win32'?'docker-compose.exe':'docker-compose'):path.join(here,'../.cache/docker-compose'),onStatus:status=>{if(win&&!win.isDestroyed())win.webContents.send('suite:runtime-status',status);}});
-  const isolated=session.fromPartition('persist:plataforma-suite');
+  const createRuntime=runtimeDirectory=>new CompleteRuntime({directory:runtimeDirectory,specs:completeApps,composeBinary:qa&&process.env.PA_DESKTOP_TEST_COMPOSE_BINARY?process.env.PA_DESKTOP_TEST_COMPOSE_BINARY:app.isPackaged?path.join(process.resourcesPath,'runtime',process.platform+'-'+process.arch,process.platform==='win32'?'docker-compose.exe':'docker-compose'):path.join(here,'../.cache/docker-compose'),onStatus:status=>{if(win&&!win.isDestroyed())win.webContents.send('suite:runtime-status',status);}});
+  runtime=createRuntime(qa&&process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY?process.env.PA_DESKTOP_TEST_RUNTIME_DIRECTORY:path.join(activeProfile.directory,'applications'));
+  native=nativeForProfile({directory:activeProfile.directory,resources,onStatus:status=>win?.webContents.send('suite:runtime-status',status)});
+  const partition=profilePartition(activeProfile.id);
+  const isolated=session.fromPartition(partition);
   isolated.webRequest.onBeforeSendHeaders((details,callback)=>{
     const url=new URL(details.url);
     if(url.origin===service.origin)callback({requestHeaders:{...details.requestHeaders,'X-PA-Session':token}});
@@ -54,7 +60,7 @@ if(acquired)app.whenReady().then(async()=>{
       const source=list[choice.response-1];callback(source?{video:source}:{});
     }catch{callback({});}
   });
-  win=new BrowserWindow({width:1440,height:960,minWidth:960,minHeight:640,show:false,backgroundColor:'#f6f7f9',title:'Plataforma Aberta',webPreferences:{preload:path.join(here,'preload.cjs'),partition:'persist:plataforma-suite',contextIsolation:true,sandbox:true,nodeIntegration:false,webSecurity:true,spellcheck:true}});
+  win=new BrowserWindow({width:1440,height:960,minWidth:960,minHeight:640,show:false,backgroundColor:'#f6f7f9',title:'Plataforma Aberta',webPreferences:{preload:path.join(here,'preload.cjs'),partition,contextIsolation:true,sandbox:true,nodeIntegration:false,webSecurity:true,spellcheck:true}});
   win.webContents.setWindowOpenHandler(({url})=>{if(/^https:\/\//.test(url))shell.openExternal(url);return {action:'deny'};});
   win.on('close',e=>{if(closing)return;e.preventDefault();(async()=>{if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))return;if(process.platform==='darwin')win.hide();else app.quit();})().catch(()=>{});});
   win.webContents.on('will-navigate',(event,url)=>{if(new URL(url).origin!==service.origin)event.preventDefault();});
@@ -68,7 +74,8 @@ if(acquired)app.whenReady().then(async()=>{
   ipcMain.handle('suite:runtime',async event=>{trusted(event);return {engine:await runtime.probe(),applications:completeApps.map(spec=>({id:spec.id,...runtime.states.get(spec.id)}))};});
   ipcMain.handle('suite:stop-module',async(event,id)=>{trusted(event);if(remoteView===remoteViews.get(id))hideModule();const view=remoteViews.get(id);view?.webContents.close();remoteViews.delete(id);await runtime.stop(id);return true;});
   ipcMain.handle('suite:open-module',async(event,id)=>{
-    trusted(event);if(!ids.includes(id))throw Error('Ferramenta desconhecida.');
+    trusted(event);if(recovery?.busy)throw Error('Aguarde o backup ou a restauração.');if(!ids.includes(id))throw Error('Ferramenta desconhecida.');
+    if(id==='openwhispr'){await native.open(id);return {available:true,external:true};}
     hideModule();const generation=openGeneration;
     if(!completeApps.some(app=>app.id===id))return {available:false};
     const {origin:endpoint,token:moduleToken}=await runtime.start(id);
@@ -87,7 +94,16 @@ if(acquired)app.whenReady().then(async()=>{
     if(generation!==openGeneration||closing)return {available:false};
     remoteView=view;win.contentView.addChildView(view);remoteBounds();view.webContents.focus();return {available:true};
   });
-  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,channel:'alpha',signed:false,managedServices:completeApps.map(s=>s.id)};});
+  ipcMain.handle('suite:ready',event=>{trusted(event);profiles.confirmLaunch(activeProfile.id);return true;});
+  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,channel:'alpha',signed:false,managedServices:completeApps.map(s=>s.id),nativeApplications:native.manifest?['openwhispr']:[],activeProfile:activeProfile.id};});
+  recovery=new DesktopRecovery({profileStore:profiles,active:activeProfile,service,runtime,native,resources,ids,createRuntime,quiesce:async()=>{
+    if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))throw Error('O editor não confirmou o salvamento.');
+    hideModule();return win.webContents.executeJavaScript('window.paDesktopSuspendForBackup()');
+  },resume:state=>win.webContents.executeJavaScript('window.paDesktopResumeAfterBackup('+JSON.stringify(state)+')')});
+  if(qa)globalThis.__suiteRecoveryQA={recovery,profiles,activeProfile};
+  ipcMain.handle('suite:backup-unified',async(event,value)=>{trusted(event);const passphrase=value?.passphrase;if(typeof passphrase!=='string'||passphrase.length<12||passphrase.length>1024)throw Error('Use uma senha com pelo menos 12 caracteres.');const result=await dialog.showSaveDialog(win,{title:'Salvar backup criptografado da suíte',defaultPath:'Plataforma-Aberta-'+new Date().toISOString().slice(0,10)+'.pasuite',filters:[{name:'Backup criptografado da suíte',extensions:['pasuite']}]});if(result.canceled)return {canceled:true};const saved=await recovery.save({destination:result.filePath,passphrase});return {saved:true,name:path.basename(result.filePath),size:saved.bytes};});
+  ipcMain.handle('suite:restore-unified',async(event,value)=>{trusted(event);const passphrase=value?.passphrase;if(typeof passphrase!=='string'||passphrase.length<12||passphrase.length>1024)throw Error('Use a senha do backup.');const result=await dialog.showOpenDialog(win,{title:'Verificar restauração independente da suíte',properties:['openFile'],filters:[{name:'Backup criptografado da suíte',extensions:['pasuite']}]});if(result.canceled)return {canceled:true};return recovery.prepare({source:result.filePaths[0],passphrase});});
+  ipcMain.handle('suite:activate-profile',async(event,id)=>{trusted(event);if(recovery.busy)throw Error('Aguarde a operação de recuperação.');const result=await dialog.showMessageBox(win,{type:'question',buttons:['Cancelar','Usar restauração e reiniciar'],defaultId:0,cancelId:0,message:'Ativar o perfil restaurado e verificado?',detail:'O perfil atual será preservado. Se a primeira inicialização falhar, a suíte retorna ao anterior.'});if(result.response!==1)return {canceled:true};if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))throw Error('O editor não confirmou o salvamento.');await runtime.close();recovery.activate(id);closing=true;await service.close();app.relaunch();app.exit(0);return {activated:true};});
   ipcMain.handle('suite:backup',event=>{trusted(event);return saveBackup();});
   ipcMain.handle('suite:restore',event=>{trusted(event);return restoreBackup();});
   ipcMain.handle('suite:folder',event=>{trusted(event);return shell.openPath(directory);});

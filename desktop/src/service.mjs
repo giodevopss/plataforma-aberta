@@ -8,8 +8,9 @@ import { Workspace } from './storage.mjs';
 const types={'.html':'text/html; charset=utf-8','.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.woff2':'font/woff2','.png':'image/png','.wasm':'application/wasm','.gz':'application/gzip'};
 export async function startService({resources,directory,token,engines={},port=0}) {
   const projects=JSON.parse(fs.readFileSync(path.join(resources,'projects.json'),'utf8'));
-  const workspace=new Workspace(directory,projects.map(p=>p.id));let origin;let ocrBusy=false;
+  const workspace=new Workspace(directory,projects.map(p=>p.id));let origin;let ocrBusy=false;let writesPaused=false,activeWrites=0;const drainWaiters=[];
   const server=http.createServer(async(req,res)=>{
+    let countedWrite=false;
     const send=(status,body,type='application/json')=>{
       const bytes=Buffer.isBuffer(body)||body instanceof Uint8Array?body:Buffer.from(JSON.stringify(body));
       res.writeHead(status,{'Content-Type':type,'Content-Length':bytes.length,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Frame-Options':'SAMEORIGIN','Content-Security-Policy':"default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; media-src 'self' blob:; worker-src 'self' blob:; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'none'; form-action 'self'"});res.end(bytes);
@@ -17,6 +18,7 @@ export async function startService({resources,directory,token,engines={},port=0}
     try {
       if(req.headers.host!==new URL(origin).host||req.headers['x-pa-session']!==token){send(403,{error:'Sessão desktop inválida.'});return;}
       if(req.headers.origin&&req.headers.origin!==origin){send(403,{error:'Origem inválida.'});return;}
+      if(!['GET','HEAD','OPTIONS'].includes(req.method)){if(writesPaused){send(503,{error:'Gravações pausadas para backup. Aguarde a conclusão.'});return;}activeWrites++;countedWrite=true;}
       const url=new URL(req.url,origin), pathname=decodeURIComponent(url.pathname);
       async function body(max=10_000_000,json=true){let size=0;const chunks=[];for await(const chunk of req){size+=chunk.length;if(size>max){const e=Error('Limite de tamanho excedido.');e.status=413;throw e;}chunks.push(chunk);}const bytes=Buffer.concat(chunks);if(!json)return bytes;if(!String(req.headers['content-type']).startsWith('application/json'))throw Error('Envie JSON.');return JSON.parse(bytes.toString());}
       if(req.method==='GET'){
@@ -59,8 +61,8 @@ export async function startService({resources,directory,token,engines={},port=0}
       }
       if(pathname==='/api/speech/transcribe'&&engines.transcribe)return send(200,await engines.transcribe(workspace.file(d.id),d.language));
       return send(404,{error:'Recurso indisponível nesta versão desktop.'});
-    }catch(e){if(!res.headersSent)send(e.status||400,{error:e.message.slice(0,250)});else res.end();}
+    }catch(e){if(!res.headersSent)send(e.status||400,{error:e.message.slice(0,250)});else res.end();}finally{if(countedWrite&&--activeWrites===0)for(const resolve of drainWaiters.splice(0))resolve();}
   });
   await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',()=>{origin='http://127.0.0.1:'+server.address().port;resolve();});});
-  return {origin,workspace,close:()=>new Promise(resolve=>server.close(()=>{workspace.close();resolve();}))};
+  return {origin,workspace,pauseWrites:async()=>{writesPaused=true;if(activeWrites)await new Promise(resolve=>drainWaiters.push(resolve));},resumeWrites:()=>{writesPaused=false;},close:()=>new Promise(resolve=>server.close(()=>{workspace.close();resolve();}))};
 }

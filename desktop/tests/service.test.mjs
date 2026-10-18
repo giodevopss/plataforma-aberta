@@ -20,5 +20,6 @@ test('desktop service authenticates every route and exports real local documents
  assert.equal((await request('/api/export/pptx',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).status,404);
  const upload=await request('/api/files?project=paperless&name=document.pdf',{method:'POST',headers:{'Content-Type':'application/pdf'},body:fs.readFileSync(path.join(root,'subprojetos/tests/fixtures/document.pdf'))});const file=await upload.json();assert.equal(upload.status,200);
  const extract=await request('/api/files/extract',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:file.id})});const extracted=await extract.json();assert.equal(extract.status,200,extracted.error);assert.match(extracted.text,/Plataforma/);
+ await s.pauseWrites();assert.equal((await request('/api/state/plane',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({revision:1,data:{title:'Must not write during backup'}})})).status,503);assert.equal((await(await request('/api/state/plane')).json()).data.title,'Local');s.resumeWrites();assert.equal((await request('/api/state/plane',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({revision:1,data:{title:'Resumed'}})})).status,200);
  assert.match((await request('/')).headers.get('Content-Security-Policy'),/script-src 'self'/);
 });

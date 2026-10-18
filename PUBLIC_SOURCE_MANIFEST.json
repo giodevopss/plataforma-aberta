@@ -33,6 +33,11 @@
       "sha256": "dee2d5f4ff5f2796a5a91470b142313a127bb95510afccb382ec24a72e213455"
     },
     {
+      "path": "desktop/src/desktop-backup.mjs",
+      "size": 6701,
+      "sha256": "0e990d5b1eb099f85810606f65d78bd5d30710e836e83d85cf92864dc7b9a622"
+    },
+    {
       "path": "desktop/src/download.mjs",
       "size": 1943,
       "sha256": "e112a646a5b1771f61b36938849a57ee83d325ce5bbb5f35ccd14eb491d60b0b"
@@ -79,8 +84,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 12575,
-      "sha256": "b92b0c6427427f51d12ee845abaf6fe1f50d611e713694138a0ba1b5b37eb858"
+      "size": 16214,
+      "sha256": "0a05df9b6032d965448a9962f3fc9bf4ce64126e577816bef1d32857839c9772"
     },
     {
       "path": "desktop/src/native-app-launcher.mjs",
@@ -104,8 +109,8 @@
     },
     {
       "path": "desktop/src/preload.cjs",
-      "size": 1039,
-      "sha256": "bd6246a81a20e8cab4be42d3565e3702938063fd6df4eaf0f3483911037a42c1"
+      "size": 1305,
+      "sha256": "59ddd21e1fd3da01a08e276f13b7a2387fe92c67aae721ec4698b1926ddd786f"
     },
     {
       "path": "desktop/src/profile-store.mjs",
@@ -139,8 +144,8 @@
     },
     {
       "path": "desktop/src/service.mjs",
-      "size": 8154,
-      "sha256": "0ab50575fff11a8a52d6391ed93046df5b7fa765924080d9917d8fd236f2d594"
+      "size": 8686,
+      "sha256": "a373807d844f3ded7378803efe340b75986d0943f1cefa7d80993e88961d68a3"
     },
     {
       "path": "desktop/src/snapshot-files.mjs",
@@ -164,8 +169,8 @@
     },
     {
       "path": "desktop/renderer/app.mjs",
-      "size": 10536,
-      "sha256": "7555ffc60b9696a14c2e14ea062ae005bb4a21f421731956a3ef62c1d4161e7a"
+      "size": 14617,
+      "sha256": "d8ad7fb5e9312d5b147de285321dce40d14d7a8ecc4f4f7b0b3d4b51bf74b5c5"
     },
     {
       "path": "desktop/renderer/editor-src/bootstrap.mjs",
@@ -319,8 +324,8 @@
     },
     {
       "path": "desktop/tests/guest-runtime.test.mjs",
-      "size": 3884,
-      "sha256": "8e5e9e7197618d44bb1ab29ca5bb42d653d9c151d72860b153a1c71a8cedc3d8"
+      "size": 3982,
+      "sha256": "008efaf12078e48fb1321da12bd700ab40bc732e0c97c2e728ad6b0c5fa4e5b4"
     },
     {
       "path": "desktop/tests/local-runtime.test.mjs",
@@ -359,8 +364,8 @@
     },
     {
       "path": "desktop/tests/service.test.mjs",
-      "size": 2925,
-      "sha256": "9df4cc541d1e0345d00ed954aadc2cdd39747abf4db31fe7b027fbfa72e9d90f"
+      "size": 3424,
+      "sha256": "03a4d6b118e1b245ed84a4dca9685c0c940f65daa7a1455a3f97d056d8f6e914"
     },
     {
       "path": "desktop/tests/snapshot-files.test.mjs",
@@ -829,8 +834,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 10791,
-      "sha256": "3310528a08f0b5fd5175e629b2094a54c8f1b140c5f55037ccce993874999107"
+      "size": 10835,
+      "sha256": "7d58c338b431ee0a955fab8f8a737d28782c0d161b435145ede01c42002aa066"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -846,6 +851,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/desktop-recovery-native.mjs",
+      "size": 7860,
+      "sha256": "f7735f40c2940d85c92f5832f838c18505390af1eb989d1beb05cccc64a48048"
     },
     {
       "path": "suite/tests/browser-storage-native.mjs",
@@ -1035,7 +1045,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "fcad6ba8229e3875dc2ca83c6e07047aef7bc67a35c3306250ff4c6977e5c2da"
+      "sha256": "958aa5625bd487f5b35f5db437a05881237131714bea8404e21bfc0bbca92265"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
@@ -1076,6 +1086,11 @@
       "path": ".github/workflows/public-core.yml",
       "size": 1288,
       "sha256": "b6505cd9e048d0c722452efbf911f854ae0bfd4fad2484ceaa70c6e7d9ff15fd"
+    },
+    {
+      "path": ".github/workflows/public-recovery.yml",
+      "size": 1507,
+      "sha256": "e5cda26d3ce4a140f7bd0b12a888f975d0d21e742e46f4b4265d953f62e4faee"
     },
     {
       "path": "README.md",

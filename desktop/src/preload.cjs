@@ -1,6 +1,10 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('suite',Object.freeze({
+  ready:()=>ipcRenderer.invoke('suite:ready'),
   info:()=>ipcRenderer.invoke('suite:info'),
+  backupUnified:value=>ipcRenderer.invoke('suite:backup-unified',value),
+  restoreUnified:value=>ipcRenderer.invoke('suite:restore-unified',value),
+  activateProfile:id=>ipcRenderer.invoke('suite:activate-profile',id),
   backup:()=>ipcRenderer.invoke('suite:backup'),
   restore:()=>ipcRenderer.invoke('suite:restore'),
   openDataFolder:()=>ipcRenderer.invoke('suite:folder'),
