@@ -1204,8 +1204,8 @@
     },
     {
       "path": "suite/tests/automation-workflow.mjs",
-      "size": 6293,
-      "sha256": "1c87af06e12e8bae6243735892efb826a34a11c97d4bebcaee52d1a040df851d"
+      "size": 7337,
+      "sha256": "4ceeec2d1f1981a60b5323e8bb419665ba2c177e937a773823d9ebe43733220d"
     },
     {
       "path": "suite/tests/automation-cloud.mjs",
@@ -1214,8 +1214,8 @@
     },
     {
       "path": "suite/tests/database-workflow.mjs",
-      "size": 5377,
-      "sha256": "5038cb545c73d5c90b8735ef99ae01e4dcaf92b8eb89471503c49e4de40162d1"
+      "size": 5865,
+      "sha256": "6d7da411b63ceb7dd4924d780a8aaa5dd280f4b26492e385a147b2bf2a474095"
     },
     {
       "path": "suite/tests/database-cloud.mjs",
@@ -1445,7 +1445,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 9529,
-      "sha256": "07c1fe301ae969b364ee32ce7bf6438c0ce800f65f5470c13ecc0879ef11b602"
+      "sha256": "d93d40b261d672a013fcc3a12f636e25ecd8db11653f9218b06b510c4b26f879"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
