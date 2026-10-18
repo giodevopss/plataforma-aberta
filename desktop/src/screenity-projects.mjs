@@ -21,9 +21,38 @@ export async function recordingKey({search = '', metadata, digest}) {
     if (!/^[a-f0-9]{64}$/.test(requested)) throw Error('Identificador de projeto inválido.');
     return requested;
   }
-  const recording = new URLSearchParams(search).get('recordingId') || metadata.lastRecordingBackendRef?.recordingId || metadata.lastRecordingBackendRef?.fileName || metadata.recordingMeta?.startedAt;
+  const recording = new URLSearchParams(search).get('recordingId') || metadata.lastRecordingBackendRef?.recordingId || metadata.lastRecordingBackendRef?.fileName || metadata.chunkIdentity || metadata.recordingMeta?.startedAt;
   if (!recording) throw Error('A gravação precisa de uma identidade própria antes de salvar um projeto.');
   return digest(JSON.stringify({version: 1, recording, backend: metadata.lastRecordingBackendRef?.backend || 'idb'}));
+}
+export async function chunkRecordingIdentity({indexedDB, metadata, digest}) {
+  const ref = metadata.lastRecordingBackendRef;
+  if (ref?.backend === 'opfs' || ref?.fileName || ref?.recordingId) return null;
+  const slot = (ref?.slot || metadata.activeChunkSlot) === 'chunks_b' ? 'chunks_b' : 'chunks';
+  const databases = await indexedDB.databases();
+  if (!databases.some(item => item.name === slot)) return null;
+  const summary = await new Promise((resolve, reject) => {
+    const opening = indexedDB.open(slot); opening.onerror = () => reject(opening.error);
+    opening.onsuccess = () => {
+      const db = opening.result; let count = 0, bytes = 0, first, last;
+      if (!db.objectStoreNames.contains('keyvaluepairs')) { db.close(); return reject(Error('Banco de gravação incompleto.')); }
+      const tx = db.transaction('keyvaluepairs', 'readonly'), cursor = tx.objectStore('keyvaluepairs').openCursor();
+      cursor.onsuccess = event => {
+        const row = event.target.result; if (!row) return;
+        const value = row.value, blob = value.chunk instanceof Blob ? value.chunk : new Blob([value.chunk]);
+        const item = {timestamp: value.timestamp ?? 0, index: value.index ?? 0, key: row.key, blob};
+        const compare = (a,b) => a.timestamp-b.timestamp || a.index-b.index || String(a.key).localeCompare(String(b.key));
+        if (!first || compare(item, first) < 0) first = item;
+        if (!last || compare(item, last) > 0) last = item;
+        count++; bytes += blob.size; row.continue();
+      };
+      tx.oncomplete = () => { db.close(); resolve({count,bytes,first,last}); };
+      tx.onerror = tx.onabort = () => { db.close(); reject(tx.error || Error('Não foi possível identificar a gravação.')); };
+    };
+  });
+  if (!summary.count) return null;
+  const sampled = async item => ({timestamp:item.timestamp,index:item.index,key:item.key,size:item.blob.size,type:item.blob.type,head:await digest(new Uint8Array(await item.blob.slice(0,65536).arrayBuffer())),tail:await digest(new Uint8Array(await item.blob.slice(-65536).arrayBuffer()))});
+  return digest(JSON.stringify({slot,count:summary.count,bytes:summary.bytes,first:await sampled(summary.first),last:await sampled(summary.last)}));
 }
 export function projectDatabase(indexedDB) {
   let pending;
@@ -98,7 +127,12 @@ export function draftController({store, identify, notify = () => {}, schedule = 
 export function installProjects(window) {
   const {document, chrome, crypto, indexedDB} = window, store = projectDatabase(indexedDB);
   let label, saveButton;
-  const controller = draftController({store, identify: async () => recordingKey({search: window.location.search, metadata: await chrome.storage.local.get(['lastRecordingBackendRef','recordingMeta']), digest: async text => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))].map(byte => byte.toString(16).padStart(2, '0')).join('')}), notify: status => {
+  const digest = async value => [...new Uint8Array(await crypto.subtle.digest('SHA-256', typeof value === 'string' ? new TextEncoder().encode(value) : value))].map(byte => byte.toString(16).padStart(2, '0')).join('');
+  const controller = draftController({store, identify: async () => {
+    const metadata = await chrome.storage.local.get(['lastRecordingBackendRef','recordingMeta','activeChunkSlot']);
+    if (!new URLSearchParams(window.location.search).has('paProject') && !new URLSearchParams(window.location.search).has('recordingId')) metadata.chunkIdentity = await chunkRecordingIdentity({indexedDB,metadata,digest});
+    return recordingKey({search:window.location.search,metadata,digest});
+  }, notify: status => {
     if (label) { label.textContent = status.error || (status.pending ? 'Alterações ainda não salvas' : status.revision > 0 ? 'Projeto salvo neste computador' : 'Projeto ainda não salvo'); label.style.color = status.error ? '#b42318' : '#344054'; }
     if (saveButton) saveButton.disabled = !status.id;
   }});

@@ -42,6 +42,12 @@ export class RuntimeBackup {
  }
  async withVolume({name,archive,mode}){
   if(!await this.runtime.owned('volume',name))throw Error('Volume local ausente.');
+  const originalArchive=archive;let transfer;
+  if(this.runtime.volumeTransferDirectory){
+   const root=this.runtime.volumeTransferDirectory;if(fs.lstatSync(root).isSymbolicLink())throw Error('Pasta de transferência inválida.');transfer=await fsp.mkdtemp(path.join(root,'volume-'));archive=path.join(transfer,path.basename(archive));
+  }
+  try{
+  if(transfer&&mode==='import')await fsp.copyFile(originalArchive,archive);
   const destination=path.dirname(archive);if(destination.includes(',')||name.includes(','))throw Error('Caminho de backup incompatível com o runtime.');
   await fsp.mkdir(destination,{recursive:true,mode:0o700});
   await this.runtime.ensureImage(affineImages.gateway);
@@ -49,6 +55,8 @@ export class RuntimeBackup {
   const outputName=path.basename(archive);if(!/^[a-z0-9-]+\.tar\.gz$/.test(outputName))throw Error('Nome de arquivo inválido.');
   const command=mode==='export'?['tar','czf','/backup/'+outputName,'--directory=/data','--exclude=./lost+found','.']:['tar','xzf','/backup/'+outputName,'--directory=/data','--numeric-owner'];
   await this.runtime.run(['run','--rm','--name',helper,'--label',OWNER+'='+this.runtime.identity.id,'--network','none','--user','0:0','--read-only','--cap-drop','ALL','--cap-add','DAC_OVERRIDE',...(mode==='import'?['--cap-add','CHOWN','--cap-add','FOWNER']:[]),'--security-opt','no-new-privileges:true','--mount',`type=volume,source=${name},target=/data${mode==='export'?',readonly':''}`,'--mount',`type=bind,source=${destination},target=/backup${mode==='import'?',readonly':''}`,'--entrypoint',command[0],affineImages.gateway,...command.slice(1)],{timeout:1800000});
+  if(transfer&&mode==='export'){const stat=await fsp.lstat(archive);if(!stat.isFile()||stat.isSymbolicLink())throw Error('O runtime produziu um arquivo de backup inválido.');await fsp.mkdir(path.dirname(originalArchive),{recursive:true,mode:0o700});await fsp.copyFile(archive,originalArchive);}
+  }finally{if(transfer)await fsp.rm(transfer,{recursive:true,force:true});}
  }
  async snapshot(destination){
   if(!this.runtime.maintenance||!this.items)throw Error('Pause os serviços antes de copiar os dados.');

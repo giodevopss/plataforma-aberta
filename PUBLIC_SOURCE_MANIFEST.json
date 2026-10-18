@@ -54,8 +54,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 5921,
-      "sha256": "f6b1307bd1899d4b782e3c683e182263c578e3a307abfed9ceb055d3f9db1521"
+      "size": 6278,
+      "sha256": "4d947b17c34b5e72016ec573fc436029460b1e0516fa1e097a3b4eecf4929121"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -149,8 +149,8 @@
     },
     {
       "path": "desktop/src/runtime-backup.mjs",
-      "size": 9648,
-      "sha256": "92d27c2366321b7425efb2f6ad05e129592ea6832b588e3aa552f30aeb309000"
+      "size": 10443,
+      "sha256": "e699a2f9c883617d5cf7be23cb52f11e7f15da0ec3e2e7dee4b9a379c44902f8"
     },
     {
       "path": "desktop/src/screenity-browser-assets.json",
@@ -164,8 +164,8 @@
     },
     {
       "path": "desktop/src/screenity-projects.mjs",
-      "size": 9564,
-      "sha256": "fd5424b81c0a09beada339af6345f76507080a11774071d23006fd923e8efef4"
+      "size": 12147,
+      "sha256": "356c5431379b4938761f0ada0cab1c880a5ba7f4d9e7b7fca2f9114d18bcdaff"
     },
     {
       "path": "desktop/src/server-stacks.mjs",
@@ -404,8 +404,8 @@
     },
     {
       "path": "desktop/tests/runtime-backup.test.mjs",
-      "size": 4350,
-      "sha256": "202f76f20109b7f6d5d29220dacddd21d6f6d49c12e86e4243740d8a4afa9b54"
+      "size": 6137,
+      "sha256": "53541a49768bf4ed6153614b3c4798cebd7718afebc6dcf87fdc28dea9d031d7"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -434,8 +434,8 @@
     },
     {
       "path": "desktop/tests/source-patch.test.mjs",
-      "size": 1199,
-      "sha256": "798bd8fe6ce331b78b48e1de7189d6caaf0e622a0fefd53def3b8e127635ec48"
+      "size": 1497,
+      "sha256": "6e1d876004b3812c3555420e1a4be3d6781db5f8ced61d6960816cab42544982"
     },
     {
       "path": "desktop/tests/storage.test.mjs",
@@ -914,8 +914,8 @@
     },
     {
       "path": "scripts/distribution/apply-source-patch.mjs",
-      "size": 505,
-      "sha256": "a3fd135ac56c133a39c86d90f4ebdc8bfd543865d37572b7bf368a7a4e2c9ed9"
+      "size": 551,
+      "sha256": "4a542a756f29f1ee5599efc9d9c9359634ebad08c9aaddce46d31c3405051d7a"
     },
     {
       "path": "scripts/distribution/prepare-electron.mjs",
@@ -1175,7 +1175,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 5858,
-      "sha256": "4ff000e9b0fd289fe83e5c9b8ac8a6c212c2a659c9718fa01b39ceba0927bddd"
+      "sha256": "2ec78d74ca5c59fdc70a7bf4c30c24732d424df00570cad9401b41843d1e2661"
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
