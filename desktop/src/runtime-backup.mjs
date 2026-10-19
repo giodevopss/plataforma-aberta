@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import {restoredAssetRelocation} from './restore-relocation.mjs';
 import {affineImages} from './affine-stack.mjs';
 import {validateTar} from './backup-archive.mjs';
 import {copyLinuxSnapshotTree} from './linux-snapshot-tree.mjs';
@@ -90,12 +91,13 @@ export class RuntimeBackup {
   const entries=await fsp.readdir(this.runtime.directory);
   if(entries.some(name=>name!=='identity.json'))throw Error('Restauração exige uma pasta de aplicativos nova; o ambiente atual será preservado.');
   if(!Array.isArray(manifest.applications)||!Array.isArray(manifest.volumes))throw Error('Manifesto dos aplicativos inválido.');
-  const volumes=[];const apps=new Set();
+  const volumes=[];const apps=new Set(),reservedPorts=new Set();
   for(const id of manifest.applications){
    if(!this.runtime.specs.has(id)||apps.has(id))throw Error('Aplicativo incompatível no backup.');apps.add(id);
    const source=path.join(snapshot,'applications',id);if(!fs.statSync(source,{throwIfNoEntry:false})?.isDirectory())throw Error('Dados de aplicativo ausentes.');
    const settings=JSON.parse(fs.readFileSync(path.join(source,'runtime.json')));
    if(!/^[a-f0-9]{64}$/.test(settings.token)||!Number.isInteger(settings.port)||settings.port<1024||settings.port>65535)throw Error('Configuração de aplicativo inválida.');
+   reservedPorts.add(settings.port);restoredAssetRelocation(id,settings,settings.port);
    if(this.runtime.specs.get(id).compose){
     const {createServerStack}=await import('./server-stacks.mjs');
     const stack=createServerStack(id,{...settings,prefix:'pa-'+this.runtime.identity.id+'-'+id,owner:this.runtime.identity.id,specHash:'a'.repeat(64)});
@@ -119,7 +121,7 @@ export class RuntimeBackup {
   const created=[];const copied=[];
   try{
    for(const volume of volumes){await this.runtime.run(['volume','create','--label',OWNER+'='+this.runtime.identity.id,volume.name]);created.push(volume.name);await this.withVolume({...volume,mode:'import'});}
-   for(const id of apps){const destination=path.join(this.runtime.directory,id);copied.push(destination);await fsp.cp(path.join(snapshot,'applications',id),destination,{recursive:true});const settingsPath=path.join(destination,'runtime.json');const settings=JSON.parse(await fsp.readFile(settingsPath,'utf8'));const previousPort=settings.port;settings.port=await this.runtime.allocatePort();if(id==='postiz'&&settings.port!==previousPort)settings.assetRelocation={from:'http://127.0.0.1:'+previousPort,to:'http://127.0.0.1:'+settings.port};settings.token=crypto.randomBytes(32).toString('hex');await fsp.writeFile(settingsPath,JSON.stringify(settings)+'\n',{mode:0o600});for(const file of ['compose.json','gateway.conf','application.env','endpoint.json'])await fsp.rm(path.join(destination,file),{force:true});}
+   for(const id of apps){const destination=path.join(this.runtime.directory,id);copied.push(destination);await fsp.cp(path.join(snapshot,'applications',id),destination,{recursive:true});const settingsPath=path.join(destination,'runtime.json');const settings=JSON.parse(await fsp.readFile(settingsPath,'utf8'));let nextPort;for(let attempt=0;attempt<32;attempt++){const proposed=await this.runtime.allocatePort();if(Number.isInteger(proposed)&&proposed>=1024&&proposed<=65535&&!reservedPorts.has(proposed)){nextPort=proposed;reservedPorts.add(proposed);break;}}if(nextPort===undefined)throw Error('Não foi possível reservar uma origem independente para a restauração.');const relocation=restoredAssetRelocation(id,settings,nextPort);settings.port=nextPort;if(relocation)settings.assetRelocation=relocation;else delete settings.assetRelocation;settings.token=crypto.randomBytes(32).toString('hex');await fsp.writeFile(settingsPath,JSON.stringify(settings)+'\n',{mode:0o600});for(const file of ['compose.json','gateway.conf','application.env','endpoint.json'])await fsp.rm(path.join(destination,file),{force:true});}
    return {applications:[...apps],volumeCount:created.length};
   }catch(e){
    for(const name of created.reverse()){try{await this.runtime.owned('volume',name);await this.runtime.run(['volume','rm',name]);}catch{}}

@@ -13,6 +13,19 @@ BEGIN
 END $pa_relocation$;
 COMMIT;`;
 }
+// A recovered profile may be backed up again before its first start. Its
+// database still contains the first origin, not the intermediate reserved port.
+export function restoredAssetRelocation(id,settings,nextPort){
+ if(id!=='postiz'){if(settings.assetRelocation!==undefined)throw Error('Plano de origem inesperado para este aplicativo.');return undefined;}
+ const current='http://127.0.0.1:'+settings.port,to='http://127.0.0.1:'+nextPort,pending=settings.assetRelocation;
+ let from=current;
+ if(pending!==undefined){
+  if(!pending||typeof pending!=='object'||pending.to!==current||pending.from===pending.to)throw Error('Plano de origem pendente incompatível com o snapshot.');
+  localAssetRelocationSQL(pending.from,pending.to);from=pending.from;
+ }
+ localAssetRelocationSQL(from,to);
+ return from===to?undefined:{from,to};
+}
 export async function relocateRestoredAssets(runtime,id,stack,settings){
  if(!settings.assetRelocation)return;
  if(id!=='postiz')throw Error('Migração de origem desconhecida.');const {from,to}=settings.assetRelocation,origin='http://127.0.0.1:'+settings.port;if(to!==origin||from===to)throw Error('Plano de restauração incompatível.');const sql=localAssetRelocationSQL(from,to),database=stack.database,service=stack.compose.services[database?.service];if(!service||!/^[-a-z0-9]+$/.test(database.user)||!/^[-a-z0-9]+$/.test(database.database))throw Error('Banco dedicado de restauração inválido.');

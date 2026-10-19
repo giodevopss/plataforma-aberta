@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-18T23:54:33.356Z",
+  "checked_at": "2026-10-19T00:06:27.736Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -84,7 +84,7 @@
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
     "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39174969595",
-    "core_test_result": "168 local tests passed, zero failures/skips; all 163 allowlisted public tests passed on Linux, Mac ARM, Mac Intel and Windows in 39174969595. Five private-boundary/publication tests stay local.",
+    "core_test_result": "174 local tests passed, zero failures/skips; 169 allowlisted public tests require fresh all-target acceptance. Five private/publication boundary tests stay local.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
