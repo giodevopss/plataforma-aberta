@@ -6,3 +6,11 @@ export function safeContainerDiagnostic(role,state={},logs=''){
  const categories=[['memory',/out of memory|OOMKilled|cannot allocate memory/i],['permission',/permission denied|EACCES|operation not permitted/i],['database-auth',/password authentication failed|role .* does not exist/i],['connection',/ECONNREFUSED|connection refused|ENOTFOUND|EAI_AGAIN/i],['port',/EADDRINUSE|address already in use/i],['missing-code',/Cannot find module|MODULE_NOT_FOUND/i]];
  return {role:roles.has(role)?role:'other',status:states.has(state.Status)?state.Status:'unknown',health:health.has(state.Health?.Status)?state.Health.Status:'none',exitCode:Number.isInteger(state.ExitCode)&&state.ExitCode>=0&&state.ExitCode<=255?state.ExitCode:null,oomKilled:state.OOMKilled===true,running:state.Running===true,categories:categories.filter(([,pattern])=>pattern.test(logs)).map(([name])=>name)};
 }
+
+// Derive a video fixture failure without publishing console messages, download
+// paths, browser content, error text or any other fields from its private report.
+export function safeScreenityDiagnostic(value={}){
+ const phases=new Set(['launch','permission','record-fixture','play-original','crop-original','export-mp4','export-webm','capture-original','flush-draft','close-source','snapshot','restore-profile','reopen-draft','capture-restored','save-fixture','complete']);
+ const categories=new Set(['timeout','assertion','other']);
+ return {id:'screenity',phase:phases.has(value.phase)?value.phase:'unknown',category:categories.has(value.failureCategory)?value.failureCategory:'other',completedChecks:Array.isArray(value.checks)?Math.min(value.checks.length,100):0};
+}
