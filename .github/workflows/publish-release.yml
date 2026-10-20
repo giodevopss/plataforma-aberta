@@ -1,0 +1,28 @@
+name: Publish only exact fully accepted unsigned installers
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: publish-tested-final-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      actions: read
+    env:
+      PA_ALLOW_UNSIGNED_RELEASE: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - name: Verify all functional gates and copy only the exact accepted bytes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/distribution/promote-tested-release.mjs

@@ -598,6 +598,11 @@
       "sha256": "a617617be41e72bca39c1bcc9e0d67e48aef6c1f85ee4f5ca82091672c9a8e85"
     },
     {
+      "path": "desktop/tests/promote-tested-release.test.mjs",
+      "size": 2469,
+      "sha256": "3669ddcd2c0c4b1dd2045e481ecf3c4a2a46340400447ba8cba4534c6f771365"
+    },
+    {
       "path": "desktop/tests/public-config-files.test.mjs",
       "size": 3211,
       "sha256": "3351ce461529606875ad10bf7759d468af1f007d5ed8b71036c891b137964046"
@@ -606,6 +611,11 @@
       "path": "desktop/tests/public-source.test.mjs",
       "size": 2366,
       "sha256": "db42d8d874751316df379c105a1a226a9f43cd70a5be46d25825550d5f683baf"
+    },
+    {
+      "path": "desktop/tests/qa-guest-paths.test.mjs",
+      "size": 1121,
+      "sha256": "f60dc7e732f505e6be141538cd99a39cbf51002d34ff6a579156eb9376a026bd"
     },
     {
       "path": "desktop/tests/release-requirements.test.mjs",
@@ -1254,8 +1264,13 @@
     },
     {
       "path": "scripts/distribution/restore-tested-installer.mjs",
-      "size": 3429,
-      "sha256": "b28b2685ec74a6ac5350927b02f72f023981cf167890a07530e70f306cab7b45"
+      "size": 3479,
+      "sha256": "b40d719d7a35fd62b070d2c59353a3ec28070387c8b175820e7a39436eb37e66"
+    },
+    {
+      "path": "scripts/distribution/promote-tested-release.mjs",
+      "size": 9198,
+      "sha256": "158afc3c83b7fef2064916ced7d9bed9738c5182b7a276bd78cbcf91f0413b28"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1289,8 +1304,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15756,
-      "sha256": "4be6f4382fc6e001107f4f8739d681fdbb7c224f083bdff99b57139f30692ac2"
+      "size": 15824,
+      "sha256": "27e7450d48feaf07c5dcc2d6552697099cec0938d0eed79d45f8edce7d2c1937"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1384,8 +1399,8 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 11083,
-      "sha256": "e073bc961034213395528c5311d0add7d5e82827cf6696ca2294e7bb240ca97a"
+      "size": 11108,
+      "sha256": "9ad589e1d580cd996c6a6b6cdf05026652f15ab35e450110842066737f1634a4"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1459,8 +1474,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 8332,
-      "sha256": "6fecc95d1664d07ab92cfb43d9602b0bc97fc18d323bcc3f0da8641a10cec523"
+      "size": 8745,
+      "sha256": "b0912d53997f14edbfa4108b9b9d5ee6d7763a1f5c759e9b9116d60e7197f393"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1600,7 +1615,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13375,
-      "sha256": "31418660f241095456101cc359dea504b02d0ba454eb1b84dcd549207bbf3ecf"
+      "sha256": "4ec466d3654ba24d97cb2a9adb83b3c3e873541610df826904ae31a5f23e9013"
+    },
+    {
+      "path": ".github/workflows/publish-release.yml",
+      "size": 820,
+      "sha256": "a9a5e297a6ffd635a9dad96f6d2a833fe265423dd9e2337d93700a459887ebd6"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

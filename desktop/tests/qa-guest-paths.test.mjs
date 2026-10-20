@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {borrowedQAGuest} from '../src/qa-guest-runtime.mjs';
+test('A guest configuration in the OS temp directory cannot escape the explicitly owned CI temp boundary',t=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'pa-qa-boundary-')),base=path.join(root,'runner-temp'),outside=path.join(root,'os-temp');fs.mkdirSync(base);fs.mkdirSync(outside);const file=path.join(outside,'guest-qa.json');fs.writeFileSync(file,'{}');const previous={CI:process.env.CI,RUNNER_TEMP:process.env.RUNNER_TEMP};process.env.CI='true';process.env.RUNNER_TEMP=base;t.after(()=>{for(const [key,value]of Object.entries(previous)){if(value===undefined)delete process.env[key];else process.env[key]=value;}fs.rmSync(root,{recursive:true,force:true});});
+ if(['darwin','win32'].includes(process.platform))assert.throws(()=>borrowedQAGuest(file,{specs:[]}),/configuration must be owned by this runner/);else assert.throws(()=>borrowedQAGuest(file,{specs:[]}),/requires disposable native CI/);
+});

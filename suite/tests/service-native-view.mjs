@@ -1,3 +1,4 @@
+import {borrowedQAGuest} from '../../desktop/src/qa-guest-runtime.mjs';
 import {closeNativeQA} from './close-native-qa.mjs';
 import {verifyPlanePage} from './plane-account-workflow.mjs';
 import fs from 'node:fs';
@@ -19,6 +20,9 @@ export async function verifyNativeService({id,directory,endpoint,evidence,checks
  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'pa-native-'+id+'-'));
  const shim=path.join(temporary,'compose');fs.writeFileSync(shim,'#!/bin/sh\nexec docker compose "$@"\n',{mode:0o700});
  const env={...process.env,PA_DESKTOP_TEST_DATA:path.join(temporary,'profile'),PA_DESKTOP_TEST_RUNTIME_DIRECTORY:directory,PA_DESKTOP_TEST_COMPOSE_BINARY:shim};delete env.ELECTRON_RUN_AS_NODE;
+ // Validate the same restrictive guest configuration before an Electron startup
+ // dialog can hide a path/owner error behind a generic debugger timeout.
+ if(process.env.PA_DESKTOP_TEST_GUEST_CONFIG){onPhase?.('guest-preflight');const borrowed=borrowedQAGuest(process.env.PA_DESKTOP_TEST_GUEST_CONFIG,{specs:[]});await borrowed.release();}
  const executablePath=process.env.PA_DESKTOP_EXECUTABLE||createRequire(new URL('../../desktop/package.json',import.meta.url))('electron');
  onPhase?.('launch');const application=await _electron.launch({executablePath,args:[...(process.platform==='linux'?['--no-sandbox']:[]),...(!process.env.PA_DESKTOP_EXECUTABLE?[path.resolve('desktop')]:[]),'--suite-test'],env,timeout:45000});let failed=false;
  try{
