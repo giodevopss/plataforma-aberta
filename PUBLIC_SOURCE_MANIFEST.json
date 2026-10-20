@@ -1409,8 +1409,8 @@
     },
     {
       "path": "suite/tests/database-workflow.mjs",
-      "size": 6514,
-      "sha256": "0e750add8fc3a885f1e3315ec78b7ac0beb6951a5d94395d988a783163037968"
+      "size": 7467,
+      "sha256": "90aa69fd423ca5c68e15512b32a5e4913ccf8217052998b51248720006da13ba"
     },
     {
       "path": "suite/tests/database-cloud.mjs",
@@ -1640,7 +1640,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13194,
-      "sha256": "b00f502517de7a1ca9730194fe54ab853b9e86e473232b37d315fe70abffd334"
+      "sha256": "fb5c012e8efd1704e6e134fca26d3538a48e7b84b954caaf2123dba5e0e2cf6e"
     },
     {
       "path": ".github/workflows/publish-release.yml",
