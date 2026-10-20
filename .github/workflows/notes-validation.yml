@@ -41,6 +41,6 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: original-local-notes-${{ matrix.runner }}
-          path: suite/research/cloud-affine/
+          path: suite/research/cloud-affine/acceptance.json
           retention-days: 1
           if-no-files-found: error

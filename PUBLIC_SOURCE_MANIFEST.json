@@ -1640,7 +1640,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13194,
-      "sha256": "782f454ea5bd69e58783e514e142d715a0dbf6d72494a6f02bea58d1a410d390"
+      "sha256": "8d94c92b2d458bf3baf0dda40a56b977139ceb603d748556a763edd9094a4f61"
     },
     {
       "path": ".github/workflows/publish-release.yml",
@@ -1684,28 +1684,28 @@
     },
     {
       "path": ".github/workflows/verification-network.yml",
-      "size": 988,
-      "sha256": "cf9189e8bafac58d3a2616b71d3963be753aefe15f59ce585092365802d66481"
+      "size": 1003,
+      "sha256": "68f1ac0984dcb42285ea06f44291d7c30dec4a32d0b585d64039368d5bf71546"
     },
     {
       "path": ".github/workflows/notes-validation.yml",
-      "size": 1764,
-      "sha256": "1336ab40e102369231a06e820266d8ac1be943f566f808ca69f1f0c2391873fb"
+      "size": 1779,
+      "sha256": "0a95822ee2ee147b937ff4d27724e580bef18e9bb1eb9b466e2112e7704e5819"
     },
     {
       "path": ".github/workflows/origin-storage-validation.yml",
-      "size": 1695,
-      "sha256": "e58a9e9acfe3ec2f11e0d6e2b0f63a676d1c33c70a1230b8361ae4caf418fefc"
+      "size": 1710,
+      "sha256": "2211a213b872b9f7b09bdc3c1376a6c9cf1c88c5227e6bedcb0e5f725a24827a"
     },
     {
       "path": ".github/workflows/automation-validation.yml",
-      "size": 1391,
-      "sha256": "d24652172bfbda2f2d9043cfbcf8f1f8db6a4efca2d59ef232eeb4cb2b2d27e3"
+      "size": 1406,
+      "sha256": "24153c16554ed980fd9ba642e3a651909eb913e9283157a48b81594def50093c"
     },
     {
       "path": ".github/workflows/database-validation.yml",
-      "size": 1385,
-      "sha256": "d62742e0adabac9905580881a88078b17a10a99af22285c923ec9cbdb3407d99"
+      "size": 1400,
+      "sha256": "89714e7279c0cf6c47d4c6e92d47123800ed2ed2a849a3a74fbd63941605f2c2"
     },
     {
       "path": ".github/workflows/managed-runtime-macos.yml",
