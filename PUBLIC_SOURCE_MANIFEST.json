@@ -1530,7 +1530,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11514,
-      "sha256": "bb0ed4efdee618348311a16bc2491f1f606869a5c8c1557e14c051fc1b37f16c"
+      "sha256": "5cd80363cb5557b0ceab6d3ff65657f2d28ae699948e25fc9e2b22070b4aa565"
     },
     {
       "path": ".github/workflows/installer-transition.yml",
@@ -1589,8 +1589,8 @@
     },
     {
       "path": ".github/workflows/presenton-validation.yml",
-      "size": 1284,
-      "sha256": "02c4f15cae52df77294022b70595e2f14594d30a825ec345e15ca40a27a1456e"
+      "size": 1660,
+      "sha256": "104d619dd8e298b97cbc9731672c5c94b045bd1b877daaa6a331644217c7f4cb"
     },
     {
       "path": ".github/workflows/native-voice-recovery.yml",
