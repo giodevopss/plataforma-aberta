@@ -33,9 +33,9 @@ Snapshots binários de serviços exigem a mesma arquitetura Linux. Perfis nativo
 
 ## Verificação e distribuição
 
-Node 24.12 e dependências fixadas no lockfile. Há 193 testes locais aprovados, sem falhas/skips; os 188 testes públicos passaram nos quatro alvos em 39416795803. Os cinco testes da fronteira privada permanecem locais. Os testes originais de OpenWhispr são adicionais a essa contagem.
+Node 24.12 e dependências fixadas no lockfile. Há 201 testes locais aprovados, sem falhas/skips. Os 193 testes públicos passaram nos quatro alvos em 39425739658; dois novos testes de QA aguardam execução pública. Os testes da fronteira privada permanecem locais. Os testes originais de OpenWhispr são adicionais a essa contagem.
 
-Os três instaladores atuais 39416790463 passaram instalação real, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por tamanho/SHA-256. Os 54 arquivos públicos de configuração e a materialização real do schema Formbricks a partir do ASAR passaram em todos os pacotes. Windows também passou cinco rodadas independentes de interface/encerramento.
+Os três instaladores 1.0.0 atuais 39425731995 passaram instalação real, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por tamanho/SHA-256. Os 54 arquivos públicos de configuração e a materialização real do schema Formbricks a partir do ASAR passaram em todos os pacotes. Windows também passou cinco rodadas independentes de interface/encerramento.
 
 Nos pacotes anteriores 39408346878, o backup conjunto dos quatro providers nativos passou em 39410563459 nos três alvos. Troca manual de pacote e retorno, preservando documentos originais e trabalho mais novo, passaram no Windows 39410566551 e nos dois Macs 39411832479. Isso não representa atualização automática nem migração de esquemas alterados. Os [14 comprovantes históricos](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39408346878) foram conferidos integralmente após publicação.
 

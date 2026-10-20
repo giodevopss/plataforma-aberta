@@ -1169,8 +1169,8 @@
     },
     {
       "path": "suite/INSTALLERS.md",
-      "size": 4440,
-      "sha256": "990fbe3affd8a5a3dda612bef2e3e9dd94f4eeadd1fe22762e6067924c243336"
+      "size": 4224,
+      "sha256": "74973a3ee03e7604355c23c7cb7f6a76a347546793c759b20785e89fdcb4b390"
     },
     {
       "path": ".gitignore",
@@ -1364,8 +1364,8 @@
     },
     {
       "path": "suite/tests/installer-transition-native.mjs",
-      "size": 10644,
-      "sha256": "83f0a8750e4d42e446ac505309fa0fac9f798396e10bf026d7d5fe366f2b0d91"
+      "size": 10887,
+      "sha256": "9000f14d27f96de2291b833d64ae8a53bf5f1cd5bc7f264708cbf3bcea926d0e"
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
@@ -1634,8 +1634,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 13375,
-      "sha256": "b3e13c5d72061470a59294df504ea88b040e53db3e9d7591484646776cb2d5a3"
+      "size": 13194,
+      "sha256": "83f042894de32e1955cc386d83e8d4a6921aff4d249c79ab4209eb7346087b69"
     },
     {
       "path": ".github/workflows/publish-release.yml",
@@ -1779,8 +1779,8 @@
     },
     {
       "path": "desktop/README.md",
-      "size": 7134,
-      "sha256": "cf8dc923be5fa56c766969633698ed140eb0ef2192e4d2f5be45c3188f74c448"
+      "size": 7188,
+      "sha256": "b12c45a505bbd86eb573fcd8f4261229afd616e4e8025f114f7404cab8842916"
     },
     {
       "path": "LICENSE",
