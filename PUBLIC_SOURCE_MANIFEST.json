@@ -1424,8 +1424,8 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 11108,
-      "sha256": "9ad589e1d580cd996c6a6b6cdf05026652f15ab35e450110842066737f1634a4"
+      "size": 11665,
+      "sha256": "706b11a37984360dcdcc4f0011029658cf3ee5189e4e6217d4209a9934689cdf"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1499,8 +1499,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 8745,
-      "sha256": "b0912d53997f14edbfa4108b9b9d5ee6d7763a1f5c759e9b9116d60e7197f393"
+      "size": 10000,
+      "sha256": "f85dd4307152d64f91309f23b1c935d3673a6e32aaf8f1844de40d4f027c5111"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1640,7 +1640,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13202,
-      "sha256": "33e0bacc4c8a4d346ba46c52511c9e0c9644b91aa8c580892d677765c0f43468"
+      "sha256": "b7df505c1f34277e08fe6b85946482ae41dc547f2a726485651c13bf7dfed0c1"
     },
     {
       "path": ".github/workflows/publish-release.yml",

@@ -15,16 +15,28 @@ export async function instrumentNativeRuntimeQA(application){await application.e
 export async function nativeRuntimeFailureQA(application){return application.evaluate(()=>globalThis.__qaNativeRuntimeFailure||null).catch(()=>null);}
 
 async function boundedNativeCheck(label,promise){let timer;try{return await Promise.race([promise,new Promise((_resolve,reject)=>{timer=setTimeout(()=>reject(Error('Original native '+label+' exceeded 90 seconds')),90000);})]);}finally{clearTimeout(timer);}}
-export async function verifyNativeService({id,directory,endpoint,evidence,checks,verify,onFailure,onPhase}){
+const preparedNativeFixtures=new WeakSet();
+export async function prepareNativeServiceQA({id,directory,onPhase}){
  if(process.env.CI!=='true'||!['linux','win32','darwin'].includes(process.platform)||process.env.PA_TEST_NATIVE_SERVICE!=='1')throw Error('Disposable native-service acceptance workflow required.');
- const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'pa-native-'+id+'-'));
- const shim=path.join(temporary,'compose');fs.writeFileSync(shim,'#!/bin/sh\nexec docker compose "$@"\n',{mode:0o700});
- const env={...process.env,PA_DESKTOP_TEST_DATA:path.join(temporary,'profile'),PA_DESKTOP_TEST_RUNTIME_DIRECTORY:directory,PA_DESKTOP_TEST_COMPOSE_BINARY:shim};delete env.ELECTRON_RUN_AS_NODE;
- // Validate the same restrictive guest configuration before an Electron startup
- // dialog can hide a path/owner error behind a generic debugger timeout.
- if(process.env.PA_DESKTOP_TEST_GUEST_CONFIG){onPhase?.('guest-preflight');const borrowed=borrowedQAGuest(process.env.PA_DESKTOP_TEST_GUEST_CONFIG,{specs:[]});await borrowed.release();}
- const executablePath=process.env.PA_DESKTOP_EXECUTABLE||createRequire(new URL('../../desktop/package.json',import.meta.url))('electron');
- onPhase?.('launch');const application=await _electron.launch({executablePath,args:[...(process.platform==='linux'?['--no-sandbox']:[]),...(!process.env.PA_DESKTOP_EXECUTABLE?[path.resolve('desktop')]:[]),'--suite-test'],env,timeout:45000});let failed=false;
+ const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'pa-native-'+id+'-'));let application;
+ try{
+  const shim=path.join(temporary,'compose');fs.writeFileSync(shim,'#!/bin/sh\nexec docker compose "$@"\n',{mode:0o700});
+  const env={...process.env,PA_DESKTOP_TEST_DATA:path.join(temporary,'profile'),PA_DESKTOP_TEST_RUNTIME_DIRECTORY:directory,PA_DESKTOP_TEST_COMPOSE_BINARY:shim};delete env.ELECTRON_RUN_AS_NODE;
+  if(process.env.PA_DESKTOP_TEST_GUEST_CONFIG){onPhase?.('guest-preflight');const borrowed=borrowedQAGuest(process.env.PA_DESKTOP_TEST_GUEST_CONFIG,{specs:[]});await borrowed.release();}
+  const executablePath=process.env.PA_DESKTOP_EXECUTABLE||createRequire(new URL('../../desktop/package.json',import.meta.url))('electron');
+  onPhase?.('launch');application=await _electron.launch({executablePath,args:[...(process.platform==='linux'?['--no-sandbox']:[]),...(!process.env.PA_DESKTOP_EXECUTABLE?[path.resolve('desktop')]:[]),'--suite-test'],env,timeout:45000});
+  const shell=await application.firstWindow();await shell.locator('.tool-card').first().waitFor();const info=await shell.evaluate(()=>window.suite.info());assert.ok(info.managedServices.includes(id));assert.equal(info.packaged,Boolean(process.env.PA_DESKTOP_EXECUTABLE));
+  const fixture={id,directory:path.resolve(directory),temporary,application,closed:false};preparedNativeFixtures.add(fixture);onPhase?.('home-ready');return fixture;
+ }catch(error){await closeNativeQA(application,{strict:false,timeout:60000}).catch(()=>{});fs.rmSync(temporary,{recursive:true,force:true});throw error;}
+}
+export async function closePreparedNativeServiceQA(fixture,{strict=false,timeout=240000}={}){
+ if(!fixture||fixture.closed)return;if(!preparedNativeFixtures.has(fixture))throw Error('Only this owned native QA fixture may be closed.');
+ try{await closeNativeQA(fixture.application,{strict,timeout});}finally{fixture.closed=true;fs.rmSync(fixture.temporary,{recursive:true,force:true});}
+}
+export async function verifyNativeService({id,directory,endpoint,evidence,checks,verify,onFailure,onPhase,prepared}){
+ const fixture=prepared||await prepareNativeServiceQA({id,directory,onPhase});
+ if(!preparedNativeFixtures.has(fixture)||fixture.closed||fixture.id!==id||fixture.directory!==path.resolve(directory))throw Error('Prepared native QA fixture must match this actual original service.');
+ const application=fixture.application;let failed=false;
  try{
   const shell=await application.firstWindow();await shell.locator('.tool-card').first().waitFor();await instrumentNativeRuntimeQA(application);const nativeInfo=await shell.evaluate(()=>window.suite.info());assert.ok(nativeInfo.managedServices.includes(id),id);assert.equal(nativeInfo.packaged,Boolean(process.env.PA_DESKTOP_EXECUTABLE),'Original native view must use the requested installed package or explicit source shell');
   async function openLibrary(){
@@ -39,7 +51,7 @@ export async function verifyNativeService({id,directory,endpoint,evidence,checks
   if(id==='postiz')for(let cycle=2;cycle<=3;cycle++){console.log('postiz native restart cycle',cycle);await shell.locator('.nav-item[data-view="settings"]').click();await shell.locator('[data-stop="postiz"]').click();await shell.getByText('stopped',{exact:true}).waitFor({timeout:180000});await openLibrary();await capture('native-reopened-cycle-'+cycle+'.png');}
   checks.push('Native Electron opens complete original '+id+' in an attached isolated WebContentsView without Node access, stops its owned stack and reopens its persistent original data');
  }catch(error){failed=true;await onFailure?.().catch(diagnostic=>fs.writeFileSync(path.join(evidence,'native-diagnostic-failure.txt'),diagnostic.message));for(const [index,page]of application.context().pages().entries()){fs.writeFileSync(path.join(evidence,'native-failure-'+index+'.txt'),await page.locator('body').innerText().catch(()=>''));fs.writeFileSync(path.join(evidence,'native-failure-'+index+'-controls.json'),JSON.stringify(await page.locator('input,button').evaluateAll(elements=>elements.map(element=>({tag:element.tagName,type:element.getAttribute('type'),name:element.getAttribute('name'),text:element.tagName==='BUTTON'?element.textContent?.trim().slice(0,120):undefined}))).catch(()=>[]),null,2));}await boundedNativeCheck('failure capture',application.evaluate(async({BrowserWindow},origin)=>{const view=BrowserWindow.getAllWindows()[0].contentView.children.find(child=>child.webContents?.getURL().startsWith(origin+'/'));return view?(await view.webContents.capturePage()).toPNG().toString('base64'):null;},endpoint.origin)).then(png=>{if(png)fs.writeFileSync(path.join(evidence,'native-failure.png'),Buffer.from(png,'base64'));}).catch(()=>{});throw error;
- }finally{onPhase?.('shutdown');await closeNativeQA(application,{strict:!failed,timeout:240000});fs.rmSync(temporary,{recursive:true,force:true});}
+ }finally{onPhase?.('shutdown');await closePreparedNativeServiceQA(fixture,{strict:!failed,timeout:240000});}
 }
 
 export async function verifyNativePaperless(options){return verifyNativeService({...options,id:'paperless',verify:async page=>{await page.goto(options.endpoint.origin+'/documents');await page.getByText('QA documento OCR',{exact:false}).first().waitFor();await page.getByText('QA documento Office',{exact:false}).first().waitFor();await page.waitForFunction(()=>{const images=[...document.querySelectorAll('img')];return images.length>=3&&images.every(image=>image.complete&&image.naturalWidth>0);});fs.writeFileSync(path.join(options.evidence,'native-image-state.json'),JSON.stringify(await page.locator('img').evaluateAll(images=>images.map(img=>({src:img.getAttribute('src'),complete:img.complete,width:img.naturalWidth}))),null,2));}});}
