@@ -574,8 +574,8 @@
     },
     {
       "path": "desktop/tests/original-navigation.test.mjs",
-      "size": 958,
-      "sha256": "e8ba184203940c598f5b88fa8ceb06919bfb87508adf94997cc71793c40cd234"
+      "size": 1302,
+      "sha256": "3d7487496bd9dc40e6a71f9023da38f7044c232b5654ae9f119d3b4f7b800f50"
     },
     {
       "path": "desktop/tests/packaged-extension.test.mjs",
@@ -1339,8 +1339,8 @@
     },
     {
       "path": "suite/tests/original-navigation.mjs",
-      "size": 502,
-      "sha256": "44d31778c40b54cefd6848f042d41f6966c1f8b9a8b46e0d7696272f6a539ba4"
+      "size": 866,
+      "sha256": "4eef80c7773420174cace14d8db3721fb7ed06b6f7cc4aa88f6acac6a7f6a6e2"
     },
     {
       "path": "suite/tests/service-readiness-diagnostic.mjs",
@@ -1409,8 +1409,8 @@
     },
     {
       "path": "suite/tests/database-workflow.mjs",
-      "size": 7467,
-      "sha256": "90aa69fd423ca5c68e15512b32a5e4913ccf8217052998b51248720006da13ba"
+      "size": 7688,
+      "sha256": "6f11d4d703790b05b213505fc0b2923f1626e007f0feb3d7d82d545179472a1f"
     },
     {
       "path": "suite/tests/database-cloud.mjs",
@@ -1640,7 +1640,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13202,
-      "sha256": "bf00a77d9ea1587cffac78a514b21cbd1e17e230bf506f4fc6d3300dc78496da"
+      "sha256": "f2de410e63d0e35115c4eb16c74442a5f39769027cfbc2b3f1c802821fc5dbcb"
     },
     {
       "path": ".github/workflows/publish-release.yml",
