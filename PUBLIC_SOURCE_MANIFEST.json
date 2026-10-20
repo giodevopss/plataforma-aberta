@@ -1264,8 +1264,8 @@
     },
     {
       "path": "suite/tests/presenton-startup-cloud.mjs",
-      "size": 3843,
-      "sha256": "7c26b39677c3cc7337a2cae9dde57f2b7ab48560dc0232adb37c5d49d09e121f"
+      "size": 3957,
+      "sha256": "5de55aa799c90a4c0532304d130c1eccd5bfa6d9f5a6b7a1998c7674828c4e0f"
     },
     {
       "path": "suite/tests/installer-transition-native.mjs",
@@ -1540,7 +1540,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "5ce5c42caf3fae84dea3bf5e1f0c3dac2510f05f4b59edf0f70c4df00d6b120c"
+      "sha256": "a7bda57cea9a24a615fce53802d18d8ef1175b632276439d43cd3311dcacfaa6"
     },
     {
       "path": ".github/workflows/presenton-startup.yml",
