@@ -144,7 +144,7 @@ if(acquired)app.whenReady().then(async()=>{
     remoteView=view;win.contentView.addChildView(view);remoteBounds();view.webContents.focus();return {available:true};
   });
   ipcMain.handle('suite:ready',event=>{trusted(event);profiles.confirmLaunch(activeProfile.id);return true;});
-  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,managedRuntime:Boolean(runtimeHost)&&!runtime.isLegacy,legacyRuntime:Boolean(runtime.isLegacy),channel:'alpha',signed:false,managedServices:completeApps.map(s=>s.id),nativeApplications:[native,screenityNative].filter(manager=>manager.manifest).map(manager=>manager.id),activeProfile:activeProfile.id};});
+  ipcMain.handle('suite:info',(event)=>{trusted(event);return {version:app.getVersion(),platform:process.platform,arch:process.arch,packaged:app.isPackaged,workspace:directory,managedRuntime:Boolean(runtimeHost)&&!runtime.isLegacy,legacyRuntime:Boolean(runtime.isLegacy),channel:app.getVersion().includes('-')?'preview':'stable',signed:false,managedServices:completeApps.map(s=>s.id),nativeApplications:[native,screenityNative].filter(manager=>manager.manifest).map(manager=>manager.id),activeProfile:activeProfile.id};});
   recovery=new DesktopRecovery({profileStore:profiles,active:activeProfile,service,runtime,native,screenity:screenityNative,nativeOptions,resources,ids,createRuntime,quiesce:async()=>{
     if(!await win.webContents.executeJavaScript('window.paDesktopCanClose?.() ?? true'))throw Error('O editor não confirmou o salvamento.');
     await closeManagedViews();return win.webContents.executeJavaScript('window.paDesktopSuspendForBackup()');

@@ -119,8 +119,8 @@
     },
     {
       "path": "desktop/src/main.mjs",
-      "size": 22782,
-      "sha256": "190e7db8845c88143dddc192165541f813668811de3d9a5c627fd244225cf9ca"
+      "size": 22824,
+      "sha256": "c0643347ae3dc4f33d9e449d6f840382a3dfcf9b8ff9578a6455e7cf2efdffa8"
     },
     {
       "path": "desktop/src/managed-browser-snapshots.mjs",
@@ -264,8 +264,8 @@
     },
     {
       "path": "desktop/src/service.mjs",
-      "size": 9409,
-      "sha256": "0c8f3f91a42206a951f0d19f4eaf8087b04fa83425841a5f9c37c8e1c932a73e"
+      "size": 9517,
+      "sha256": "222c33b1c812ea3ca4d63a63202cebecc603c60dd8213fe7996e115534759a1a"
     },
     {
       "path": "desktop/src/snapshot-files.mjs",
@@ -474,8 +474,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 10764,
-      "sha256": "0e508b36cbfac5c7f63a976aa09e540125e6aaf5687868974f83ebd502af298d"
+      "size": 11120,
+      "sha256": "c5d45a5b14a0459ba68c79d91479407ea0e429399bf8d00f3e587a47d09abe57"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -659,8 +659,8 @@
     },
     {
       "path": "desktop/tests/service.test.mjs",
-      "size": 3801,
-      "sha256": "41c65fa05d06e10be6286d1e6533ab2bfb2946cac616a85b155637f5bfa1f8df"
+      "size": 4007,
+      "sha256": "020632b231ff2f3a20d7445ae72e7e070f502c31004a5433b050aa437388a6e6"
     },
     {
       "path": "desktop/tests/snapshot-files.test.mjs",
@@ -1615,7 +1615,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13375,
-      "sha256": "e07ebb74672f76b99f7fd894168957cc8e6afa79d6f05ab90a116c1b7e0f2aca"
+      "sha256": "f18b1b60463acd3954a56e4328fd450a7615b93625342357f5363b4d7d56e68b"
     },
     {
       "path": ".github/workflows/publish-release.yml",

@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createWorker } from 'tesseract.js';
 import { Workspace } from './storage.mjs';
 
+const packageVersion=JSON.parse(fs.readFileSync(new URL('../package.json',import.meta.url),'utf8')).version;
 const types={'.html':'text/html; charset=utf-8','.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.woff2':'font/woff2','.png':'image/png','.wasm':'application/wasm','.gz':'application/gzip'};
 export async function startService({resources,directory,token,engines={},port=0}) {
   const projects=JSON.parse(fs.readFileSync(path.join(resources,'projects.json'),'utf8'));
@@ -25,7 +26,7 @@ export async function startService({resources,directory,token,engines={},port=0}
       async function body(max=10_000_000,json=true){let size=0;const chunks=[];for await(const chunk of req){size+=chunk.length;if(size>max){const e=Error('Limite de tamanho excedido.');e.status=413;throw e;}chunks.push(chunk);}const bytes=Buffer.concat(chunks);if(!json)return bytes;if(!String(req.headers['content-type']).startsWith('application/json'))throw Error('Envie JSON.');return JSON.parse(bytes.toString());}
       if(req.method==='GET'){
         if(pathname==='/api/projects')return send(200,{projects});
-        if(pathname==='/api/health')return send(200,{status:'ready',version:'0.2.0-alpha.1',engines:{pdf:true,ocr:fs.existsSync(path.join(resources,'ocr/por.traineddata.gz')),speech:Boolean(engines.transcribe)}});
+        if(pathname==='/api/health')return send(200,{status:'ready',version:packageVersion,engines:{pdf:true,ocr:fs.existsSync(path.join(resources,'ocr/por.traineddata.gz')),speech:Boolean(engines.transcribe)}});
         if(pathname.startsWith('/api/state/'))return send(200,workspace.load(pathname.split('/').at(-1)));
         if(pathname.startsWith('/api/history/'))return send(200,{items:workspace.history(pathname.split('/').at(-1))});
         if(pathname==='/api/speech/status')return send(200,{available:Boolean(engines.transcribe),engine:engines.transcribe?'Whisper local':null});
