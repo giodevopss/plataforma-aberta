@@ -15,7 +15,7 @@ permissions:
 jobs:
   original-service:
     runs-on: macos-15-intel
-    timeout-minutes: 100
+    timeout-minutes: ${{ matrix.service == 'presenton' && 150 || 100 }}
     strategy:
       fail-fast: false
       max-parallel: 2

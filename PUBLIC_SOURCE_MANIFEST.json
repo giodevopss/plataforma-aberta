@@ -1319,8 +1319,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 24455,
-      "sha256": "a5d5eab6321d94bef3becfda23fb75761b9df89f927f2bf5632531150e50f0f4"
+      "size": 24454,
+      "sha256": "94aa283e9eb69a8dd6e2c22ef31ceee7f1edc6bba3f050f2dadebdc9c049d95f"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1369,8 +1369,8 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 10743,
-      "sha256": "7fc6b8fe32dfa7de74fde9dbf58071bab1c09eca975c51d9c4c2ea2c0736423c"
+      "size": 11083,
+      "sha256": "e073bc961034213395528c5311d0add7d5e82827cf6696ca2294e7bb240ca97a"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1439,13 +1439,13 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 15053,
-      "sha256": "f611779d2335788de64129209ba96da6834a3a2017b3edfdc37c95677f990aee"
+      "size": 15052,
+      "sha256": "5ed848363610d50f2c5ab75280f0ef9a197ac6a8f65f195e8d0095a4924f89fa"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 7756,
-      "sha256": "173e54b4a6405c55f3cd555b0f50f587ca0bc60873d8ad63083de95a50888fae"
+      "size": 8332,
+      "sha256": "6fecc95d1664d07ab92cfb43d9602b0bc97fc18d323bcc3f0da8641a10cec523"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1585,7 +1585,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "246ef2ed8d4220936e26e5e3a15841d9f6d8c0303483c1cd48955399d515b49d"
+      "sha256": "9a789fb0e00a48cb2784fc127256e52ecfcbd3b85913c303fe49d6487429c592"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1594,8 +1594,8 @@
     },
     {
       "path": ".github/workflows/mac-services.yml",
-      "size": 4060,
-      "sha256": "5b4cd39deffc829aa9ce1f1ddc5ec9b184bc1e02e65d06d18d0b711707a45f59"
+      "size": 4107,
+      "sha256": "e28b8bc4072471e20df75ed99bd2ed2a6a29fba190bb2f6a06411ee02dc9b74b"
     },
     {
       "path": ".github/workflows/presenton-startup.yml",
@@ -1614,8 +1614,8 @@
     },
     {
       "path": ".github/workflows/complete-suite.yml",
-      "size": 2789,
-      "sha256": "bc62bae0a6aee3bd1aa3c79571a3ff9495d7390b0ae296dc66f4f2f6d63ebbec"
+      "size": 2736,
+      "sha256": "4e889365ed673738c1d98b33535f5abe78d9235f51400e57cd4720c6a277bdf9"
     },
     {
       "path": ".github/workflows/arm-services.yml",

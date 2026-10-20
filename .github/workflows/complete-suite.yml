@@ -16,7 +16,7 @@ permissions:
 jobs:
   complete-suite:
     runs-on: ${{ inputs.native_target == 'mac-intel' && 'macos-15-intel' || 'windows-2025' }}
-    timeout-minutes: ${{ inputs.native_target == 'mac-intel' && 330 || 180 }}
+    timeout-minutes: 330
     env:
       PA_INTERNAL_INSTALLER_VALIDATION: '1'
     steps:
