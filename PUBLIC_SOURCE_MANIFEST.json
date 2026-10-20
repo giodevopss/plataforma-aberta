@@ -659,8 +659,8 @@
     },
     {
       "path": "desktop/tests/service-readiness-diagnostic.test.mjs",
-      "size": 2583,
-      "sha256": "0bd75fce841d55bc9679d7e6d46c40efdb4f14379644edfb39f0fe2fced35ac8"
+      "size": 2767,
+      "sha256": "9f41fc1b5a09ca885aedc4495f70c16fdba0fb2ac5d7df5d695c30bb212ba37f"
     },
     {
       "path": "desktop/tests/service-shutdown.test.mjs",
@@ -1344,8 +1344,8 @@
     },
     {
       "path": "suite/tests/service-readiness-diagnostic.mjs",
-      "size": 4006,
-      "sha256": "d0d4134035f2208d75bd683c556b801c53057d7f45bfb15f51bc2fa0d347d120"
+      "size": 4126,
+      "sha256": "21345cb10010ee87081f7567f050a5d7cc32a45869926a9931688bf2b1025662"
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
@@ -1640,7 +1640,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13202,
-      "sha256": "f2de410e63d0e35115c4eb16c74442a5f39769027cfbc2b3f1c802821fc5dbcb"
+      "sha256": "33e0bacc4c8a4d346ba46c52511c9e0c9644b91aa8c580892d677765c0f43468"
     },
     {
       "path": ".github/workflows/publish-release.yml",
