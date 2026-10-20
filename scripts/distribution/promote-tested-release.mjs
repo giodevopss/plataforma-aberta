@@ -1,10 +1,10 @@
 // Copy only exact previously tested public installers on a disposable runner.
 // No source build, private backup, model, user profile or signing secret enters this job.
-import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
 import {releaseFailures} from '../../desktop/scripts/require-release.mjs';import {verifiedDownload} from '../../desktop/src/download.mjs';import {publishArtifact} from './release-artifacts.mjs';
 const repo='giodevopss/plataforma-aberta',targets={'darwin-arm64':{runner:'macos-15',suffix:'mac-arm64.dmg'},'darwin-x64':{runner:'macos-15-intel',suffix:'mac-x64.dmg'},'win32-x64':{runner:'windows-2025',suffix:'win-x64.exe'}};
 export function assertCandidate(meta,{target,runId,version}){
- assert.ok(targets[target]);assert.equal(meta.version,1);assert.equal(meta.target,target);assert.equal(meta.runId,String(runId));assert.equal(meta.signed,false);assert.equal(meta.finalRelease,false);assert.match(meta.suiteCommit,/^[a-f0-9]{40}$/);assert.equal(meta.name,'Plataforma-Aberta-'+version+'-'+targets[target].suffix);assert.ok(Number.isSafeInteger(meta.size)&&meta.size>1_000_000&&meta.size<2_000_000_000);assert.match(meta.sha256,/^[a-f0-9]{64}$/);assert.ok(meta.acceptedChecks?.includes('Actual desktop version matches the reviewed package metadata'));
+ assert.ok(Object.hasOwn(targets,target));assert.equal(meta.version,1);assert.equal(meta.target,target);assert.equal(meta.runId,String(runId));assert.equal(meta.signed,false);assert.equal(meta.finalRelease,false);assert.match(meta.suiteCommit,/^[a-f0-9]{40}$/);assert.equal(meta.name,'Plataforma-Aberta-'+version+'-'+targets[target].suffix);assert.ok(Number.isSafeInteger(meta.size)&&meta.size>1_000_000&&meta.size<2_000_000_000);assert.match(meta.sha256,/^[a-f0-9]{64}$/);assert.ok(meta.acceptedChecks?.includes('Actual desktop version matches the reviewed package metadata'));
 }
 export function assertInstalledEvidence(value,{kind,target,meta,tag}){
  assert.equal(value.status,'passed');assert.equal(value.phase,'complete');assert.equal(value.target,target);

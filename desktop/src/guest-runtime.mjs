@@ -17,6 +17,19 @@ export class GuestRuntime {
   for(let attempt=0;attempt<2;attempt++){let record;try{record=JSON.parse(await this.invoke(['/usr/bin/cat','/etc/plataforma-runtime-owner.json'],{timeout:15000}));}catch(error){if(attempt===0&&error.code==='PA_GUEST_TIMEOUT')continue;error.message='Verificação da identidade: '+error.message;throw error;}if(record.version!==1||record.owner!==this.owner)throw Error('A máquina Linux não pertence a esta instalação. Nenhum comando foi executado.');return;}
  }
  async validateMounts(args){for(let i=0;i<args.length;i++)if(args[i]==='--mount'){const parts=args[++i].split(',');if(!parts.includes('type=bind'))continue;const source=parts.find(part=>part.startsWith('source='))?.slice(7);if(!source)throw Error('Mount inválido.');const resolved=await fs.realpath(source);let owned=false;for(const root of this.mounts){const boundary=await fs.realpath(root);if(resolved===boundary||resolved.startsWith(boundary+path.sep)){owned=true;break;}}if(!owned)throw Error('O runtime só pode montar pastas privadas declaradas pela suíte.');}}
- async run(args,options){for(let index=0;index<args.length;index++)if(args[index]==='--env-file'){const source=await fs.realpath(args[++index]);let owned=false;for(const root of this.mounts){const boundary=await fs.realpath(root);if(source===boundary||source.startsWith(boundary+path.sep)){owned=true;break;}}if(!owned)throw Error('Ambiente fora do runtime privado.');}await this.validateMounts(args);await this.verifyOwnership();try{return await this.invoke([...(this.rootDocker&&this.platform!=='win32'?['/usr/bin/sudo','-n']:[]),'/usr/local/bin/docker','--host',this.engineEndpoint,...guestArguments(args,{platform:this.platform})],options);}catch(error){const phase=args[0]==='pull'?'Download da imagem':args[0]==='run'&&args.includes('nginx')&&args.includes('-t')?'Validação do gateway':args[0]==='image'?'Verificação da imagem':'Comando local '+String(args[0]).replace(/[^a-z]/g,'');error.message=phase+': '+error.message;throw error;}}
+ async run(args,options){
+  for(let index=0;index<args.length;index++)if(args[index]==='--env-file'){const source=await fs.realpath(args[++index]);let owned=false;for(const root of this.mounts){const boundary=await fs.realpath(root);if(source===boundary||source.startsWith(boundary+path.sep)){owned=true;break;}}if(!owned)throw Error('Ambiente fora do runtime privado.');}await this.validateMounts(args);
+  const readOnly=args[0]==='info'||args[0]==='version'||(['container','network','volume','image'].includes(args[0])&&['ls','inspect'].includes(args[1]));
+  for(let attempt=0;attempt<2;attempt++){
+   await this.verifyOwnership();
+   try{return await this.invoke([...(this.rootDocker&&this.platform!=='win32'?['/usr/bin/sudo','-n']:[]),'/usr/local/bin/docker','--host',this.engineEndpoint,...guestArguments(args,{platform:this.platform})],options);}
+   catch(error){
+    // A failed Windows launcher or deadline may repeat a query only. Recheck
+    // the guest owner first; never replay creation, removal, exec or Compose.
+    if(attempt===0&&this.platform==='win32'&&readOnly&&(error.code==='PA_GUEST_TIMEOUT'||error.runtimeFailure?.exitCode===4294967295))continue;
+    const phase=args[0]==='pull'?'Download da imagem':args[0]==='run'&&args.includes('nginx')&&args.includes('-t')?'Validação do gateway':args[0]==='image'?'Verificação da imagem':'Comando local '+String(args[0]).replace(/[^a-z]/g,'');error.message=phase+': '+error.message;throw error;
+   }
+  }
+ }
  async runCompose(args,options){for(let i=0;i<args.length;i++)if(['--project-directory','--file','-f','--env-file'].includes(args[i])){const source=await fs.realpath(args[++i]);let owned=false;for(const root of this.mounts){const boundary=await fs.realpath(root);if(source===boundary||source.startsWith(boundary+path.sep)){owned=true;break;}}if(!owned)throw Error('Configuração Compose fora do runtime privado.');}await this.verifyOwnership();return this.invoke([...(this.rootDocker&&this.platform!=='win32'?['/usr/bin/sudo','-n']:[]),'/usr/local/bin/docker','--host',this.engineEndpoint,'compose',...guestArguments(args,{platform:this.platform,compose:true})],options);}
 }

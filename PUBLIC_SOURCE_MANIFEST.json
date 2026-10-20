@@ -64,8 +64,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 7290,
-      "sha256": "d0c467415061b9e08ef03bbed818a01193bb969ce67a9fc332d77a0f3e88bc8f"
+      "size": 7817,
+      "sha256": "45be556edd34c39354aa2a458c81e4365031cda24275cc2ffae13dfd3d0d520c"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -499,8 +499,8 @@
     },
     {
       "path": "desktop/tests/guest-runtime.test.mjs",
-      "size": 5939,
-      "sha256": "d11d420be8fd7733e8e2755421205d32c3118bf520af4b9374df2e7a03d1e27c"
+      "size": 7601,
+      "sha256": "30cb14969331419c32b71b77ca0576d1ea00bd223224c15e54505d13d532d06d"
     },
     {
       "path": "desktop/tests/installer-cleanup.test.mjs",
@@ -599,8 +599,8 @@
     },
     {
       "path": "desktop/tests/promote-tested-release.test.mjs",
-      "size": 2469,
-      "sha256": "3669ddcd2c0c4b1dd2045e481ecf3c4a2a46340400447ba8cba4534c6f771365"
+      "size": 2610,
+      "sha256": "89a54f43f9bd37ebf1403c08c163108f9a878c55c8b3cfe3a5995d93f527b18a"
     },
     {
       "path": "desktop/tests/public-config-files.test.mjs",
@@ -1269,8 +1269,8 @@
     },
     {
       "path": "scripts/distribution/promote-tested-release.mjs",
-      "size": 9198,
-      "sha256": "158afc3c83b7fef2064916ced7d9bed9738c5182b7a276bd78cbcf91f0413b28"
+      "size": 9187,
+      "sha256": "597c9da90c2d7b24546d5c6190d6d526d96dba9f8b8e21b18090bdbb5f8e8857"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1615,7 +1615,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13375,
-      "sha256": "4ec466d3654ba24d97cb2a9adb83b3c3e873541610df826904ae31a5f23e9013"
+      "sha256": "e07ebb74672f76b99f7fd894168957cc8e6afa79d6f05ab90a116c1b7e0f2aca"
     },
     {
       "path": ".github/workflows/publish-release.yml",
