@@ -2,16 +2,21 @@ name: All twelve originals through one complete encrypted product recovery
 on:
   workflow_dispatch:
     inputs:
+      native_target:
+        description: Actual owned native Linux guest target
+        type: choice
+        default: windows
+        options: [windows, mac-intel]
       installer_tag:
-        description: Accepted Windows installer tag; empty runs the source shell
+        description: Accepted matching native installer tag; empty runs the source shell
         type: string
         default: ''
 permissions:
   contents: read
 jobs:
   complete-suite:
-    runs-on: windows-2025
-    timeout-minutes: 180
+    runs-on: ${{ inputs.native_target == 'mac-intel' && 'macos-15-intel' || 'windows-2025' }}
+    timeout-minutes: ${{ inputs.native_target == 'mac-intel' && 330 || 180 }}
     env:
       PA_INTERNAL_INSTALLER_VALIDATION: '1'
     steps:
@@ -37,12 +42,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PA_ACCEPTED_INSTALLER_TAG: ${{ inputs.installer_tag }}
-        run: node scripts/distribution/restore-tested-installer.mjs "$env:PA_ACCEPTED_INSTALLER_TAG"
+        shell: bash
+        run: node scripts/distribution/restore-tested-installer.mjs "$PA_ACCEPTED_INSTALLER_TAG"
       - name: Install accepted package into this disposable runner
         if: inputs.installer_tag != ''
         id: install
         run: node scripts/distribution/installer-validation.mjs install
-      - name: Original workflows, one private WSL, twelve providers and unified activation
+      - name: Original workflows, one private Linux guest, twelve providers and unified activation
         env:
           PA_OWN_VM_ACCEPTANCE: '1'
         run: node suite/tests/complete-suite-cloud.mjs

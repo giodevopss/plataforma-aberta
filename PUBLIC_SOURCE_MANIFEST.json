@@ -1299,8 +1299,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 23398,
-      "sha256": "c3631beb29ef754e2e36b5b26d4c36935106d1b3c739c25cf18fa30dbbe6f2d8"
+      "size": 23539,
+      "sha256": "1b9997aed64a1d9145ff9202e171710d842ece936fe9b885f50e9fdf856a7dd0"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1565,7 +1565,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "6228c1adc74c697e12bdeb5213f94e218796b6b883783878b2c22e2aabb4b37d"
+      "sha256": "2709416d3d82ae6ef79439dd2bf713a2644b2e28c8d77020008702571b9974cc"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1594,8 +1594,8 @@
     },
     {
       "path": ".github/workflows/complete-suite.yml",
-      "size": 2471,
-      "sha256": "0d18acee62e24b29ba625c26fbcee5f3c6ab6ceddc71977b971ce5aa25f42fca"
+      "size": 2789,
+      "sha256": "bc62bae0a6aee3bd1aa3c79571a3ff9495d7390b0ae296dc66f4f2f6d63ebbec"
     },
     {
       "path": ".github/workflows/arm-services.yml",
