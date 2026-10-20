@@ -1324,8 +1324,8 @@
     },
     {
       "path": "suite/tests/installer-transition-native.mjs",
-      "size": 10397,
-      "sha256": "217303bcb176cfbd266475198a213ed414b4de41cab18ad8c80136fb5d671c1c"
+      "size": 10644,
+      "sha256": "83f0a8750e4d42e446ac505309fa0fac9f798396e10bf026d7d5fe366f2b0d91"
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
@@ -1595,7 +1595,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13311,
-      "sha256": "e63356c25002837b8cfc47a3004ac48e4a23984af95163a0dcf51d147007eb7e"
+      "sha256": "4602c5727fdf43ae57af42030680936db4512157df1a7da10de0a73f5b43542f"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
