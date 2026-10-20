@@ -309,8 +309,8 @@
     },
     {
       "path": "desktop/renderer/app.mjs",
-      "size": 15876,
-      "sha256": "5710c7b64e23081dd619a817a9900b0bb6558ab32985069174a16983212e688a"
+      "size": 15922,
+      "sha256": "fd483c35097ae386416d6ceed2598f40d4740892d5e85bac2e5b686f32774525"
     },
     {
       "path": "desktop/renderer/editor-src/bootstrap.mjs",
@@ -1575,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "3c996dff943746e5d52398c2bebf6c38bd7144ea4741b07e0b29321630897490"
+      "sha256": "5d7a1273ab13dcfa6714c24cc417a2c0ed3d30247691663d889fd6bdeaeb3641"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
