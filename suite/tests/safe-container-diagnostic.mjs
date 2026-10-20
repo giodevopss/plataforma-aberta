@@ -12,7 +12,9 @@ export function safeContainerDiagnostic(role,state={},logs=''){
 export function safeScreenityDiagnostic(value={}){
  const phases=new Set(['launch','permission','record-fixture','play-original','crop-original','export-mp4','export-webm','capture-original','flush-draft','close-source','snapshot','restore-profile','reopen-draft','capture-restored','save-fixture','complete']);
  const categories=new Set(['timeout','assertion','other']);
- return {id:'screenity',phase:phases.has(value.phase)?value.phase:'unknown',category:categories.has(value.failureCategory)?value.failureCategory:'other',completedChecks:Array.isArray(value.checks)?Math.min(value.checks.length,100):0};
+ const result={id:'screenity',phase:phases.has(value.phase)?value.phase:'unknown',category:categories.has(value.failureCategory)?value.failureCategory:'other',completedChecks:Array.isArray(value.checks)?Math.min(value.checks.length,100):0};
+ if(result.phase==='launch'){const text=String(value.error||''),kinds=[['source-integrity',/componente.*(?:alterad|modificad)|manifesto.*(?:inválid|alterad)|identidade.*inválid|integrity/i],['missing-component',/ENOENT|no such file|componente.*não.*validad/i],['gpu-initialization',/EGL.*failed|GPU process.*initializ|GLDisplay.*failed/i],['browser-exited',/Managed native browser exited before/i],['bridge-not-ready',/did not expose its isolated CI-only bridge/i],['cdp-connection',/connectOverCDP|ECONNREFUSED|WebSocket/i]];result.launchFailure=kinds.find(([,pattern])=>pattern.test(text))?.[0]||'unknown';}
+ return result;
 }
 
 // Fixed auth states only: no input values, cookie/token values, body or URLs.

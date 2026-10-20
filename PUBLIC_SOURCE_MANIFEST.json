@@ -644,8 +644,8 @@
     },
     {
       "path": "desktop/tests/safe-container-diagnostic.test.mjs",
-      "size": 2605,
-      "sha256": "d2b9826bb03906c5ead05cccbcf4b7533e789ff509165a0593154064baecbecf"
+      "size": 2968,
+      "sha256": "c0f0c9730bf673884063e7fb8e1571d104cfdd068786a5deba65691d61caf412"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -1179,8 +1179,8 @@
     },
     {
       "path": "suite/INSTALLERS.md",
-      "size": 4224,
-      "sha256": "74973a3ee03e7604355c23c7cb7f6a76a347546793c759b20785e89fdcb4b390"
+      "size": 4353,
+      "sha256": "16165f6349b6062fc050df29f72907368d62e383a28a91e95822d0123c22ad9c"
     },
     {
       "path": ".gitignore",
@@ -1359,8 +1359,8 @@
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
-      "size": 3662,
-      "sha256": "feca0c28f921482e3064664615dca7a5d1eac329f1941e4b2166f1de96dac8f6"
+      "size": 4297,
+      "sha256": "908e5f9af636339473953409e81f1c9e4149e0dac2805218b3732e04127455d3"
     },
     {
       "path": "suite/tests/repeat-desktop-native.mjs",
@@ -1649,8 +1649,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 13202,
-      "sha256": "39fbd3a04fcd80f168fc16ad0fb3a4d4715c0a6c255bec480731fab0ae95815b"
+      "size": 13282,
+      "sha256": "5824f26b607231ed755a7e6fd8649cde88583a73bd794bab51535082489e0b04"
     },
     {
       "path": ".github/workflows/publish-release.yml",
