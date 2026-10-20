@@ -1344,8 +1344,8 @@
     },
     {
       "path": "suite/tests/database-workflow.mjs",
-      "size": 6360,
-      "sha256": "7518c91463381d0fa2a37fd71581abc7d1073ccb2e5abd51cc7c325ab513628d"
+      "size": 6514,
+      "sha256": "0e750add8fc3a885f1e3315ec78b7ac0beb6951a5d94395d988a783163037968"
     },
     {
       "path": "suite/tests/database-cloud.mjs",
@@ -1575,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "0ae013c4af36e3e6a8869bdef5f9a33434978a2163d2f20d3b453472a1353e9f"
+      "sha256": "c5cbd49ea9e1431545f973f3a758d151ea6d2df17c4cb32d5af791a1596bfc39"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
