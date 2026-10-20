@@ -2,7 +2,7 @@
 
 Suíte local para macOS e Windows, com aplicativos originais completos: Excalidraw, Graphite, Presenton, AFFiNE, Baserow, Activepieces, Paperless-ngx, Formbricks, Plane, Postiz, OpenWhispr e Screenity.
 
-**A distribuição final ainda está em validação.** Não há instalador final aprovado. Os critérios em [suite/release-readiness.json](suite/release-readiness.json) impedem publicar versões finais antes da aceitação completa.
+**A distribuição final ainda está em validação.** Os [instaladores internos sem assinatura](suite/INSTALLERS.md) já têm testes de instalação e recuperação. Não há instalador final aprovado. Os critérios em [suite/release-readiness.json](suite/release-readiness.json) impedem publicar versões finais antes da aceitação completa.
 
 ## Código e privacidade
 

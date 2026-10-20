@@ -1108,6 +1108,11 @@
       "sha256": "888b9d0c348370a8685f8db896e18d727f73cadf6b156f84d07c380e8a087468"
     },
     {
+      "path": "suite/INSTALLERS.md",
+      "size": 2804,
+      "sha256": "f1eb16cf822361b16367b7b56efb06a6d14ea32909d590823b0cef6119bfe7ae"
+    },
+    {
       "path": ".gitignore",
       "size": 901,
       "sha256": "cfd99b3f17139e22d489d187aa2859c6c5e63b52f2c88a0c950ba10d5a7f989a"
@@ -1204,8 +1209,8 @@
     },
     {
       "path": "scripts/distribution/restore-tested-installer.mjs",
-      "size": 3296,
-      "sha256": "a63569b6a8db3a582459bdc35ac1bffb2bb7867b9eced488004483011dcd6a9f"
+      "size": 3318,
+      "sha256": "a3e82e8e1c18e942839f8f799967f039846a844ef84765b0e1c7d4f66877c4e0"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1239,8 +1244,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15744,
-      "sha256": "846996ded0c8fefbc5ff47546faf1acea832cf9acdf8ab3eb76fab59d977b682"
+      "size": 15878,
+      "sha256": "9b3a44c6a49d56013fd2dda52c5724705d526fb3742328efbe44474fc25145dd"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1529,8 +1534,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 12048,
-      "sha256": "462aca46761d2a88025aba24e53a8cff8f041f44ecb238daea1f01e1925dd38f"
+      "size": 12313,
+      "sha256": "4b73db47eaf2a89fdef569fe1a435eaede9d8300f548d06fe27cd6778a109128"
     },
     {
       "path": ".github/workflows/installer-transition.yml",
@@ -1649,8 +1654,8 @@
     },
     {
       "path": "README.md",
-      "size": 1615,
-      "sha256": "6f320c69133a521cad4be2231a1130a7fbb5f7c84a69943f92c6e3c94074f0c9"
+      "size": 1727,
+      "sha256": "d2020c599a0006e33e0bab36c81e2a97d9abf1ac214cc2c5a615a98649a1c20a"
     },
     {
       "path": "desktop/README.md",

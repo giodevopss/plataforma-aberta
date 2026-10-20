@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T07:07:54.611Z",
+  "checked_at": "2026-10-20T07:16:02.969Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -71,9 +71,9 @@
   },
   "runtime_installer": "partial",
   "complete_backup_restore": "pending",
-  "upgrade_rollback": "pending",
+  "upgrade_rollback": "partial",
   "distribution_signatures": "pending",
-  "distribution": "All three previous internal unsigned installers accepted in 39165341821. Newer source a3faf6e candidates passed full lifecycle, encrypted recovery and remote read-back on Windows and Mac Intel in 39172934763; Mac ARM passed all lifecycle/recovery tests but publication failed because its prerelease tag had not been precreated. Tags now exist. Final rebuild after latest Presenton/backup corrections, combined suite, upgrade/rollback and OS signing remain pending.",
+  "distribution": "All three current complete internal unsigned candidates built, installed, tested, independently recovered, uninstalled and fully remote size/SHA-256 read-back verified in 39382729111. Four-provider actual installed backup/recovery/activation/native audio/model/video readback passed Windows 39383733571 and both Macs 39384574048. Actual prior->current->prior package replacement retained original editable documents and newer work on Windows 39383737792 and both Macs 39384569999. Full twelve-provider backup and ARM original presentation acceptance still running; OS signing not configured.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -92,10 +92,10 @@
     },
     "windows_services_in_progress": null,
     "local_presentations_in_progress": null,
-    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-win32-x64",
+    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39382729111-win32-x64",
     "internal_mac_installers": [
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-darwin-arm64",
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-darwin-x64"
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39382729111-darwin-arm64",
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39382729111-darwin-x64"
     ],
     "windows_services": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39165080309",
     "scoped_service_reports": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-windows-services-39165080309",
@@ -105,6 +105,7 @@
     "current_native_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-native-validation-39383174469",
     "complete_source_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39382735749",
     "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383975759",
-    "arm_presenton_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383979713"
+    "arm_presenton_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383979713",
+    "accepted_current_installers": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39382729111"
   }
 }
