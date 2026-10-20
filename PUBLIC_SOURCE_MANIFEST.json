@@ -448,6 +448,11 @@
       "sha256": "b1b6a3efd07890c405f605dcaa0d4d20258628f26f4c22d8f711dde4c92c8836"
     },
     {
+      "path": "desktop/tests/close-native-qa.test.mjs",
+      "size": 1386,
+      "sha256": "a492b3ad847f863375a50add25b8dfa6ed739277dc355c925b09bf652b4d2140"
+    },
+    {
       "path": "desktop/tests/combined-fixture.test.mjs",
       "size": 1907,
       "sha256": "472e3a7dd966efae4ffa817b9fe2ff15036b17163dc5edd351659da4e9ab9045"
@@ -459,8 +464,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 9998,
-      "sha256": "19fb8e155e4437c6e582e8cd36ebf449052f640edf600430a58496eda65abc88"
+      "size": 10160,
+      "sha256": "f7169c0d8c8ed1fdad77a0063251dff76cb25c3fbe86cb64d898c410e3aba4c9"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -1329,8 +1334,8 @@
     },
     {
       "path": "suite/tests/close-native-qa.mjs",
-      "size": 982,
-      "sha256": "d68f329f54c2e895daa4a9989416b6ddb63ec07a4148c34abd2db3ed9b941174"
+      "size": 3306,
+      "sha256": "518e2ad9e07b8e9bef0daba00fb4e162d6c5857821417ef344c4740b73c9f349"
     },
     {
       "path": "suite/tests/graphite-durability.mjs",
@@ -1520,7 +1525,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11514,
-      "sha256": "13bc5f0ff9754f0f38d6f4e8bd9cee7a2cb7e08e72a0c50d597e56a523ce9b3d"
+      "sha256": "d471ea5ba6bde6145a2add2eecd4ec9b4d16ce216f7f82bd38d39aec6cd8f4c8"
     },
     {
       "path": ".github/workflows/native-providers.yml",
