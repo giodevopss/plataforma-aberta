@@ -1314,8 +1314,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15824,
-      "sha256": "27e7450d48feaf07c5dcc2d6552697099cec0938d0eed79d45f8edce7d2c1937"
+      "size": 16738,
+      "sha256": "2451d6a8f4a764c58c2ce8c72c34c275099be3ceae30c660be440800b7534cd0"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1331,6 +1331,16 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/original-navigation.mjs",
+      "size": 502,
+      "sha256": "44d31778c40b54cefd6848f042d41f6966c1f8b9a8b46e0d7696272f6a539ba4"
+    },
+    {
+      "path": "suite/tests/service-readiness-diagnostic.mjs",
+      "size": 2901,
+      "sha256": "5712eebd42e913a83c780da30ec524bc8fad7b65077330b99f9296dd126c660c"
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
@@ -1625,7 +1635,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13375,
-      "sha256": "4ddb58ffd9434dfb2216fb3e26bb07aee70455394701af9defb5c1fb2b8160d4"
+      "sha256": "b3e13c5d72061470a59294df504ea88b040e53db3e9d7591484646776cb2d5a3"
     },
     {
       "path": ".github/workflows/publish-release.yml",
