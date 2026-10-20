@@ -1239,8 +1239,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15691,
-      "sha256": "ed606090ac4e0be5426fe8f0f3ffc88a40d0ccdc169ecf5b33340f3a7f1bd8e2"
+      "size": 15744,
+      "sha256": "846996ded0c8fefbc5ff47546faf1acea832cf9acdf8ab3eb76fab59d977b682"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1256,6 +1256,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/installer-transition-native.mjs",
+      "size": 10397,
+      "sha256": "217303bcb176cfbd266475198a213ed414b4de41cab18ad8c80136fb5d671c1c"
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
@@ -1525,7 +1530,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11514,
-      "sha256": "d471ea5ba6bde6145a2add2eecd4ec9b4d16ce216f7f82bd38d39aec6cd8f4c8"
+      "sha256": "6a028dcb4e3bc720c8bf77635794dcb4fc7f2b06188b952fdb00ea0329e13646"
+    },
+    {
+      "path": ".github/workflows/installer-transition.yml",
+      "size": 2181,
+      "sha256": "552c81651efe8cf32d7fbd131a39e27a2d8e1f1f9f011b507624992081b67fdb"
     },
     {
       "path": ".github/workflows/native-providers.yml",

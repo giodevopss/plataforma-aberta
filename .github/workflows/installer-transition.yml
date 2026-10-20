@@ -1,0 +1,55 @@
+name: Accepted native installer replacement and rollback preserves original data
+on:
+  workflow_dispatch:
+    inputs:
+      current_run_id:
+        description: Accepted current installer run
+        type: string
+        required: true
+      baseline_run_id:
+        description: Previously accepted baseline installer run
+        type: string
+        default: '39165341821'
+      native_target:
+        type: choice
+        default: all
+        options: [all, macs, windows]
+permissions:
+  contents: read
+jobs:
+  transition:
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: ${{ fromJSON(inputs.native_target == 'macs' && '["macos-15","macos-15-intel"]' || inputs.native_target == 'windows' && '["windows-2025"]' || '["macos-15","macos-15-intel","windows-2025"]') }}
+    env:
+      PA_INTERNAL_INSTALLER_VALIDATION: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - run: npm ci --prefix desktop --ignore-scripts --no-audit --no-fund
+      - name: Verify current immutable installer bytes and source ancestry
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PA_ACCEPTED_INSTALLER_RUN: ${{ inputs.current_run_id }}
+        shell: bash
+        run: node scripts/distribution/restore-tested-installer.mjs "--run=$PA_ACCEPTED_INSTALLER_RUN"
+      - name: Replace actual installed binaries and read original data through rollback
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PA_BASELINE_INSTALLER_RUN: ${{ inputs.baseline_run_id }}
+        run: node suite/tests/installer-transition-native.mjs
+      - name: Preserve only the small synthetic acceptance
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: native-installer-transition-${{ matrix.runner }}
+          path: suite/research/installer-transition/acceptance.json
+          retention-days: 1
+          if-no-files-found: error
