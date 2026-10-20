@@ -1284,8 +1284,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 16084,
-      "sha256": "20076782fafb337783e5056aa88703549c681d0c86ab2acb5257c181ed2af9d9"
+      "size": 15756,
+      "sha256": "4be6f4382fc6e001107f4f8739d681fdbb7c224f083bdff99b57139f30692ac2"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1595,7 +1595,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13208,
-      "sha256": "ec3d280d1c48790cafe8986918f9cc3fcf2023765bf6dc7c6f2183b82c8d9057"
+      "sha256": "b45de1b57fb830fabcd19fc6da417e4e92077a7d7775409e639f675508a7c263"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1734,8 +1734,8 @@
     },
     {
       "path": "desktop/README.md",
-      "size": 308,
-      "sha256": "fc113d1b06a3725bf489970b39507987ac69a3cf9cdc29f145efe805294f75ab"
+      "size": 6660,
+      "sha256": "50a19a24fffe0265b428dbf066108b77d1210cbf1501ce35bf721f6b5c479d84"
     },
     {
       "path": "LICENSE",

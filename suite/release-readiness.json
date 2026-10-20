@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T11:18:04.099Z",
+  "checked_at": "2026-10-20T11:18:26.959Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
