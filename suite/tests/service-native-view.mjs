@@ -8,6 +8,11 @@ import {createRequire} from 'node:module';
 import {loginOriginalPage,verifyAccountPage} from './original-account-workflows.mjs';
 import {_electron} from '../../desktop/node_modules/playwright/index.mjs';
 
+// Keep private arguments/output out of diagnostics, including swallowed probe
+// failures. Wrappers preserve every original return value and thrown error.
+export async function instrumentNativeRuntimeQA(application){await application.evaluate(()=>{const runtime=globalThis.__suiteRecoveryQA.recovery.runtime;for(const [method,operation]of [['run',null],['runCompose','compose']]){const invoke=runtime[method].bind(runtime);runtime[method]=async(...values)=>{try{return await invoke(...values);}catch(error){globalThis.__qaNativeRuntimeFailure={operation:operation||String(values[0]?.[0]||'command').replace(/[^a-z]/g,''),kind:error.runtimeFailure?.kind||(/tempo de resposta|timed out/i.test(error.message)?'deadline':'unknown'),exitCode:Number.isInteger(error.runtimeFailure?.exitCode)?error.runtimeFailure.exitCode:null};throw error;}};}});}
+export async function nativeRuntimeFailureQA(application){return application.evaluate(()=>globalThis.__qaNativeRuntimeFailure||null).catch(()=>null);}
+
 export async function verifyNativeService({id,directory,endpoint,evidence,checks,verify,onFailure}){
  if(process.env.CI!=='true'||!['linux','win32','darwin'].includes(process.platform)||process.env.PA_TEST_NATIVE_SERVICE!=='1')throw Error('Disposable native-service acceptance workflow required.');
  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'pa-native-'+id+'-'));
@@ -16,9 +21,9 @@ export async function verifyNativeService({id,directory,endpoint,evidence,checks
  const executablePath=process.env.PA_DESKTOP_EXECUTABLE||createRequire(new URL('../../desktop/package.json',import.meta.url))('electron');
  const application=await _electron.launch({executablePath,args:[...(process.platform==='linux'?['--no-sandbox']:[]),...(!process.env.PA_DESKTOP_EXECUTABLE?[path.resolve('desktop')]:[]),'--suite-test'],env,timeout:45000});let failed=false;
  try{
-  const shell=await application.firstWindow();await shell.locator('.tool-card').first().waitFor();assert.ok((await shell.evaluate(()=>window.suite.info())).managedServices.includes(id),id);
+  const shell=await application.firstWindow();await shell.locator('.tool-card').first().waitFor();await instrumentNativeRuntimeQA(application);assert.ok((await shell.evaluate(()=>window.suite.info())).managedServices.includes(id),id);
   async function openLibrary(){
-   await shell.locator('.nav-item[data-view="'+id+'"]').click();await shell.locator('#main').waitFor({state:'hidden',timeout:300000}).catch(async error=>{const detail=await shell.locator('#runtime-progress').textContent().catch(()=>error.message);throw Error('Original '+id+' native attachment failed: '+detail);});let view;
+   await shell.locator('.nav-item[data-view="'+id+'"]').click();await shell.locator('#main').waitFor({state:'hidden',timeout:300000}).catch(async error=>{const detail=await shell.locator('#runtime-progress').textContent().catch(()=>error.message);throw Error('Original '+id+' native attachment failed: '+detail+'; last transport diagnostic '+JSON.stringify(await nativeRuntimeFailureQA(application)));});let view;
    for(let attempt=0;attempt<1200;attempt++){view=application.context().pages().find(p=>new URL(p.url()||'about:blank').origin===endpoint.origin);if(view)break;await new Promise(resolve=>setTimeout(resolve,250));}
    if(!view)fs.writeFileSync(path.join(evidence,'native-launch-failure.txt'),await shell.locator('body').innerText());assert.ok(view,'Original application WebContentsView opened after its complete stack became ready');assert.equal(await view.evaluate(()=>typeof require),'undefined');await verify(view);await view.evaluate(()=>document.fonts.ready.then(()=>true));return view;
   }

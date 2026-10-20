@@ -1129,8 +1129,8 @@
     },
     {
       "path": "suite/INSTALLERS.md",
-      "size": 3183,
-      "sha256": "f8f5b5da9215cf2e32bbb0b925908bca595a0cfe344c0701d9fb4da0b8c118eb"
+      "size": 3486,
+      "sha256": "5c8fbe54c3b8813684c7fcaa3cfdeacf42380a30d61735a21e7494071f9634ea"
     },
     {
       "path": ".gitignore",
@@ -1324,8 +1324,8 @@
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
-      "size": 11072,
-      "sha256": "7b7b6e77c1a087e708d4c6a4a7b06b4ad65003a4a2dbfc8ba1c5b99123c6872b"
+      "size": 11298,
+      "sha256": "7891c3d46f956dcd94401c5b20a7b26a3cca928a42646999335c15ed5361f759"
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
@@ -1434,8 +1434,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 6434,
-      "sha256": "9c19c06c3ee701c8a20de7e1f51451aec5be8f949dd32275de2173fd329ce66d"
+      "size": 7564,
+      "sha256": "1b0c465ae745e9ea1913ba5bbab4294689b66c35e9010274c759ac96c747c55b"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1575,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "5d7a1273ab13dcfa6714c24cc417a2c0ed3d30247691663d889fd6bdeaeb3641"
+      "sha256": "8b5d5c8dfc4c246b7a799f7564b8d920cef9da0a1b8d57982a2cb7d95b12cd47"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

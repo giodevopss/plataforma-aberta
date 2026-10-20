@@ -1,6 +1,8 @@
 # Instaladores sem assinatura — 20/10/2026
 
-Os três pacotes atuais passaram build, instalação, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por SHA-256/tamanho em [39396457365](https://github.com/giodevopss/plataforma-aberta/actions/runs/39396457365). Incluem as correções de encerramento HTTP e caminhos canônicos do compartilhamento Mac; Windows exige cinco rodadas independentes de UI/encerramento.
+**Nova correção em validação:** a proteção contra interrupção após o COMMIT dos anexos Postiz foi acrescentada depois dos pacotes abaixo. A reconstrução 39401984324 está em execução; os links abaixo representam a última série de testes concluída, anterior a essa proteção.
+
+Os três últimos pacotes aceitos passaram build, instalação, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por SHA-256/tamanho em [39396457365](https://github.com/giodevopss/plataforma-aberta/actions/runs/39396457365). Incluem as correções de encerramento HTTP e caminhos canônicos do compartilhamento Mac; Windows exige cinco rodadas independentes de UI/encerramento.
 
 O backup conjunto de editores, voz/modelo e vídeo no **pacote atual** passou no [Windows 39397807052](https://github.com/giodevopss/plataforma-aberta/actions/runs/39397807052) e nos [dois Macs 39398442190](https://github.com/giodevopss/plataforma-aberta/actions/runs/39398442190). [Comprovantes atuais permanentes e conferidos](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39396457365). Todos os [178 testes públicos](https://github.com/giodevopss/plataforma-aberta/actions/runs/39397633591) passaram em Linux, Mac ARM, Mac Intel e Windows.
 
