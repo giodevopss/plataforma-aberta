@@ -498,9 +498,14 @@
       "sha256": "008efaf12078e48fb1321da12bd700ab40bc732e0c97c2e728ad6b0c5fa4e5b4"
     },
     {
+      "path": "desktop/tests/installer-cleanup.test.mjs",
+      "size": 1584,
+      "sha256": "3bec73847ac2bbcb2e1e62c50455415ffb683eb0d9e29e06e33c3f551ddabfea"
+    },
+    {
       "path": "desktop/tests/lima-installer.test.mjs",
-      "size": 7503,
-      "sha256": "308c6107dcfba370b6eb36afc28018db2e9c456c2e51a2b5d002318b92011005"
+      "size": 7662,
+      "sha256": "ecbb8969a36873502b59a8bb9e9d32e1e3ca4e25138199256830300d25cbe6ee"
     },
     {
       "path": "desktop/tests/linux-snapshot-tree.test.mjs",
@@ -1219,13 +1224,13 @@
     },
     {
       "path": "scripts/distribution/installer-validation.mjs",
-      "size": 5312,
-      "sha256": "d0d0cd1a41c735bccc97e62879375dc0844e4a80cea0382f0b6fa75739eb804f"
+      "size": 5348,
+      "sha256": "3bae6a6538ef67248905ddf6eec730c85f94c83d77c5e9ed7a70c2cb3876c4c3"
     },
     {
       "path": "scripts/distribution/restore-tested-installer.mjs",
-      "size": 3318,
-      "sha256": "a3e82e8e1c18e942839f8f799967f039846a844ef84765b0e1c7d4f66877c4e0"
+      "size": 3371,
+      "sha256": "392afc9298c1e41d4377af833a393d07dd095da424302bdca96e1efd97b34992"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1565,7 +1570,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12517,
-      "sha256": "463d25cc6b071f46932032480cadfea89e0e996e259c3c47ed99e31dff4d7e3f"
+      "sha256": "04d7e3a089296bb7ddbf12d4903de1964a37fee9d0755d588b4a3a456e2a9a7c"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

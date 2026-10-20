@@ -1,4 +1,5 @@
 // Internal installer acceptance; never a professional release or gate override.
+import {removeOwnedInstallation} from './remove-owned-installation.mjs';
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {execFile} from 'node:child_process';import {promisify} from 'node:util';import {createRequire} from 'node:module';
 if(process.env.CI!=='true'||process.env.PA_INTERNAL_INSTALLER_VALIDATION!=='1'||!['giodevopss/plataforma-aberta-suite','giodevopss/plataforma-aberta'].includes(process.env.GITHUB_REPOSITORY))throw Error('Internal installer validation is restricted to this disposable CI workflow.');
 const root=path.resolve('.'),desktop=path.join(root,'desktop'),evidence=path.join(desktop,'research'),run=promisify(execFile),mode=process.argv[2],stateFile=path.join(evidence,'internal-installation.json');fs.mkdirSync(evidence,{recursive:true});
@@ -27,5 +28,5 @@ if(mode==='build'){
  if(!fs.existsSync(stateFile))throw Error('No internal installation was recorded.');const state=JSON.parse(fs.readFileSync(stateFile));
  if(!state.temporary.startsWith(path.join(os.tmpdir(),'pa-installer-validation-'))||!state.installation.startsWith(state.temporary+path.sep))throw Error('Unexpected installation path; cleanup refused.');
  if(process.platform==='win32'){const uninstall=path.join(state.installation,'Uninstall Plataforma Aberta.exe');if(!fs.existsSync(uninstall))throw Error('Original NSIS uninstaller missing.');await run(uninstall,['/S'],{timeout:180000,windowsHide:true});for(let attempt=0;attempt<120&&fs.existsSync(state.executable);attempt++)await new Promise(r=>setTimeout(r,500));if(fs.existsSync(state.executable))throw Error('NSIS uninstall did not remove the executable.');}
- fs.rmSync(state.temporary,{recursive:true,force:true,maxRetries:10,retryDelay:500});state.uninstalled_at=new Date().toISOString();state.status='installed-tested-uninstalled';fs.writeFileSync(stateFile,JSON.stringify(state,null,2)+'\n');console.log('Internal installation removed; only CI evidence and package artifact remain.');
+ await removeOwnedInstallation(state.temporary);state.uninstalled_at=new Date().toISOString();state.status='installed-tested-uninstalled';fs.writeFileSync(stateFile,JSON.stringify(state,null,2)+'\n');console.log('Internal installation removed; only CI evidence and package artifact remain.');
 }else throw Error('Use build, install or uninstall.');
