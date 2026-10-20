@@ -15,15 +15,18 @@ async function json(context,endpoint,route,options={}){
  const response=await context.request.fetch(endpoint.origin+route,{...options,headers:{'X-PA-Session':endpoint.token,...options.headers}});
  assert.ok(response.ok(),route+' '+response.status()+' '+(await response.text()).slice(0,800));return response.json();
 }
-export async function loginOriginal(id,context,endpoint,account){
- await context.clearCookies();const page=await context.newPage();return loginOriginalPage(id,page,endpoint,account);
+export async function loginOriginal(id,context,endpoint,account,options={}){
+ await context.clearCookies();const page=await context.newPage();return loginOriginalPage(id,page,endpoint,account,{...options,fresh:true});
 }
-export async function loginOriginalPage(id,page,endpoint,account){
- const responses=[],observe=response=>{try{const url=new URL(response.url());if(url.origin===endpoint.origin&&url.pathname.startsWith('/api/auth/'))responses.push({route:url.pathname.includes('sign-in')?'sign-in':url.pathname.includes('get-session')?'session':url.pathname.includes('callback')?'callback':'other',status:response.status()});}catch{}};page.on('response',observe);
+export async function loginOriginalPage(id,page,endpoint,account,{returnTo,fresh=false}={}){
+ const loginURL=new URL(endpoint.origin+'/auth/login');if(returnTo){assert.equal(id,'formbricks');const target=new URL(returnTo,endpoint.origin);assert.equal(target.origin,endpoint.origin);assert.ok(target.pathname.startsWith('/workspaces/'));loginURL.searchParams.set('callbackUrl',target.href);}
+ let submitObserved=false,credentialsSubmitted=false;const observeRequest=request=>{try{const url=new URL(request.url());if(url.origin===endpoint.origin&&request.method()==='POST'&&(url.pathname.startsWith('/api/auth/')||url.pathname==='/auth/login')){submitObserved=true;const body=request.postData()||'';credentialsSubmitted||=body.includes(account.password)||body.includes(encodeURIComponent(account.password));}}catch{}};page.on('request',observeRequest);
+ const responses=[],observe=response=>{try{const url=new URL(response.url());if(url.origin===endpoint.origin&&(url.pathname.startsWith('/api/auth/')||url.pathname==='/auth/login'&&response.request().method()==='POST'))responses.push({route:url.pathname==='/auth/login'?'page-submit':url.pathname.includes('sign-in')?'sign-in':url.pathname.includes('get-session')?'session':url.pathname.includes('callback')?'callback':'other',status:response.status()});}catch{}};page.on('response',observe);
  const sessionReady=()=>page.waitForFunction(async email=>{try{const response=await fetch('/api/auth/get-session',{credentials:'include'});if(!response.ok)return false;const value=await response.json();return value?.user?.email===email;}catch{return false;}},account.email,{timeout:90000,polling:2000});
  try{
-  page.setDefaultTimeout(45000);await page.goto(endpoint.origin+'/auth/login',{waitUntil:'domcontentloaded'});if(!new URL(page.url()).pathname.startsWith('/auth/')){if(id==='formbricks')await sessionReady();return page;}
+  page.setDefaultTimeout(45000);await page.goto(loginURL.href,{waitUntil:'domcontentloaded'});if(id==='formbricks'&&fresh){const anonymous=await page.evaluate(async()=>{const response=await fetch('/api/auth/get-session',{credentials:'include'});if(!response.ok)throw Error('Original anonymous session probe failed');const value=await response.json();return !value?.user;});assert.equal(anonymous,true,'Fresh original browser must have no authenticated session before submitting credentials');}if(!new URL(page.url()).pathname.startsWith('/auth/')){if(id==='formbricks')await sessionReady();return page;}
   if(id==='formbricks'){const email=page.locator('input[name=email]'),switcher=page.getByRole('button',{name:'Log in with Email',exact:false});await Promise.race([email.or(switcher).first().waitFor(),page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:45000,waitUntil:'domcontentloaded'})]);if(!new URL(page.url()).pathname.startsWith('/auth/')){await sessionReady();return page;}if(!await email.isVisible())await switcher.click();}
+  if(id==='formbricks')await page.waitForFunction(()=>{const email=document.querySelector('input[name=email]'),password=document.querySelector('input[name=password]'),form=password?.closest('form'),props=element=>element&&element[Object.keys(element).find(key=>key.startsWith('__reactProps$'))];return typeof props(email)?.onChange==='function'&&typeof props(password)?.onChange==='function'&&typeof props(form)?.onSubmit==='function';});
   await page.locator('input[name=email]').fill(account.email);await page.locator('input[name=password]').fill(account.password);await page.locator('button[type=submit]').click();
   // Require the original authenticated server session after the real form submit.
   // The following workflow opens its own original content; it need not wait for
@@ -34,10 +37,10 @@ export async function loginOriginalPage(id,page,endpoint,account){
    // its destination. Wait for that navigation to commit so it cannot later
    // replace the response page requested by the next workflow step. Loading
    // an unrelated cold dashboard is not required here.
-   await page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:90000,waitUntil:'commit'});
+   await page.waitForURL(url=>returnTo?url.pathname===new URL(returnTo,endpoint.origin).pathname:!url.pathname.startsWith('/auth/'),{timeout:90000,waitUntil:'commit'});
   }else await page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:60000,waitUntil:'domcontentloaded'});return page;
- }catch(error){const state=await page.evaluate(()=>{const email=document.querySelector('input[name=email]'),password=document.querySelector('input[name=password]'),submit=document.querySelector('button[type=submit]');return {pathname:location.pathname,emailFilled:Boolean(email?.value),passwordFilled:Boolean(password?.value),submitDisabled:submit?.disabled===true,reactBound:Boolean(email&&Object.keys(email).some(key=>key.startsWith('__reactProps$'))),errorText:document.body?.innerText||''};}).catch(()=>({}));const message=String(error.message).replaceAll(account.password,'[REDACTED]').replaceAll(endpoint.token,'[REDACTED]');throw Error(message+'; fixed original auth diagnostic '+JSON.stringify(safeAuthDiagnostic(state,responses)));}
- finally{page.removeListener('response',observe);}
+ }catch(error){const state=await page.evaluate(()=>{const email=document.querySelector('input[name=email]'),password=document.querySelector('input[name=password]'),submit=document.querySelector('button[type=submit]');return {pathname:location.pathname,emailFilled:Boolean(email?.value),passwordFilled:Boolean(password?.value),submitDisabled:submit?.disabled===true,reactBound:Boolean(email&&Object.keys(email).some(key=>key.startsWith('__reactProps$'))),errorText:document.body?.innerText||''};}).catch(()=>({}));const message=String(error.message).replaceAll(account.password,'[REDACTED]').replaceAll(endpoint.token,'[REDACTED]');throw Error(message+'; fixed original auth diagnostic '+JSON.stringify({...safeAuthDiagnostic(state,responses),submitObserved,credentialsSubmitted}));}
+ finally{page.removeListener('response',observe);page.removeListener('request',observeRequest);}
 }
 export async function originalAccountWorkflow({id,browser,endpoint,evidence,root,checks}){
  if(id==='plane')return createPlaneAccount({browser,endpoint,evidence,checks,localContext});
@@ -74,7 +77,7 @@ export async function verifyAccountPage({id,page,endpoint,state}){
 export async function verifyRecoveredAccount({id,browser,endpoint,state,evidence,checks}){
  if(!state)return;
  if(id==='plane')return verifyPlaneRecovery({browser,endpoint,state,evidence,checks,localContext});
- const context=await localContext(browser,endpoint),page=await loginOriginal(id,context,endpoint,state.account);
+ const context=await localContext(browser,endpoint),page=await loginOriginal(id,context,endpoint,state.account,id==='formbricks'?{returnTo:state.responsePath}:{});
  await verifyAccountPage({id,page,endpoint,state});
  await page.screenshot({path:path.join(evidence,'restored-account.png'),fullPage:true});await context.close();checks.push('Fresh browser signed into independently restored original account and recovered its persistent workspace or planning tags and original media bytes');
 }
