@@ -64,8 +64,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 6494,
-      "sha256": "0cc29ea848719edc58aecbf8b5345a5155ef8e2446901539dd5ae5a91074b44b"
+      "size": 6901,
+      "sha256": "c7356ff25b5296c6a7f8a8649bd82f1431a55b8b664781682b6956e2a8e1a88a"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -1299,8 +1299,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 22969,
-      "sha256": "b123b0897d228a2a38714b1e7d4740bc0111dd75609295deb8b2515fc6afa358"
+      "size": 23398,
+      "sha256": "c3631beb29ef754e2e36b5b26d4c36935106d1b3c739c25cf18fa30dbbe6f2d8"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1344,8 +1344,8 @@
     },
     {
       "path": "suite/tests/cloud-service-runtime.mjs",
-      "size": 3694,
-      "sha256": "81fdca559d7db1c305ad63674b23bfb3ef9bb9b611264a0cc48a993fa662752e"
+      "size": 4372,
+      "sha256": "25b1d51c02b5bedf47d4164e4cce4323644f10036d29837c7c481201213ca599"
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
@@ -1565,7 +1565,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "b36fcd0bae8e9fc06b6f3d8ff1390d6c21f03cec5d1973ce28baf6812824a439"
+      "sha256": "cde637323e0d22ff42b733b00ea2c5eef2cb1bb4af79ce7867207f1ee0b21e45"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
