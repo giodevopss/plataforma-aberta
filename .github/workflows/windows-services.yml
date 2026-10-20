@@ -6,6 +6,10 @@ on:
         type: choice
         default: all
         options: [all, paperless, formbricks, plane, postiz, baserow, activepieces]
+      installer_run_id:
+        description: Accepted native installer run; empty tests the source shell
+        type: string
+        default: ''
 permissions:
   contents: read
 jobs:
@@ -34,6 +38,17 @@ jobs:
         run: |
           node scripts/distribution/public-assets.mjs restore
           node scripts/distribution/prepare-electron.mjs
+      - name: Verify accepted native installer and unchanged product source
+        if: inputs.installer_run_id != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PA_ACCEPTED_INSTALLER_RUN: ${{ inputs.installer_run_id }}
+        shell: bash
+        run: node scripts/distribution/restore-tested-installer.mjs "--run=$PA_ACCEPTED_INSTALLER_RUN"
+      - name: Install accepted native package into this disposable runner
+        if: inputs.installer_run_id != ''
+        id: install
+        run: node scripts/distribution/installer-validation.mjs install
       - name: Test original accounts, actual Windows native view, restart and cold independent recovery
         env:
           PA_OWN_VM_ACCEPTANCE: '1'
@@ -44,6 +59,9 @@ jobs:
           elseif ('${{ matrix.service }}' -eq 'baserow') { node suite/tests/database-cloud.mjs }
           elseif ('${{ matrix.service }}' -eq 'activepieces') { node suite/tests/automation-cloud.mjs }
           else { node suite/tests/remaining-services-cloud.mjs '${{ matrix.service }}' }
+      - name: Uninstall only this recorded native package
+        if: always() && steps.install.outcome == 'success'
+        run: node scripts/distribution/installer-validation.mjs uninstall
       - name: Preserve small fresh synthetic evidence only
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

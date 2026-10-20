@@ -1,3 +1,4 @@
+import {copyPublicConfiguration} from './public-config-files.mjs';
 import {isolateStack,isolatedGateway} from './verification-runtime.mjs';
 import {relocateRestoredAssets} from './restore-relocation.mjs';
 import fs from 'node:fs';
@@ -12,6 +13,7 @@ export const affineApp={id:'affine',image:affineImages.application,port:3010,mem
 const secretKeys=['secret','secret2','secret3','storageSecret','queueSecret','analyticsSecret','hubSecret','authzPassword','authzSecret'];
 export class CompleteRuntime extends LocalRuntime {
  constructor(options){super(options);this.hasComposeTransport=Boolean(options.runCompose);this.composeBinary=options.composeBinary;this.runCompose=options.runCompose||commandRunner(this.composeBinary||'missing-compose-runtime');}
+ materializeConfiguration(id,relative,destination){if(!this.specs.has(id)||typeof relative!=='string'||!/^[A-Za-z0-9._/-]+$/.test(relative)||relative.split('/').some(part=>!part||part==='.'||part==='..'))throw Error('Recurso de configuração desconhecido.');return copyPublicConfiguration(path.join(fileURLToPath(new URL('../resources/stack-config/',import.meta.url)),id,...relative.split('/')),destination);}
  serverDefinition(id,settings,specHash){const result=createServerStack(id,{...settings,prefix:'pa-'+this.identity.id+'-'+id,owner:this.identity.id,specHash});return this.verificationMode?isolateStack(result,settings):result;}
  composeArgs(id,args){const dir=path.join(this.directory,id);return ['--project-directory',dir,'--project-name','pa-'+this.identity.id+'-'+id,'--file',path.join(dir,'compose.json'),...args];}
  async checkStackOwnership(id,specHash,stack){
@@ -40,7 +42,7 @@ export class CompleteRuntime extends LocalRuntime {
   const stack=this.serverDefinition(id,settings,specHash);
   await this.checkStackOwnership(id,specHash,stack);
   fs.writeFileSync(path.join(dir,'compose.json'),JSON.stringify(stack.compose,null,2)+'\n',{mode:0o600});
-  fs.writeFileSync(path.join(dir,'gateway.conf'),stack.config,{mode:0o644});for(const service of Object.values(stack.compose.services))for(const mount of service.volumes||[]){const source=typeof mount==='string'?mount.split(':')[0]:mount.type==='bind'?mount.source:null;if(source&&!source.startsWith('/')&&(source.startsWith('./')||typeof mount==='object')){const relative=source.replace(/^\.\//,'');if(relative==='gateway.conf')continue;if(relative.startsWith('stack-config/')){const resource=fileURLToPath(new URL('../resources/stack-config/'+id+'/'+relative.slice(13),import.meta.url));const target=path.join(dir,relative);fs.mkdirSync(path.dirname(target),{recursive:true,mode:0o700});fs.cpSync(resource,target,{recursive:true});}else fs.mkdirSync(path.join(dir,relative),{recursive:true,mode:0o700});}}
+  fs.writeFileSync(path.join(dir,'gateway.conf'),stack.config,{mode:0o644});for(const service of Object.values(stack.compose.services))for(const mount of service.volumes||[]){const source=typeof mount==='string'?mount.split(':')[0]:mount.type==='bind'?mount.source:null;if(source&&!source.startsWith('/')&&(source.startsWith('./')||typeof mount==='object')){const relative=source.replace(/^\.\//,'');if(relative==='gateway.conf')continue;if(relative.startsWith('stack-config/')){const target=path.join(dir,relative);fs.mkdirSync(path.dirname(target),{recursive:true,mode:0o700});this.materializeConfiguration(id,relative.slice(13),target);}else fs.mkdirSync(path.join(dir,relative),{recursive:true,mode:0o700});}}
   this.setStatus(id,'downloading','Verificando os componentes completos de '+id+'…');
   for(const image of new Set(stackImages(id)))await this.ensureImage(image);
   if(id==='postiz'){const sourceCheck='pa-'+this.identity.id+'-postiz-source-check';this.verificationHelpers?.add(sourceCheck);const manifest=JSON.parse(fs.readFileSync(fileURLToPath(new URL('../resources/stack-config/postiz/PROVENANCE.json',import.meta.url)))),original=(await this.run(['run','--rm','--name',sourceCheck,'--label','app.plataforma-aberta.workspace='+this.identity.id,'--network','none','--user','65534:65534','--read-only','--cap-drop','ALL','--entrypoint','sha256sum',manifest.image,manifest.target])).trim().split(/\s+/)[0];if(original!==manifest.original_sha256)throw Error('A configuração original Postiz difere da fonte auditada. Nenhum arquivo foi substituído.');}

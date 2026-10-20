@@ -29,8 +29,8 @@
     },
     {
       "path": "desktop/src/complete-runtime.mjs",
-      "size": 8716,
-      "sha256": "a5f0cf1aaa7014ea9ddc4713a0709b99a4fdb800967baf1970a4e541cc847e51"
+      "size": 9100,
+      "sha256": "167e0c3b8a0e529e19b1228f3ee7cb26ef95b62824b31f51bc7e2abea9cc3925"
     },
     {
       "path": "desktop/src/connections.mjs",
@@ -211,6 +211,11 @@
       "path": "desktop/src/profile-store.mjs",
       "size": 5328,
       "sha256": "5be6cc9d00f63a868db2a20ffd5bb60204a1dcd0b7a63b796b370f09335992ce"
+    },
+    {
+      "path": "desktop/src/public-config-files.mjs",
+      "size": 1540,
+      "sha256": "98e38f4d88f2af39624f5c9e0f143a981b07384711b9858a49f8fa38f0c85631"
     },
     {
       "path": "desktop/src/qa-guest-runtime.mjs",
@@ -591,6 +596,11 @@
       "path": "desktop/tests/profile-store.test.mjs",
       "size": 2950,
       "sha256": "a617617be41e72bca39c1bcc9e0d67e48aef6c1f85ee4f5ca82091672c9a8e85"
+    },
+    {
+      "path": "desktop/tests/public-config-files.test.mjs",
+      "size": 3211,
+      "sha256": "3351ce461529606875ad10bf7759d468af1f007d5ed8b71036c891b137964046"
     },
     {
       "path": "desktop/tests/public-source.test.mjs",
@@ -1374,8 +1384,8 @@
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
-      "size": 11638,
-      "sha256": "81418cd4137e998ccb16823a56c6a328798a9d663317770aa26989093c923a36"
+      "size": 12147,
+      "sha256": "663fea78a023715289fa964ff1561600704b481353ef59233ae26625beca8553"
     },
     {
       "path": "suite/tests/browser-storage-native.mjs",
@@ -1434,8 +1444,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 7564,
-      "sha256": "1b0c465ae745e9ea1913ba5bbab4294689b66c35e9010274c759ac96c747c55b"
+      "size": 7756,
+      "sha256": "173e54b4a6405c55f3cd555b0f50f587ca0bc60873d8ad63083de95a50888fae"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1575,7 +1585,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "51758e0e29eb1885c7856fc5f312280793c826c428101a8503009b3d1dec40cf"
+      "sha256": "246ef2ed8d4220936e26e5e3a15841d9f6d8c0303483c1cd48955399d515b49d"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1584,8 +1594,8 @@
     },
     {
       "path": ".github/workflows/mac-services.yml",
-      "size": 3153,
-      "sha256": "c6f0afcbcd416f3649da390dd448386991f4e550877abfa010378104331e7149"
+      "size": 4060,
+      "sha256": "5b4cd39deffc829aa9ce1f1ddc5ec9b184bc1e02e65d06d18d0b711707a45f59"
     },
     {
       "path": ".github/workflows/presenton-startup.yml",
@@ -1644,8 +1654,8 @@
     },
     {
       "path": ".github/workflows/windows-services.yml",
-      "size": 2481,
-      "sha256": "e192682088ddad57ccbc2f501faaf97bc6b5f7b1758c2155c5b8eb5678e614cf"
+      "size": 3388,
+      "sha256": "51226096c03d1586fdb690f06d403b30f8e2778b961fdd15174b3d03c22a416f"
     },
     {
       "path": ".github/workflows/presenton-validation.yml",
