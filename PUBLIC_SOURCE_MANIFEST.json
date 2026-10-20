@@ -1309,8 +1309,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 23953,
-      "sha256": "5c3d5a6ba1e7db560cf4f157434bee6202271afd1485303dc0ee7c1875dacf5d"
+      "size": 24276,
+      "sha256": "3416058291daa0c1976bcf8a6a2acfd18d98735d0650b5cd580c33cfbd3dd515"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1575,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12549,
-      "sha256": "96b844c070d2a55ce4085f9558209653b24b1d8d49e7f7cf853c974332801982"
+      "sha256": "6af264fb25ce9f10bccce681c08992deed41f0665c682b28859d72708cb227d1"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
