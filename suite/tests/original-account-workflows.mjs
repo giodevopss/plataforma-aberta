@@ -1,3 +1,4 @@
+import {safeAuthDiagnostic} from './safe-container-diagnostic.mjs';
 import {createPlaneAccount,verifyPlaneRecovery} from './plane-account-workflow.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,10 +18,18 @@ export async function loginOriginal(id,context,endpoint,account){
  await context.clearCookies();const page=await context.newPage();return loginOriginalPage(id,page,endpoint,account);
 }
 export async function loginOriginalPage(id,page,endpoint,account){
- page.setDefaultTimeout(45000);await page.goto(endpoint.origin+'/auth/login',{waitUntil:'domcontentloaded'});if(!new URL(page.url()).pathname.startsWith('/auth/'))return page;
- if(id==='formbricks'){const email=page.locator('input[name=email]'),switcher=page.getByRole('button',{name:'Log in with Email',exact:false});await Promise.race([email.or(switcher).first().waitFor(),page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:45000,waitUntil:'domcontentloaded'})]);if(!new URL(page.url()).pathname.startsWith('/auth/'))return page;if(!await email.isVisible())await switcher.click();}
- await page.locator('input[name=email]').fill(account.email);await page.locator('input[name=password]').fill(account.password);await page.locator('button[type=submit]').click();
- await page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:60000,waitUntil:'domcontentloaded'});return page;
+ const responses=[],observe=response=>{try{const url=new URL(response.url());if(url.origin===endpoint.origin&&url.pathname.startsWith('/api/auth/'))responses.push({route:url.pathname.includes('sign-in')?'sign-in':url.pathname.includes('get-session')?'session':url.pathname.includes('callback')?'callback':'other',status:response.status()});}catch{}};page.on('response',observe);
+ const sessionReady=()=>page.waitForFunction(async email=>{try{const response=await fetch('/api/auth/get-session',{credentials:'include'});if(!response.ok)return false;const value=await response.json();return value?.user?.email===email;}catch{return false;}},account.email,{timeout:90000,polling:2000});
+ try{
+  page.setDefaultTimeout(45000);await page.goto(endpoint.origin+'/auth/login',{waitUntil:'domcontentloaded'});if(!new URL(page.url()).pathname.startsWith('/auth/')){if(id==='formbricks')await sessionReady();return page;}
+  if(id==='formbricks'){const email=page.locator('input[name=email]'),switcher=page.getByRole('button',{name:'Log in with Email',exact:false});await Promise.race([email.or(switcher).first().waitFor(),page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:45000,waitUntil:'domcontentloaded'})]);if(!new URL(page.url()).pathname.startsWith('/auth/')){await sessionReady();return page;}if(!await email.isVisible())await switcher.click();}
+  await page.locator('input[name=email]').fill(account.email);await page.locator('input[name=password]').fill(account.password);await page.locator('button[type=submit]').click();
+  // Require the original authenticated server session after the real form submit.
+  // The following workflow opens its own original content; it need not wait for
+  // an unrelated cold dashboard route to finish rendering first.
+  if(id==='formbricks')await sessionReady();else await page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:60000,waitUntil:'domcontentloaded'});return page;
+ }catch(error){const state=await page.evaluate(()=>{const email=document.querySelector('input[name=email]'),password=document.querySelector('input[name=password]'),submit=document.querySelector('button[type=submit]');return {pathname:location.pathname,emailFilled:Boolean(email?.value),passwordFilled:Boolean(password?.value),submitDisabled:submit?.disabled===true,reactBound:Boolean(email&&Object.keys(email).some(key=>key.startsWith('__reactProps$'))),errorText:document.body?.innerText||''};}).catch(()=>({}));const message=String(error.message).replaceAll(account.password,'[REDACTED]').replaceAll(endpoint.token,'[REDACTED]');throw Error(message+'; fixed original auth diagnostic '+JSON.stringify(safeAuthDiagnostic(state,responses)));}
+ finally{page.removeListener('response',observe);}
 }
 export async function originalAccountWorkflow({id,browser,endpoint,evidence,root,checks}){
  if(id==='plane')return createPlaneAccount({browser,endpoint,evidence,checks,localContext});

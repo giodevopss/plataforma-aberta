@@ -634,8 +634,8 @@
     },
     {
       "path": "desktop/tests/safe-container-diagnostic.test.mjs",
-      "size": 1915,
-      "sha256": "d4d436b34fc358a52b1982f2112ca5b04918ef636aec932ff81e0f637e91914c"
+      "size": 2465,
+      "sha256": "3756ceda487d9de66292ff848bc2e2e7ff3513575be265529c02547c52ac7db3"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -1324,8 +1324,8 @@
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
-      "size": 2314,
-      "sha256": "b3ad871039ae10cbd7cbb5f8346d9a9425f33f74ea3c149ffd49514cce22b9d1"
+      "size": 3517,
+      "sha256": "91f828e9f73f6347b0c72048afcd0605918cdbfd11728b090e689a0ac00a1150"
     },
     {
       "path": "suite/tests/repeat-desktop-native.mjs",
@@ -1469,8 +1469,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 15815,
-      "sha256": "1ca140cfa9113414d2bea6ef6b7f38c3082b0bf8dade830e70923247a74319af"
+      "size": 16020,
+      "sha256": "1bd8fc5c7cd958b52b2c16606153adc919707fdad5c91a693cfc45a8352135dd"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1479,8 +1479,8 @@
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
-      "size": 10040,
-      "sha256": "466ac49930be22c09c525229b8b1dd30f0be3334cb32852abebd182c445d4429"
+      "size": 11938,
+      "sha256": "5eaa76f57e027eb867f79ed481913e859c0cc2f47a0bfe7036810a451fdb42c1"
     },
     {
       "path": "suite/tests/plane-account-workflow.mjs",
@@ -1615,7 +1615,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13375,
-      "sha256": "f18b1b60463acd3954a56e4328fd450a7615b93625342357f5363b4d7d56e68b"
+      "sha256": "8b532edcb9118e96601edec895cead54a86959dd957c2fc1085c286095f25536"
     },
     {
       "path": ".github/workflows/publish-release.yml",

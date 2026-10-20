@@ -14,3 +14,9 @@ export function safeScreenityDiagnostic(value={}){
  const categories=new Set(['timeout','assertion','other']);
  return {id:'screenity',phase:phases.has(value.phase)?value.phase:'unknown',category:categories.has(value.failureCategory)?value.failureCategory:'other',completedChecks:Array.isArray(value.checks)?Math.min(value.checks.length,100):0};
 }
+
+// Fixed auth states only: no input values, cookie/token values, body or URLs.
+export function safeAuthDiagnostic(state={},responses=[]){
+ const routes=new Set(['sign-in','session','callback','other']);const errors=[['credentials',/invalid.*(?:credential|password)|incorrect.*(?:password|email)/i],['verification',/verify your email|email.*not verified/i],['csrf',/csrf|invalid origin|origin.*not.*allowed/i],['rate-limit',/too many|rate limit/i],['connection',/failed to fetch|network error|connection refused/i]];
+ return {location:typeof state.pathname==='string'&&state.pathname.startsWith('/auth/')?'auth':typeof state.pathname==='string'&&state.pathname.startsWith('/workspaces/')?'workspace':'other',emailFilled:state.emailFilled===true,passwordFilled:state.passwordFilled===true,submitDisabled:state.submitDisabled===true,reactBound:state.reactBound===true,errorKinds:errors.filter(([,pattern])=>pattern.test(String(state.errorText||''))).map(([name])=>name),responses:(Array.isArray(responses)?responses:[]).filter(value=>value&&routes.has(value.route)&&Number.isInteger(value.status)&&value.status>=100&&value.status<=599).slice(-12).map(value=>({route:value.route,status:value.status}))};
+}
