@@ -459,8 +459,8 @@
     },
     {
       "path": "desktop/tests/close-native-qa.test.mjs",
-      "size": 1386,
-      "sha256": "a492b3ad847f863375a50add25b8dfa6ed739277dc355c925b09bf652b4d2140"
+      "size": 2131,
+      "sha256": "3a36656a146f3d52927a82ee7bf20fd0bcf285a544558cc3740ffff665989d4c"
     },
     {
       "path": "desktop/tests/combined-fixture.test.mjs",
@@ -1404,8 +1404,8 @@
     },
     {
       "path": "suite/tests/close-native-qa.mjs",
-      "size": 3510,
-      "sha256": "71b39b3b3f5202e8820de819dc49eda2ee03405caaf1143efc6bcfddf4de2d0e"
+      "size": 3954,
+      "sha256": "a6343486d1635dfc06ec2eef8ab53a60bed27d5aaf410a3e0865fb39e4ea9ade"
     },
     {
       "path": "suite/tests/graphite-durability.mjs",
@@ -1595,7 +1595,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13316,
-      "sha256": "25a5e9c36ed8e099738f2b8b105d8e38c867517b333fc591406c83d56949329e"
+      "sha256": "7a7d8f28671960475aa29dc88f1e0202d37bc1aa5a4c3bc0838629ee294d01ae"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

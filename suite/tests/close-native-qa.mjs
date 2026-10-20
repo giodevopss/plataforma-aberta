@@ -3,7 +3,8 @@ import {execFile} from 'node:child_process';
 export async function closeNativeQA(application,{strict=true,timeout=15000}={}){
  if(!application)return;if(process.env.CI!=='true')throw Error('Native QA cleanup requires a disposable runner.');const child=application.process();
  if(child.exitCode!==null||child.signalCode!==null){if(strict&&child.exitCode!==0)throw Error('Native app exited with code '+child.exitCode);return;}
- const trace=bytes=>{for(const line of bytes.toString().split(/\r?\n/))if(line.startsWith('SUITE_SHUTDOWN '))console.log(line);};child.stdout?.on('data',trace);
+ const stages=new Map();let traceBuffer='';
+ const trace=bytes=>{traceBuffer=(traceBuffer+bytes.toString()).slice(-16000);const lines=traceBuffer.split(/\r?\n/);traceBuffer=lines.pop();for(const line of lines){const match=line.match(/^SUITE_SHUTDOWN (managed-runtime|local-service|editor-save|editor-suspend|editor-resume|native-error-dialog|browser-storage-[0-9]{1,2}) (started|completed|failed|canceled|opened)$/);if(match){stages.set(match[1],match[2]);console.log(line);}}};child.stdout?.on('data',trace);
  let timer,listener;const exit=new Promise((resolve,reject)=>{listener=code=>code===0?resolve():reject(Error('Native app exited with code '+code));child.once('exit',listener);});
  // Record stage names only, never arguments, browser contents or credentials.
  // This observes the real shutdown and leaves every original guard intact.
@@ -17,7 +18,7 @@ export async function closeNativeQA(application,{strict=true,timeout=15000}={}){
   }
   setImmediate(()=>app.quit());return true;
  });close.catch(()=>{});
- try{await Promise.race([exit,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Native application did not close gracefully within '+timeout+' ms')),timeout);})]);}
+ try{await Promise.race([exit,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Native application did not close gracefully within '+timeout+' ms; fixed shutdown stages: '+([...stages].map(([stage,state])=>stage+'='+state).join(',')||'none'))),timeout);})]);}
  catch(error){
   // A Chromium child can retain the test transport on Windows. Terminate only
   // this exact runner-owned process tree after failing the graceful assertion.
