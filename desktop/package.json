@@ -1,7 +1,7 @@
 {
   "name": "plataforma-aberta-suite",
   "productName": "Plataforma Aberta",
-  "version": "0.2.0-alpha.1",
+  "version": "1.0.0",
   "description": "Suíte desktop local de criação e trabalho",
   "author": "Plataforma Aberta",
   "private": true,

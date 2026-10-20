@@ -314,8 +314,8 @@
     },
     {
       "path": "desktop/renderer/app.mjs",
-      "size": 15922,
-      "sha256": "fd483c35097ae386416d6ceed2598f40d4740892d5e85bac2e5b686f32774525"
+      "size": 15836,
+      "sha256": "653b578468abffe5dc8571c6655c7e249c9abddeca20e94d2588bfc472986cfa"
     },
     {
       "path": "desktop/renderer/editor-src/bootstrap.mjs",
@@ -1149,8 +1149,8 @@
     },
     {
       "path": "suite/INSTALLERS.md",
-      "size": 4084,
-      "sha256": "5f8cfca868440bb802016d3ecb1cd74f6b23c54495ae732677eb413210c9ae46"
+      "size": 4440,
+      "sha256": "990fbe3affd8a5a3dda612bef2e3e9dd94f4eeadd1fe22762e6067924c243336"
     },
     {
       "path": ".gitignore",
@@ -1164,13 +1164,13 @@
     },
     {
       "path": "desktop/package.json",
-      "size": 1419,
-      "sha256": "e26a66208d6d5c35bf7529ee758dc4fe7be24a66edb9f6609a7c2c9e4a417f04"
+      "size": 1411,
+      "sha256": "6c86cdb7223974c95a0fdbf3b4002ec14433fd3058bb05dbace42ad89261d2d2"
     },
     {
       "path": "desktop/package-lock.json",
-      "size": 141954,
-      "sha256": "0cee9a9db3b01b4cf3d85cd69f7571e94500fd853cd83c333445338a86b4b67b"
+      "size": 141938,
+      "sha256": "c80ed760b17b6fd29decaf19435bddb1ba74f1c13a9754f36016a5f04565c90d"
     },
     {
       "path": "desktop/electron-builder.yml",
@@ -1599,8 +1599,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 13454,
-      "sha256": "b89bfefb54ed49d1bb0e7a2ca43a2db2f21f0eedc3c9924d9b6ebadc653f025f"
+      "size": 13375,
+      "sha256": "84872168bd67422149647cd98ab429f46573315c887747f033a0bbcb8bd98518"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1739,8 +1739,8 @@
     },
     {
       "path": "desktop/README.md",
-      "size": 7072,
-      "sha256": "057f4164aecc98d00fa25662a6bccd04789f644140e89a50b26e991c71be9f65"
+      "size": 7134,
+      "sha256": "cf8dc923be5fa56c766969633698ed140eb0ef2192e4d2f5be45c3188f74c448"
     },
     {
       "path": "LICENSE",

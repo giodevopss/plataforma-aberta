@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T11:41:03.779Z",
+  "checked_at": "2026-10-20T12:00:49.739Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -73,7 +73,7 @@
   "complete_backup_restore": "pending",
   "upgrade_rollback": "passed",
   "distribution_signatures": "pending",
-  "distribution": "Current three unsigned installers 39408346878 passed actual lifecycle and all 54 public config hashes/production ASAR materialization. All four native providers passed joint product backup/activation/exact readback on all targets in 39410563459. Manual replacement/rollback passed Windows 39410566551 and both Macs 39411832479. All 184 public tests passed four targets in 39411234198. Complete twelve-provider installed Windows 39410583334 and Mac Intel 39411829185 remain pending; unsigned delivery authorized.",
+  "distribution": "All three current unsigned candidates 39416790463 (product babf14c) passed actual build/install/native originals/OCR/exports/core encrypted independent recovery/uninstall/full remote package size-SHA256 readback. Current Postiz cgroup/health fix passed original Linux Intel and ARM. Current installed full Mac 39418067912 / Windows 39418071399, native four 39418079066 and manual transition 39418082879 remain pending. Unsigned delivery authorized; functional gates remain mandatory.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -83,8 +83,8 @@
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
-    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39415345437",
-    "core_test_result": "193 current local tests passed, no failures/skips. 185 public tests passed four targets in 39415345437; three new guest identity regressions bring public count to 188, pending run 39415804772.",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39416795803",
+    "core_test_result": "193 local tests passed, zero failures/skips. All188 public tests passed four targets in39416795803; five private boundary tests remain local.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
@@ -92,26 +92,26 @@
     },
     "windows_services_in_progress": null,
     "local_presentations_in_progress": null,
-    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39408346878-win32-x64",
+    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39416790463-win32-x64",
     "internal_mac_installers": [
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39408346878-darwin-arm64",
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39408346878-darwin-x64"
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39416790463-darwin-arm64",
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39416790463-darwin-x64"
     ],
     "windows_services": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39165080309",
     "scoped_service_reports": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-windows-services-39165080309",
-    "current_native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410563459",
+    "current_native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39418079066",
     "database_automation_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-database-automation-39171271372",
     "multiarchitecture_service_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-services-arm-windows-39173725815",
     "current_native_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-native-validation-39383174469",
     "complete_source_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39391893777",
-    "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410583334",
+    "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39418071399",
     "arm_presenton_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39384577834",
     "accepted_current_installers": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39408346878",
     "complete_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39396449996",
-    "current_build_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39415798451",
-    "complete_installed_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411829185",
-    "current_core_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39415804772",
-    "current_manual_transition": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411832479"
+    "current_build_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39416790463",
+    "complete_installed_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39418067912",
+    "current_core_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39416795803",
+    "current_manual_transition": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39418082879"
   },
   "unsigned_distribution_authorized": true,
   "distribution_notes": [

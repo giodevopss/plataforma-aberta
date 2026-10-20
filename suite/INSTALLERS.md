@@ -1,23 +1,31 @@
 # Instaladores sem assinatura — 20/10/2026
 
-**Reconstrução em andamento:** o build 39415798451 acrescenta uma única repetição segura da leitura de identidade após timeout do transporte. Os links abaixo identificam os candidatos anteriores, já aceitos no escopo descrito, sem essa correção. A nova série ainda não está aprovada.
+Os três candidatos atuais passaram geração, instalação real, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por tamanho/SHA-256 em [39416790463](https://github.com/giodevopss/plataforma-aberta/actions/runs/39416790463). Código empacotado: `babf14c1f760f89e67743842b28dc9f4a83f4b14`.
 
-Os três candidatos atuais foram gerados e passaram instalação, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por SHA-256/tamanho em [39408346878](https://github.com/giodevopss/plataforma-aberta/actions/runs/39408346878). O código empacotado é `6a362060e734311f4c67ede3e8fb987ef34b7a86`.
+Incluem encerramento HTTP correto, compartilhamento canônico Mac, marcador durável Postiz após perda de confirmação de COMMIT, cópia de configurações a partir do ASAR e uma única repetição da leitura de identidade após timeout do transporte. Nenhum comando que altera dados é repetido. Os 54 arquivos públicos e o schema original Formbricks passaram no pacote real dos três sistemas. Windows também passou cinco rodadas independentes de interface/encerramento.
 
-Incluem as correções de encerramento HTTP, compartilhamento canônico Mac, proteção Postiz após interrupção da confirmação do COMMIT e cópia explícita de configurações a partir do ASAR. Nos três pacotes, os 54 arquivos públicos de configuração correspondem aos hashes originais, e o método real de produção materializa o schema original Formbricks. Windows também passou cinco rodadas independentes de interface/encerramento.
+O limite Elasticsearch do Postiz passou para 1 GiB, mantendo o heap original de 256 MiB, após OOM real reproduzido no Mac. Temporal agora aguarda a saúde real de Elasticsearch e PostgreSQL. Os workflows originais completos corrigidos passaram em [Linux Intel 39416799467](https://github.com/giodevopss/plataforma-aberta/actions/runs/39416799467) e [Linux ARM 39416803339](https://github.com/giodevopss/plataforma-aberta/actions/runs/39416803339); o pacote Mac corrigido ainda está em validação.
 
-**A aceitação conjunta dos doze aplicativos continua pendente. Estes pacotes são candidatos de validação; ainda não constituem a distribuição profissional final aprovada.** A ausência de assinatura foi autorizada pelo proprietário. [Critérios verificáveis](release-readiness.json).
+**A aceitação conjunta dos doze aplicativos permanece pendente. Estes pacotes são candidatos de validação e ainda não constituem a distribuição profissional final aprovada.** O proprietário autorizou a ausência de assinatura; todos os critérios funcionais continuam obrigatórios. [Critérios atuais](release-readiness.json).
 
 | Sistema | Pacote | Tamanho exato | SHA-256 |
 | --- | --- | ---: | --- |
-| Mac Apple Silicon | [Baixar DMG](https://github.com/giodevopss/plataforma-aberta/releases/download/installer-validation-39408346878-darwin-arm64/Plataforma-Aberta-0.2.0-alpha.1-mac-arm64.dmg) | 820079984 bytes | `668d16b3d53b0ddd4fab9b8b6a7a1eb97b3fb1475d3a66d38561b39f2263016c` |
-| Mac Intel | [Baixar DMG](https://github.com/giodevopss/plataforma-aberta/releases/download/installer-validation-39408346878-darwin-x64/Plataforma-Aberta-0.2.0-alpha.1-mac-x64.dmg) | 830814943 bytes | `51f56ea9efee1e0ad4e69b89d5bdb3bcbd8949281375b7857fc50ea8a5476865` |
-| Windows x64 | [Baixar EXE](https://github.com/giodevopss/plataforma-aberta/releases/download/installer-validation-39408346878-win32-x64/Plataforma-Aberta-0.2.0-alpha.1-win-x64.exe) | 687123961 bytes | `2b66aebe0e1d59aa208e0ac45722e737fea426e352db978305f755c2485c8782` |
+| Mac Apple Silicon | [Baixar DMG](https://github.com/giodevopss/plataforma-aberta/releases/download/installer-validation-39416790463-darwin-arm64/Plataforma-Aberta-0.2.0-alpha.1-mac-arm64.dmg) | 820080623 bytes | `df1d404814676ca7f8f1688181acc365e5d02afb5428fe7b69c4e6e61a2c32b8` |
+| Mac Intel | [Baixar DMG](https://github.com/giodevopss/plataforma-aberta/releases/download/installer-validation-39416790463-darwin-x64/Plataforma-Aberta-0.2.0-alpha.1-mac-x64.dmg) | 830814971 bytes | `87b92a88ed8f74c72e892ba2d74ebf86c5f8257c94a9d316aa467f5970b01e5d` |
+| Windows x64 | [Baixar EXE](https://github.com/giodevopss/plataforma-aberta/releases/download/installer-validation-39416790463-win32-x64/Plataforma-Aberta-0.2.0-alpha.1-win-x64.exe) | 687124310 bytes | `2dd7524fa783da31f5ff20e2e0083e8707ce95cf8694ecd908c15aad73086855` |
 
-O backup conjunto dos quatro providers nativos passou nos três sistemas em [39410563459](https://github.com/giodevopss/plataforma-aberta/actions/runs/39410563459). A troca manual anterior → atual → anterior passou no [Windows 39410566551](https://github.com/giodevopss/plataforma-aberta/actions/runs/39410566551) e nos [dois Macs 39411832479](https://github.com/giodevopss/plataforma-aberta/actions/runs/39411832479). Os [184 testes públicos](https://github.com/giodevopss/plataforma-aberta/actions/runs/39411234198) passaram nos quatro sistemas. [Comprovantes permanentes atuais](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39408346878), com leitura remota integral conferida.
+Todos os [188 testes públicos](https://github.com/giodevopss/plataforma-aberta/actions/runs/39416795803) passaram em Linux, Mac ARM, Mac Intel e Windows; 193 testes locais passaram sem falhas/skips.
 
-Os testes completos dos doze aplicativos no pacote atual continuam no [Windows 39410583334](https://github.com/giodevopss/plataforma-aberta/actions/runs/39410583334) e no [Mac Intel 39411829185](https://github.com/giodevopss/plataforma-aberta/actions/runs/39411829185). Esses dois testes ainda não estão aprovados. Evidências históricas identificam seus próprios pacotes e não substituem a aceitação atual.
+| Validação atual dos pacotes | Run | Estado |
+| --- | --- | --- |
+| Doze aplicativos, Mac Intel | [39418067912](https://github.com/giodevopss/plataforma-aberta/actions/runs/39418067912) | Pendente |
+| Doze aplicativos, Windows | [39418071399](https://github.com/giodevopss/plataforma-aberta/actions/runs/39418071399) | Pendente |
+| Postiz, Mac Intel / Windows | 39418075197 / 39418086055 | Pendente |
+| Backup conjunto de quatro providers nativos | 39418079066 | Pendente |
+| Troca manual e retorno dos pacotes | 39418082879 | Pendente |
 
-Os instaladores pesados permanecem nas Releases públicas. Aplicativos, bancos e modelos são preparados no computador do usuário conforme o uso; backups e credenciais não fazem parte dos downloads. Os ambientes de QA desta rodada são descartáveis e remotos; este Mac recebe somente código e relatórios pequenos.
+Os pacotes anteriores 39408346878 passaram backup nativo conjunto nos três sistemas e troca/retorno; [14 comprovantes históricos](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39408346878) foram conferidos integralmente. Não substituem a aceitação dos pacotes novos.
 
-O backup binário de serviços exige a mesma arquitetura Linux; os perfis nativos exigem o mesmo sistema. Migração lógica entre ARM/Intel e atualizações que alterem esquemas exigem validação específica. Não há atualização automática habilitada.
+Instaladores pesados permanecem nas Releases públicas. Aplicativos, bancos e modelos são preparados no computador do usuário conforme o uso; backups e credenciais não fazem parte dos downloads. Esta rodada usa runners públicos padrão gratuitos e ambientes descartáveis; este Mac recebe apenas código e relatórios pequenos.
+
+Backup binário de serviços exige a mesma arquitetura Linux; perfis nativos exigem o mesmo sistema. Migração lógica ARM/Intel e atualizações que alterem esquemas necessitam validação específica. Não há atualização automática habilitada. A cobertura dos serviços Linux ARM, da interface Mac ARM e do transporte no Mac físico é declarada separadamente da recuperação conjunta em Mac Intel/Windows.

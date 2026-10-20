@@ -27,17 +27,17 @@ Cada serviço pode ser encerrado nas configurações. Instalação, parada e rec
 
 **Verificar restauração** autentica o arquivo antes de preparar um perfil independente. Serviços recuperados são verificados em cópias sacrificiais isoladas, sem portas publicadas ou acesso externo. O candidato permanece sem iniciar servidores até a ativação explícita. **Usar restauração e reiniciar** mantém o perfil anterior para retorno caso o primeiro início falhe.
 
-A interface conserva também **Exportar quadros**, identificado como backup Excalidraw. Não confunda esse arquivo com o backup unificado da suíte. A recuperação conjunta de editores, voz/modelo e vídeo passou nos três pacotes atuais; o teste conjunto dos doze aplicativos ainda está pendente.
+A interface conserva também **Exportar quadros**, identificado como backup Excalidraw. Não confunda esse arquivo com o backup unificado da suíte. A recuperação conjunta de editores, voz/modelo e vídeo passou nos três pacotes anteriores 39408346878; o teste conjunto dos doze aplicativos ainda está pendente.
 
 Snapshots binários de serviços exigem a mesma arquitetura Linux. Perfis nativos exigem o mesmo sistema operacional. Migração lógica ARM/Intel ou entre sistemas necessita validação própria. Postiz mantém um marcador durável durante a realocação de mídia: se houver interrupção após COMMIT, um novo backup fica bloqueado até reabrir o aplicativo e concluir a retomada idempotente.
 
 ## Verificação e distribuição
 
-Node 24.12 e dependências fixadas no lockfile. Há 189 testes locais aprovados, sem falhas/skips; os 184 testes públicos passaram nos quatro alvos em 39411234198. Os cinco testes da fronteira privada permanecem locais. Os testes originais de OpenWhispr são adicionais a essa contagem.
+Node 24.12 e dependências fixadas no lockfile. Há 193 testes locais aprovados, sem falhas/skips; os 188 testes públicos passaram nos quatro alvos em 39416795803. Os cinco testes da fronteira privada permanecem locais. Os testes originais de OpenWhispr são adicionais a essa contagem.
 
-Os três instaladores 39408346878 passaram instalação real, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por tamanho/SHA-256. Os 54 arquivos públicos de configuração e a materialização real do schema Formbricks a partir do ASAR passaram em todos os pacotes. Windows também passou cinco rodadas independentes de interface/encerramento.
+Os três instaladores atuais 39416790463 passaram instalação real, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por tamanho/SHA-256. Os 54 arquivos públicos de configuração e a materialização real do schema Formbricks a partir do ASAR passaram em todos os pacotes. Windows também passou cinco rodadas independentes de interface/encerramento.
 
-O backup conjunto dos quatro providers nativos passou em 39410563459 nos três pacotes. Troca manual de pacote e retorno, preservando documentos originais e trabalho mais novo, passaram no Windows 39410566551 e nos dois Macs 39411832479. Isso não representa atualização automática nem migração de esquemas alterados. Os [14 comprovantes atuais](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39408346878) foram conferidos integralmente após publicação.
+Nos pacotes anteriores 39408346878, o backup conjunto dos quatro providers nativos passou em 39410563459 nos três alvos. Troca manual de pacote e retorno, preservando documentos originais e trabalho mais novo, passaram no Windows 39410566551 e nos dois Macs 39411832479. Isso não representa atualização automática nem migração de esquemas alterados. Os [14 comprovantes históricos](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39408346878) foram conferidos integralmente após publicação.
 
 A cobertura de serviços Linux ARM, interface nativa Mac ARM e transporte no Mac físico é registrada separadamente: o hardware do runner Mac ARM gratuito não oferece virtualização VZ. Mac Intel executa uma VM VZ real nos testes; Windows usa WSL2 real. O teste dos doze aplicativos com recuperação conjunta precisa passar antes da aprovação final.
 
