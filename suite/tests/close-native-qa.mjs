@@ -3,6 +3,7 @@ import {execFile} from 'node:child_process';
 export async function closeNativeQA(application,{strict=true,timeout=15000}={}){
  if(!application)return;if(process.env.CI!=='true')throw Error('Native QA cleanup requires a disposable runner.');const child=application.process();
  if(child.exitCode!==null||child.signalCode!==null){if(strict&&child.exitCode!==0)throw Error('Native app exited with code '+child.exitCode);return;}
+ const trace=bytes=>{for(const line of bytes.toString().split(/\r?\n/))if(line.startsWith('SUITE_SHUTDOWN '))console.log(line);};child.stdout?.on('data',trace);
  let timer,listener;const exit=new Promise((resolve,reject)=>{listener=code=>code===0?resolve():reject(Error('Native app exited with code '+code));child.once('exit',listener);});
  // Record stage names only, never arguments, browser contents or credentials.
  // This observes the real shutdown and leaves every original guard intact.
@@ -23,5 +24,5 @@ export async function closeNativeQA(application,{strict=true,timeout=15000}={}){
   if(process.platform==='win32'&&Number.isInteger(child.pid)&&child.exitCode===null&&child.signalCode===null)await new Promise(resolve=>execFile('taskkill.exe',['/PID',String(child.pid),'/T','/F'],{timeout:5000},()=>resolve()));
   else child.kill('SIGKILL');
   if(strict)throw error;
- }finally{clearTimeout(timer);child.removeListener('exit',listener);}
+ }finally{clearTimeout(timer);child.removeListener('exit',listener);child.stdout?.removeListener('data',trace);}
 }

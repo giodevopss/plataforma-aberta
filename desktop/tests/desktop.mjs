@@ -13,7 +13,7 @@ const env={...process.env,PA_DESKTOP_TEST_DATA:path.join(temp,'profile')};delete
 const executable=process.env.PA_DESKTOP_EXECUTABLE||createRequire(import.meta.url)('electron');
 const packaged=Boolean(process.env.PA_DESKTOP_EXECUTABLE);
 const app=await _electron.launch({executablePath:executable,args:[...(!packaged?[path.join(root,'desktop')]:[]),'--suite-test'],env,timeout:30000});
-const checks=[],errors=[];let page,closed=false;app.process().stdout?.on('data',bytes=>{for(const line of bytes.toString().split(/\r?\n/))if(line.startsWith('SUITE_SHUTDOWN '))console.log(line);});
+const checks=[],errors=[];let page,closed=false;
 async function phase(value){console.log('DESKTOP_PHASE',value);await fs.writeFile(path.join(root,'desktop/research/desktop-progress.json'),JSON.stringify({phase:value,checks,errors,target:process.platform+'-'+process.arch,suiteCommit:process.env.GITHUB_SHA})+'\n');}
 async function waitFile(filename){for(let i=0;i<400;i++){try{const name=path.basename(filename);const done=name.endsWith('.pasuite')||await app.evaluate((_electron,name)=>globalThis.__suiteTestDownloads?.[name]==='completed',name);if(done){const bytes=await fs.readFile(filename);if(bytes.length)return bytes;}}catch{}await new Promise(r=>setTimeout(r,50));}throw Error('Download não concluído: '+filename);}
 try{

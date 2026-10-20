@@ -464,8 +464,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 10160,
-      "sha256": "f7169c0d8c8ed1fdad77a0063251dff76cb25c3fbe86cb64d898c410e3aba4c9"
+      "size": 10011,
+      "sha256": "9ea1f34141fe3a228f19a1ae90252046df0c643a14695b621c4d633837f46b3b"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -1339,8 +1339,8 @@
     },
     {
       "path": "suite/tests/close-native-qa.mjs",
-      "size": 3306,
-      "sha256": "518e2ad9e07b8e9bef0daba00fb4e162d6c5857821417ef344c4740b73c9f349"
+      "size": 3510,
+      "sha256": "71b39b3b3f5202e8820de819dc49eda2ee03405caaf1143efc6bcfddf4de2d0e"
     },
     {
       "path": "suite/tests/graphite-durability.mjs",
@@ -1530,7 +1530,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 11514,
-      "sha256": "6a028dcb4e3bc720c8bf77635794dcb4fc7f2b06188b952fdb00ea0329e13646"
+      "sha256": "bb0ed4efdee618348311a16bc2491f1f606869a5c8c1557e14c051fc1b37f16c"
     },
     {
       "path": ".github/workflows/installer-transition.yml",
