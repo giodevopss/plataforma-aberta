@@ -64,8 +64,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 6419,
-      "sha256": "ee5eaed4a8e738947c7abc60879a3bb3b9fa3170bebfd747d6f282447e589237"
+      "size": 6494,
+      "sha256": "0cc29ea848719edc58aecbf8b5345a5155ef8e2446901539dd5ae5a91074b44b"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -231,6 +231,11 @@
       "path": "desktop/src/runtime-backup.mjs",
       "size": 12488,
       "sha256": "5bf3733e7d924b0272c4ef70e5c094e013a0d34145e1c68cbded4a7ae2397ea6"
+    },
+    {
+      "path": "desktop/src/runtime-command-error.mjs",
+      "size": 1801,
+      "sha256": "90e90eddde20cfebc279c3e61ce3f86682c1c9de06c79704cc82c4077b928617"
     },
     {
       "path": "desktop/src/screenity-browser-assets.json",
@@ -591,6 +596,11 @@
       "path": "desktop/tests/runtime-backup.test.mjs",
       "size": 10493,
       "sha256": "66b277a1c8a38123afa39172eb6e0376ad564a659742a23a878839b5867806c6"
+    },
+    {
+      "path": "desktop/tests/runtime-command-error.test.mjs",
+      "size": 1652,
+      "sha256": "50300ea5762ffe6bdf959322443592cbf5391c24c9b3c5cd0b71473b45deab96"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -1244,8 +1254,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15939,
-      "sha256": "e8af61c55f624f513dce937961cd421456a1b58177a9cfdf863150f80ebff724"
+      "size": 15979,
+      "sha256": "640ddaeece1efa0f254fbc461d28775f336c289d0872e4998c37f6a0e2ea1f86"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1263,6 +1273,11 @@
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
     },
     {
+      "path": "suite/tests/runtime-images-cloud.mjs",
+      "size": 3020,
+      "sha256": "7cf81825934b3b1f8080e736f2299718e54b1d6847e5bfc1a0ec4ad28c4204ae"
+    },
+    {
       "path": "suite/tests/presenton-startup-cloud.mjs",
       "size": 3957,
       "sha256": "5de55aa799c90a4c0532304d130c1eccd5bfa6d9f5a6b7a1998c7674828c4e0f"
@@ -1274,8 +1289,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 22328,
-      "sha256": "8a121a4aca55cba2e92337b11da6407e5d8256690e277636ebc1dfee5120b498"
+      "size": 22969,
+      "sha256": "b123b0897d228a2a38714b1e7d4740bc0111dd75609295deb8b2515fc6afa358"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1540,7 +1555,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "b01e2feeda76e870f11a111271d93dead1d64ba1d73e5a48bbaa7af6ebe61c6c"
+      "sha256": "ec9e9e448398d06077008592fc58f4981b3b23bfd221225dc5dc4ed8b143b004"
+    },
+    {
+      "path": ".github/workflows/runtime-images.yml",
+      "size": 975,
+      "sha256": "229b5f08282930577b48ed9ee63ad10354702fb291133b617dee194adc5fda4b"
     },
     {
       "path": ".github/workflows/mac-services.yml",
