@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T09:03:57.511Z",
+  "checked_at": "2026-10-20T09:19:01.593Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -73,7 +73,7 @@
   "complete_backup_restore": "pending",
   "upgrade_rollback": "partial",
   "distribution_signatures": "pending",
-  "distribution": "Three unsigned candidates in 39392937729 passed original native engines/UI/storage, core encrypted recovery, uninstallation and full remote installer size/SHA-256 readback. They precede the canonical Mac guest-share fix. Corrected three-target build 39396457365 and installed joint native proof 39396238763 are pending. Full twelve-provider acceptance is not yet complete. Signing absent and expressly waived for these unsigned installers.",
+  "distribution": "All three current unsigned complete-original candidates 39396457365 passed build, installation/native originals/OCR/exports/core encrypted independent activation/uninstallation/full remote installer size-SHA256 readback. Actual current installed four-provider editor/audio/model/video backup/activation/second backup/exact readback passed Windows 39397807052 and both Macs 39398442190. Current manual previous->current->previous passed Windows and Mac ARM; Mac Intel in progress in 39398557675. Full twelve-provider installed Windows/Mac Intel recovery still running; unsigned delivery explicitly authorized.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -83,8 +83,8 @@
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
-    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383174469",
-    "core_test_result": "181 local tests passed, zero failures/skips; 175 public tests passed on Linux, Mac ARM, Mac Intel and Windows in 39389880362 before the added canonical Mac share regression (176 public tests now). Five independent actual Windows native UI/shutdown rounds passed; current full native rebuild/retests 39396457365 pending.",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39397633591",
+    "core_test_result": "183 local tests passed with zero failures/skips. All 178 public tests passed on Linux, Mac ARM, Mac Intel and Windows in 39397633591. Private publication-boundary tests remain local.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
@@ -92,10 +92,10 @@
     },
     "windows_services_in_progress": null,
     "local_presentations_in_progress": null,
-    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39392937729-win32-x64",
+    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39396457365-win32-x64",
     "internal_mac_installers": [
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39392937729-darwin-arm64",
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39392937729-darwin-x64"
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39396457365-darwin-arm64",
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39396457365-darwin-x64"
     ],
     "windows_services": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39165080309",
     "scoped_service_reports": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-windows-services-39165080309",
@@ -104,9 +104,9 @@
     "multiarchitecture_service_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-services-arm-windows-39173725815",
     "current_native_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-native-validation-39383174469",
     "complete_source_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39391893777",
-    "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383975759",
+    "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39397995334",
     "arm_presenton_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39384577834",
-    "accepted_current_installers": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39382729111",
+    "accepted_current_installers": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39396457365",
     "complete_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39396449996",
     "current_build_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39396457365"
   }
