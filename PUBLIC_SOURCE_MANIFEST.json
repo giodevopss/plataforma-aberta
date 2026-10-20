@@ -29,8 +29,8 @@
     },
     {
       "path": "desktop/src/complete-runtime.mjs",
-      "size": 9100,
-      "sha256": "167e0c3b8a0e529e19b1228f3ee7cb26ef95b62824b31f51bc7e2abea9cc3925"
+      "size": 9114,
+      "sha256": "253b7a3e6aa9594f3be17aaf5ef70e464e92e28f6554312031bff1c329c19dcb"
     },
     {
       "path": "desktop/src/connections.mjs",
@@ -184,8 +184,8 @@
     },
     {
       "path": "desktop/src/postiz-profile.json",
-      "size": 8199,
-      "sha256": "2aaf572b8de41367a4be6a936a742803da906f7d5d91270e8af03a84b37508bc"
+      "size": 8793,
+      "sha256": "5bc5e27936fe5cf5e2b668df580cbe048fd89b9b04bad42ec2708b1bdef7db7c"
     },
     {
       "path": "desktop/src/preload.cjs",
@@ -624,8 +624,8 @@
     },
     {
       "path": "desktop/tests/safe-container-diagnostic.test.mjs",
-      "size": 1620,
-      "sha256": "543d75d1461055672d98fef2dd963f8592ee4a750aae8756dd0579d6fda8084e"
+      "size": 1915,
+      "sha256": "d4d436b34fc358a52b1982f2112ca5b04918ef636aec932ff81e0f637e91914c"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -1149,8 +1149,8 @@
     },
     {
       "path": "suite/INSTALLERS.md",
-      "size": 3787,
-      "sha256": "16fd7f59be3ab01bffc4a3e197198af26b24769d159da9033c2ad4eeae7e1b39"
+      "size": 4084,
+      "sha256": "5f8cfca868440bb802016d3ecb1cd74f6b23c54495ae732677eb413210c9ae46"
     },
     {
       "path": ".gitignore",
@@ -1309,8 +1309,8 @@
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
-      "size": 2080,
-      "sha256": "067ceb2a36dde9354c61402a299126592c26acee80f28f5e15a5200a2af63219"
+      "size": 2314,
+      "sha256": "b3ad871039ae10cbd7cbb5f8346d9a9425f33f74ea3c149ffd49514cce22b9d1"
     },
     {
       "path": "suite/tests/repeat-desktop-native.mjs",
@@ -1599,8 +1599,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 13430,
-      "sha256": "2eb90187c9c7e199b7b011aabd2dc8d8b585a2442c781af072e3c4ecd7e6699d"
+      "size": 13454,
+      "sha256": "b89bfefb54ed49d1bb0e7a2ca43a2db2f21f0eedc3c9924d9b6ebadc653f025f"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

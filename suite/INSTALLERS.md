@@ -1,5 +1,7 @@
 # Instaladores sem assinatura — 20/10/2026
 
+**Reconstrução em andamento:** o build 39415798451 acrescenta uma única repetição segura da leitura de identidade após timeout do transporte. Os links abaixo identificam os candidatos anteriores, já aceitos no escopo descrito, sem essa correção. A nova série ainda não está aprovada.
+
 Os três candidatos atuais foram gerados e passaram instalação, motores originais, OCR/exportações, backup de núcleo, restauração independente, desinstalação e leitura remota integral por SHA-256/tamanho em [39408346878](https://github.com/giodevopss/plataforma-aberta/actions/runs/39408346878). O código empacotado é `6a362060e734311f4c67ede3e8fb987ef34b7a86`.
 
 Incluem as correções de encerramento HTTP, compartilhamento canônico Mac, proteção Postiz após interrupção da confirmação do COMMIT e cópia explícita de configurações a partir do ASAR. Nos três pacotes, os 54 arquivos públicos de configuração correspondem aos hashes originais, e o método real de produção materializa o schema original Formbricks. Windows também passou cinco rodadas independentes de interface/encerramento.

@@ -51,10 +51,10 @@ export class CompleteRuntime extends LocalRuntime {
   await this.run(['run','--rm','--name',configCheck,'--label','app.plataforma-aberta.workspace='+this.identity.id,'--network','none','--user','65534:65534','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,size=64m','--cap-drop','ALL','--mount',`type=bind,source=${path.join(dir,'gateway.conf')},target=/etc/pa-gateway.conf,readonly`,'--entrypoint','nginx',affineImages.gateway,'-c','/etc/pa-gateway.conf','-t']);
   if(settings.assetRelocation){this.started.add(id);await relocateRestoredAssets(this,id,stack,settings);const relocated=settingsFile+'.tmp';fs.writeFileSync(relocated,JSON.stringify(settings)+'\n',{mode:0o600});fs.renameSync(relocated,settingsFile);}
   this.setStatus(id,'starting','Iniciando banco local e migrações de '+id+'…');
-  // Original one-shot schema/bootstrap jobs must complete before dependent
-  // application containers start. Slow local VMs need the migration deadline,
-  // rather than the ordinary short detached-launch deadline.
-  const waitsForBootstrap=Object.values(stack.compose.services).some(service=>Object.values(service.depends_on||{}).some(dependency=>dependency?.condition==='service_completed_successfully'));
+  // Original schema jobs and Postiz dependency health must complete before
+  // dependent services can start. Slow local VMs need the full startup budget
+  // instead of the ordinary short detached-launch deadline.
+  const waitsForBootstrap=id==='postiz'||Object.values(stack.compose.services).some(service=>Object.values(service.depends_on||{}).some(dependency=>dependency?.condition==='service_completed_successfully'));
   this.started.add(id);await this.runCompose(this.composeArgs(id,['up','--detach','--pull','never']),{timeout:waitsForBootstrap?900000:180000});
   const origin='http://127.0.0.1:'+settings.port;
   if(this.verificationMode){const isolated=await this.owned('network','pa-'+this.identity.id+'-'+id+'-network');if(!isolated?.Internal||isolated.Options?.[isolatedGateway]!=='isolated')throw Error('A rede de verificação não está isolada.');}
