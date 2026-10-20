@@ -1,5 +1,5 @@
 import {safeContainerDiagnostic} from './safe-container-diagnostic.mjs';
-import {postizReadinessDiagnostic} from './service-readiness-diagnostic.mjs';
+import {postizReadinessDiagnostic,registryFailureDiagnostic} from './service-readiness-diagnostic.mjs';
 import {captureCombinedFixture} from './combined-fixture.mjs';
 // Original service workflows in disposable runners. Final native launcher acceptance is separate.
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import crypto from 'node:crypto';import assert from 'node:assert/strict';import {execFileSync,execFile} from 'node:child_process';import {promisify} from 'node:util';
@@ -16,6 +16,7 @@ async function nativeDiagnostics(){
  if(id==='postiz'){const name=compose.services.postiz.container_name;for(const [file,args]of [['memory',['cat','/sys/fs/cgroup/memory.events']],['nginx',['nginx','-T']],['pm2',['node','-e','const c=require("child_process");const apps=JSON.parse(c.execFileSync("pm2",["jlist"],{encoding:"utf8"}));console.log(JSON.stringify(apps.map(a=>({name:a.name,pid:a.pid,memory:a.monit?.memory,status:a.pm2_env?.status,restarts:a.pm2_env?.restart_time}))))']]])fs.writeFileSync(path.join(evidence,'native-live-'+file+'.log'),redact(await captured(['exec',name,...args])));}
 }
 const checks=[],report={checked_at:new Date().toISOString(),status:'failed',commit:process.env.GITHUB_SHA,platform:process.platform,arch:process.arch,scope:'Original-stack installation and UI; Formbricks local account/workspace and Postiz account/planning/media workflows plus independent encrypted restore. Formbricks real survey response and optional attached native launcher checks included; external social publishing and final runtime installer acceptance remain separate.',checks};let browser;
+const invokeRuntime=runtime.run.bind(runtime);runtime.run=async(args,options)=>{try{return await invokeRuntime(args,options);}catch(error){if(args[0]==='pull'){report.downloadFailure=registryFailureDiagnostic(error);if(/^[-.a-z0-9/]+@sha256:[a-f0-9]{64}$/.test(args[1]))report.downloadImage=args[1];}throw error;}};
 function phase(value){report.phase=value;fs.writeFileSync(path.join(evidence,'acceptance.json'),JSON.stringify(report,null,2)+'\n');}
 const sha=value=>crypto.createHash('sha256').update(value).digest('hex'),hmac=(key,value)=>crypto.createHmac('sha256',key).update(value).digest();
 async function signedObject(endpoint,method,resource,bytes=Buffer.alloc(0),tamper=false){

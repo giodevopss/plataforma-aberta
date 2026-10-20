@@ -8,7 +8,16 @@ export async function guestTransportDiagnostic(host){
  const guest=host.guest;if(!guest)return result;
  try{await guest.verifyOwnership();result.ownerResponsive=true;}catch{return result;}
  try{await guest.run(['info','--format','{{json .ServerVersion}}'],{timeout:15000});result.engineResponsive=true;}catch{}
+ if(guest.invoke)try{const memory=await guest.invoke(['/bin/cat','/proc/meminfo'],{timeout:15000}),vm=await guest.invoke(['/bin/cat','/proc/vmstat'],{timeout:15000}),disk=await guest.invoke(['/bin/df','-B1','--output=avail','/var/lib/plataforma-docker'],{timeout:15000}),available=memory.match(/^MemAvailable:\s+(\d+)\s+kB$/m),oom=vm.match(/^oom_kill\s+(\d+)$/m),bytes=Number(disk.trim().split(/\s+/).at(-1));if(available)result.guestAvailableMemoryBytes=Number(available[1])*1024;if(oom)result.guestOomKills=Number(oom[1]);if(Number.isSafeInteger(bytes)&&bytes>=0)result.guestFreeDiskBytes=bytes;}catch{}
  return result;
+}
+
+// Derive only fixed registry/extraction categories from a private failure. The
+// underlying output stays in the runner and is never returned or serialized.
+export function registryFailureDiagnostic(error){
+ const failure=error?.runtimeFailure||{},text=String(failure.stderr||'')+'\n'+String(failure.stdout||''),kinds=new Set(['disk','memory','network','rate-limit','certificate','permission','virtualization']);
+ const patterns=[['registry-unavailable',/unexpected status.*(?:500|502|503|504)|HTTP(?: status)? (?:500|502|503|504)|service unavailable/i],['registry-rate-limit',/toomanyrequests|too many requests|429/i],['registry-auth',/unauthorized|authentication required|requested access.*denied|403.*forbidden/i],['platform',/no matching manifest|no match for platform|does not match.*platform/i],['integrity',/digest mismatch|digest validation|unexpected commit digest/i],['extract',/failed to (?:extract|register|apply|unpack).*layer|failed to unpack|apply layer/i],['storage-io',/input\/output error|read-only file system/i],['dns',/no such host|temporary failure in name resolution/i],['canceled',/context cancel|rpc error: code = Cancel/i],['process-killed',/signal: killed|signal 9|killed by signal/i]];
+ return {kind:error?.code==='PA_GUEST_TIMEOUT'?'deadline':kinds.has(failure.kind)?failure.kind:'unknown',exitCode:Number.isInteger(failure.exitCode)&&failure.exitCode>=0&&failure.exitCode<=4294967295?failure.exitCode:null,categories:patterns.filter(([,pattern])=>pattern.test(text)).map(([name])=>name)};
 }
 
 // Public readiness evidence is a fixed schema. Never return response bodies,

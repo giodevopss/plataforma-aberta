@@ -664,8 +664,8 @@
     },
     {
       "path": "desktop/tests/service-readiness-diagnostic.test.mjs",
-      "size": 2767,
-      "sha256": "9f41fc1b5a09ca885aedc4495f70c16fdba0fb2ac5d7df5d695c30bb212ba37f"
+      "size": 3271,
+      "sha256": "19dba673ccc7b54ea4dee9927ee94dc0c1d94af38288ff0e0e971a101ca08dfd"
     },
     {
       "path": "desktop/tests/service-shutdown.test.mjs",
@@ -1354,8 +1354,8 @@
     },
     {
       "path": "suite/tests/service-readiness-diagnostic.mjs",
-      "size": 4126,
-      "sha256": "21345cb10010ee87081f7567f050a5d7cc32a45869926a9931688bf2b1025662"
+      "size": 6255,
+      "sha256": "41f2fed530c564bb71bcd360d72d6faed6119441161bc084bf3765a2fb858742"
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
@@ -1504,8 +1504,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 16341,
-      "sha256": "1b6f7d9be914799a0c1166474bee6d1c2e978afb143669ab1550292132156c89"
+      "size": 16683,
+      "sha256": "8dbe35fd9c2e2e94ba57b1208c098057c304dfd72d7f5a79e526e6fcdf41d967"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1650,7 +1650,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13202,
-      "sha256": "98a33b2980f044037a78dffb5807e1f351f0d0ac69af80a5219f8b116ca0f056"
+      "sha256": "feb61b291e2a7c70209778b8f4201a73b4f772a51966ce6833621833eb0f92f5"
     },
     {
       "path": ".github/workflows/publish-release.yml",
