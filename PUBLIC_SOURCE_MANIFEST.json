@@ -1228,6 +1228,11 @@
       "sha256": "3bae6a6538ef67248905ddf6eec730c85f94c83d77c5e9ed7a70c2cb3876c4c3"
     },
     {
+      "path": "scripts/distribution/remove-owned-installation.mjs",
+      "size": 1508,
+      "sha256": "1376175d334106ac7e1458610e4ec9c230c6e22b0ffe27de22fdf452c28f2ce4"
+    },
+    {
       "path": "scripts/distribution/restore-tested-installer.mjs",
       "size": 3371,
       "sha256": "392afc9298c1e41d4377af833a393d07dd095da424302bdca96e1efd97b34992"
@@ -1264,8 +1269,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 16003,
-      "sha256": "779b35c23c0ab841b85add691629507ce2b4feeb37e959f0a474dd1eac5802d9"
+      "size": 16056,
+      "sha256": "066a7fb59ee4f4365c1a1c497ed553ee9889f1a833d2b30b9c363ec616f73b48"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1570,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12517,
-      "sha256": "04d7e3a089296bb7ddbf12d4903de1964a37fee9d0755d588b4a3a456e2a9a7c"
+      "sha256": "ca1eb7e7dfd89ba480a4309b4b18b05835838dddb3ce2441894a7a1906aea2dd"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
