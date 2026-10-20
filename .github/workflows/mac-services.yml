@@ -5,7 +5,7 @@ on:
       service:
         type: choice
         default: critical
-        options: [critical, all, affine, baserow, activepieces, presenton, paperless, plane, formbricks, postiz]
+        options: [critical, remaining, all, affine, baserow, activepieces, presenton, paperless, plane, formbricks, postiz]
 permissions:
   contents: read
 jobs:
@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        service: ${{ fromJSON(inputs.service == 'critical' && '["baserow","activepieces","presenton"]' || inputs.service == 'affine' && '["affine"]' || inputs.service == 'baserow' && '["baserow"]' || inputs.service == 'activepieces' && '["activepieces"]' || inputs.service == 'presenton' && '["presenton"]' || inputs.service == 'paperless' && '["paperless"]' || inputs.service == 'plane' && '["plane"]' || inputs.service == 'formbricks' && '["formbricks"]' || inputs.service == 'postiz' && '["postiz"]' || '["affine","baserow","activepieces","presenton","paperless","plane","formbricks","postiz"]') }}
+        service: ${{ fromJSON(inputs.service == 'critical' && '["baserow","activepieces","presenton"]' || inputs.service == 'remaining' && '["affine","paperless","plane","formbricks","postiz"]' || inputs.service == 'affine' && '["affine"]' || inputs.service == 'baserow' && '["baserow"]' || inputs.service == 'activepieces' && '["activepieces"]' || inputs.service == 'presenton' && '["presenton"]' || inputs.service == 'paperless' && '["paperless"]' || inputs.service == 'plane' && '["plane"]' || inputs.service == 'formbricks' && '["formbricks"]' || inputs.service == 'postiz' && '["postiz"]' || '["affine","baserow","activepieces","presenton","paperless","plane","formbricks","postiz"]') }}
     env:
       PA_OWN_VM_ACCEPTANCE: '1'
       PA_TEST_NATIVE_SERVICE: '1'

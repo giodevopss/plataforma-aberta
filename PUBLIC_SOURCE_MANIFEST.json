@@ -1565,7 +1565,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "cde637323e0d22ff42b733b00ea2c5eef2cb1bb4af79ce7867207f1ee0b21e45"
+      "sha256": "6228c1adc74c697e12bdeb5213f94e218796b6b883783878b2c22e2aabb4b37d"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1574,8 +1574,8 @@
     },
     {
       "path": ".github/workflows/mac-services.yml",
-      "size": 3051,
-      "sha256": "a4eb0557c58e485e582a956b69006b47f2df3d07f5a2af0ccf71e3c04c124afc"
+      "size": 3153,
+      "sha256": "c6f0afcbcd416f3649da390dd448386991f4e550877abfa010378104331e7149"
     },
     {
       "path": ".github/workflows/presenton-startup.yml",
