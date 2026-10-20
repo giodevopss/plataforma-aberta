@@ -1249,8 +1249,8 @@
     },
     {
       "path": "scripts/distribution/restore-tested-installer.mjs",
-      "size": 3371,
-      "sha256": "392afc9298c1e41d4377af833a393d07dd095da424302bdca96e1efd97b34992"
+      "size": 3391,
+      "sha256": "11d1c0de760b2297c9ff91e8654d1155ba1508fa2f41bc5960afa35b460c7349"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1595,7 +1595,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13208,
-      "sha256": "4165868110b4f5e8e21b1a431aac241a35e5d7c37d9f671648d21244a3170f4d"
+      "sha256": "ec3d280d1c48790cafe8986918f9cc3fcf2023765bf6dc7c6f2183b82c8d9057"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
