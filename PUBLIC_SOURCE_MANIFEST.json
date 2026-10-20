@@ -424,8 +424,8 @@
     },
     {
       "path": "desktop/scripts/require-release.mjs",
-      "size": 1423,
-      "sha256": "436664a68d64775aaef15716b5004674265f3f405595c87afee8e7b4ea052221"
+      "size": 2148,
+      "sha256": "15da247163dd3ee1982231de3c86b478ec417c19210ea88f4a4c222c9bfbe74d"
     },
     {
       "path": "desktop/scripts/setup-ocr.mjs",
@@ -606,6 +606,11 @@
       "path": "desktop/tests/public-source.test.mjs",
       "size": 2366,
       "sha256": "db42d8d874751316df379c105a1a226a9f43cd70a5be46d25825550d5f683baf"
+    },
+    {
+      "path": "desktop/tests/release-requirements.test.mjs",
+      "size": 1719,
+      "sha256": "4229a3e1f3d3095b4b5ebac5d7832a45134eec305c7f6000907b5d3bb81b4a84"
     },
     {
       "path": "desktop/tests/runtime-backup.test.mjs",
@@ -1249,8 +1254,8 @@
     },
     {
       "path": "scripts/distribution/restore-tested-installer.mjs",
-      "size": 3391,
-      "sha256": "11d1c0de760b2297c9ff91e8654d1155ba1508fa2f41bc5960afa35b460c7349"
+      "size": 3429,
+      "sha256": "b28b2685ec74a6ac5350927b02f72f023981cf167890a07530e70f306cab7b45"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1594,8 +1599,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 13208,
-      "sha256": "46b4e979f97d30b7529d376f127b059a19a4f43265252ff986b12d1288d66e3c"
+      "size": 13430,
+      "sha256": "7f2f60292bd50a193c2729a58cdd9032e626cf017821ae3d8cd9791d6d877da0"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1734,8 +1739,8 @@
     },
     {
       "path": "desktop/README.md",
-      "size": 6660,
-      "sha256": "50a19a24fffe0265b428dbf066108b77d1210cbf1501ce35bf721f6b5c479d84"
+      "size": 7072,
+      "sha256": "057f4164aecc98d00fa25662a6bccd04789f644140e89a50b26e991c71be9f65"
     },
     {
       "path": "LICENSE",

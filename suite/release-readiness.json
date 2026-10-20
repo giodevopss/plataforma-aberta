@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T11:24:28.134Z",
+  "checked_at": "2026-10-20T11:29:24.797Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -71,7 +71,7 @@
   },
   "runtime_installer": "partial",
   "complete_backup_restore": "pending",
-  "upgrade_rollback": "passed-current-manual-packages",
+  "upgrade_rollback": "passed",
   "distribution_signatures": "pending",
   "distribution": "Current three unsigned installers 39408346878 passed actual lifecycle and all 54 public config hashes/production ASAR materialization. All four native providers passed joint product backup/activation/exact readback on all targets in 39410563459. Manual replacement/rollback passed Windows 39410566551 and both Macs 39411832479. All 184 public tests passed four targets in 39411234198. Complete twelve-provider installed Windows 39410583334 and Mac Intel 39411829185 remain pending; unsigned delivery authorized.",
   "remaining_complete_integrations": 0,
@@ -112,5 +112,9 @@
     "complete_installed_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411829185",
     "current_core_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411234198",
     "current_manual_transition": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411832479"
-  }
+  },
+  "unsigned_distribution_authorized": true,
+  "distribution_notes": [
+    "Owner explicitly authorized unsigned Mac and Windows installers; signing is not a prerequisite for this requested delivery. Functional acceptance remains mandatory."
+  ]
 }
