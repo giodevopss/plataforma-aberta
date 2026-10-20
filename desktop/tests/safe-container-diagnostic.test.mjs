@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {safeContainerDiagnostic} from '../../suite/tests/safe-container-diagnostic.mjs';
+test('Public runtime diagnostics cannot serialize private output or arbitrary fields, even when logs/state contain credentials',()=>{
+ const secret='synthetic-password-never-publish',state={Status:'exited',ExitCode:137,OOMKilled:true,Running:false,Error:secret,Health:{Status:'unhealthy',Log:[{Output:secret}]},Config:{Env:['PASSWORD='+secret]},Mounts:[{Source:'/private/'+secret}]};const proof=safeContainerDiagnostic('postiz',state,'permission denied password='+secret);assert.deepEqual(proof,{role:'postiz',status:'exited',health:'unhealthy',exitCode:137,oomKilled:true,running:false,categories:['permission']});assert.equal(JSON.stringify(proof).includes(secret),false);
+ const hostile=safeContainerDiagnostic(secret,{Status:secret,ExitCode:secret,Health:{Status:secret}},secret);assert.deepEqual(hostile,{role:'other',status:'unknown',health:'none',exitCode:null,oomKilled:false,running:false,categories:[]});assert.equal(JSON.stringify(hostile).includes(secret),false);
+});

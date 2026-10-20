@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: paperless-complete-evidence
-          path: suite/research/cloud-paperless/
+          path: suite/research/cloud-paperless/acceptance.json
           retention-days: 1
           if-no-files-found: error
   remaining:
@@ -89,6 +89,6 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ${{ matrix.service }}-initial-evidence
-          path: suite/research/cloud-${{ matrix.service }}/
+          path: suite/research/cloud-${{ matrix.service }}/acceptance.json
           retention-days: 1
           if-no-files-found: error

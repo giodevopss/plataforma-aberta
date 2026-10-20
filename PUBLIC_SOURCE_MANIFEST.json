@@ -618,6 +618,11 @@
       "sha256": "50300ea5762ffe6bdf959322443592cbf5391c24c9b3c5cd0b71473b45deab96"
     },
     {
+      "path": "desktop/tests/safe-container-diagnostic.test.mjs",
+      "size": 1138,
+      "sha256": "425dc13b572a03dc751514a487ecc1fd8ebd033ec58a443ec6fee3091c4d6429"
+    },
+    {
       "path": "desktop/tests/screenity-identity.test.mjs",
       "size": 2391,
       "sha256": "ebedf8cae0b2dc17ccefceec7ccbcc164c0923e9df4530b9ca26a7b086f5da4d"
@@ -1279,8 +1284,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 16056,
-      "sha256": "066a7fb59ee4f4365c1a1c497ed553ee9889f1a833d2b30b9c363ec616f73b48"
+      "size": 16084,
+      "sha256": "20076782fafb337783e5056aa88703549c681d0c86ab2acb5257c181ed2af9d9"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1296,6 +1301,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/safe-container-diagnostic.mjs",
+      "size": 1307,
+      "sha256": "3e3c76e6775b18f7eafa9304b93576006d46bbda7cdef65d4e2a76c36d99cfa1"
     },
     {
       "path": "suite/tests/repeat-desktop-native.mjs",
@@ -1439,8 +1449,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 15052,
-      "sha256": "5ed848363610d50f2c5ab75280f0ef9a197ac6a8f65f195e8d0095a4924f89fa"
+      "size": 15314,
+      "sha256": "09674fe04a469c97394e12dda31bb8a04061099bf7fd82a9be7c321b3b0de17f"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1585,7 +1595,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "9a789fb0e00a48cb2784fc127256e52ecfcbd3b85913c303fe49d6487429c592"
+      "sha256": "48dd0e049a13dc82ea5886c78d0225720ec1975da1df2a55b166d642d804fae4"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1619,8 +1629,8 @@
     },
     {
       "path": ".github/workflows/arm-services.yml",
-      "size": 2518,
-      "sha256": "a62ea5ff81346e9de868402368b99df5d1f05618a3960683b70f951990109005"
+      "size": 2533,
+      "sha256": "daa1427b5bdbe70d49cdc7284a4a4e991ae8d472c70780b36c4df9717a47537d"
     },
     {
       "path": ".github/workflows/verification-network.yml",
@@ -1654,13 +1664,13 @@
     },
     {
       "path": ".github/workflows/windows-services.yml",
-      "size": 3388,
-      "sha256": "51226096c03d1586fdb690f06d403b30f8e2778b961fdd15174b3d03c22a416f"
+      "size": 3403,
+      "sha256": "0962c4a478942a4d874319cc5ebb55a5c5990273b93d830194e8efb37a66ac58"
     },
     {
       "path": ".github/workflows/presenton-validation.yml",
-      "size": 1660,
-      "sha256": "104d619dd8e298b97cbc9731672c5c94b045bd1b877daaa6a331644217c7f4cb"
+      "size": 1675,
+      "sha256": "bc30b1e79f5c2a3e8c7042119bd0bdbf717b45d915d8e16146102047ab6c46aa"
     },
     {
       "path": ".github/workflows/native-voice-recovery.yml",
@@ -1694,8 +1704,8 @@
     },
     {
       "path": ".github/workflows/complete-services.yml",
-      "size": 3581,
-      "sha256": "ae32740f18c101714e4cf71a6a77f2b90e08c096f0d83d75c0e0841a2f781d7a"
+      "size": 3611,
+      "sha256": "cd4fd2c3524d66194f7a42e517252e0c42b6e25c55c7f249c5f597549e579487"
     },
     {
       "path": ".github/workflows/installer-validation.yml",
