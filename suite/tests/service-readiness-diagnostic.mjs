@@ -1,3 +1,16 @@
+import os from 'node:os';
+
+// Diagnose transport separately from the original app. Do not install/restart a
+// guest, repeat a pull or publish CLI output, paths, identities or credentials.
+export async function guestTransportDiagnostic(host){
+ const result={hostTotalMemoryBytes:os.totalmem(),hostFreeMemoryBytes:os.freemem(),guestState:'unknown',ownerResponsive:false,engineResponsive:false};
+ if(host.installer?.platform==='darwin')try{const state=host.installer.state(),text=await host.installer.control(state.binary,state.binarySHA256,['list','--json',host.installer.name],{timeout:15000}),items=text.trim().split(/\r?\n/).filter(Boolean).map(line=>JSON.parse(line));if(items.length===1&&items[0].name===host.installer.name&&['Running','Stopped','Broken'].includes(items[0].status))result.guestState=items[0].status;}catch{}
+ const guest=host.guest;if(!guest)return result;
+ try{await guest.verifyOwnership();result.ownerResponsive=true;}catch{return result;}
+ try{await guest.run(['info','--format','{{json .ServerVersion}}'],{timeout:15000});result.engineResponsive=true;}catch{}
+ return result;
+}
+
 // Public readiness evidence is a fixed schema. Never return response bodies,
 // process arguments, environment, names, paths, logs or exception messages.
 export function safeReadinessDiagnostic(value={}){

@@ -659,8 +659,8 @@
     },
     {
       "path": "desktop/tests/service-readiness-diagnostic.test.mjs",
-      "size": 1542,
-      "sha256": "9d3902e3254c36b92525a49788c294fc3ea43942fedd0fd700c311270b50d7c3"
+      "size": 2583,
+      "sha256": "0bd75fce841d55bc9679d7e6d46c40efdb4f14379644edfb39f0fe2fced35ac8"
     },
     {
       "path": "desktop/tests/service-shutdown.test.mjs",
@@ -1344,8 +1344,8 @@
     },
     {
       "path": "suite/tests/service-readiness-diagnostic.mjs",
-      "size": 2901,
-      "sha256": "5712eebd42e913a83c780da30ec524bc8fad7b65077330b99f9296dd126c660c"
+      "size": 4006,
+      "sha256": "d0d4134035f2208d75bd683c556b801c53057d7f45bfb15f51bc2fa0d347d120"
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
@@ -1419,8 +1419,8 @@
     },
     {
       "path": "suite/tests/cloud-service-runtime.mjs",
-      "size": 4436,
-      "sha256": "3acdb16af4837d24de85902174d910564688b865c012d52b2da844035a512f54"
+      "size": 4623,
+      "sha256": "3d47f89977fbbfdef63e93617b8320393ddef9538299e65af0d9e97a3bab1d5a"
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
@@ -1494,8 +1494,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 16262,
-      "sha256": "5018ee7a2f0c3e7defe220e1f03f03d3e038d32c20d9f27ceed2b792e920ebe5"
+      "size": 16341,
+      "sha256": "1b6f7d9be914799a0c1166474bee6d1c2e978afb143669ab1550292132156c89"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1639,8 +1639,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 13194,
-      "sha256": "8d94c92b2d458bf3baf0dda40a56b977139ceb603d748556a763edd9094a4f61"
+      "size": 13202,
+      "sha256": "bf00a77d9ea1587cffac78a514b21cbd1e17e230bf506f4fc6d3300dc78496da"
     },
     {
       "path": ".github/workflows/publish-release.yml",
