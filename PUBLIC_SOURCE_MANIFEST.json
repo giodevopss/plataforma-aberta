@@ -84,8 +84,8 @@
     },
     {
       "path": "desktop/src/lima-installer.mjs",
-      "size": 10011,
-      "sha256": "f82f22c1441b19f346b8b240302c5fcaa78d8811ae52b2c53630a27af62c8c37"
+      "size": 10056,
+      "sha256": "807a6333c9b46eb10264babd1174f9dcd614be0eb5e3aa6802c87876befd57f7"
     },
     {
       "path": "desktop/src/linux-engine.mjs",
@@ -499,8 +499,8 @@
     },
     {
       "path": "desktop/tests/lima-installer.test.mjs",
-      "size": 6249,
-      "sha256": "91ed7cb1cab0ca8556f5dfbc62d6d2d902fa6608c567334d44342cf9c9db8f5e"
+      "size": 7503,
+      "sha256": "308c6107dcfba370b6eb36afc28018db2e9c456c2e51a2b5d002318b92011005"
     },
     {
       "path": "desktop/tests/linux-snapshot-tree.test.mjs",
@@ -1314,8 +1314,8 @@
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
-      "size": 10848,
-      "sha256": "1f595ad90ff555bc1e9e3ee120e0852cd958189b21648cb3bb7a0b7f5d7b66f9"
+      "size": 11072,
+      "sha256": "7b7b6e77c1a087e708d4c6a4a7b06b4ad65003a4a2dbfc8ba1c5b99123c6872b"
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
@@ -1565,7 +1565,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "2709416d3d82ae6ef79439dd2bf713a2644b2e28c8d77020008702571b9974cc"
+      "sha256": "532777a49ce5065998a3d207034b2f35b8be2d69a3f95703e65b440c999160b1"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
