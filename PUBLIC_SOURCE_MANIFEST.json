@@ -609,8 +609,8 @@
     },
     {
       "path": "desktop/tests/promote-tested-release.test.mjs",
-      "size": 2610,
-      "sha256": "89a54f43f9bd37ebf1403c08c163108f9a878c55c8b3cfe3a5995d93f527b18a"
+      "size": 2952,
+      "sha256": "fe72b938def68ebd081b23a19421fa60e184278f84d72e33451f93034f02e77f"
     },
     {
       "path": "desktop/tests/public-config-files.test.mjs",
@@ -1289,8 +1289,8 @@
     },
     {
       "path": "scripts/distribution/promote-tested-release.mjs",
-      "size": 9187,
-      "sha256": "597c9da90c2d7b24546d5c6190d6d526d96dba9f8b8e21b18090bdbb5f8e8857"
+      "size": 9535,
+      "sha256": "0dd46e2f001d50f2a10b203a6767a25868f8b5cd411af9f7da14dd5cbb85bd2f"
     },
     {
       "path": "scripts/distribution/reset-ci-evidence.mjs",
@@ -1379,8 +1379,8 @@
     },
     {
       "path": "suite/tests/installer-transition-native.mjs",
-      "size": 10887,
-      "sha256": "9000f14d27f96de2291b833d64ae8a53bf5f1cd5bc7f264708cbf3bcea926d0e"
+      "size": 11672,
+      "sha256": "b13a96767461899d525c84d3c93bfe01c67f6860c47af22fcea0b91ec9f653fe"
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
@@ -1650,7 +1650,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13202,
-      "sha256": "7464362dd84a97ff12e3d61a6e54140dd3b8f86201e7de063feb409f32748645"
+      "sha256": "39fbd3a04fcd80f168fc16ad0fb3a4d4715c0a6c255bec480731fab0ae95815b"
     },
     {
       "path": ".github/workflows/publish-release.yml",

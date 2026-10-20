@@ -8,7 +8,7 @@ export function assertCandidate(meta,{target,runId,version}){
 }
 export function assertInstalledEvidence(value,{kind,target,meta,tag}){
  assert.equal(value.status,'passed');assert.equal(value.phase,'complete');assert.equal(value.target,target);
- if(kind==='transition'){assert.equal(value.packages?.current?.tag,tag);assert.equal(value.packages.current.sha256,meta.sha256);assert.equal(value.packages.current.suiteCommit,meta.suiteCommit);assert.ok(value.checks.length>=4);return;}
+ if(kind==='transition'){assert.equal(value.packages?.current?.tag,tag);assert.equal(value.packages.current.sha256,meta.sha256);assert.equal(value.packages.current.suiteCommit,meta.suiteCommit);const version=meta.name.slice('Plataforma-Aberta-'.length,-('-'+targets[target].suffix).length);assert.equal(value.packages.current.version,version);assert.match(value.packages.baseline.version,/^\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?$/);assert.deepEqual(value.observedVersions,[value.packages.baseline.version,version,value.packages.baseline.version]);assert.ok(value.checks.length>=4);return;}
  assert.equal(value.installer?.tag,tag);assert.equal(value.installer.sha256,meta.sha256);assert.equal(value.installer.suiteCommit,meta.suiteCommit);
  const fixtures=['desktop-recovery-native','openwhispr-recovery-native','screenity-native-cloud',...(kind==='full'?['notes-cloud','database-cloud','automation-cloud','paperless-cloud','remaining-services-cloud:plane','remaining-services-cloud:formbricks','remaining-services-cloud:postiz','presenton-cloud']:[])];assert.deepEqual([...value.completedFixtures].sort(),fixtures.sort());assert.ok(value.checks.length>=8);
 }
