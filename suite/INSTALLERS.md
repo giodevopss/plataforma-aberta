@@ -14,6 +14,6 @@ O backup conjunto de editores, voz/modelo e vídeo no **pacote atual** passou no
 
 Os instaladores pesados ficam nas Releases públicas. Aplicativos, bancos e modelos são preparados localmente conforme o uso; backups e credenciais não fazem parte dos downloads. Os ambientes de QA desta rodada são descartáveis e remotos.
 
-A troca manual anterior → atual → anterior passou em Windows e Mac ARM; o Mac Intel continua em teste em [39398557675](https://github.com/giodevopss/plataforma-aberta/actions/runs/39398557675). Troca/retorno dos pacotes anteriores já passaram (39383737792 e 39384569999); os [relatórios históricos](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39382729111) não substituem a aceitação atual.
+A troca manual anterior → atual → anterior passou nos três sistemas em [39398557675](https://github.com/giodevopss/plataforma-aberta/actions/runs/39398557675). Troca/retorno dos pacotes anteriores já passaram (39383737792 e 39384569999); os [relatórios históricos](https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39382729111) não substituem a aceitação atual.
 
 O backup binário de serviços exige a mesma arquitetura Linux; os perfis nativos exigem o mesmo sistema. Migração lógica entre ARM/Intel e atualizações que alterem esquemas exigem validação específica. Não há atualização automática habilitada.

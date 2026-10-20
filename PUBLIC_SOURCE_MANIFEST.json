@@ -1129,8 +1129,8 @@
     },
     {
       "path": "suite/INSTALLERS.md",
-      "size": 3216,
-      "sha256": "daff34f3abfcf322f01dd363f4768d81066a2cfcd75e71e2d4e22f0d619a76c4"
+      "size": 3183,
+      "sha256": "f8f5b5da9215cf2e32bbb0b925908bca595a0cfe344c0701d9fb4da0b8c118eb"
     },
     {
       "path": ".gitignore",
@@ -1574,8 +1574,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 12549,
-      "sha256": "6af264fb25ce9f10bccce681c08992deed41f0665c682b28859d72708cb227d1"
+      "size": 12687,
+      "sha256": "47f7c91941f641f7409fbc6e1c530886f1bd11581b996b68482127d7c0549ae9"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
