@@ -64,8 +64,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 7817,
-      "sha256": "45be556edd34c39354aa2a458c81e4365031cda24275cc2ffae13dfd3d0d520c"
+      "size": 8093,
+      "sha256": "fb5454847f5eac9cc0f717f9bd6a861d1ec8352a9d21db781afffe93fff52cea"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -499,8 +499,8 @@
     },
     {
       "path": "desktop/tests/guest-runtime.test.mjs",
-      "size": 7601,
-      "sha256": "30cb14969331419c32b71b77ca0576d1ea00bd223224c15e54505d13d532d06d"
+      "size": 8646,
+      "sha256": "f3638a24134dcacca329130a700b97ebfa1adcd36028cb0c553d70753c02be79"
     },
     {
       "path": "desktop/tests/installer-cleanup.test.mjs",
@@ -551,6 +551,11 @@
       "path": "desktop/tests/native-archive.test.mjs",
       "size": 2855,
       "sha256": "c408a4b5a9a8ee8f5d80510a6275f8a5d1e1e5ac8cd787e8611cb961061fd311"
+    },
+    {
+      "path": "desktop/tests/native-graphics-args.test.mjs",
+      "size": 1051,
+      "sha256": "3694161a88b39d71a1b956013d97266df32f15ba7f9ca24d9969a790982d99b2"
     },
     {
       "path": "desktop/tests/native-process-registry.test.mjs",
@@ -1319,8 +1324,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 16756,
-      "sha256": "3312fa26e36a150a0c7b8aebf1e796a9c026145619b891fedcdfc37d1b73ef72"
+      "size": 16779,
+      "sha256": "ea72d3d84ae0c5642e4a145bebe30f4309eab97aed5eaae135311055e886548d"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1336,6 +1341,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/native-graphics-args.mjs",
+      "size": 595,
+      "sha256": "55ca8b1336d2598aec829b7762b5cac85253483f60599f8ac1d8bac459761d2e"
     },
     {
       "path": "suite/tests/original-navigation.mjs",
@@ -1374,8 +1384,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 24841,
-      "sha256": "cf1673b16ecc8b216d7455442b9be0d34a1ed586895b50980061a1aa4782056a"
+      "size": 24963,
+      "sha256": "9a6df61c7a192dce03509e954ce67a5c65a9d451f3d69329179f11e376bab1aa"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1429,8 +1439,8 @@
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
-      "size": 10926,
-      "sha256": "1e4080ea9af42d9780d031da6bc1d17a0d89021b85483c2fdc6890d83b0f37a4"
+      "size": 11022,
+      "sha256": "63d1783121799ad2246effa8eac74cbdc8cbb5da5320163f087ffdb86f8a1fd3"
     },
     {
       "path": "suite/tests/managed-runtime-native.mjs",
@@ -1464,8 +1474,8 @@
     },
     {
       "path": "suite/tests/managed-screenity-session.mjs",
-      "size": 2396,
-      "sha256": "16c5885079dd8871269397b372f31ea246e381fb7c71a221e68eabdc7731ddc3"
+      "size": 2487,
+      "sha256": "7e874766e36c914e7e313ad462906b46001cbae332fd26b0879aacbc637312e2"
     },
     {
       "path": "suite/tests/openwhispr-native-cloud.mjs",
@@ -1499,8 +1509,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 10000,
-      "sha256": "f85dd4307152d64f91309f23b1c935d3673a6e32aaf8f1844de40d4f027c5111"
+      "size": 10091,
+      "sha256": "3d9df5fcbd9efb4694572c222a57b2463b869fb373ea8bf71be4859d7603d54c"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1640,7 +1650,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13202,
-      "sha256": "b7df505c1f34277e08fe6b85946482ae41dc547f2a726485651c13bf7dfed0c1"
+      "sha256": "98a33b2980f044037a78dffb5807e1f351f0d0ac69af80a5219f8b116ca0f056"
     },
     {
       "path": ".github/workflows/publish-release.yml",

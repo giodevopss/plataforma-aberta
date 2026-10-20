@@ -1,3 +1,4 @@
+import {nativeGraphicsQAArgs} from './native-graphics-args.mjs';
 import {borrowedQAGuest} from '../../desktop/src/qa-guest-runtime.mjs';
 import {closeNativeQA} from './close-native-qa.mjs';
 import {verifyPlanePage} from './plane-account-workflow.mjs';
@@ -24,7 +25,7 @@ export async function prepareNativeServiceQA({id,directory,onPhase}){
   const env={...process.env,PA_DESKTOP_TEST_DATA:path.join(temporary,'profile'),PA_DESKTOP_TEST_RUNTIME_DIRECTORY:directory,PA_DESKTOP_TEST_COMPOSE_BINARY:shim};delete env.ELECTRON_RUN_AS_NODE;
   if(process.env.PA_DESKTOP_TEST_GUEST_CONFIG){onPhase?.('guest-preflight');const borrowed=borrowedQAGuest(process.env.PA_DESKTOP_TEST_GUEST_CONFIG,{specs:[]});await borrowed.release();}
   const executablePath=process.env.PA_DESKTOP_EXECUTABLE||createRequire(new URL('../../desktop/package.json',import.meta.url))('electron');
-  onPhase?.('launch');application=await _electron.launch({executablePath,args:[...(process.platform==='linux'?['--no-sandbox']:[]),...(!process.env.PA_DESKTOP_EXECUTABLE?[path.resolve('desktop')]:[]),'--suite-test'],env,timeout:45000});
+  onPhase?.('launch');application=await _electron.launch({executablePath,args:[...nativeGraphicsQAArgs(),...(process.platform==='linux'?['--no-sandbox']:[]),...(!process.env.PA_DESKTOP_EXECUTABLE?[path.resolve('desktop')]:[]),'--suite-test'],env,timeout:45000});
   const shell=await application.firstWindow();await shell.locator('.tool-card').first().waitFor();const info=await shell.evaluate(()=>window.suite.info());assert.ok(info.managedServices.includes(id));assert.equal(info.packaged,Boolean(process.env.PA_DESKTOP_EXECUTABLE));
   const fixture={id,directory:path.resolve(directory),temporary,application,closed:false};preparedNativeFixtures.add(fixture);onPhase?.('home-ready');return fixture;
  }catch(error){await closeNativeQA(application,{strict:false,timeout:60000}).catch(()=>{});fs.rmSync(temporary,{recursive:true,force:true});throw error;}

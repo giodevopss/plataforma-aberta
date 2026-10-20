@@ -14,7 +14,11 @@ export class GuestRuntime {
   // Only this read-only marker may retry one transport timeout. Never cache an
   // identity or repeat a Docker mutation: no app command runs before a fresh
   // matching marker. Wrong owners, invalid JSON and other failures fail closed.
-  for(let attempt=0;attempt<2;attempt++){let record;try{record=JSON.parse(await this.invoke(['/usr/bin/cat','/etc/plataforma-runtime-owner.json'],{timeout:15000}));}catch(error){if(attempt===0&&error.code==='PA_GUEST_TIMEOUT')continue;error.message='Verificação da identidade: '+error.message;throw error;}if(record.version!==1||record.owner!==this.owner)throw Error('A máquina Linux não pertence a esta instalação. Nenhum comando foi executado.');return;}
+  // A cold/busy WSL launcher can exceed both former 15-second reads. Give
+  // that read its own bounded startup budget; never relax a data command's
+  // deadline or allow any command before a fresh matching owner is returned.
+  const timeout=this.platform==='win32'?60000:15000;
+  for(let attempt=0;attempt<2;attempt++){let record;try{record=JSON.parse(await this.invoke(['/usr/bin/cat','/etc/plataforma-runtime-owner.json'],{timeout}));}catch(error){if(attempt===0&&error.code==='PA_GUEST_TIMEOUT')continue;error.message='Verificação da identidade: '+error.message;throw error;}if(record.version!==1||record.owner!==this.owner)throw Error('A máquina Linux não pertence a esta instalação. Nenhum comando foi executado.');return;}
  }
  async validateMounts(args){for(let i=0;i<args.length;i++)if(args[i]==='--mount'){const parts=args[++i].split(',');if(!parts.includes('type=bind'))continue;const source=parts.find(part=>part.startsWith('source='))?.slice(7);if(!source)throw Error('Mount inválido.');const resolved=await fs.realpath(source);let owned=false;for(const root of this.mounts){const boundary=await fs.realpath(root);if(resolved===boundary||resolved.startsWith(boundary+path.sep)){owned=true;break;}}if(!owned)throw Error('O runtime só pode montar pastas privadas declaradas pela suíte.');}}
  async run(args,options){
