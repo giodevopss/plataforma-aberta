@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T07:02:10.455Z",
+  "checked_at": "2026-10-20T07:07:54.611Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -83,15 +83,15 @@
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
-    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39174969595",
-    "core_test_result": "174 local tests passed, zero failures/skips; 169 allowlisted public tests require fresh all-target acceptance. Five private/publication boundary tests stay local.",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383174469",
+    "core_test_result": "176 local tests passed, zero failures/skips; all 171 public tests passed on Linux, Mac ARM, Mac Intel and Windows in 39383174469. Native editor/OCR/export and independent Chromium storage workflows passed on all three native targets. Ten reviewed reports are permanently preserved with full remote SHA-256/size readback.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
       "sha256": "49790bfd6f3d979236cbf403b57c05d266e1e8fc5e487d99c57c78db49c33178"
     },
     "windows_services_in_progress": null,
-    "local_presentations_in_progress": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39168561806",
+    "local_presentations_in_progress": null,
     "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-win32-x64",
     "internal_mac_installers": [
       "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39165341821-darwin-arm64",
@@ -101,6 +101,10 @@
     "scoped_service_reports": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-windows-services-39165080309",
     "current_native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39172521642",
     "database_automation_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-database-automation-39171271372",
-    "multiarchitecture_service_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-services-arm-windows-39173725815"
+    "multiarchitecture_service_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-services-arm-windows-39173725815",
+    "current_native_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-native-validation-39383174469",
+    "complete_source_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39382735749",
+    "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383975759",
+    "arm_presenton_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39383979713"
   }
 }

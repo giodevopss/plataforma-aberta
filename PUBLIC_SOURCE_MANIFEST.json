@@ -1314,8 +1314,8 @@
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 10234,
-      "sha256": "d088a6741ad3aa1202b92499ba0fb56a789fb07915962dc1e01e01e58d4d74f5"
+      "size": 10734,
+      "sha256": "46aef29a08b57b418419b7337ed82de70b9899107ea6bcd8d5c2f0ded86b3812"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1529,8 +1529,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 11514,
-      "sha256": "5cd80363cb5557b0ceab6d3ff65657f2d28ae699948e25fc9e2b22070b4aa565"
+      "size": 12048,
+      "sha256": "462aca46761d2a88025aba24e53a8cff8f041f44ecb238daea1f01e1925dd38f"
     },
     {
       "path": ".github/workflows/installer-transition.yml",
