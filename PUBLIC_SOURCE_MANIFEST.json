@@ -639,8 +639,8 @@
     },
     {
       "path": "desktop/tests/safe-container-diagnostic.test.mjs",
-      "size": 2465,
-      "sha256": "3756ceda487d9de66292ff848bc2e2e7ff3513575be265529c02547c52ac7db3"
+      "size": 2605,
+      "sha256": "d2b9826bb03906c5ead05cccbcf4b7533e789ff509165a0593154064baecbecf"
     },
     {
       "path": "desktop/tests/screenity-identity.test.mjs",
@@ -1168,6 +1168,11 @@
       "sha256": "888b9d0c348370a8685f8db896e18d727f73cadf6b156f84d07c380e8a087468"
     },
     {
+      "path": "suite/STATUS.md",
+      "size": 5199,
+      "sha256": "99c53b814b6095dde5c06feebdda9e7269685c0c003ac87cdb09e75ebda21585"
+    },
+    {
       "path": "suite/INSTALLERS.md",
       "size": 4224,
       "sha256": "74973a3ee03e7604355c23c7cb7f6a76a347546793c759b20785e89fdcb4b390"
@@ -1314,8 +1319,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 16738,
-      "sha256": "2451d6a8f4a764c58c2ce8c72c34c275099be3ceae30c660be440800b7534cd0"
+      "size": 16756,
+      "sha256": "3312fa26e36a150a0c7b8aebf1e796a9c026145619b891fedcdfc37d1b73ef72"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1344,8 +1349,8 @@
     },
     {
       "path": "suite/tests/safe-container-diagnostic.mjs",
-      "size": 3517,
-      "sha256": "91f828e9f73f6347b0c72048afcd0605918cdbfd11728b090e689a0ac00a1150"
+      "size": 3648,
+      "sha256": "b5996826ad9bd98c5694ceb99c2b50b4ca1378e89453c60fbeb0b4b05d7dadfa"
     },
     {
       "path": "suite/tests/repeat-desktop-native.mjs",
@@ -1499,8 +1504,8 @@
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
-      "size": 11993,
-      "sha256": "a870ff662afb4df6c814fd7625ff78f4b327458553533e219b5b3fd18ed90eae"
+      "size": 12649,
+      "sha256": "872c32dc1435e355f3824be7a49fcaedfc9129da8c73908aac0b8d9b8048031a"
     },
     {
       "path": "suite/tests/plane-account-workflow.mjs",
@@ -1635,7 +1640,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13194,
-      "sha256": "83f042894de32e1955cc386d83e8d4a6921aff4d249c79ab4209eb7346087b69"
+      "sha256": "b00f502517de7a1ca9730194fe54ab853b9e86e473232b37d315fe70abffd334"
     },
     {
       "path": ".github/workflows/publish-release.yml",
@@ -1779,8 +1784,8 @@
     },
     {
       "path": "desktop/README.md",
-      "size": 7188,
-      "sha256": "b12c45a505bbd86eb573fcd8f4261229afd616e4e8025f114f7404cab8842916"
+      "size": 7183,
+      "sha256": "710f0182e29c05c50b24d5901ad166b70f567ca4781c5657c966da355022feb3"
     },
     {
       "path": "LICENSE",

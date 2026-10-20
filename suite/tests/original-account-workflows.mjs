@@ -28,7 +28,14 @@ export async function loginOriginalPage(id,page,endpoint,account){
   // Require the original authenticated server session after the real form submit.
   // The following workflow opens its own original content; it need not wait for
   // an unrelated cold dashboard route to finish rendering first.
-  if(id==='formbricks')await sessionReady();else await page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:60000,waitUntil:'domcontentloaded'});return page;
+  if(id==='formbricks'){
+   await sessionReady();
+   // BetterAuth confirms the cookie before the original React handler pushes
+   // its destination. Wait for that navigation to commit so it cannot later
+   // replace the response page requested by the next workflow step. Loading
+   // an unrelated cold dashboard is not required here.
+   await page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:90000,waitUntil:'commit'});
+  }else await page.waitForURL(url=>!url.pathname.startsWith('/auth/'),{timeout:60000,waitUntil:'domcontentloaded'});return page;
  }catch(error){const state=await page.evaluate(()=>{const email=document.querySelector('input[name=email]'),password=document.querySelector('input[name=password]'),submit=document.querySelector('button[type=submit]');return {pathname:location.pathname,emailFilled:Boolean(email?.value),passwordFilled:Boolean(password?.value),submitDisabled:submit?.disabled===true,reactBound:Boolean(email&&Object.keys(email).some(key=>key.startsWith('__reactProps$'))),errorText:document.body?.innerText||''};}).catch(()=>({}));const message=String(error.message).replaceAll(account.password,'[REDACTED]').replaceAll(endpoint.token,'[REDACTED]');throw Error(message+'; fixed original auth diagnostic '+JSON.stringify(safeAuthDiagnostic(state,responses)));}
  finally{page.removeListener('response',observe);}
 }
@@ -58,7 +65,7 @@ export async function originalAccountWorkflow({id,browser,endpoint,evidence,root
  checks.push('Original local account, calendar, persistent planning tag and byte-identical media upload/download passed without external social accounts or publishing');await context.close();return {account,tag,media,mediaHash:crypto.createHash('sha256').update(bytes).digest('hex')};
 }
 export async function verifyAccountPage({id,page,endpoint,state}){
- if(id==='formbricks'){await navigateOriginalContent(page,endpoint.origin+state.responsePath);const answer=page.getByText('QA resposta preservada local',{exact:false}).first();await answer.waitFor();await answer.scrollIntoViewIfNeeded();return;}
+ if(id==='formbricks'){try{await navigateOriginalContent(page,endpoint.origin+state.responsePath);const answer=page.getByText('QA resposta preservada local',{exact:false}).first();await answer.waitFor();await answer.scrollIntoViewIfNeeded();return;}catch(error){const diagnostic=await page.evaluate(()=>({pathname:location.pathname,errorText:document.body?.innerText||''})).catch(()=>({}));throw Error(error.message+'; fixed response view diagnostic '+JSON.stringify(safeAuthDiagnostic(diagnostic)));}}
  const result=await page.evaluate(async()=>{const response=await fetch('/api/posts/tags');if(!response.ok)throw Error('Tags '+response.status);return response.json();});assert.ok(JSON.stringify(result).includes('QA planejamento local'));
  const media=await page.evaluate(async()=>{const response=await fetch('/api/media?page=1');if(!response.ok)throw Error('Media '+response.status);return response.json();});
  const items=Array.isArray(media)?media:media.results||media.data||media.media;assert.ok(Array.isArray(items),'Original media listing must return records');const restoredMedia=items.find(item=>item.id===state.media.id);assert.ok(restoredMedia,'Uploaded original media is listed after restore');const mediaURL=new URL(restoredMedia.path,endpoint.origin);assert.equal(mediaURL.origin,endpoint.origin,'Original media API must return the current local origin after restore');
