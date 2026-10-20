@@ -1374,8 +1374,8 @@
     },
     {
       "path": "suite/tests/desktop-recovery-native.mjs",
-      "size": 9185,
-      "sha256": "55e5e352efe6247269ed9ce43716ff586a13557875b26b441b6e02ea3ee9a1ec"
+      "size": 11638,
+      "sha256": "81418cd4137e998ccb16823a56c6a328798a9d663317770aa26989093c923a36"
     },
     {
       "path": "suite/tests/browser-storage-native.mjs",
@@ -1575,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "c5cbd49ea9e1431545f973f3a758d151ea6d2df17c4cb32d5af791a1596bfc39"
+      "sha256": "51758e0e29eb1885c7856fc5f312280793c826c428101a8503009b3d1dec40cf"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
