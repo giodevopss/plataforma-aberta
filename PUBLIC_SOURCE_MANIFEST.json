@@ -29,8 +29,8 @@
     },
     {
       "path": "desktop/src/complete-runtime.mjs",
-      "size": 8281,
-      "sha256": "31f6b1958b197ca8c32f6b9d5d458538317c1f751f1a20cdc44da6cd53a0bec8"
+      "size": 8716,
+      "sha256": "a5f0cf1aaa7014ea9ddc4713a0709b99a4fdb800967baf1970a4e541cc847e51"
     },
     {
       "path": "desktop/src/connections.mjs",
@@ -1339,8 +1339,8 @@
     },
     {
       "path": "suite/tests/database-cloud.mjs",
-      "size": 4809,
-      "sha256": "8db2ac5851e70cc6c67a4916aed2bb09738d6f1dff0281ccd16670bf67160cdd"
+      "size": 5282,
+      "sha256": "ddacf5b0eee053d854b46ce2f801fe4bbf98057d37fa5bd1f47e40423add93e0"
     },
     {
       "path": "suite/tests/cloud-service-runtime.mjs",
@@ -1565,7 +1565,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "983e081e5fc5c3e5dc1fbb153819eda4e802f6277cce9a4d777d59f11eacc3e5"
+      "sha256": "b36fcd0bae8e9fc06b6f3d8ff1390d6c21f03cec5d1973ce28baf6812824a439"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
