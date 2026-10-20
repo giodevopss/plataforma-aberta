@@ -1309,8 +1309,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 23539,
-      "sha256": "1b9997aed64a1d9145ff9202e171710d842ece936fe9b885f50e9fdf856a7dd0"
+      "size": 23953,
+      "sha256": "5c3d5a6ba1e7db560cf4f157434bee6202271afd1485303dc0ee7c1875dacf5d"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1434,8 +1434,8 @@
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 6253,
-      "sha256": "037c4bea5708ab947a8832c1e8bc956c42e1b2e8725c303f36511ad8e119c682"
+      "size": 6434,
+      "sha256": "9c19c06c3ee701c8a20de7e1f51451aec5be8f949dd32275de2173fd329ce66d"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1575,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12517,
-      "sha256": "ca1eb7e7dfd89ba480a4309b4b18b05835838dddb3ce2441894a7a1906aea2dd"
+      "sha256": "a54c34a2f46279ef2af54a52340b5f06c8c80677d5b805e1950acbd11ccbd4da"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

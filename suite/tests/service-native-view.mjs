@@ -18,7 +18,7 @@ export async function verifyNativeService({id,directory,endpoint,evidence,checks
  try{
   const shell=await application.firstWindow();await shell.locator('.tool-card').first().waitFor();assert.ok((await shell.evaluate(()=>window.suite.info())).managedServices.includes(id),id);
   async function openLibrary(){
-   await shell.locator('.nav-item[data-view="'+id+'"]').click();await shell.locator('#main').waitFor({state:'hidden',timeout:300000});let view;
+   await shell.locator('.nav-item[data-view="'+id+'"]').click();await shell.locator('#main').waitFor({state:'hidden',timeout:300000}).catch(async error=>{const detail=await shell.locator('#runtime-progress').textContent().catch(()=>error.message);throw Error('Original '+id+' native attachment failed: '+detail);});let view;
    for(let attempt=0;attempt<1200;attempt++){view=application.context().pages().find(p=>new URL(p.url()||'about:blank').origin===endpoint.origin);if(view)break;await new Promise(resolve=>setTimeout(resolve,250));}
    if(!view)fs.writeFileSync(path.join(evidence,'native-launch-failure.txt'),await shell.locator('body').innerText());assert.ok(view,'Original application WebContentsView opened after its complete stack became ready');assert.equal(await view.evaluate(()=>typeof require),'undefined');await verify(view);await view.evaluate(()=>document.fonts.ready.then(()=>true));return view;
   }
