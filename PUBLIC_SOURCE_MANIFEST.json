@@ -304,8 +304,8 @@
     },
     {
       "path": "desktop/renderer/app.mjs",
-      "size": 15805,
-      "sha256": "90e5c25a79d87e74f707c5cd179c4501150170a497b6b9cedc410f9d1856ef2a"
+      "size": 15876,
+      "sha256": "5710c7b64e23081dd619a817a9900b0bb6558ab32985069174a16983212e688a"
     },
     {
       "path": "desktop/renderer/editor-src/bootstrap.mjs",
@@ -464,8 +464,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 10011,
-      "sha256": "9ea1f34141fe3a228f19a1ae90252046df0c643a14695b621c4d633837f46b3b"
+      "size": 10479,
+      "sha256": "b4356276e063ccb570c9948b234837f98dea8545249c762b8f34e70c3ab2e8ce"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -1540,7 +1540,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "a7bda57cea9a24a615fce53802d18d8ef1175b632276439d43cd3311dcacfaa6"
+      "sha256": "860b9dad7b8875fb0a73f4f090aa16c938fe44bbcb5e882edfc4dc14b9d4953a"
     },
     {
       "path": ".github/workflows/presenton-startup.yml",

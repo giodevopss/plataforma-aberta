@@ -12,11 +12,11 @@ async function canLeave(){const frame=$('#tool');if(frame.hidden||!frame.content
 window.paDesktopCanClose=canLeave;
 const statusLabel=id=>engines[id]?'Motor original integrado':services.has(id)?'Aplicativo completo · local':'Integração em andamento';
 async function show(id){
- if(current===id&&id!=='settings')return;if(!await canLeave())return;current=id;
+ if(current===id&&id!=='settings')return;const changingView=current!==id;if(!await canLeave())return;current=id;
  await window.suite.hideModule();const project=projects.find(p=>p.id===id);
  document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
  $('#view-title').textContent=names[id]||({home:'Visão geral',settings:'Configurações',licenses:'Fontes e licenças'})[id];
- $('#tool').hidden=true;$('#tool').src='about:blank';$('#main').hidden=false;
+ $('#tool').hidden=true;$('#tool').src='about:blank';$('#main').hidden=false;if(changingView)$('#main').scrollTop=0;
  if(project&&engines[id]){$('#main').hidden=true;$('#tool').hidden=false;$('#tool').src=engines[id];localStorage.setItem('pa-last-tool',id);return;}
  if(project&&services.has(id)){
    $('#main').innerHTML='<section class="panel"><h2>'+esc(names[id])+'</h2><p id="runtime-progress">Preparando aplicativo completo neste computador…</p><p>O primeiro download pode ser grande. Seus dados ficam separados da instalação e são preservados ao encerrar a suíte.</p></section>';
