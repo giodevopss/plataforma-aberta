@@ -1244,8 +1244,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15878,
-      "sha256": "9b3a44c6a49d56013fd2dda52c5724705d526fb3742328efbe44474fc25145dd"
+      "size": 15924,
+      "sha256": "be91cbd4a3b2e7539478ecd3ebdaf6634ffcfaf1b7aa3142c9863968e61b3745"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1261,6 +1261,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/presenton-startup-cloud.mjs",
+      "size": 3843,
+      "sha256": "7c26b39677c3cc7337a2cae9dde57f2b7ab48560dc0232adb37c5d49d09e121f"
     },
     {
       "path": "suite/tests/installer-transition-native.mjs",
@@ -1535,7 +1540,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "4b73db47eaf2a89fdef569fe1a435eaede9d8300f548d06fe27cd6778a109128"
+      "sha256": "5ce5c42caf3fae84dea3bf5e1f0c3dac2510f05f4b59edf0f70c4df00d6b120c"
+    },
+    {
+      "path": ".github/workflows/presenton-startup.yml",
+      "size": 1310,
+      "sha256": "37291efb26ba0a11594d33a31eb570a8386885790eaa6cc566ab0d40ade6acb8"
     },
     {
       "path": ".github/workflows/installer-transition.yml",
