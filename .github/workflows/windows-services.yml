@@ -16,6 +16,8 @@ jobs:
   original-service:
     runs-on: windows-2025
     timeout-minutes: 60
+    env:
+      PA_INTERNAL_INSTALLER_VALIDATION: '1'
     strategy:
       fail-fast: false
       max-parallel: 2

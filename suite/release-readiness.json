@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T10:48:24.325Z",
+  "checked_at": "2026-10-20T10:52:01.395Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -45,7 +45,7 @@
     },
     "postiz": {
       "acceptance": "pending",
-      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified. Original native Linux ARM workflow, original content/account and independent encrypted recovery passed 39172930647; all fourteen selected public reports preserved with full SHA-256 read-back in acceptance-services-arm-windows-39173725815."
+      "status": "Complete original service, original account/content workflow, real native Electron view, restart and independent encrypted recovery accepted again in public Linux run 39159103645. Formbricks response decryption uses its supported persistent generated secret. Full native runtime and combined suite gates remain pending. Actual own Windows WSL original account/content, attached native view, restart and independent encrypted recovery passed in 39165080309; scoped reports publicly preserved and read-back verified. Original native Linux ARM workflow, original content/account and independent encrypted recovery passed 39172930647; all fourteen selected public reports preserved with full SHA-256 read-back in acceptance-services-arm-windows-39173725815. Durable fsync/rename started marker prevents a new backup or restoration after actual PostgreSQL COMMIT but before client confirmation. Regression tests passed; actual original fault injection and idempotent retry passed Linux Intel 39401965237, native Linux ARM 39401970937 and Windows WSL 39401975270. Mac 39401979874 failed first startup before reaching fault injection; current installed retest 39410579574 remains pending."
     },
     "paperless": {
       "acceptance": "pending",
@@ -73,7 +73,7 @@
   "complete_backup_restore": "pending",
   "upgrade_rollback": "partial",
   "distribution_signatures": "pending",
-  "distribution": "All three current unsigned complete-original candidates 39396457365 passed build, installation/native originals/OCR/exports/core encrypted independent activation/uninstallation/full remote installer size-SHA256 readback. Actual current installed four-provider editor/audio/model/video backup/activation/second backup/exact readback passed Windows 39397807052 and both Macs 39398442190. Current actual manual previous->current->previous package replacement and data retention passed all three native systems in 39398557675. Full twelve-provider installed Windows/Mac Intel recovery still running; unsigned delivery explicitly authorized.",
+  "distribution": "All three unsigned candidates 39408346878 (product source 6a36206) passed build, actual installation/native originals/OCR/exports/core encrypted independent activation/uninstallation/full remote installer SHA-256 and size. Actual production ASAR materialization and all 54 public configuration hashes passed on all three targets; Windows passed five native shutdown rounds. Current installed native joint 39410563459, manual transition 39410566551 and full twelve-provider Windows 39410583334 / Mac Intel 39410586596 remain pending. Unsigned delivery explicitly authorized.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -83,8 +83,8 @@
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
-    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39397633591",
-    "core_test_result": "183 local tests passed with zero failures/skips. All 178 public tests passed on Linux, Mac ARM, Mac Intel and Windows in 39397633591. Private publication-boundary tests remain local.",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39408343023",
+    "core_test_result": "188 current local tests passed with zero failures/skips. Previous 182 public tests passed all four targets in 39408343023. New privacy diagnostic regression raises current public count to 183; four-target run 39410559914 remains pending.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
@@ -92,23 +92,25 @@
     },
     "windows_services_in_progress": null,
     "local_presentations_in_progress": null,
-    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39396457365-win32-x64",
+    "internal_windows_installer": "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39408346878-win32-x64",
     "internal_mac_installers": [
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39396457365-darwin-arm64",
-      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39396457365-darwin-x64"
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39408346878-darwin-arm64",
+      "https://github.com/giodevopss/plataforma-aberta/releases/tag/installer-validation-39408346878-darwin-x64"
     ],
     "windows_services": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39165080309",
     "scoped_service_reports": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-windows-services-39165080309",
-    "current_native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39172521642",
+    "current_native_recovery": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410563459",
     "database_automation_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-database-automation-39171271372",
     "multiarchitecture_service_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-services-arm-windows-39173725815",
     "current_native_evidence": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-native-validation-39383174469",
     "complete_source_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39391893777",
-    "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39397995334",
+    "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410583334",
     "arm_presenton_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39384577834",
     "accepted_current_installers": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39396457365",
     "complete_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39396449996",
-    "current_build_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39396457365",
-    "complete_installed_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39400292825"
+    "current_build_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39408346878",
+    "complete_installed_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410586596",
+    "current_core_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410559914",
+    "current_manual_transition": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410566551"
   }
 }

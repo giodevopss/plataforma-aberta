@@ -1144,8 +1144,8 @@
     },
     {
       "path": "suite/INSTALLERS.md",
-      "size": 3486,
-      "sha256": "5c8fbe54c3b8813684c7fcaa3cfdeacf42380a30d61735a21e7494071f9634ea"
+      "size": 3315,
+      "sha256": "dca4bde4f1c664361dd3723843ca9ca6dc81fb1dc2c69ee879500ea35e99eccf"
     },
     {
       "path": ".gitignore",
@@ -1594,8 +1594,8 @@
     },
     {
       "path": "suite/release-readiness.json",
-      "size": 12687,
-      "sha256": "48dd0e049a13dc82ea5886c78d0225720ec1975da1df2a55b166d642d804fae4"
+      "size": 13316,
+      "sha256": "25a5e9c36ed8e099738f2b8b105d8e38c867517b333fc591406c83d56949329e"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1604,8 +1604,8 @@
     },
     {
       "path": ".github/workflows/mac-services.yml",
-      "size": 4107,
-      "sha256": "e28b8bc4072471e20df75ed99bd2ed2a6a29fba190bb2f6a06411ee02dc9b74b"
+      "size": 4151,
+      "sha256": "d9bfcca65c771bca884f9902a0720d2bfc09f0513dce2d1bdec2940adfed6584"
     },
     {
       "path": ".github/workflows/presenton-startup.yml",
@@ -1664,8 +1664,8 @@
     },
     {
       "path": ".github/workflows/windows-services.yml",
-      "size": 3403,
-      "sha256": "0962c4a478942a4d874319cc5ebb55a5c5990273b93d830194e8efb37a66ac58"
+      "size": 3456,
+      "sha256": "cd6180f8a52793f2445a5809110105bc46ef9f06f95a054d418ee6f0727d4e75"
     },
     {
       "path": ".github/workflows/presenton-validation.yml",
