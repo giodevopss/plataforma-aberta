@@ -474,8 +474,8 @@
     },
     {
       "path": "desktop/tests/desktop.mjs",
-      "size": 10479,
-      "sha256": "b4356276e063ccb570c9948b234837f98dea8545249c762b8f34e70c3ab2e8ce"
+      "size": 10764,
+      "sha256": "0e508b36cbfac5c7f63a976aa09e540125e6aaf5687868974f83ebd502af298d"
     },
     {
       "path": "desktop/tests/download.test.mjs",
@@ -1600,7 +1600,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13375,
-      "sha256": "84872168bd67422149647cd98ab429f46573315c887747f033a0bbcb8bd98518"
+      "sha256": "31418660f241095456101cc359dea504b02d0ba454eb1b84dcd549207bbf3ecf"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

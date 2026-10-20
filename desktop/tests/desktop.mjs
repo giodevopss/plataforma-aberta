@@ -20,6 +20,7 @@ try{
  await phase('original-shell');page=await app.firstWindow();page.setDefaultTimeout(20000);page.on('pageerror',e=>errors.push(e.message));
  await app.evaluate(({BrowserWindow,dialog},temp)=>{const w=BrowserWindow.getAllWindows()[0];globalThis.__suiteTestDownloads={};w.webContents.session.on('will-download',(_event,item)=>{item.setSavePath(temp+'/'+item.getFilename());item.on('done',(_event,state)=>globalThis.__suiteTestDownloads[item.getFilename()]=state);});dialog.showSaveDialog=async()=>({canceled:false,filePath:temp+'/workspace.pasuite'});},temp);
  await page.waitForSelector('h1');assert.equal(await page.locator('.tool-card').count(),12);assert.match(await page.locator('h1').innerText(),/ferramentas completas/);checks.push('Native desktop shell lists 12 tools');
+ const expectedVersion=JSON.parse(await fs.readFile(path.join(root,'desktop/package.json'),'utf8')).version;assert.equal(await page.evaluate(()=>window.suite.info().then(info=>info.version)),expectedVersion);checks.push('Actual desktop version matches the reviewed package metadata');
  assert.equal(await page.evaluate(()=>typeof require),'undefined');assert.equal(await page.evaluate(()=>typeof process),'undefined');checks.push('Renderer has no Node.js access');
  const origin=new URL(page.url()).origin;assert.equal((await fetch(origin+'/api/projects')).status,403);checks.push('External browser cannot access desktop session without its token');
  await phase('original-excalidraw');await page.locator('.nav-item[data-view="excalidraw"]').click();
