@@ -573,6 +573,11 @@
       "sha256": "9c5dc6aaad22d46b441f1f26eaa6e62898c18d0b76eae0b57888fa9c164e5988"
     },
     {
+      "path": "desktop/tests/original-navigation.test.mjs",
+      "size": 958,
+      "sha256": "e8ba184203940c598f5b88fa8ceb06919bfb87508adf94997cc71793c40cd234"
+    },
+    {
       "path": "desktop/tests/packaged-extension.test.mjs",
       "size": 2190,
       "sha256": "b8531b4f46fa0c1f3445161865884c488f2b9c3b23e06ea221f7d0fde17542e0"
@@ -651,6 +656,11 @@
       "path": "desktop/tests/server-stacks.test.mjs",
       "size": 5607,
       "sha256": "d5388e631109204964d928a48bbabeeae5da53b3777ce4ecb2b8022dddcae771"
+    },
+    {
+      "path": "desktop/tests/service-readiness-diagnostic.test.mjs",
+      "size": 1542,
+      "sha256": "9d3902e3254c36b92525a49788c294fc3ea43942fedd0fd700c311270b50d7c3"
     },
     {
       "path": "desktop/tests/service-shutdown.test.mjs",
@@ -1469,8 +1479,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 16020,
-      "sha256": "1bd8fc5c7cd958b52b2c16606153adc919707fdad5c91a693cfc45a8352135dd"
+      "size": 16164,
+      "sha256": "b3780aa5ae0a7634a22a27669dd28dc27d90a3ee8865787f98761f1ea86ed866"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1479,8 +1489,8 @@
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
-      "size": 11938,
-      "sha256": "5eaa76f57e027eb867f79ed481913e859c0cc2f47a0bfe7036810a451fdb42c1"
+      "size": 11993,
+      "sha256": "a870ff662afb4df6c814fd7625ff78f4b327458553533e219b5b3fd18ed90eae"
     },
     {
       "path": "suite/tests/plane-account-workflow.mjs",
@@ -1615,7 +1625,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13375,
-      "sha256": "8b532edcb9118e96601edec895cead54a86959dd957c2fc1085c286095f25536"
+      "sha256": "4ddb58ffd9434dfb2216fb3e26bb07aee70455394701af9defb5c1fb2b8160d4"
     },
     {
       "path": ".github/workflows/publish-release.yml",

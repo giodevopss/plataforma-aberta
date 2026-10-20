@@ -1,4 +1,5 @@
 import {safeAuthDiagnostic} from './safe-container-diagnostic.mjs';
+import {navigateOriginalContent} from './original-navigation.mjs';
 import {createPlaneAccount,verifyPlaneRecovery} from './plane-account-workflow.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -57,7 +58,7 @@ export async function originalAccountWorkflow({id,browser,endpoint,evidence,root
  checks.push('Original local account, calendar, persistent planning tag and byte-identical media upload/download passed without external social accounts or publishing');await context.close();return {account,tag,media,mediaHash:crypto.createHash('sha256').update(bytes).digest('hex')};
 }
 export async function verifyAccountPage({id,page,endpoint,state}){
- if(id==='formbricks'){await page.goto(endpoint.origin+state.responsePath,{waitUntil:'domcontentloaded'});const answer=page.getByText('QA resposta preservada local',{exact:false}).first();await answer.waitFor();await answer.scrollIntoViewIfNeeded();return;}
+ if(id==='formbricks'){await navigateOriginalContent(page,endpoint.origin+state.responsePath);const answer=page.getByText('QA resposta preservada local',{exact:false}).first();await answer.waitFor();await answer.scrollIntoViewIfNeeded();return;}
  const result=await page.evaluate(async()=>{const response=await fetch('/api/posts/tags');if(!response.ok)throw Error('Tags '+response.status);return response.json();});assert.ok(JSON.stringify(result).includes('QA planejamento local'));
  const media=await page.evaluate(async()=>{const response=await fetch('/api/media?page=1');if(!response.ok)throw Error('Media '+response.status);return response.json();});
  const items=Array.isArray(media)?media:media.results||media.data||media.media;assert.ok(Array.isArray(items),'Original media listing must return records');const restoredMedia=items.find(item=>item.id===state.media.id);assert.ok(restoredMedia,'Uploaded original media is listed after restore');const mediaURL=new URL(restoredMedia.path,endpoint.origin);assert.equal(mediaURL.origin,endpoint.origin,'Original media API must return the current local origin after restore');
