@@ -45,6 +45,14 @@ try{
    const unopened=new RuntimeBackup(restored),cold=path.join(temporary,'unopened');let coldMetadata;try{await unopened.freeze();coldMetadata=await unopened.snapshot(cold);}finally{await unopened.resume();}
    const coldArchive=path.join(temporary,'unopened.pasuite');await writeArchive({directory:cold,destination:coldArchive,passphrase,metadata:coldMetadata});const coldDecoded=path.join(temporary,'unopened-verified'),coldManifest=await readArchive({source:coldArchive,directory:coldDecoded,passphrase});recoveredRuntime=createFresh();extraRuntimes.push(recoveredRuntime);await new RuntimeBackup(recoveredRuntime).restoreIntoEmpty({snapshot:coldDecoded,manifest:coldManifest});checks.push('A second authenticated backup of a never-started restored Postiz preserves the original media origin across two independent runtime identities before its first database relocation');
   }
+  if(id==='postiz'){
+   const invoke=recoveredRuntime.run.bind(recoveredRuntime);let injected=false;
+   recoveredRuntime.run=async(args,options)=>{const result=await invoke(args,options);if(!injected&&args[0]==='exec'&&args.includes('psql')&&args.some(value=>value.includes('DO $pa_relocation$'))){injected=true;throw Error('Synthetic lost Postiz COMMIT confirmation');}return result;};
+   await assert.rejects(recoveredRuntime.start(id),/Synthetic lost Postiz COMMIT confirmation/);assert.equal(injected,true,'The original PostgreSQL transaction must actually commit before the synthetic client interruption');
+   assert.equal(JSON.parse(fs.readFileSync(path.join(recoveredRuntime.directory,id,'runtime.json'))).assetRelocation.started,true);
+   await assert.rejects(new RuntimeBackup(recoveredRuntime).freeze(),/Reabra o Postiz/);assert.equal(recoveredRuntime.maintenance,false);
+   checks.push('Actual original Postiz PostgreSQL commits media relocation before a simulated lost client confirmation; the durable pending state refuses a new backup, and the next same-origin start must safely resume before original workers run');
+  }
   console.log(id,'encrypted snapshot authenticated; starting independent restored stack');const recovered=await recoveredRuntime.start(id);assert.notEqual(recovered.origin,endpoint.origin);assert.notEqual(restored.identity.id,runtime.identity.id);await verifyRecoveredAccount({id,browser,endpoint:recovered,state,evidence,checks});await captureCombinedFixture({id,snapshot:verified,metadata:manifest,state});report.status='local-workflow-passed';report.encryptedBackupBytes=fs.statSync(archive).size;
  }
 

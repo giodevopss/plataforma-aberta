@@ -219,8 +219,8 @@
     },
     {
       "path": "desktop/src/restore-relocation.mjs",
-      "size": 3429,
-      "sha256": "7a9a1d51b34820e37a70eb5f11f6ec10497201c497edb8c343623daebf85d23f"
+      "size": 5168,
+      "sha256": "87101644ff3ad0aaf6f02a7e2aa3227839e2b68676510f67c673d24f66cf871a"
     },
     {
       "path": "desktop/src/runtime-assets.json",
@@ -229,8 +229,8 @@
     },
     {
       "path": "desktop/src/runtime-backup.mjs",
-      "size": 12488,
-      "sha256": "5bf3733e7d924b0272c4ef70e5c094e013a0d34145e1c68cbded4a7ae2397ea6"
+      "size": 12602,
+      "sha256": "327a2949263b521bad53dfa49fd24cd1a7a9d03e07d21a3ff1de37b8d8874cc3"
     },
     {
       "path": "desktop/src/runtime-command-error.mjs",
@@ -439,8 +439,8 @@
     },
     {
       "path": "desktop/tests/asset-relocation.test.mjs",
-      "size": 2052,
-      "sha256": "06d45b046b59758cf67f29c5f7f82c05e9b595ca195e881093dc718e571104c8"
+      "size": 5691,
+      "sha256": "4f04b3e9487ce9b53b794fc373e6a0fd7b78e83f2b1ad9a3a7964f27679de7c6"
     },
     {
       "path": "desktop/tests/backup-archive.test.mjs",
@@ -1429,8 +1429,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 13918,
-      "sha256": "2576536afe635c260eb481695cf5e83857e96b2a05d83e34b46aa7ebddd585af"
+      "size": 15053,
+      "sha256": "f611779d2335788de64129209ba96da6834a3a2017b3edfdc37c95677f990aee"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1575,7 +1575,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12687,
-      "sha256": "47f7c91941f641f7409fbc6e1c530886f1bd11581b996b68482127d7c0549ae9"
+      "sha256": "3c996dff943746e5d52398c2bebf6c38bd7144ea4741b07e0b29321630897490"
     },
     {
       "path": ".github/workflows/runtime-images.yml",

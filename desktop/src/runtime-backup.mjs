@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {restoredAssetRelocation} from './restore-relocation.mjs';
+import {restoredAssetRelocation,assertRelocationBackupSafe} from './restore-relocation.mjs';
 import {affineImages} from './affine-stack.mjs';
 import {validateTar} from './backup-archive.mjs';
 import {copyLinuxSnapshotTree} from './linux-snapshot-tree.mjs';
@@ -13,7 +13,7 @@ export class RuntimeBackup {
  async resources(){
   const result=[];
   for(const id of this.runtime.specs.keys()){
-   const dir=path.join(this.runtime.directory,id),file=path.join(dir,'compose.json');if(!fs.existsSync(path.join(dir,'runtime.json')))continue;
+   const dir=path.join(this.runtime.directory,id),file=path.join(dir,'compose.json');if(!fs.existsSync(path.join(dir,'runtime.json')))continue;assertRelocationBackupSafe(JSON.parse(fs.readFileSync(path.join(dir,'runtime.json'))));
    if(this.runtime.specs.get(id).compose){
     const materialized=fs.existsSync(file);
     const compose=materialized?JSON.parse(fs.readFileSync(file)):this.runtime.serverDefinition(id,JSON.parse(fs.readFileSync(path.join(dir,'runtime.json'))),'a'.repeat(64)).compose;
