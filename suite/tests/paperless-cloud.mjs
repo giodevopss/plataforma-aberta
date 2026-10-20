@@ -5,7 +5,7 @@ import {chromium} from '../../desktop/node_modules/playwright/index.mjs';import 
 import {CompleteRuntime,serverApps} from '../../desktop/src/complete-runtime.mjs';import {commandRunner} from '../../desktop/src/local-runtime.mjs';import {RuntimeBackup} from '../../desktop/src/runtime-backup.mjs';import {writeArchive,readArchive} from '../../desktop/src/backup-archive.mjs';
 import {verifyNativePaperless} from './service-native-view.mjs';
 import {cloudServiceRuntime} from './cloud-service-runtime.mjs';
-if(process.env.CI!=='true'||!['linux','win32'].includes(process.platform))throw Error('This acceptance test requires a disposable Linux CI runner.');
+if(process.env.CI!=='true'||!['linux','win32','darwin'].includes(process.platform))throw Error('This acceptance test requires a disposable Linux CI runner.');
 const root=path.resolve('.'),temporary=fs.mkdtempSync(path.join(process.env.RUNNER_TEMP||os.tmpdir(),'pa-paperless-acceptance-')),evidence=path.join(root,'suite/research/cloud-paperless');fs.mkdirSync(evidence,{recursive:true});
 const {runtime,restored,run,closeGuest}=await cloudServiceRuntime({temporary,specs:serverApps.filter(s=>s.id==='paperless'),onStatus:s=>console.log(s.id,s.status,s.detail)});
 const captured=async args=>{let output='';try{await run(args,{timeout:120000,progress:chunk=>output=(output+chunk).slice(-2_000_000)});return output;}catch(error){return output+'\n'+error.message;}};

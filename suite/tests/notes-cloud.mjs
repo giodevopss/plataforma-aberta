@@ -1,7 +1,7 @@
 import {captureCombinedFixture} from './combined-fixture.mjs';
 // Original AFFiNE browser-local document through the actual product backup.
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import crypto from 'node:crypto';import assert from 'node:assert/strict';import {createRequire} from 'node:module';import {_electron} from '../../desktop/node_modules/playwright/index.mjs';import {serverApps} from '../../desktop/src/complete-runtime.mjs';import {cloudServiceRuntime} from './cloud-service-runtime.mjs';import {closeNativeQA} from './close-native-qa.mjs';
-if(process.env.CI!=='true'||!['linux','win32'].includes(process.platform))throw Error('Disposable original notes acceptance required.');
+if(process.env.CI!=='true'||!['linux','win32','darwin'].includes(process.platform))throw Error('Disposable original notes acceptance required.');
 const temporary=fs.mkdtempSync(path.join(process.env.RUNNER_TEMP||os.tmpdir(),'pa-notes-cloud-')),evidence=path.resolve('suite/research/cloud-affine');fs.mkdirSync(evidence,{recursive:true});
 const {runtime,restored,run,closeGuest}=await cloudServiceRuntime({temporary,specs:serverApps.filter(spec=>spec.id==='affine'),onStatus:value=>console.log(value.id,value.status,value.detail)});
 const profile=path.join(temporary,'native-profile'),archive=path.join(temporary,'notes.pasuite'),passphrase=crypto.randomBytes(48).toString('base64url'),account={name:'Suite Notes QA',email:'qa-notes@plataforma.invalid',password:'Qa!'+crypto.randomBytes(12).toString('hex')},marker='Nota original local recuperada — QA 2026';let application,notePage;

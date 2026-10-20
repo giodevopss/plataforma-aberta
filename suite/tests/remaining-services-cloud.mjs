@@ -5,7 +5,7 @@ import {chromium} from '../../desktop/node_modules/playwright/index.mjs';import 
 import {verifyNativeAccount} from './service-native-view.mjs';
 import {cloudServiceRuntime} from './cloud-service-runtime.mjs';
 import {RuntimeBackup} from '../../desktop/src/runtime-backup.mjs';import {writeArchive,readArchive} from '../../desktop/src/backup-archive.mjs';import {originalAccountWorkflow,verifyRecoveredAccount} from './original-account-workflows.mjs';
-const extraRuntimes=[];const id=process.argv[2];if(process.env.CI!=='true'||!['linux','win32'].includes(process.platform)||!['plane','formbricks','postiz'].includes(id))throw Error('Disposable Linux runner and a remaining service ID required.');
+const extraRuntimes=[];const id=process.argv[2];if(process.env.CI!=='true'||!['linux','win32','darwin'].includes(process.platform)||!['plane','formbricks','postiz'].includes(id))throw Error('Disposable Linux runner and a remaining service ID required.');
 const root=path.resolve('.'),temporary=fs.mkdtempSync(path.join(process.env.RUNNER_TEMP||os.tmpdir(),'pa-'+id+'-cloud-')),evidence=path.join(root,'suite/research/cloud-'+id);fs.mkdirSync(evidence,{recursive:true});
 const {runtime,restored,run,closeGuest,createFresh}=await cloudServiceRuntime({temporary,specs:serverApps.filter(s=>s.id===id),onStatus:s=>console.log(s.id,s.status,s.detail)});
 const captured=async args=>{let output='';try{await run(args,{timeout:120000,progress:chunk=>output=(output+chunk).slice(-2_000_000)});return output;}catch(error){return output+'\n'+error.message;}};

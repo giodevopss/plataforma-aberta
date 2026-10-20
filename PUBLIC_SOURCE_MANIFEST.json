@@ -214,8 +214,8 @@
     },
     {
       "path": "desktop/src/qa-guest-runtime.mjs",
-      "size": 1758,
-      "sha256": "55f43337f87da4752208aead4a56f824e5bbbd1f4f9fedabea48515ad0b7cad4"
+      "size": 2511,
+      "sha256": "631ef1cffc17d535882f67be564971dd2def61ab3db718bbdfa53fff73f128eb"
     },
     {
       "path": "desktop/src/restore-relocation.mjs",
@@ -1244,8 +1244,8 @@
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15924,
-      "sha256": "be91cbd4a3b2e7539478ecd3ebdaf6634ffcfaf1b7aa3142c9863968e61b3745"
+      "size": 15939,
+      "sha256": "e8af61c55f624f513dce937961cd421456a1b58177a9cfdf863150f80ebff724"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1289,8 +1289,8 @@
     },
     {
       "path": "suite/tests/notes-cloud.mjs",
-      "size": 10839,
-      "sha256": "94029ff3433ef86fe379a48b9c18c9c5218e4e6b710c352bd5de139a71752dd4"
+      "size": 10848,
+      "sha256": "1f595ad90ff555bc1e9e3ee120e0852cd958189b21648cb3bb7a0b7f5d7b66f9"
     },
     {
       "path": "suite/tests/origin-storage-native.mjs",
@@ -1304,8 +1304,8 @@
     },
     {
       "path": "suite/tests/automation-cloud.mjs",
-      "size": 4330,
-      "sha256": "05f5f76cd3699bab8143f171eeadbe03f5988614f615f9b454ed00507fd5ebaa"
+      "size": 4339,
+      "sha256": "59e027063e11f2b7e4deaa83a477fbe632e8fb89b6f09ccfad2086d0dfc38fde"
     },
     {
       "path": "suite/tests/database-workflow.mjs",
@@ -1314,18 +1314,18 @@
     },
     {
       "path": "suite/tests/database-cloud.mjs",
-      "size": 4800,
-      "sha256": "5366f68a76950a0a026ffd537a26c73f5d13a29e20c6eba9002973e8ec25b5e6"
+      "size": 4809,
+      "sha256": "8db2ac5851e70cc6c67a4916aed2bb09738d6f1dff0281ccd16670bf67160cdd"
     },
     {
       "path": "suite/tests/cloud-service-runtime.mjs",
-      "size": 3093,
-      "sha256": "3304e05baa3e2379573a509c662114323438eefaf5d7b6509b460913c6fa1f8f"
+      "size": 3694,
+      "sha256": "81fdca559d7db1c305ad63674b23bfb3ef9bb9b611264a0cc48a993fa662752e"
     },
     {
       "path": "suite/tests/presenton-cloud.mjs",
-      "size": 10734,
-      "sha256": "46aef29a08b57b418419b7337ed82de70b9899107ea6bcd8d5c2f0ded86b3812"
+      "size": 10743,
+      "sha256": "7fc6b8fe32dfa7de74fde9dbf58071bab1c09eca975c51d9c4c2ea2c0736423c"
     },
     {
       "path": "suite/tests/openwhispr-recovery-native.mjs",
@@ -1389,18 +1389,18 @@
     },
     {
       "path": "suite/tests/paperless-cloud.mjs",
-      "size": 12749,
-      "sha256": "430815261b50d6203a8677698edbb95be3c919948f7802cf97e0746368421381"
+      "size": 12758,
+      "sha256": "fab8244ae14fc32ff05ce163704c7cf0bcb073060746d8fa313dfbc099760439"
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 13909,
-      "sha256": "875defb8eeeeeabc29762ae0f202a77e2586f17910695795e2f621624668b491"
+      "size": 13918,
+      "sha256": "2576536afe635c260eb481695cf5e83857e96b2a05d83e34b46aa7ebddd585af"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
-      "size": 6244,
-      "sha256": "289e7991eceae2d77c87bba4dc4541b7a4504e3b5e5a1cfe5829dbdc7d7f0993"
+      "size": 6253,
+      "sha256": "037c4bea5708ab947a8832c1e8bc956c42e1b2e8725c303f36511ad8e119c682"
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
@@ -1540,7 +1540,12 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "860b9dad7b8875fb0a73f4f090aa16c938fe44bbcb5e882edfc4dc14b9d4953a"
+      "sha256": "b01e2feeda76e870f11a111271d93dead1d64ba1d73e5a48bbaa7af6ebe61c6c"
+    },
+    {
+      "path": ".github/workflows/mac-services.yml",
+      "size": 3051,
+      "sha256": "a4eb0557c58e485e582a956b69006b47f2df3d07f5a2af0ccf71e3c04c124afc"
     },
     {
       "path": ".github/workflows/presenton-startup.yml",

@@ -1,0 +1,60 @@
+name: Original services through actual owned Mac Intel Linux guest
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        type: choice
+        default: critical
+        options: [critical, all, affine, baserow, activepieces, presenton, paperless, plane, formbricks, postiz]
+permissions:
+  contents: read
+jobs:
+  original-service:
+    runs-on: macos-15-intel
+    timeout-minutes: 100
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        service: ${{ fromJSON(inputs.service == 'critical' && '["baserow","activepieces","presenton"]' || inputs.service == 'affine' && '["affine"]' || inputs.service == 'baserow' && '["baserow"]' || inputs.service == 'activepieces' && '["activepieces"]' || inputs.service == 'presenton' && '["presenton"]' || inputs.service == 'paperless' && '["paperless"]' || inputs.service == 'plane' && '["plane"]' || inputs.service == 'formbricks' && '["formbricks"]' || inputs.service == 'postiz' && '["postiz"]' || '["affine","baserow","activepieces","presenton","paperless","plane","formbricks","postiz"]') }}
+    env:
+      PA_OWN_VM_ACCEPTANCE: '1'
+      PA_TEST_NATIVE_SERVICE: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.12.0
+      - name: Record actual available runner resources
+        run: node -e "const os=require('node:os'),fs=require('node:fs');const disk=fs.statfsSync('.');console.log(JSON.stringify({arch:process.arch,totalMemoryBytes:os.totalmem(),freeDiskBytes:disk.bavail*disk.bsize}));"
+      - run: npm ci --prefix desktop --no-audit --no-fund
+      - name: Prepare original fixture browser
+        working-directory: desktop
+        run: npx playwright install chromium
+      - name: Restore verified original application shell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/distribution/public-assets.mjs restore
+          node scripts/distribution/prepare-electron.mjs
+      - name: Complete original workflow, native Mac view and independent recovery through actual VZ
+        shell: bash
+        run: |
+          case '${{ matrix.service }}' in
+            affine) node suite/tests/notes-cloud.mjs ;;
+            baserow) node suite/tests/database-cloud.mjs ;;
+            activepieces) node suite/tests/automation-cloud.mjs ;;
+            presenton) node suite/tests/presenton-cloud.mjs ;;
+            paperless) node suite/tests/paperless-cloud.mjs ;;
+            *) node suite/tests/remaining-services-cloud.mjs '${{ matrix.service }}' ;;
+          esac
+      - name: Preserve only the small synthetic acceptance
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: own-mac-intel-${{ matrix.service }}
+          path: suite/research/cloud-${{ matrix.service }}/acceptance.json
+          retention-days: 1
+          if-no-files-found: error

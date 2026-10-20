@@ -9,7 +9,7 @@ import {loginOriginalPage,verifyAccountPage} from './original-account-workflows.
 import {_electron} from '../../desktop/node_modules/playwright/index.mjs';
 
 export async function verifyNativeService({id,directory,endpoint,evidence,checks,verify,onFailure}){
- if(process.env.CI!=='true'||!['linux','win32'].includes(process.platform)||process.env.PA_TEST_NATIVE_SERVICE!=='1')throw Error('Disposable native-service acceptance workflow required.');
+ if(process.env.CI!=='true'||!['linux','win32','darwin'].includes(process.platform)||process.env.PA_TEST_NATIVE_SERVICE!=='1')throw Error('Disposable native-service acceptance workflow required.');
  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'pa-native-'+id+'-'));
  const shim=path.join(temporary,'compose');fs.writeFileSync(shim,'#!/bin/sh\nexec docker compose "$@"\n',{mode:0o700});
  const env={...process.env,PA_DESKTOP_TEST_DATA:path.join(temporary,'profile'),PA_DESKTOP_TEST_RUNTIME_DIRECTORY:directory,PA_DESKTOP_TEST_COMPOSE_BINARY:shim};delete env.ELECTRON_RUN_AS_NODE;
