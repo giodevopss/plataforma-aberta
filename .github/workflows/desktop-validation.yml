@@ -46,6 +46,9 @@ jobs:
         if: runner.os != 'Linux'
         working-directory: desktop
         run: npm run test:desktop
+      - name: Five independent Windows original desktop and graceful shutdown rounds
+        if: runner.os == 'Windows'
+        run: node suite/tests/repeat-desktop-native.mjs
       - name: Native browser storage portability and independent recovery
         if: runner.os != 'Linux'
         run: node suite/tests/browser-storage-native.mjs

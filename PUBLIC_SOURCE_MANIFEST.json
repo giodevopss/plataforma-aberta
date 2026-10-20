@@ -259,8 +259,8 @@
     },
     {
       "path": "desktop/src/service.mjs",
-      "size": 8240,
-      "sha256": "e45eea5a04402d1b032252b194b741d8ae445a0fb08654a4bfe65a1c138e59c1"
+      "size": 9409,
+      "sha256": "0c8f3f91a42206a951f0d19f4eaf8087b04fa83425841a5f9c37c8e1c932a73e"
     },
     {
       "path": "desktop/src/snapshot-files.mjs",
@@ -616,6 +616,11 @@
       "path": "desktop/tests/server-stacks.test.mjs",
       "size": 5607,
       "sha256": "d5388e631109204964d928a48bbabeeae5da53b3777ce4ecb2b8022dddcae771"
+    },
+    {
+      "path": "desktop/tests/service-shutdown.test.mjs",
+      "size": 2568,
+      "sha256": "61cce5f0a445494c386b024ceb2b5288e3fe14841e5a526ef39ad8f3a7f016cd"
     },
     {
       "path": "desktop/tests/service.test.mjs",
@@ -1249,13 +1254,13 @@
     },
     {
       "path": "scripts/distribution/publish-public-installer.mjs",
-      "size": 2552,
-      "sha256": "cf09feeec4c2c8945dfc764ff729f354723f3847810ca05b3541d66be1b7b4e8"
+      "size": 2891,
+      "sha256": "edb1f88f4eb103d57cfdb76ec083b55445295a74bc94f74400e241cb5b8d10b3"
     },
     {
       "path": "scripts/distribution/stage-public-repository.mjs",
-      "size": 15979,
-      "sha256": "640ddaeece1efa0f254fbc461d28775f336c289d0872e4998c37f6a0e2ea1f86"
+      "size": 16003,
+      "sha256": "779b35c23c0ab841b85add691629507ce2b4feeb37e959f0a474dd1eac5802d9"
     },
     {
       "path": "subprojetos/tests/fixtures/speech.wav",
@@ -1271,6 +1276,11 @@
       "path": "subprojetos/tests/fixtures/document.pdf",
       "size": 43370,
       "sha256": "09ad4d49728e6e3795f16440067cfdf4add127af69c5edf55c6851109c996747"
+    },
+    {
+      "path": "suite/tests/repeat-desktop-native.mjs",
+      "size": 1442,
+      "sha256": "a6f5de75a585f04b3765213f36c0bf2b6553d251ad6b0013209d629b5f043156"
     },
     {
       "path": "suite/tests/runtime-images-cloud.mjs",
@@ -1555,7 +1565,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 12313,
-      "sha256": "ec9e9e448398d06077008592fc58f4981b3b23bfd221225dc5dc4ed8b143b004"
+      "sha256": "983e081e5fc5c3e5dc1fbb153819eda4e802f6277cce9a4d777d59f11eacc3e5"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
@@ -1644,8 +1654,8 @@
     },
     {
       "path": ".github/workflows/desktop-validation.yml",
-      "size": 2319,
-      "sha256": "87c5e1d49bfc8a3cf3324757a58a8d4e6f034f7f8504f70e574d85e2015c367a"
+      "size": 2495,
+      "sha256": "054efebddb2d0e786635aaaab866e2ddee6fe808f6e2c88c7507eefbf58ce16f"
     },
     {
       "path": ".github/workflows/graphite-acceptance.yml",
@@ -1669,8 +1679,8 @@
     },
     {
       "path": ".github/workflows/installer-validation.yml",
-      "size": 3243,
-      "sha256": "75c181e7608d066ca813e235bf9756bca9b8297f844593a19401ac01a834567b"
+      "size": 3430,
+      "sha256": "c267321f6b0078d24cd18ba36ca84a9ac008f452be7c0325dfbeb3c5f6a6a7a7"
     },
     {
       "path": ".github/workflows/public-engines.yml",

@@ -8,14 +8,16 @@ import { Workspace } from './storage.mjs';
 const types={'.html':'text/html; charset=utf-8','.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.woff2':'font/woff2','.png':'image/png','.wasm':'application/wasm','.gz':'application/gzip'};
 export async function startService({resources,directory,token,engines={},port=0}) {
   const projects=JSON.parse(fs.readFileSync(path.join(resources,'projects.json'),'utf8'));
-  const workspace=new Workspace(directory,projects.map(p=>p.id));let origin;let ocrBusy=false;let writesPaused=false,activeWrites=0;const drainWaiters=[];
+  const workspace=new Workspace(directory,projects.map(p=>p.id));let origin;let ocrBusy=false;let writesPaused=false,activeWrites=0;const drainWaiters=[];let closing=false,closePromise;const connections=new Map();
+  const finishConnection=socket=>{if(!socket.destroyed)socket.end(()=>socket.destroy());};
   const server=http.createServer(async(req,res)=>{
-    let countedWrite=false;
+    let countedWrite=false;const connection=connections.get(req.socket);if(connection)connection.active++;let finished=false;const responseFinished=()=>{if(finished)return;finished=true;if(connection)connection.active--;if(closing&&(!connection||connection.active===0))finishConnection(req.socket);};res.once('finish',responseFinished);res.once('close',responseFinished);
     const send=(status,body,type='application/json')=>{
       const bytes=Buffer.isBuffer(body)||body instanceof Uint8Array?body:Buffer.from(JSON.stringify(body));
       res.writeHead(status,{'Content-Type':type,'Content-Length':bytes.length,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Frame-Options':'SAMEORIGIN','Content-Security-Policy':"default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; media-src 'self' blob:; worker-src 'self' blob:; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'none'; form-action 'self'"});res.end(bytes);
     };
     try {
+      if(closing){send(503,{error:'O aplicativo está encerrando. Os dados já gravados foram preservados.'});return;}
       if(req.headers.host!==new URL(origin).host||req.headers['x-pa-session']!==token){send(403,{error:'Sessão desktop inválida.'});return;}
       if(req.headers.origin&&req.headers.origin!==origin){send(403,{error:'Origem inválida.'});return;}
       if(!['GET','HEAD','OPTIONS'].includes(req.method)){if(writesPaused){send(503,{error:'Gravações pausadas para backup. Aguarde a conclusão.'});return;}activeWrites++;countedWrite=true;}
@@ -63,6 +65,7 @@ export async function startService({resources,directory,token,engines={},port=0}
       return send(404,{error:'Recurso indisponível nesta versão desktop.'});
     }catch(e){if(!res.headersSent)send(e.status||400,{error:e.message.slice(0,250)});else res.end();}finally{if(countedWrite&&--activeWrites===0)for(const resolve of drainWaiters.splice(0))resolve();}
   });
+  server.on('connection',socket=>{const state={active:0};connections.set(socket,state);socket.once('close',()=>connections.delete(socket));if(closing)finishConnection(socket);});
   await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',()=>{origin='http://127.0.0.1:'+server.address().port;resolve();});});
-  return {origin,workspace,pauseWrites:async()=>{writesPaused=true;if(activeWrites)await new Promise(resolve=>drainWaiters.push(resolve));},resumeWrites:()=>{writesPaused=false;},close:()=>new Promise(resolve=>server.close(()=>{workspace.close();resolve();}))};
+  return {origin,workspace,pauseWrites:async()=>{writesPaused=true;if(activeWrites)await new Promise(resolve=>drainWaiters.push(resolve));},resumeWrites:()=>{if(!closing)writesPaused=false;},close:()=>{if(closePromise)return closePromise;closing=true;writesPaused=true;const stopped=new Promise((resolve,reject)=>server.close(error=>error?reject(error):resolve()));const drained=activeWrites?new Promise(resolve=>drainWaiters.push(resolve)):Promise.resolve();for(const [socket,state]of connections)if(state.active===0)finishConnection(socket);closePromise=Promise.all([stopped,drained]).then(()=>workspace.close());return closePromise;}};
 }

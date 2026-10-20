@@ -58,6 +58,9 @@ jobs:
       - name: Validate installed application workflows
         working-directory: desktop
         run: npm run test:desktop
+      - name: Five independent installed Windows editor OCR export and graceful shutdown rounds
+        if: runner.os == 'Windows'
+        run: node suite/tests/repeat-desktop-native.mjs
       - name: Verify installed encrypted backup and independent activation
         run: node suite/tests/desktop-recovery-native.mjs
       - name: Uninstall the tested application
