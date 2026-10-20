@@ -1494,8 +1494,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 16164,
-      "sha256": "b3780aa5ae0a7634a22a27669dd28dc27d90a3ee8865787f98761f1ea86ed866"
+      "size": 16262,
+      "sha256": "5018ee7a2f0c3e7defe220e1f03f03d3e038d32c20d9f27ceed2b792e920ebe5"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1640,7 +1640,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13194,
-      "sha256": "fb5c012e8efd1704e6e134fca26d3538a48e7b84b954caaf2123dba5e0e2cf6e"
+      "sha256": "782f454ea5bd69e58783e514e142d715a0dbf6d72494a6f02bea58d1a410d390"
     },
     {
       "path": ".github/workflows/publish-release.yml",
