@@ -64,8 +64,8 @@
     },
     {
       "path": "desktop/src/guest-runtime.mjs",
-      "size": 6901,
-      "sha256": "c7356ff25b5296c6a7f8a8649bd82f1431a55b8b664781682b6956e2a8e1a88a"
+      "size": 7290,
+      "sha256": "d0c467415061b9e08ef03bbed818a01193bb969ce67a9fc332d77a0f3e88bc8f"
     },
     {
       "path": "desktop/src/image-pins.json",
@@ -499,8 +499,8 @@
     },
     {
       "path": "desktop/tests/guest-runtime.test.mjs",
-      "size": 3982,
-      "sha256": "008efaf12078e48fb1321da12bd700ab40bc732e0c97c2e728ad6b0c5fa4e5b4"
+      "size": 5939,
+      "sha256": "d11d420be8fd7733e8e2755421205d32c3118bf520af4b9374df2e7a03d1e27c"
     },
     {
       "path": "desktop/tests/installer-cleanup.test.mjs",
@@ -1334,8 +1334,8 @@
     },
     {
       "path": "suite/tests/complete-suite-cloud.mjs",
-      "size": 24775,
-      "sha256": "8fc5eb290803e90e2e738af51d8175a86a4d0b92ccc67aa73d44c34c9202df3d"
+      "size": 24841,
+      "sha256": "cf1673b16ecc8b216d7455442b9be0d34a1ed586895b50980061a1aa4782056a"
     },
     {
       "path": "suite/tests/combined-fixture.mjs",
@@ -1454,8 +1454,8 @@
     },
     {
       "path": "suite/tests/remaining-services-cloud.mjs",
-      "size": 15314,
-      "sha256": "09674fe04a469c97394e12dda31bb8a04061099bf7fd82a9be7c321b3b0de17f"
+      "size": 15815,
+      "sha256": "1ca140cfa9113414d2bea6ef6b7f38c3082b0bf8dade830e70923247a74319af"
     },
     {
       "path": "suite/tests/service-native-view.mjs",
@@ -1600,7 +1600,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13430,
-      "sha256": "7f2f60292bd50a193c2729a58cdd9032e626cf017821ae3d8cd9791d6d877da0"
+      "sha256": "2eb90187c9c7e199b7b011aabd2dc8d8b585a2442c781af072e3c4ecd7e6699d"
     },
     {
       "path": ".github/workflows/runtime-images.yml",
