@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T10:59:32.048Z",
+  "checked_at": "2026-10-20T11:10:50.916Z",
   "release_ready": false,
   "architecture": "All application compute, databases, originals and models run on the user computer; on-demand managed local services; no central server required",
   "applications": {
@@ -71,9 +71,9 @@
   },
   "runtime_installer": "partial",
   "complete_backup_restore": "pending",
-  "upgrade_rollback": "partial",
+  "upgrade_rollback": "passed-current-manual-packages",
   "distribution_signatures": "pending",
-  "distribution": "All three unsigned candidates 39408346878 (product source 6a36206) passed build, actual installation/native originals/OCR/exports/core encrypted independent activation/uninstallation/full remote installer SHA-256 and size. Actual production ASAR materialization and all 54 public configuration hashes passed on all three targets; Windows passed five native shutdown rounds. Current installed native joint 39410563459, manual transition 39410566551 and full twelve-provider Windows 39410583334 / Mac Intel 39410586596 remain pending. Unsigned delivery explicitly authorized.",
+  "distribution": "Current three unsigned installers 39408346878 passed actual lifecycle and all 54 public config hashes/production ASAR materialization. All four native providers passed joint product backup/activation/exact readback on all targets in 39410563459. Manual replacement/rollback passed Windows 39410566551 and both Macs 39411832479. All 184 public tests passed four targets in 39411234198. Complete twelve-provider installed Windows 39410583334 and Mac Intel 39411829185 remain pending; unsigned delivery authorized.",
   "remaining_complete_integrations": 0,
   "public_validation": {
     "repository": "https://github.com/giodevopss/plataforma-aberta",
@@ -83,8 +83,8 @@
     "native_core": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39160496703",
     "source_regression": "https://github.com/giodevopss/plataforma-aberta/releases/tag/source-acceptance-openwhispr-39163138904",
     "mac_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-darwin-arm64",
-    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410559914",
-    "core_test_result": "189 current local tests passed with zero failures/skips. All 183 public tests passed on four targets in 39410559914. Additional safe shutdown diagnostic regression raises current public count to 184; run 39411234198 remains pending.",
+    "core_tests": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411234198",
+    "core_test_result": "189 local tests passed, zero failures/skips. All 184 public tests passed Linux, Mac ARM, Mac Intel and Windows in 39411234198; five private boundary tests remain local.",
     "windows_private_runtime": "https://github.com/giodevopss/plataforma-aberta/releases/tag/native-runtime-acceptance-20261018-win32-x64",
     "windows_private_runtime_readback": {
       "bytes": 1295,
@@ -106,11 +106,11 @@
     "complete_source_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39391893777",
     "complete_installed_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410583334",
     "arm_presenton_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39384577834",
-    "accepted_current_installers": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39396457365",
+    "accepted_current_installers": "https://github.com/giodevopss/plataforma-aberta/releases/tag/acceptance-installed-suite-39408346878",
     "complete_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39396449996",
     "current_build_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39408346878",
-    "complete_installed_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410586596",
+    "complete_installed_mac_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411829185",
     "current_core_run": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411234198",
-    "current_manual_transition": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39410566551"
+    "current_manual_transition": "https://github.com/giodevopss/plataforma-aberta/actions/runs/39411832479"
   }
 }
