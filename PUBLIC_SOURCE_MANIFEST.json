@@ -579,8 +579,8 @@
     },
     {
       "path": "desktop/tests/original-navigation.test.mjs",
-      "size": 1302,
-      "sha256": "3d7487496bd9dc40e6a71f9023da38f7044c232b5654ae9f119d3b4f7b800f50"
+      "size": 1470,
+      "sha256": "bc5e2d64da908b21637032e38bb211312bfef8ff71eb10b31552faa64a88adf1"
     },
     {
       "path": "desktop/tests/packaged-extension.test.mjs",
@@ -1349,8 +1349,8 @@
     },
     {
       "path": "suite/tests/original-navigation.mjs",
-      "size": 866,
-      "sha256": "4eef80c7773420174cace14d8db3721fb7ed06b6f7cc4aa88f6acac6a7f6a6e2"
+      "size": 881,
+      "sha256": "d7aca594c8001abee4eae127cc9a3ebee5e8d1ec9b3fab2e5cf3523b0586f5d2"
     },
     {
       "path": "suite/tests/service-readiness-diagnostic.mjs",
@@ -1514,8 +1514,8 @@
     },
     {
       "path": "suite/tests/original-account-workflows.mjs",
-      "size": 14530,
-      "sha256": "e1c804efdb364d074964323c2640f2287992945d5aefe107c3f434bb56d5384b"
+      "size": 14589,
+      "sha256": "f26d072c098995ae651b0886493c77517fcbfad88884ee622a379aa16f198270"
     },
     {
       "path": "suite/tests/plane-account-workflow.mjs",
@@ -1650,7 +1650,7 @@
     {
       "path": "suite/release-readiness.json",
       "size": 13282,
-      "sha256": "da7e9a4ae56780220591824df4cdd5d862e5a2a75d3d3f29233f205ad93f1376"
+      "sha256": "98870df9767df204d1ea9f56e1a18bab6a0d11a2e2d48cab2efcb9610a36a635"
     },
     {
       "path": ".github/workflows/publish-release.yml",
